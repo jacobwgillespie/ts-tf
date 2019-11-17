@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "prettier": {
+    "bracketSpacing": false,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "fast-case": "^1.3.0",
+    "fs-extra": "^8.1.0",
+    "prettier": "^1.16.0",
+    "typescript": "^3.6.4"
+  }
+}
