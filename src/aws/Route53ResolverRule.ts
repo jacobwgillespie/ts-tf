@@ -22,16 +22,41 @@ export interface Route53ResolverRuleAttributes {
 }
 
 export class Route53ResolverRule extends Resource<Route53ResolverRuleArguments, Route53ResolverRuleAttributes> {
-  kind = 'aws_route53_resolver_rule'
-  _outputAttrNames = [
-    'arn',
-    'domain_name',
-    'id',
-    'name',
-    'owner_id',
-    'resolver_endpoint_id',
-    'rule_type',
-    'share_status',
-    'tags',
-  ] as const
+  _kind = 'aws_route53_resolver_rule'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get resolver_endpoint_id() {
+    return this._attr('resolver_endpoint_id')
+  }
+
+  get rule_type() {
+    return this._attr('rule_type')
+  }
+
+  get share_status() {
+    return this._attr('share_status')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

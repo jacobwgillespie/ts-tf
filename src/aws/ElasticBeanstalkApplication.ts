@@ -19,6 +19,25 @@ export class ElasticBeanstalkApplication extends Resource<
   ElasticBeanstalkApplicationArguments,
   ElasticBeanstalkApplicationAttributes
 > {
-  kind = 'aws_elastic_beanstalk_application'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'tags'] as const
+  _kind = 'aws_elastic_beanstalk_application'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

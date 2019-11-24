@@ -13,6 +13,17 @@ export interface VpnGatewayAttachmentAttributes {
 }
 
 export class VpnGatewayAttachment extends Resource<VpnGatewayAttachmentArguments, VpnGatewayAttachmentAttributes> {
-  kind = 'aws_vpn_gateway_attachment'
-  _outputAttrNames = ['id', 'vpc_id', 'vpn_gateway_id'] as const
+  _kind = 'aws_vpn_gateway_attachment'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
+
+  get vpn_gateway_id() {
+    return this._attr('vpn_gateway_id')
+  }
 }

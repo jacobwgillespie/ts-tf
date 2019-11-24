@@ -21,16 +21,41 @@ export class RamResourceShareAccepter extends Resource<
   RamResourceShareAccepterArguments,
   RamResourceShareAccepterAttributes
 > {
-  kind = 'aws_ram_resource_share_accepter'
-  _outputAttrNames = [
-    'id',
-    'invitation_arn',
-    'receiver_account_id',
-    'resources',
-    'sender_account_id',
-    'share_arn',
-    'share_id',
-    'share_name',
-    'status',
-  ] as const
+  _kind = 'aws_ram_resource_share_accepter'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get invitation_arn() {
+    return this._attr('invitation_arn')
+  }
+
+  get receiver_account_id() {
+    return this._attr('receiver_account_id')
+  }
+
+  get resources() {
+    return this._attr('resources')
+  }
+
+  get sender_account_id() {
+    return this._attr('sender_account_id')
+  }
+
+  get share_arn() {
+    return this._attr('share_arn')
+  }
+
+  get share_id() {
+    return this._attr('share_id')
+  }
+
+  get share_name() {
+    return this._attr('share_name')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
 }

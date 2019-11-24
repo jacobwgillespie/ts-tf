@@ -16,6 +16,17 @@ export class IamRolePolicyAttachment extends Resource<
   IamRolePolicyAttachmentArguments,
   IamRolePolicyAttachmentAttributes
 > {
-  kind = 'aws_iam_role_policy_attachment'
-  _outputAttrNames = ['id', 'policy_arn', 'role'] as const
+  _kind = 'aws_iam_role_policy_attachment'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy_arn() {
+    return this._attr('policy_arn')
+  }
+
+  get role() {
+    return this._attr('role')
+  }
 }

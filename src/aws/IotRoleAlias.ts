@@ -16,6 +16,25 @@ export interface IotRoleAliasAttributes {
 }
 
 export class IotRoleAlias extends Resource<IotRoleAliasArguments, IotRoleAliasAttributes> {
-  kind = 'aws_iot_role_alias'
-  _outputAttrNames = ['alias', 'arn', 'credential_duration', 'id', 'role_arn'] as const
+  _kind = 'aws_iot_role_alias'
+
+  get alias() {
+    return this._attr('alias')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get credential_duration() {
+    return this._attr('credential_duration')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
 }

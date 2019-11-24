@@ -28,18 +28,49 @@ export interface DmsReplicationTaskAttributes {
 }
 
 export class DmsReplicationTask extends Resource<DmsReplicationTaskArguments, DmsReplicationTaskAttributes> {
-  kind = 'aws_dms_replication_task'
-  _outputAttrNames = [
-    'cdc_start_time',
-    'id',
-    'migration_type',
-    'replication_instance_arn',
-    'replication_task_arn',
-    'replication_task_id',
-    'replication_task_settings',
-    'source_endpoint_arn',
-    'table_mappings',
-    'tags',
-    'target_endpoint_arn',
-  ] as const
+  _kind = 'aws_dms_replication_task'
+
+  get cdc_start_time() {
+    return this._attr('cdc_start_time')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get migration_type() {
+    return this._attr('migration_type')
+  }
+
+  get replication_instance_arn() {
+    return this._attr('replication_instance_arn')
+  }
+
+  get replication_task_arn() {
+    return this._attr('replication_task_arn')
+  }
+
+  get replication_task_id() {
+    return this._attr('replication_task_id')
+  }
+
+  get replication_task_settings() {
+    return this._attr('replication_task_settings')
+  }
+
+  get source_endpoint_arn() {
+    return this._attr('source_endpoint_arn')
+  }
+
+  get table_mappings() {
+    return this._attr('table_mappings')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get target_endpoint_arn() {
+    return this._attr('target_endpoint_arn')
+  }
 }

@@ -23,16 +23,41 @@ export interface RdsGlobalClusterAttributes {
 }
 
 export class RdsGlobalCluster extends Resource<RdsGlobalClusterArguments, RdsGlobalClusterAttributes> {
-  kind = 'aws_rds_global_cluster'
-  _outputAttrNames = [
-    'arn',
-    'database_name',
-    'deletion_protection',
-    'engine',
-    'engine_version',
-    'global_cluster_identifier',
-    'global_cluster_resource_id',
-    'id',
-    'storage_encrypted',
-  ] as const
+  _kind = 'aws_rds_global_cluster'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get database_name() {
+    return this._attr('database_name')
+  }
+
+  get deletion_protection() {
+    return this._attr('deletion_protection')
+  }
+
+  get engine() {
+    return this._attr('engine')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get global_cluster_identifier() {
+    return this._attr('global_cluster_identifier')
+  }
+
+  get global_cluster_resource_id() {
+    return this._attr('global_cluster_resource_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get storage_encrypted() {
+    return this._attr('storage_encrypted')
+  }
 }

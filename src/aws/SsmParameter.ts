@@ -30,19 +30,53 @@ export interface SsmParameterAttributes {
 }
 
 export class SsmParameter extends Resource<SsmParameterArguments, SsmParameterAttributes> {
-  kind = 'aws_ssm_parameter'
-  _outputAttrNames = [
-    'allowed_pattern',
-    'arn',
-    'description',
-    'id',
-    'key_id',
-    'name',
-    'overwrite',
-    'tags',
-    'tier',
-    'type',
-    'value',
-    'version',
-  ] as const
+  _kind = 'aws_ssm_parameter'
+
+  get allowed_pattern() {
+    return this._attr('allowed_pattern')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key_id() {
+    return this._attr('key_id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get overwrite() {
+    return this._attr('overwrite')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get tier() {
+    return this._attr('tier')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
+
+  get value() {
+    return this._attr('value')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

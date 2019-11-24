@@ -17,6 +17,21 @@ export class MainRouteTableAssociation extends Resource<
   MainRouteTableAssociationArguments,
   MainRouteTableAssociationAttributes
 > {
-  kind = 'aws_main_route_table_association'
-  _outputAttrNames = ['id', 'original_route_table_id', 'route_table_id', 'vpc_id'] as const
+  _kind = 'aws_main_route_table_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get original_route_table_id() {
+    return this._attr('original_route_table_id')
+  }
+
+  get route_table_id() {
+    return this._attr('route_table_id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

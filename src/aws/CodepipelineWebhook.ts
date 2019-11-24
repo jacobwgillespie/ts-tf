@@ -20,6 +20,33 @@ export interface CodepipelineWebhookAttributes {
 }
 
 export class CodepipelineWebhook extends Resource<CodepipelineWebhookArguments, CodepipelineWebhookAttributes> {
-  kind = 'aws_codepipeline_webhook'
-  _outputAttrNames = ['authentication', 'id', 'name', 'tags', 'target_action', 'target_pipeline', 'url'] as const
+  _kind = 'aws_codepipeline_webhook'
+
+  get authentication() {
+    return this._attr('authentication')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get target_action() {
+    return this._attr('target_action')
+  }
+
+  get target_pipeline() {
+    return this._attr('target_pipeline')
+  }
+
+  get url() {
+    return this._attr('url')
+  }
 }

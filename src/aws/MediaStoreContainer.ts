@@ -15,6 +15,25 @@ export interface MediaStoreContainerAttributes {
 }
 
 export class MediaStoreContainer extends Resource<MediaStoreContainerArguments, MediaStoreContainerAttributes> {
-  kind = 'aws_media_store_container'
-  _outputAttrNames = ['arn', 'endpoint', 'id', 'name', 'tags'] as const
+  _kind = 'aws_media_store_container'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

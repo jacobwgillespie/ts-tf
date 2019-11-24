@@ -17,6 +17,29 @@ export interface DatasyncLocationEfsAttributes {
 }
 
 export class DatasyncLocationEfs extends Resource<DatasyncLocationEfsArguments, DatasyncLocationEfsAttributes> {
-  kind = 'aws_datasync_location_efs'
-  _outputAttrNames = ['arn', 'efs_file_system_arn', 'id', 'subdirectory', 'tags', 'uri'] as const
+  _kind = 'aws_datasync_location_efs'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get efs_file_system_arn() {
+    return this._attr('efs_file_system_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get subdirectory() {
+    return this._attr('subdirectory')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get uri() {
+    return this._attr('uri')
+  }
 }

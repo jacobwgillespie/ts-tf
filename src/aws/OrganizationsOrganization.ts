@@ -25,18 +25,49 @@ export class OrganizationsOrganization extends Resource<
   OrganizationsOrganizationArguments,
   OrganizationsOrganizationAttributes
 > {
-  kind = 'aws_organizations_organization'
-  _outputAttrNames = [
-    'accounts',
-    'arn',
-    'aws_service_access_principals',
-    'enabled_policy_types',
-    'feature_set',
-    'id',
-    'master_account_arn',
-    'master_account_email',
-    'master_account_id',
-    'non_master_accounts',
-    'roots',
-  ] as const
+  _kind = 'aws_organizations_organization'
+
+  get accounts() {
+    return this._attr('accounts')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_service_access_principals() {
+    return this._attr('aws_service_access_principals')
+  }
+
+  get enabled_policy_types() {
+    return this._attr('enabled_policy_types')
+  }
+
+  get feature_set() {
+    return this._attr('feature_set')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get master_account_arn() {
+    return this._attr('master_account_arn')
+  }
+
+  get master_account_email() {
+    return this._attr('master_account_email')
+  }
+
+  get master_account_id() {
+    return this._attr('master_account_id')
+  }
+
+  get non_master_accounts() {
+    return this._attr('non_master_accounts')
+  }
+
+  get roots() {
+    return this._attr('roots')
+  }
 }

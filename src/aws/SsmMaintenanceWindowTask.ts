@@ -30,17 +30,45 @@ export class SsmMaintenanceWindowTask extends Resource<
   SsmMaintenanceWindowTaskArguments,
   SsmMaintenanceWindowTaskAttributes
 > {
-  kind = 'aws_ssm_maintenance_window_task'
-  _outputAttrNames = [
-    'description',
-    'id',
-    'max_concurrency',
-    'max_errors',
-    'name',
-    'priority',
-    'service_role_arn',
-    'task_arn',
-    'task_type',
-    'window_id',
-  ] as const
+  _kind = 'aws_ssm_maintenance_window_task'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get max_concurrency() {
+    return this._attr('max_concurrency')
+  }
+
+  get max_errors() {
+    return this._attr('max_errors')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get priority() {
+    return this._attr('priority')
+  }
+
+  get service_role_arn() {
+    return this._attr('service_role_arn')
+  }
+
+  get task_arn() {
+    return this._attr('task_arn')
+  }
+
+  get task_type() {
+    return this._attr('task_type')
+  }
+
+  get window_id() {
+    return this._attr('window_id')
+  }
 }

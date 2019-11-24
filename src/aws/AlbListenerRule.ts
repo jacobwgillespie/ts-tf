@@ -14,6 +14,21 @@ export interface AlbListenerRuleAttributes {
 }
 
 export class AlbListenerRule extends Resource<AlbListenerRuleArguments, AlbListenerRuleAttributes> {
-  kind = 'aws_alb_listener_rule'
-  _outputAttrNames = ['arn', 'id', 'listener_arn', 'priority'] as const
+  _kind = 'aws_alb_listener_rule'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get listener_arn() {
+    return this._attr('listener_arn')
+  }
+
+  get priority() {
+    return this._attr('priority')
+  }
 }

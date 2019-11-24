@@ -48,28 +48,89 @@ export interface SnsTopicAttributes {
 }
 
 export class SnsTopic extends Resource<SnsTopicArguments, SnsTopicAttributes> {
-  kind = 'aws_sns_topic'
-  _outputAttrNames = [
-    'application_failure_feedback_role_arn',
-    'application_success_feedback_role_arn',
-    'application_success_feedback_sample_rate',
-    'arn',
-    'delivery_policy',
-    'display_name',
-    'http_failure_feedback_role_arn',
-    'http_success_feedback_role_arn',
-    'http_success_feedback_sample_rate',
-    'id',
-    'kms_master_key_id',
-    'lambda_failure_feedback_role_arn',
-    'lambda_success_feedback_role_arn',
-    'lambda_success_feedback_sample_rate',
-    'name',
-    'name_prefix',
-    'policy',
-    'sqs_failure_feedback_role_arn',
-    'sqs_success_feedback_role_arn',
-    'sqs_success_feedback_sample_rate',
-    'tags',
-  ] as const
+  _kind = 'aws_sns_topic'
+
+  get application_failure_feedback_role_arn() {
+    return this._attr('application_failure_feedback_role_arn')
+  }
+
+  get application_success_feedback_role_arn() {
+    return this._attr('application_success_feedback_role_arn')
+  }
+
+  get application_success_feedback_sample_rate() {
+    return this._attr('application_success_feedback_sample_rate')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get delivery_policy() {
+    return this._attr('delivery_policy')
+  }
+
+  get display_name() {
+    return this._attr('display_name')
+  }
+
+  get http_failure_feedback_role_arn() {
+    return this._attr('http_failure_feedback_role_arn')
+  }
+
+  get http_success_feedback_role_arn() {
+    return this._attr('http_success_feedback_role_arn')
+  }
+
+  get http_success_feedback_sample_rate() {
+    return this._attr('http_success_feedback_sample_rate')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_master_key_id() {
+    return this._attr('kms_master_key_id')
+  }
+
+  get lambda_failure_feedback_role_arn() {
+    return this._attr('lambda_failure_feedback_role_arn')
+  }
+
+  get lambda_success_feedback_role_arn() {
+    return this._attr('lambda_success_feedback_role_arn')
+  }
+
+  get lambda_success_feedback_sample_rate() {
+    return this._attr('lambda_success_feedback_sample_rate')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get sqs_failure_feedback_role_arn() {
+    return this._attr('sqs_failure_feedback_role_arn')
+  }
+
+  get sqs_success_feedback_role_arn() {
+    return this._attr('sqs_success_feedback_role_arn')
+  }
+
+  get sqs_success_feedback_sample_rate() {
+    return this._attr('sqs_success_feedback_sample_rate')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

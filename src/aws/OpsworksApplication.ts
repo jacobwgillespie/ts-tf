@@ -37,22 +37,65 @@ export interface OpsworksApplicationAttributes {
 }
 
 export class OpsworksApplication extends Resource<OpsworksApplicationArguments, OpsworksApplicationAttributes> {
-  kind = 'aws_opsworks_application'
-  _outputAttrNames = [
-    'auto_bundle_on_deploy',
-    'aws_flow_ruby_settings',
-    'data_source_arn',
-    'data_source_database_name',
-    'data_source_type',
-    'description',
-    'document_root',
-    'domains',
-    'enable_ssl',
-    'id',
-    'name',
-    'rails_env',
-    'short_name',
-    'stack_id',
-    'type',
-  ] as const
+  _kind = 'aws_opsworks_application'
+
+  get auto_bundle_on_deploy() {
+    return this._attr('auto_bundle_on_deploy')
+  }
+
+  get aws_flow_ruby_settings() {
+    return this._attr('aws_flow_ruby_settings')
+  }
+
+  get data_source_arn() {
+    return this._attr('data_source_arn')
+  }
+
+  get data_source_database_name() {
+    return this._attr('data_source_database_name')
+  }
+
+  get data_source_type() {
+    return this._attr('data_source_type')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get document_root() {
+    return this._attr('document_root')
+  }
+
+  get domains() {
+    return this._attr('domains')
+  }
+
+  get enable_ssl() {
+    return this._attr('enable_ssl')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rails_env() {
+    return this._attr('rails_env')
+  }
+
+  get short_name() {
+    return this._attr('short_name')
+  }
+
+  get stack_id() {
+    return this._attr('stack_id')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

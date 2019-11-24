@@ -27,17 +27,45 @@ export interface LambdaPermissionAttributes {
 }
 
 export class LambdaPermission extends Resource<LambdaPermissionArguments, LambdaPermissionAttributes> {
-  kind = 'aws_lambda_permission'
-  _outputAttrNames = [
-    'action',
-    'event_source_token',
-    'function_name',
-    'id',
-    'principal',
-    'qualifier',
-    'source_account',
-    'source_arn',
-    'statement_id',
-    'statement_id_prefix',
-  ] as const
+  _kind = 'aws_lambda_permission'
+
+  get action() {
+    return this._attr('action')
+  }
+
+  get event_source_token() {
+    return this._attr('event_source_token')
+  }
+
+  get function_name() {
+    return this._attr('function_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get principal() {
+    return this._attr('principal')
+  }
+
+  get qualifier() {
+    return this._attr('qualifier')
+  }
+
+  get source_account() {
+    return this._attr('source_account')
+  }
+
+  get source_arn() {
+    return this._attr('source_arn')
+  }
+
+  get statement_id() {
+    return this._attr('statement_id')
+  }
+
+  get statement_id_prefix() {
+    return this._attr('statement_id_prefix')
+  }
 }

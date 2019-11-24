@@ -16,6 +16,17 @@ export class SpotDatafeedSubscription extends Resource<
   SpotDatafeedSubscriptionArguments,
   SpotDatafeedSubscriptionAttributes
 > {
-  kind = 'aws_spot_datafeed_subscription'
-  _outputAttrNames = ['bucket', 'id', 'prefix'] as const
+  _kind = 'aws_spot_datafeed_subscription'
+
+  get bucket() {
+    return this._attr('bucket')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get prefix() {
+    return this._attr('prefix')
+  }
 }

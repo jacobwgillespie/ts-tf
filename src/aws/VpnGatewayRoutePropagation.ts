@@ -16,6 +16,17 @@ export class VpnGatewayRoutePropagation extends Resource<
   VpnGatewayRoutePropagationArguments,
   VpnGatewayRoutePropagationAttributes
 > {
-  kind = 'aws_vpn_gateway_route_propagation'
-  _outputAttrNames = ['id', 'route_table_id', 'vpn_gateway_id'] as const
+  _kind = 'aws_vpn_gateway_route_propagation'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get route_table_id() {
+    return this._attr('route_table_id')
+  }
+
+  get vpn_gateway_id() {
+    return this._attr('vpn_gateway_id')
+  }
 }

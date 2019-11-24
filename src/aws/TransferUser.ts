@@ -22,6 +22,37 @@ export interface TransferUserAttributes {
 }
 
 export class TransferUser extends Resource<TransferUserArguments, TransferUserAttributes> {
-  kind = 'aws_transfer_user'
-  _outputAttrNames = ['arn', 'home_directory', 'id', 'policy', 'role', 'server_id', 'tags', 'user_name'] as const
+  _kind = 'aws_transfer_user'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get home_directory() {
+    return this._attr('home_directory')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get role() {
+    return this._attr('role')
+  }
+
+  get server_id() {
+    return this._attr('server_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get user_name() {
+    return this._attr('user_name')
+  }
 }

@@ -25,17 +25,45 @@ export interface AppsyncFunctionAttributes {
 }
 
 export class AppsyncFunction extends Resource<AppsyncFunctionArguments, AppsyncFunctionAttributes> {
-  kind = 'aws_appsync_function'
-  _outputAttrNames = [
-    'api_id',
-    'arn',
-    'data_source',
-    'description',
-    'function_id',
-    'function_version',
-    'id',
-    'name',
-    'request_mapping_template',
-    'response_mapping_template',
-  ] as const
+  _kind = 'aws_appsync_function'
+
+  get api_id() {
+    return this._attr('api_id')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get data_source() {
+    return this._attr('data_source')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get function_id() {
+    return this._attr('function_id')
+  }
+
+  get function_version() {
+    return this._attr('function_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get request_mapping_template() {
+    return this._attr('request_mapping_template')
+  }
+
+  get response_mapping_template() {
+    return this._attr('response_mapping_template')
+  }
 }

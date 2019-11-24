@@ -13,6 +13,17 @@ export interface ElbAttachmentAttributes {
 }
 
 export class ElbAttachment extends Resource<ElbAttachmentArguments, ElbAttachmentAttributes> {
-  kind = 'aws_elb_attachment'
-  _outputAttrNames = ['elb', 'id', 'instance'] as const
+  _kind = 'aws_elb_attachment'
+
+  get elb() {
+    return this._attr('elb')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance() {
+    return this._attr('instance')
+  }
 }

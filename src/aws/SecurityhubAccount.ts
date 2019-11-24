@@ -9,6 +9,9 @@ export interface SecurityhubAccountAttributes {
 }
 
 export class SecurityhubAccount extends Resource<SecurityhubAccountArguments, SecurityhubAccountAttributes> {
-  kind = 'aws_securityhub_account'
-  _outputAttrNames = ['id'] as const
+  _kind = 'aws_securityhub_account'
+
+  get id() {
+    return this._attr('id')
+  }
 }

@@ -39,14 +39,33 @@ export interface DefaultRouteTableAttributes {
 }
 
 export class DefaultRouteTable extends Resource<DefaultRouteTableArguments, DefaultRouteTableAttributes> {
-  kind = 'aws_default_route_table'
-  _outputAttrNames = [
-    'default_route_table_id',
-    'id',
-    'owner_id',
-    'propagating_vgws',
-    'route',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_default_route_table'
+
+  get default_route_table_id() {
+    return this._attr('default_route_table_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get propagating_vgws() {
+    return this._attr('propagating_vgws')
+  }
+
+  get route() {
+    return this._attr('route')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

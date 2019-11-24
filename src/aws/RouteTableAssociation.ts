@@ -13,6 +13,17 @@ export interface RouteTableAssociationAttributes {
 }
 
 export class RouteTableAssociation extends Resource<RouteTableAssociationArguments, RouteTableAssociationAttributes> {
-  kind = 'aws_route_table_association'
-  _outputAttrNames = ['id', 'route_table_id', 'subnet_id'] as const
+  _kind = 'aws_route_table_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get route_table_id() {
+    return this._attr('route_table_id')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
 }

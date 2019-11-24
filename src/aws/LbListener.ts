@@ -20,6 +20,33 @@ export interface LbListenerAttributes {
 }
 
 export class LbListener extends Resource<LbListenerArguments, LbListenerAttributes> {
-  kind = 'aws_lb_listener'
-  _outputAttrNames = ['arn', 'certificate_arn', 'id', 'load_balancer_arn', 'port', 'protocol', 'ssl_policy'] as const
+  _kind = 'aws_lb_listener'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get load_balancer_arn() {
+    return this._attr('load_balancer_arn')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get protocol() {
+    return this._attr('protocol')
+  }
+
+  get ssl_policy() {
+    return this._attr('ssl_policy')
+  }
 }

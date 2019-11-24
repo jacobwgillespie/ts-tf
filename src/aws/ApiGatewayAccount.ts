@@ -12,6 +12,17 @@ export interface ApiGatewayAccountAttributes {
 }
 
 export class ApiGatewayAccount extends Resource<ApiGatewayAccountArguments, ApiGatewayAccountAttributes> {
-  kind = 'aws_api_gateway_account'
-  _outputAttrNames = ['cloudwatch_role_arn', 'id', 'throttle_settings'] as const
+  _kind = 'aws_api_gateway_account'
+
+  get cloudwatch_role_arn() {
+    return this._attr('cloudwatch_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get throttle_settings() {
+    return this._attr('throttle_settings')
+  }
 }

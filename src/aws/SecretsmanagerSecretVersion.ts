@@ -22,14 +22,33 @@ export class SecretsmanagerSecretVersion extends Resource<
   SecretsmanagerSecretVersionArguments,
   SecretsmanagerSecretVersionAttributes
 > {
-  kind = 'aws_secretsmanager_secret_version'
-  _outputAttrNames = [
-    'arn',
-    'id',
-    'secret_binary',
-    'secret_id',
-    'secret_string',
-    'version_id',
-    'version_stages',
-  ] as const
+  _kind = 'aws_secretsmanager_secret_version'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get secret_binary() {
+    return this._attr('secret_binary')
+  }
+
+  get secret_id() {
+    return this._attr('secret_id')
+  }
+
+  get secret_string() {
+    return this._attr('secret_string')
+  }
+
+  get version_id() {
+    return this._attr('version_id')
+  }
+
+  get version_stages() {
+    return this._attr('version_stages')
+  }
 }

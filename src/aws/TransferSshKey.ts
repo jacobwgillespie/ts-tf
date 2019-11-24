@@ -15,6 +15,21 @@ export interface TransferSshKeyAttributes {
 }
 
 export class TransferSshKey extends Resource<TransferSshKeyArguments, TransferSshKeyAttributes> {
-  kind = 'aws_transfer_ssh_key'
-  _outputAttrNames = ['body', 'id', 'server_id', 'user_name'] as const
+  _kind = 'aws_transfer_ssh_key'
+
+  get body() {
+    return this._attr('body')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get server_id() {
+    return this._attr('server_id')
+  }
+
+  get user_name() {
+    return this._attr('user_name')
+  }
 }

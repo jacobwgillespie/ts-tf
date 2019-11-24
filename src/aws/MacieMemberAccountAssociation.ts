@@ -14,6 +14,13 @@ export class MacieMemberAccountAssociation extends Resource<
   MacieMemberAccountAssociationArguments,
   MacieMemberAccountAssociationAttributes
 > {
-  kind = 'aws_macie_member_account_association'
-  _outputAttrNames = ['id', 'member_account_id'] as const
+  _kind = 'aws_macie_member_account_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get member_account_id() {
+    return this._attr('member_account_id')
+  }
 }

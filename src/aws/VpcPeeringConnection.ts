@@ -22,15 +22,37 @@ export interface VpcPeeringConnectionAttributes {
 }
 
 export class VpcPeeringConnection extends Resource<VpcPeeringConnectionArguments, VpcPeeringConnectionAttributes> {
-  kind = 'aws_vpc_peering_connection'
-  _outputAttrNames = [
-    'accept_status',
-    'auto_accept',
-    'id',
-    'peer_owner_id',
-    'peer_region',
-    'peer_vpc_id',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_vpc_peering_connection'
+
+  get accept_status() {
+    return this._attr('accept_status')
+  }
+
+  get auto_accept() {
+    return this._attr('auto_accept')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get peer_owner_id() {
+    return this._attr('peer_owner_id')
+  }
+
+  get peer_region() {
+    return this._attr('peer_region')
+  }
+
+  get peer_vpc_id() {
+    return this._attr('peer_vpc_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

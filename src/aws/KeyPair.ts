@@ -16,6 +16,25 @@ export interface KeyPairAttributes {
 }
 
 export class KeyPair extends Resource<KeyPairArguments, KeyPairAttributes> {
-  kind = 'aws_key_pair'
-  _outputAttrNames = ['fingerprint', 'id', 'key_name', 'key_name_prefix', 'public_key'] as const
+  _kind = 'aws_key_pair'
+
+  get fingerprint() {
+    return this._attr('fingerprint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key_name() {
+    return this._attr('key_name')
+  }
+
+  get key_name_prefix() {
+    return this._attr('key_name_prefix')
+  }
+
+  get public_key() {
+    return this._attr('public_key')
+  }
 }

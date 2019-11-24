@@ -19,15 +19,37 @@ export interface CognitoUserPoolDomainAttributes {
 }
 
 export class CognitoUserPoolDomain extends Resource<CognitoUserPoolDomainArguments, CognitoUserPoolDomainAttributes> {
-  kind = 'aws_cognito_user_pool_domain'
-  _outputAttrNames = [
-    'aws_account_id',
-    'certificate_arn',
-    'cloudfront_distribution_arn',
-    'domain',
-    'id',
-    's3_bucket',
-    'user_pool_id',
-    'version',
-  ] as const
+  _kind = 'aws_cognito_user_pool_domain'
+
+  get aws_account_id() {
+    return this._attr('aws_account_id')
+  }
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get cloudfront_distribution_arn() {
+    return this._attr('cloudfront_distribution_arn')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get s3_bucket() {
+    return this._attr('s3_bucket')
+  }
+
+  get user_pool_id() {
+    return this._attr('user_pool_id')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

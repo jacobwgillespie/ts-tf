@@ -14,6 +14,13 @@ export class EgressOnlyInternetGateway extends Resource<
   EgressOnlyInternetGatewayArguments,
   EgressOnlyInternetGatewayAttributes
 > {
-  kind = 'aws_egress_only_internet_gateway'
-  _outputAttrNames = ['id', 'vpc_id'] as const
+  _kind = 'aws_egress_only_internet_gateway'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

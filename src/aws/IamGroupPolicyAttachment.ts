@@ -16,6 +16,17 @@ export class IamGroupPolicyAttachment extends Resource<
   IamGroupPolicyAttachmentArguments,
   IamGroupPolicyAttachmentAttributes
 > {
-  kind = 'aws_iam_group_policy_attachment'
-  _outputAttrNames = ['group', 'id', 'policy_arn'] as const
+  _kind = 'aws_iam_group_policy_attachment'
+
+  get group() {
+    return this._attr('group')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy_arn() {
+    return this._attr('policy_arn')
+  }
 }

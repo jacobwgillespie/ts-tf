@@ -17,6 +17,25 @@ export interface PinpointAdmChannelAttributes {
 }
 
 export class PinpointAdmChannel extends Resource<PinpointAdmChannelArguments, PinpointAdmChannelAttributes> {
-  kind = 'aws_pinpoint_adm_channel'
-  _outputAttrNames = ['application_id', 'client_id', 'client_secret', 'enabled', 'id'] as const
+  _kind = 'aws_pinpoint_adm_channel'
+
+  get application_id() {
+    return this._attr('application_id')
+  }
+
+  get client_id() {
+    return this._attr('client_id')
+  }
+
+  get client_secret() {
+    return this._attr('client_secret')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

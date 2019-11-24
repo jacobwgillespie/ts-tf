@@ -19,6 +19,29 @@ export interface GlueCatalogDatabaseAttributes {
 }
 
 export class GlueCatalogDatabase extends Resource<GlueCatalogDatabaseArguments, GlueCatalogDatabaseAttributes> {
-  kind = 'aws_glue_catalog_database'
-  _outputAttrNames = ['catalog_id', 'description', 'id', 'location_uri', 'name', 'parameters'] as const
+  _kind = 'aws_glue_catalog_database'
+
+  get catalog_id() {
+    return this._attr('catalog_id')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get location_uri() {
+    return this._attr('location_uri')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get parameters() {
+    return this._attr('parameters')
+  }
 }

@@ -25,17 +25,45 @@ export interface CodebuildProjectAttributes {
 }
 
 export class CodebuildProject extends Resource<CodebuildProjectArguments, CodebuildProjectAttributes> {
-  kind = 'aws_codebuild_project'
-  _outputAttrNames = [
-    'arn',
-    'badge_enabled',
-    'badge_url',
-    'build_timeout',
-    'description',
-    'encryption_key',
-    'id',
-    'name',
-    'service_role',
-    'tags',
-  ] as const
+  _kind = 'aws_codebuild_project'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get badge_enabled() {
+    return this._attr('badge_enabled')
+  }
+
+  get badge_url() {
+    return this._attr('badge_url')
+  }
+
+  get build_timeout() {
+    return this._attr('build_timeout')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get encryption_key() {
+    return this._attr('encryption_key')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get service_role() {
+    return this._attr('service_role')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -19,6 +19,29 @@ export interface ApiGatewayModelAttributes {
 }
 
 export class ApiGatewayModel extends Resource<ApiGatewayModelArguments, ApiGatewayModelAttributes> {
-  kind = 'aws_api_gateway_model'
-  _outputAttrNames = ['content_type', 'description', 'id', 'name', 'rest_api_id', 'schema'] as const
+  _kind = 'aws_api_gateway_model'
+
+  get content_type() {
+    return this._attr('content_type')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get schema() {
+    return this._attr('schema')
+  }
 }

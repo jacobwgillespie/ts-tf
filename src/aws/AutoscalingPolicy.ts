@@ -30,19 +30,53 @@ export interface AutoscalingPolicyAttributes {
 }
 
 export class AutoscalingPolicy extends Resource<AutoscalingPolicyArguments, AutoscalingPolicyAttributes> {
-  kind = 'aws_autoscaling_policy'
-  _outputAttrNames = [
-    'adjustment_type',
-    'arn',
-    'autoscaling_group_name',
-    'cooldown',
-    'estimated_instance_warmup',
-    'id',
-    'metric_aggregation_type',
-    'min_adjustment_magnitude',
-    'min_adjustment_step',
-    'name',
-    'policy_type',
-    'scaling_adjustment',
-  ] as const
+  _kind = 'aws_autoscaling_policy'
+
+  get adjustment_type() {
+    return this._attr('adjustment_type')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get autoscaling_group_name() {
+    return this._attr('autoscaling_group_name')
+  }
+
+  get cooldown() {
+    return this._attr('cooldown')
+  }
+
+  get estimated_instance_warmup() {
+    return this._attr('estimated_instance_warmup')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_aggregation_type() {
+    return this._attr('metric_aggregation_type')
+  }
+
+  get min_adjustment_magnitude() {
+    return this._attr('min_adjustment_magnitude')
+  }
+
+  get min_adjustment_step() {
+    return this._attr('min_adjustment_step')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get policy_type() {
+    return this._attr('policy_type')
+  }
+
+  get scaling_adjustment() {
+    return this._attr('scaling_adjustment')
+  }
 }

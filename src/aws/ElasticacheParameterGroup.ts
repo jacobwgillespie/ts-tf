@@ -18,6 +18,21 @@ export class ElasticacheParameterGroup extends Resource<
   ElasticacheParameterGroupArguments,
   ElasticacheParameterGroupAttributes
 > {
-  kind = 'aws_elasticache_parameter_group'
-  _outputAttrNames = ['description', 'family', 'id', 'name'] as const
+  _kind = 'aws_elasticache_parameter_group'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get family() {
+    return this._attr('family')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

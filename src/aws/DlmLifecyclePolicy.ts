@@ -15,6 +15,21 @@ export interface DlmLifecyclePolicyAttributes {
 }
 
 export class DlmLifecyclePolicy extends Resource<DlmLifecyclePolicyArguments, DlmLifecyclePolicyAttributes> {
-  kind = 'aws_dlm_lifecycle_policy'
-  _outputAttrNames = ['description', 'execution_role_arn', 'id', 'state'] as const
+  _kind = 'aws_dlm_lifecycle_policy'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get execution_role_arn() {
+    return this._attr('execution_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get state() {
+    return this._attr('state')
+  }
 }

@@ -15,6 +15,21 @@ export interface PinpointEventStreamAttributes {
 }
 
 export class PinpointEventStream extends Resource<PinpointEventStreamArguments, PinpointEventStreamAttributes> {
-  kind = 'aws_pinpoint_event_stream'
-  _outputAttrNames = ['application_id', 'destination_stream_arn', 'id', 'role_arn'] as const
+  _kind = 'aws_pinpoint_event_stream'
+
+  get application_id() {
+    return this._attr('application_id')
+  }
+
+  get destination_stream_arn() {
+    return this._attr('destination_stream_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
 }

@@ -16,6 +16,25 @@ export interface CodepipelineAttributes {
 }
 
 export class Codepipeline extends Resource<CodepipelineArguments, CodepipelineAttributes> {
-  kind = 'aws_codepipeline'
-  _outputAttrNames = ['arn', 'id', 'name', 'role_arn', 'tags'] as const
+  _kind = 'aws_codepipeline'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

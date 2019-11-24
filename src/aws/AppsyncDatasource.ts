@@ -20,6 +20,33 @@ export interface AppsyncDatasourceAttributes {
 }
 
 export class AppsyncDatasource extends Resource<AppsyncDatasourceArguments, AppsyncDatasourceAttributes> {
-  kind = 'aws_appsync_datasource'
-  _outputAttrNames = ['api_id', 'arn', 'description', 'id', 'name', 'service_role_arn', 'type'] as const
+  _kind = 'aws_appsync_datasource'
+
+  get api_id() {
+    return this._attr('api_id')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get service_role_arn() {
+    return this._attr('service_role_arn')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

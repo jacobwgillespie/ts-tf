@@ -20,6 +20,25 @@ export class ApiGatewayRequestValidator extends Resource<
   ApiGatewayRequestValidatorArguments,
   ApiGatewayRequestValidatorAttributes
 > {
-  kind = 'aws_api_gateway_request_validator'
-  _outputAttrNames = ['id', 'name', 'rest_api_id', 'validate_request_body', 'validate_request_parameters'] as const
+  _kind = 'aws_api_gateway_request_validator'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get validate_request_body() {
+    return this._attr('validate_request_body')
+  }
+
+  get validate_request_parameters() {
+    return this._attr('validate_request_parameters')
+  }
 }

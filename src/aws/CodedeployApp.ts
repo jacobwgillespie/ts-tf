@@ -15,6 +15,21 @@ export interface CodedeployAppAttributes {
 }
 
 export class CodedeployApp extends Resource<CodedeployAppArguments, CodedeployAppAttributes> {
-  kind = 'aws_codedeploy_app'
-  _outputAttrNames = ['compute_platform', 'id', 'name', 'unique_id'] as const
+  _kind = 'aws_codedeploy_app'
+
+  get compute_platform() {
+    return this._attr('compute_platform')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get unique_id() {
+    return this._attr('unique_id')
+  }
 }

@@ -24,15 +24,37 @@ export class DxGatewayAssociationProposal extends Resource<
   DxGatewayAssociationProposalArguments,
   DxGatewayAssociationProposalAttributes
 > {
-  kind = 'aws_dx_gateway_association_proposal'
-  _outputAttrNames = [
-    'allowed_prefixes',
-    'associated_gateway_id',
-    'associated_gateway_owner_account_id',
-    'associated_gateway_type',
-    'dx_gateway_id',
-    'dx_gateway_owner_account_id',
-    'id',
-    'vpn_gateway_id',
-  ] as const
+  _kind = 'aws_dx_gateway_association_proposal'
+
+  get allowed_prefixes() {
+    return this._attr('allowed_prefixes')
+  }
+
+  get associated_gateway_id() {
+    return this._attr('associated_gateway_id')
+  }
+
+  get associated_gateway_owner_account_id() {
+    return this._attr('associated_gateway_owner_account_id')
+  }
+
+  get associated_gateway_type() {
+    return this._attr('associated_gateway_type')
+  }
+
+  get dx_gateway_id() {
+    return this._attr('dx_gateway_id')
+  }
+
+  get dx_gateway_owner_account_id() {
+    return this._attr('dx_gateway_owner_account_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpn_gateway_id() {
+    return this._attr('vpn_gateway_id')
+  }
 }

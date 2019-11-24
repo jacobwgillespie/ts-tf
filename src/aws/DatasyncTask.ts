@@ -20,14 +20,33 @@ export interface DatasyncTaskAttributes {
 }
 
 export class DatasyncTask extends Resource<DatasyncTaskArguments, DatasyncTaskAttributes> {
-  kind = 'aws_datasync_task'
-  _outputAttrNames = [
-    'arn',
-    'cloudwatch_log_group_arn',
-    'destination_location_arn',
-    'id',
-    'name',
-    'source_location_arn',
-    'tags',
-  ] as const
+  _kind = 'aws_datasync_task'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get cloudwatch_log_group_arn() {
+    return this._attr('cloudwatch_log_group_arn')
+  }
+
+  get destination_location_arn() {
+    return this._attr('destination_location_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get source_location_arn() {
+    return this._attr('source_location_arn')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

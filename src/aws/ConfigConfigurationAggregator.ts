@@ -17,6 +17,21 @@ export class ConfigConfigurationAggregator extends Resource<
   ConfigConfigurationAggregatorArguments,
   ConfigConfigurationAggregatorAttributes
 > {
-  kind = 'aws_config_configuration_aggregator'
-  _outputAttrNames = ['arn', 'id', 'name', 'tags'] as const
+  _kind = 'aws_config_configuration_aggregator'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

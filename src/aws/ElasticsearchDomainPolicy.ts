@@ -16,6 +16,17 @@ export class ElasticsearchDomainPolicy extends Resource<
   ElasticsearchDomainPolicyArguments,
   ElasticsearchDomainPolicyAttributes
 > {
-  kind = 'aws_elasticsearch_domain_policy'
-  _outputAttrNames = ['access_policies', 'domain_name', 'id'] as const
+  _kind = 'aws_elasticsearch_domain_policy'
+
+  get access_policies() {
+    return this._attr('access_policies')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

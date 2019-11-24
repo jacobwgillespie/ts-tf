@@ -14,6 +14,13 @@ export class VpcPeeringConnectionOptions extends Resource<
   VpcPeeringConnectionOptionsArguments,
   VpcPeeringConnectionOptionsAttributes
 > {
-  kind = 'aws_vpc_peering_connection_options'
-  _outputAttrNames = ['id', 'vpc_peering_connection_id'] as const
+  _kind = 'aws_vpc_peering_connection_options'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpc_peering_connection_id() {
+    return this._attr('vpc_peering_connection_id')
+  }
 }

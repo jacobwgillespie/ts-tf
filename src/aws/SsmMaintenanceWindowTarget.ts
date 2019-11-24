@@ -22,6 +22,29 @@ export class SsmMaintenanceWindowTarget extends Resource<
   SsmMaintenanceWindowTargetArguments,
   SsmMaintenanceWindowTargetAttributes
 > {
-  kind = 'aws_ssm_maintenance_window_target'
-  _outputAttrNames = ['description', 'id', 'name', 'owner_information', 'resource_type', 'window_id'] as const
+  _kind = 'aws_ssm_maintenance_window_target'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get owner_information() {
+    return this._attr('owner_information')
+  }
+
+  get resource_type() {
+    return this._attr('resource_type')
+  }
+
+  get window_id() {
+    return this._attr('window_id')
+  }
 }

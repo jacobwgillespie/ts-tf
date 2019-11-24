@@ -27,16 +27,41 @@ export class AppautoscalingScheduledAction extends Resource<
   AppautoscalingScheduledActionArguments,
   AppautoscalingScheduledActionAttributes
 > {
-  kind = 'aws_appautoscaling_scheduled_action'
-  _outputAttrNames = [
-    'arn',
-    'end_time',
-    'id',
-    'name',
-    'resource_id',
-    'scalable_dimension',
-    'schedule',
-    'service_namespace',
-    'start_time',
-  ] as const
+  _kind = 'aws_appautoscaling_scheduled_action'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get end_time() {
+    return this._attr('end_time')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get scalable_dimension() {
+    return this._attr('scalable_dimension')
+  }
+
+  get schedule() {
+    return this._attr('schedule')
+  }
+
+  get service_namespace() {
+    return this._attr('service_namespace')
+  }
+
+  get start_time() {
+    return this._attr('start_time')
+  }
 }

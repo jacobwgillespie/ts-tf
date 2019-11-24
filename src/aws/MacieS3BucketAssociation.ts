@@ -18,6 +18,21 @@ export class MacieS3BucketAssociation extends Resource<
   MacieS3BucketAssociationArguments,
   MacieS3BucketAssociationAttributes
 > {
-  kind = 'aws_macie_s3_bucket_association'
-  _outputAttrNames = ['bucket_name', 'id', 'member_account_id', 'prefix'] as const
+  _kind = 'aws_macie_s3_bucket_association'
+
+  get bucket_name() {
+    return this._attr('bucket_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get member_account_id() {
+    return this._attr('member_account_id')
+  }
+
+  get prefix() {
+    return this._attr('prefix')
+  }
 }

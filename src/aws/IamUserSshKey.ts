@@ -19,6 +19,33 @@ export interface IamUserSshKeyAttributes {
 }
 
 export class IamUserSshKey extends Resource<IamUserSshKeyArguments, IamUserSshKeyAttributes> {
-  kind = 'aws_iam_user_ssh_key'
-  _outputAttrNames = ['encoding', 'fingerprint', 'id', 'public_key', 'ssh_public_key_id', 'status', 'username'] as const
+  _kind = 'aws_iam_user_ssh_key'
+
+  get encoding() {
+    return this._attr('encoding')
+  }
+
+  get fingerprint() {
+    return this._attr('fingerprint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get public_key() {
+    return this._attr('public_key')
+  }
+
+  get ssh_public_key_id() {
+    return this._attr('ssh_public_key_id')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get username() {
+    return this._attr('username')
+  }
 }

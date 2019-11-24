@@ -27,18 +27,49 @@ export interface EfsFileSystemAttributes {
 }
 
 export class EfsFileSystem extends Resource<EfsFileSystemArguments, EfsFileSystemAttributes> {
-  kind = 'aws_efs_file_system'
-  _outputAttrNames = [
-    'arn',
-    'creation_token',
-    'dns_name',
-    'encrypted',
-    'id',
-    'kms_key_id',
-    'performance_mode',
-    'provisioned_throughput_in_mibps',
-    'reference_name',
-    'tags',
-    'throughput_mode',
-  ] as const
+  _kind = 'aws_efs_file_system'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get creation_token() {
+    return this._attr('creation_token')
+  }
+
+  get dns_name() {
+    return this._attr('dns_name')
+  }
+
+  get encrypted() {
+    return this._attr('encrypted')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get performance_mode() {
+    return this._attr('performance_mode')
+  }
+
+  get provisioned_throughput_in_mibps() {
+    return this._attr('provisioned_throughput_in_mibps')
+  }
+
+  get reference_name() {
+    return this._attr('reference_name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get throughput_mode() {
+    return this._attr('throughput_mode')
+  }
 }

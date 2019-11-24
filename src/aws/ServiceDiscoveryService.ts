@@ -19,6 +19,25 @@ export class ServiceDiscoveryService extends Resource<
   ServiceDiscoveryServiceArguments,
   ServiceDiscoveryServiceAttributes
 > {
-  kind = 'aws_service_discovery_service'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'namespace_id'] as const
+  _kind = 'aws_service_discovery_service'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get namespace_id() {
+    return this._attr('namespace_id')
+  }
 }

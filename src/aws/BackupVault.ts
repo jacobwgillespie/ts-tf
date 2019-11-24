@@ -17,6 +17,29 @@ export interface BackupVaultAttributes {
 }
 
 export class BackupVault extends Resource<BackupVaultArguments, BackupVaultAttributes> {
-  kind = 'aws_backup_vault'
-  _outputAttrNames = ['arn', 'id', 'kms_key_arn', 'name', 'recovery_points', 'tags'] as const
+  _kind = 'aws_backup_vault'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_arn() {
+    return this._attr('kms_key_arn')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get recovery_points() {
+    return this._attr('recovery_points')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

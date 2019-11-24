@@ -16,6 +16,17 @@ export class WafregionalWebAclAssociation extends Resource<
   WafregionalWebAclAssociationArguments,
   WafregionalWebAclAssociationAttributes
 > {
-  kind = 'aws_wafregional_web_acl_association'
-  _outputAttrNames = ['id', 'resource_arn', 'web_acl_id'] as const
+  _kind = 'aws_wafregional_web_acl_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_arn() {
+    return this._attr('resource_arn')
+  }
+
+  get web_acl_id() {
+    return this._attr('web_acl_id')
+  }
 }

@@ -16,6 +16,17 @@ export class StoragegatewayWorkingStorage extends Resource<
   StoragegatewayWorkingStorageArguments,
   StoragegatewayWorkingStorageAttributes
 > {
-  kind = 'aws_storagegateway_working_storage'
-  _outputAttrNames = ['disk_id', 'gateway_arn', 'id'] as const
+  _kind = 'aws_storagegateway_working_storage'
+
+  get disk_id() {
+    return this._attr('disk_id')
+  }
+
+  get gateway_arn() {
+    return this._attr('gateway_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

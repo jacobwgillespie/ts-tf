@@ -17,6 +17,25 @@ export interface IamGroupPolicyAttributes {
 }
 
 export class IamGroupPolicy extends Resource<IamGroupPolicyArguments, IamGroupPolicyAttributes> {
-  kind = 'aws_iam_group_policy'
-  _outputAttrNames = ['group', 'id', 'name', 'name_prefix', 'policy'] as const
+  _kind = 'aws_iam_group_policy'
+
+  get group() {
+    return this._attr('group')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

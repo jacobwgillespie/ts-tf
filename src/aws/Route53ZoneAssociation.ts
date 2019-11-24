@@ -18,6 +18,21 @@ export class Route53ZoneAssociation extends Resource<
   Route53ZoneAssociationArguments,
   Route53ZoneAssociationAttributes
 > {
-  kind = 'aws_route53_zone_association'
-  _outputAttrNames = ['id', 'vpc_id', 'vpc_region', 'zone_id'] as const
+  _kind = 'aws_route53_zone_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
+
+  get vpc_region() {
+    return this._attr('vpc_region')
+  }
+
+  get zone_id() {
+    return this._attr('zone_id')
+  }
 }

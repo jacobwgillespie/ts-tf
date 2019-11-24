@@ -16,6 +16,17 @@ export class ApiGatewayDocumentationPart extends Resource<
   ApiGatewayDocumentationPartArguments,
   ApiGatewayDocumentationPartAttributes
 > {
-  kind = 'aws_api_gateway_documentation_part'
-  _outputAttrNames = ['id', 'properties', 'rest_api_id'] as const
+  _kind = 'aws_api_gateway_documentation_part'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get properties() {
+    return this._attr('properties')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
 }

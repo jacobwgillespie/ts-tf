@@ -24,19 +24,53 @@ export interface VpcEndpointServiceAttributes {
 }
 
 export class VpcEndpointService extends Resource<VpcEndpointServiceArguments, VpcEndpointServiceAttributes> {
-  kind = 'aws_vpc_endpoint_service'
-  _outputAttrNames = [
-    'acceptance_required',
-    'allowed_principals',
-    'availability_zones',
-    'base_endpoint_dns_names',
-    'id',
-    'manages_vpc_endpoints',
-    'network_load_balancer_arns',
-    'private_dns_name',
-    'service_name',
-    'service_type',
-    'state',
-    'tags',
-  ] as const
+  _kind = 'aws_vpc_endpoint_service'
+
+  get acceptance_required() {
+    return this._attr('acceptance_required')
+  }
+
+  get allowed_principals() {
+    return this._attr('allowed_principals')
+  }
+
+  get availability_zones() {
+    return this._attr('availability_zones')
+  }
+
+  get base_endpoint_dns_names() {
+    return this._attr('base_endpoint_dns_names')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get manages_vpc_endpoints() {
+    return this._attr('manages_vpc_endpoints')
+  }
+
+  get network_load_balancer_arns() {
+    return this._attr('network_load_balancer_arns')
+  }
+
+  get private_dns_name() {
+    return this._attr('private_dns_name')
+  }
+
+  get service_name() {
+    return this._attr('service_name')
+  }
+
+  get service_type() {
+    return this._attr('service_type')
+  }
+
+  get state() {
+    return this._attr('state')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

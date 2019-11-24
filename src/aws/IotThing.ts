@@ -18,6 +18,33 @@ export interface IotThingAttributes {
 }
 
 export class IotThing extends Resource<IotThingArguments, IotThingAttributes> {
-  kind = 'aws_iot_thing'
-  _outputAttrNames = ['arn', 'attributes', 'default_client_id', 'id', 'name', 'thing_type_name', 'version'] as const
+  _kind = 'aws_iot_thing'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get attributes() {
+    return this._attr('attributes')
+  }
+
+  get default_client_id() {
+    return this._attr('default_client_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get thing_type_name() {
+    return this._attr('thing_type_name')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

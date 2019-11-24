@@ -16,6 +16,17 @@ export class VpcEndpointRouteTableAssociation extends Resource<
   VpcEndpointRouteTableAssociationArguments,
   VpcEndpointRouteTableAssociationAttributes
 > {
-  kind = 'aws_vpc_endpoint_route_table_association'
-  _outputAttrNames = ['id', 'route_table_id', 'vpc_endpoint_id'] as const
+  _kind = 'aws_vpc_endpoint_route_table_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get route_table_id() {
+    return this._attr('route_table_id')
+  }
+
+  get vpc_endpoint_id() {
+    return this._attr('vpc_endpoint_id')
+  }
 }

@@ -67,18 +67,49 @@ export interface SecurityGroupAttributes {
 }
 
 export class SecurityGroup extends Resource<SecurityGroupArguments, SecurityGroupAttributes> {
-  kind = 'aws_security_group'
-  _outputAttrNames = [
-    'arn',
-    'description',
-    'egress',
-    'id',
-    'ingress',
-    'name',
-    'name_prefix',
-    'owner_id',
-    'revoke_rules_on_delete',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_security_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get egress() {
+    return this._attr('egress')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ingress() {
+    return this._attr('ingress')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get revoke_rules_on_delete() {
+    return this._attr('revoke_rules_on_delete')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

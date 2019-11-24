@@ -20,6 +20,25 @@ export class AppCookieStickinessPolicy extends Resource<
   AppCookieStickinessPolicyArguments,
   AppCookieStickinessPolicyAttributes
 > {
-  kind = 'aws_app_cookie_stickiness_policy'
-  _outputAttrNames = ['cookie_name', 'id', 'lb_port', 'load_balancer', 'name'] as const
+  _kind = 'aws_app_cookie_stickiness_policy'
+
+  get cookie_name() {
+    return this._attr('cookie_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get lb_port() {
+    return this._attr('lb_port')
+  }
+
+  get load_balancer() {
+    return this._attr('load_balancer')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

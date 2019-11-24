@@ -16,6 +16,17 @@ export class CloudwatchLogResourcePolicy extends Resource<
   CloudwatchLogResourcePolicyArguments,
   CloudwatchLogResourcePolicyAttributes
 > {
-  kind = 'aws_cloudwatch_log_resource_policy'
-  _outputAttrNames = ['id', 'policy_document', 'policy_name'] as const
+  _kind = 'aws_cloudwatch_log_resource_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy_document() {
+    return this._attr('policy_document')
+  }
+
+  get policy_name() {
+    return this._attr('policy_name')
+  }
 }

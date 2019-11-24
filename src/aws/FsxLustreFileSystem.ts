@@ -30,21 +30,61 @@ export interface FsxLustreFileSystemAttributes {
 }
 
 export class FsxLustreFileSystem extends Resource<FsxLustreFileSystemArguments, FsxLustreFileSystemAttributes> {
-  kind = 'aws_fsx_lustre_file_system'
-  _outputAttrNames = [
-    'arn',
-    'dns_name',
-    'export_path',
-    'id',
-    'import_path',
-    'imported_file_chunk_size',
-    'network_interface_ids',
-    'owner_id',
-    'security_group_ids',
-    'storage_capacity',
-    'subnet_ids',
-    'tags',
-    'vpc_id',
-    'weekly_maintenance_start_time',
-  ] as const
+  _kind = 'aws_fsx_lustre_file_system'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get dns_name() {
+    return this._attr('dns_name')
+  }
+
+  get export_path() {
+    return this._attr('export_path')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get import_path() {
+    return this._attr('import_path')
+  }
+
+  get imported_file_chunk_size() {
+    return this._attr('imported_file_chunk_size')
+  }
+
+  get network_interface_ids() {
+    return this._attr('network_interface_ids')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get security_group_ids() {
+    return this._attr('security_group_ids')
+  }
+
+  get storage_capacity() {
+    return this._attr('storage_capacity')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
+
+  get weekly_maintenance_start_time() {
+    return this._attr('weekly_maintenance_start_time')
+  }
 }

@@ -43,28 +43,89 @@ export class CloudfrontDistribution extends Resource<
   CloudfrontDistributionArguments,
   CloudfrontDistributionAttributes
 > {
-  kind = 'aws_cloudfront_distribution'
-  _outputAttrNames = [
-    'active_trusted_signers',
-    'aliases',
-    'arn',
-    'caller_reference',
-    'comment',
-    'default_root_object',
-    'domain_name',
-    'enabled',
-    'etag',
-    'hosted_zone_id',
-    'http_version',
-    'id',
-    'in_progress_validation_batches',
-    'is_ipv6_enabled',
-    'last_modified_time',
-    'price_class',
-    'retain_on_delete',
-    'status',
-    'tags',
-    'wait_for_deployment',
-    'web_acl_id',
-  ] as const
+  _kind = 'aws_cloudfront_distribution'
+
+  get active_trusted_signers() {
+    return this._attr('active_trusted_signers')
+  }
+
+  get aliases() {
+    return this._attr('aliases')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get caller_reference() {
+    return this._attr('caller_reference')
+  }
+
+  get comment() {
+    return this._attr('comment')
+  }
+
+  get default_root_object() {
+    return this._attr('default_root_object')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get etag() {
+    return this._attr('etag')
+  }
+
+  get hosted_zone_id() {
+    return this._attr('hosted_zone_id')
+  }
+
+  get http_version() {
+    return this._attr('http_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get in_progress_validation_batches() {
+    return this._attr('in_progress_validation_batches')
+  }
+
+  get is_ipv6_enabled() {
+    return this._attr('is_ipv6_enabled')
+  }
+
+  get last_modified_time() {
+    return this._attr('last_modified_time')
+  }
+
+  get price_class() {
+    return this._attr('price_class')
+  }
+
+  get retain_on_delete() {
+    return this._attr('retain_on_delete')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get wait_for_deployment() {
+    return this._attr('wait_for_deployment')
+  }
+
+  get web_acl_id() {
+    return this._attr('web_acl_id')
+  }
 }

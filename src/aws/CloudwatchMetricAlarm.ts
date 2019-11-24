@@ -50,29 +50,93 @@ export interface CloudwatchMetricAlarmAttributes {
 }
 
 export class CloudwatchMetricAlarm extends Resource<CloudwatchMetricAlarmArguments, CloudwatchMetricAlarmAttributes> {
-  kind = 'aws_cloudwatch_metric_alarm'
-  _outputAttrNames = [
-    'actions_enabled',
-    'alarm_actions',
-    'alarm_description',
-    'alarm_name',
-    'arn',
-    'comparison_operator',
-    'datapoints_to_alarm',
-    'dimensions',
-    'evaluate_low_sample_count_percentiles',
-    'evaluation_periods',
-    'extended_statistic',
-    'id',
-    'insufficient_data_actions',
-    'metric_name',
-    'namespace',
-    'ok_actions',
-    'period',
-    'statistic',
-    'tags',
-    'threshold',
-    'treat_missing_data',
-    'unit',
-  ] as const
+  _kind = 'aws_cloudwatch_metric_alarm'
+
+  get actions_enabled() {
+    return this._attr('actions_enabled')
+  }
+
+  get alarm_actions() {
+    return this._attr('alarm_actions')
+  }
+
+  get alarm_description() {
+    return this._attr('alarm_description')
+  }
+
+  get alarm_name() {
+    return this._attr('alarm_name')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get comparison_operator() {
+    return this._attr('comparison_operator')
+  }
+
+  get datapoints_to_alarm() {
+    return this._attr('datapoints_to_alarm')
+  }
+
+  get dimensions() {
+    return this._attr('dimensions')
+  }
+
+  get evaluate_low_sample_count_percentiles() {
+    return this._attr('evaluate_low_sample_count_percentiles')
+  }
+
+  get evaluation_periods() {
+    return this._attr('evaluation_periods')
+  }
+
+  get extended_statistic() {
+    return this._attr('extended_statistic')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get insufficient_data_actions() {
+    return this._attr('insufficient_data_actions')
+  }
+
+  get metric_name() {
+    return this._attr('metric_name')
+  }
+
+  get namespace() {
+    return this._attr('namespace')
+  }
+
+  get ok_actions() {
+    return this._attr('ok_actions')
+  }
+
+  get period() {
+    return this._attr('period')
+  }
+
+  get statistic() {
+    return this._attr('statistic')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get threshold() {
+    return this._attr('threshold')
+  }
+
+  get treat_missing_data() {
+    return this._attr('treat_missing_data')
+  }
+
+  get unit() {
+    return this._attr('unit')
+  }
 }

@@ -14,6 +14,13 @@ export class WafregionalSizeConstraintSet extends Resource<
   WafregionalSizeConstraintSetArguments,
   WafregionalSizeConstraintSetAttributes
 > {
-  kind = 'aws_wafregional_size_constraint_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_wafregional_size_constraint_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

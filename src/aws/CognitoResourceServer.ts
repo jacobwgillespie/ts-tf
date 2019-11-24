@@ -16,6 +16,25 @@ export interface CognitoResourceServerAttributes {
 }
 
 export class CognitoResourceServer extends Resource<CognitoResourceServerArguments, CognitoResourceServerAttributes> {
-  kind = 'aws_cognito_resource_server'
-  _outputAttrNames = ['id', 'identifier', 'name', 'scope_identifiers', 'user_pool_id'] as const
+  _kind = 'aws_cognito_resource_server'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get identifier() {
+    return this._attr('identifier')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get scope_identifiers() {
+    return this._attr('scope_identifiers')
+  }
+
+  get user_pool_id() {
+    return this._attr('user_pool_id')
+  }
 }

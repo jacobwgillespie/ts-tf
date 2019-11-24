@@ -20,6 +20,29 @@ export class NetworkInterfaceAttachment extends Resource<
   NetworkInterfaceAttachmentArguments,
   NetworkInterfaceAttachmentAttributes
 > {
-  kind = 'aws_network_interface_attachment'
-  _outputAttrNames = ['attachment_id', 'device_index', 'id', 'instance_id', 'network_interface_id', 'status'] as const
+  _kind = 'aws_network_interface_attachment'
+
+  get attachment_id() {
+    return this._attr('attachment_id')
+  }
+
+  get device_index() {
+    return this._attr('device_index')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance_id() {
+    return this._attr('instance_id')
+  }
+
+  get network_interface_id() {
+    return this._attr('network_interface_id')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
 }

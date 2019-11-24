@@ -17,6 +17,21 @@ export class InspectorAssessmentTarget extends Resource<
   InspectorAssessmentTargetArguments,
   InspectorAssessmentTargetAttributes
 > {
-  kind = 'aws_inspector_assessment_target'
-  _outputAttrNames = ['arn', 'id', 'name', 'resource_group_arn'] as const
+  _kind = 'aws_inspector_assessment_target'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get resource_group_arn() {
+    return this._attr('resource_group_arn')
+  }
 }

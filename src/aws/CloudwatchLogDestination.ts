@@ -19,6 +19,25 @@ export class CloudwatchLogDestination extends Resource<
   CloudwatchLogDestinationArguments,
   CloudwatchLogDestinationAttributes
 > {
-  kind = 'aws_cloudwatch_log_destination'
-  _outputAttrNames = ['arn', 'id', 'name', 'role_arn', 'target_arn'] as const
+  _kind = 'aws_cloudwatch_log_destination'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get target_arn() {
+    return this._attr('target_arn')
+  }
 }

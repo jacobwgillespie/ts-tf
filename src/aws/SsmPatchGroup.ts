@@ -13,6 +13,17 @@ export interface SsmPatchGroupAttributes {
 }
 
 export class SsmPatchGroup extends Resource<SsmPatchGroupArguments, SsmPatchGroupAttributes> {
-  kind = 'aws_ssm_patch_group'
-  _outputAttrNames = ['baseline_id', 'id', 'patch_group'] as const
+  _kind = 'aws_ssm_patch_group'
+
+  get baseline_id() {
+    return this._attr('baseline_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get patch_group() {
+    return this._attr('patch_group')
+  }
 }

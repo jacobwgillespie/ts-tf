@@ -16,6 +16,17 @@ export class ConfigConfigurationRecorder extends Resource<
   ConfigConfigurationRecorderArguments,
   ConfigConfigurationRecorderAttributes
 > {
-  kind = 'aws_config_configuration_recorder'
-  _outputAttrNames = ['id', 'name', 'role_arn'] as const
+  _kind = 'aws_config_configuration_recorder'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
 }

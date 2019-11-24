@@ -104,7 +104,11 @@ export ${argumentsInterfaceType}
 export ${attributesInterfaceType}
 
 export class ${className} extends Resource<${argumentsInterfaceName}, ${attributesInterfaceName}> {
-  kind = "${resourceName}"
+  _kind = "${resourceName}"
+
+  ${attributeNames
+    .map(attributeName => `get ${attributeName}() { return this._attr('${attributeName}') }`)
+    .join('\n\n')}
 }
   `
 

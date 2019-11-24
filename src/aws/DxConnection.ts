@@ -21,16 +21,41 @@ export interface DxConnectionAttributes {
 }
 
 export class DxConnection extends Resource<DxConnectionArguments, DxConnectionAttributes> {
-  kind = 'aws_dx_connection'
-  _outputAttrNames = [
-    'arn',
-    'aws_device',
-    'bandwidth',
-    'has_logical_redundancy',
-    'id',
-    'jumbo_frame_capable',
-    'location',
-    'name',
-    'tags',
-  ] as const
+  _kind = 'aws_dx_connection'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_device() {
+    return this._attr('aws_device')
+  }
+
+  get bandwidth() {
+    return this._attr('bandwidth')
+  }
+
+  get has_logical_redundancy() {
+    return this._attr('has_logical_redundancy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get jumbo_frame_capable() {
+    return this._attr('jumbo_frame_capable')
+  }
+
+  get location() {
+    return this._attr('location')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -13,6 +13,17 @@ export interface DaxParameterGroupAttributes {
 }
 
 export class DaxParameterGroup extends Resource<DaxParameterGroupArguments, DaxParameterGroupAttributes> {
-  kind = 'aws_dax_parameter_group'
-  _outputAttrNames = ['description', 'id', 'name'] as const
+  _kind = 'aws_dax_parameter_group'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

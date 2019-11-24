@@ -14,6 +14,21 @@ export interface WafWebAclAttributes {
 }
 
 export class WafWebAcl extends Resource<WafWebAclArguments, WafWebAclAttributes> {
-  kind = 'aws_waf_web_acl'
-  _outputAttrNames = ['arn', 'id', 'metric_name', 'name'] as const
+  _kind = 'aws_waf_web_acl'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_name() {
+    return this._attr('metric_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

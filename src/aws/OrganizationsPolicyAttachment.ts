@@ -16,6 +16,17 @@ export class OrganizationsPolicyAttachment extends Resource<
   OrganizationsPolicyAttachmentArguments,
   OrganizationsPolicyAttachmentAttributes
 > {
-  kind = 'aws_organizations_policy_attachment'
-  _outputAttrNames = ['id', 'policy_id', 'target_id'] as const
+  _kind = 'aws_organizations_policy_attachment'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy_id() {
+    return this._attr('policy_id')
+  }
+
+  get target_id() {
+    return this._attr('target_id')
+  }
 }

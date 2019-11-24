@@ -28,16 +28,41 @@ export class AutoscalingLifecycleHook extends Resource<
   AutoscalingLifecycleHookArguments,
   AutoscalingLifecycleHookAttributes
 > {
-  kind = 'aws_autoscaling_lifecycle_hook'
-  _outputAttrNames = [
-    'autoscaling_group_name',
-    'default_result',
-    'heartbeat_timeout',
-    'id',
-    'lifecycle_transition',
-    'name',
-    'notification_metadata',
-    'notification_target_arn',
-    'role_arn',
-  ] as const
+  _kind = 'aws_autoscaling_lifecycle_hook'
+
+  get autoscaling_group_name() {
+    return this._attr('autoscaling_group_name')
+  }
+
+  get default_result() {
+    return this._attr('default_result')
+  }
+
+  get heartbeat_timeout() {
+    return this._attr('heartbeat_timeout')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get lifecycle_transition() {
+    return this._attr('lifecycle_transition')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get notification_metadata() {
+    return this._attr('notification_metadata')
+  }
+
+  get notification_target_arn() {
+    return this._attr('notification_target_arn')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
 }

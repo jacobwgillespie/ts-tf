@@ -17,6 +17,25 @@ export interface SesEventDestinationAttributes {
 }
 
 export class SesEventDestination extends Resource<SesEventDestinationArguments, SesEventDestinationAttributes> {
-  kind = 'aws_ses_event_destination'
-  _outputAttrNames = ['configuration_set_name', 'enabled', 'id', 'matching_types', 'name'] as const
+  _kind = 'aws_ses_event_destination'
+
+  get configuration_set_name() {
+    return this._attr('configuration_set_name')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get matching_types() {
+    return this._attr('matching_types')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

@@ -38,25 +38,77 @@ export interface FsxWindowsFileSystemAttributes {
 }
 
 export class FsxWindowsFileSystem extends Resource<FsxWindowsFileSystemArguments, FsxWindowsFileSystemAttributes> {
-  kind = 'aws_fsx_windows_file_system'
-  _outputAttrNames = [
-    'active_directory_id',
-    'arn',
-    'automatic_backup_retention_days',
-    'copy_tags_to_backups',
-    'daily_automatic_backup_start_time',
-    'dns_name',
-    'id',
-    'kms_key_id',
-    'network_interface_ids',
-    'owner_id',
-    'security_group_ids',
-    'skip_final_backup',
-    'storage_capacity',
-    'subnet_ids',
-    'tags',
-    'throughput_capacity',
-    'vpc_id',
-    'weekly_maintenance_start_time',
-  ] as const
+  _kind = 'aws_fsx_windows_file_system'
+
+  get active_directory_id() {
+    return this._attr('active_directory_id')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get automatic_backup_retention_days() {
+    return this._attr('automatic_backup_retention_days')
+  }
+
+  get copy_tags_to_backups() {
+    return this._attr('copy_tags_to_backups')
+  }
+
+  get daily_automatic_backup_start_time() {
+    return this._attr('daily_automatic_backup_start_time')
+  }
+
+  get dns_name() {
+    return this._attr('dns_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get network_interface_ids() {
+    return this._attr('network_interface_ids')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get security_group_ids() {
+    return this._attr('security_group_ids')
+  }
+
+  get skip_final_backup() {
+    return this._attr('skip_final_backup')
+  }
+
+  get storage_capacity() {
+    return this._attr('storage_capacity')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get throughput_capacity() {
+    return this._attr('throughput_capacity')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
+
+  get weekly_maintenance_start_time() {
+    return this._attr('weekly_maintenance_start_time')
+  }
 }

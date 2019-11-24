@@ -25,18 +25,49 @@ export class ServicequotasServiceQuota extends Resource<
   ServicequotasServiceQuotaArguments,
   ServicequotasServiceQuotaAttributes
 > {
-  kind = 'aws_servicequotas_service_quota'
-  _outputAttrNames = [
-    'adjustable',
-    'arn',
-    'default_value',
-    'id',
-    'quota_code',
-    'quota_name',
-    'request_id',
-    'request_status',
-    'service_code',
-    'service_name',
-    'value',
-  ] as const
+  _kind = 'aws_servicequotas_service_quota'
+
+  get adjustable() {
+    return this._attr('adjustable')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get default_value() {
+    return this._attr('default_value')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get quota_code() {
+    return this._attr('quota_code')
+  }
+
+  get quota_name() {
+    return this._attr('quota_name')
+  }
+
+  get request_id() {
+    return this._attr('request_id')
+  }
+
+  get request_status() {
+    return this._attr('request_status')
+  }
+
+  get service_code() {
+    return this._attr('service_code')
+  }
+
+  get service_name() {
+    return this._attr('service_name')
+  }
+
+  get value() {
+    return this._attr('value')
+  }
 }

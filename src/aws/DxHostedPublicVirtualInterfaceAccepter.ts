@@ -17,6 +17,21 @@ export class DxHostedPublicVirtualInterfaceAccepter extends Resource<
   DxHostedPublicVirtualInterfaceAccepterArguments,
   DxHostedPublicVirtualInterfaceAccepterAttributes
 > {
-  kind = 'aws_dx_hosted_public_virtual_interface_accepter'
-  _outputAttrNames = ['arn', 'id', 'tags', 'virtual_interface_id'] as const
+  _kind = 'aws_dx_hosted_public_virtual_interface_accepter'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get virtual_interface_id() {
+    return this._attr('virtual_interface_id')
+  }
 }

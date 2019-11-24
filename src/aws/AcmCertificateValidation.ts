@@ -16,6 +16,17 @@ export class AcmCertificateValidation extends Resource<
   AcmCertificateValidationArguments,
   AcmCertificateValidationAttributes
 > {
-  kind = 'aws_acm_certificate_validation'
-  _outputAttrNames = ['certificate_arn', 'id', 'validation_record_fqdns'] as const
+  _kind = 'aws_acm_certificate_validation'
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get validation_record_fqdns() {
+    return this._attr('validation_record_fqdns')
+  }
 }

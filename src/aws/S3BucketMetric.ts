@@ -13,6 +13,17 @@ export interface S3BucketMetricAttributes {
 }
 
 export class S3BucketMetric extends Resource<S3BucketMetricArguments, S3BucketMetricAttributes> {
-  kind = 'aws_s3_bucket_metric'
-  _outputAttrNames = ['bucket', 'id', 'name'] as const
+  _kind = 'aws_s3_bucket_metric'
+
+  get bucket() {
+    return this._attr('bucket')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

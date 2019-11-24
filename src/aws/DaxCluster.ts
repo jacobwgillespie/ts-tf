@@ -38,25 +38,77 @@ export interface DaxClusterAttributes {
 }
 
 export class DaxCluster extends Resource<DaxClusterArguments, DaxClusterAttributes> {
-  kind = 'aws_dax_cluster'
-  _outputAttrNames = [
-    'arn',
-    'availability_zones',
-    'cluster_address',
-    'cluster_name',
-    'configuration_endpoint',
-    'description',
-    'iam_role_arn',
-    'id',
-    'maintenance_window',
-    'node_type',
-    'nodes',
-    'notification_topic_arn',
-    'parameter_group_name',
-    'port',
-    'replication_factor',
-    'security_group_ids',
-    'subnet_group_name',
-    'tags',
-  ] as const
+  _kind = 'aws_dax_cluster'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get availability_zones() {
+    return this._attr('availability_zones')
+  }
+
+  get cluster_address() {
+    return this._attr('cluster_address')
+  }
+
+  get cluster_name() {
+    return this._attr('cluster_name')
+  }
+
+  get configuration_endpoint() {
+    return this._attr('configuration_endpoint')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get iam_role_arn() {
+    return this._attr('iam_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get maintenance_window() {
+    return this._attr('maintenance_window')
+  }
+
+  get node_type() {
+    return this._attr('node_type')
+  }
+
+  get nodes() {
+    return this._attr('nodes')
+  }
+
+  get notification_topic_arn() {
+    return this._attr('notification_topic_arn')
+  }
+
+  get parameter_group_name() {
+    return this._attr('parameter_group_name')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get replication_factor() {
+    return this._attr('replication_factor')
+  }
+
+  get security_group_ids() {
+    return this._attr('security_group_ids')
+  }
+
+  get subnet_group_name() {
+    return this._attr('subnet_group_name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

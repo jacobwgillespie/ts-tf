@@ -15,6 +15,17 @@ export class InspectorResourceGroup extends Resource<
   InspectorResourceGroupArguments,
   InspectorResourceGroupAttributes
 > {
-  kind = 'aws_inspector_resource_group'
-  _outputAttrNames = ['arn', 'id', 'tags'] as const
+  _kind = 'aws_inspector_resource_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

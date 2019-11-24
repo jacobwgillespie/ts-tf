@@ -22,14 +22,33 @@ export class DmsReplicationSubnetGroup extends Resource<
   DmsReplicationSubnetGroupArguments,
   DmsReplicationSubnetGroupAttributes
 > {
-  kind = 'aws_dms_replication_subnet_group'
-  _outputAttrNames = [
-    'id',
-    'replication_subnet_group_arn',
-    'replication_subnet_group_description',
-    'replication_subnet_group_id',
-    'subnet_ids',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_dms_replication_subnet_group'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get replication_subnet_group_arn() {
+    return this._attr('replication_subnet_group_arn')
+  }
+
+  get replication_subnet_group_description() {
+    return this._attr('replication_subnet_group_description')
+  }
+
+  get replication_subnet_group_id() {
+    return this._attr('replication_subnet_group_id')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

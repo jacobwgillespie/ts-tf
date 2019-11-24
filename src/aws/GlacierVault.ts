@@ -17,6 +17,29 @@ export interface GlacierVaultAttributes {
 }
 
 export class GlacierVault extends Resource<GlacierVaultArguments, GlacierVaultAttributes> {
-  kind = 'aws_glacier_vault'
-  _outputAttrNames = ['access_policy', 'arn', 'id', 'location', 'name', 'tags'] as const
+  _kind = 'aws_glacier_vault'
+
+  get access_policy() {
+    return this._attr('access_policy')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get location() {
+    return this._attr('location')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

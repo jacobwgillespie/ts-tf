@@ -28,19 +28,53 @@ export interface SubnetAttributes {
 }
 
 export class Subnet extends Resource<SubnetArguments, SubnetAttributes> {
-  kind = 'aws_subnet'
-  _outputAttrNames = [
-    'arn',
-    'assign_ipv6_address_on_creation',
-    'availability_zone',
-    'availability_zone_id',
-    'cidr_block',
-    'id',
-    'ipv6_cidr_block',
-    'ipv6_cidr_block_association_id',
-    'map_public_ip_on_launch',
-    'owner_id',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_subnet'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get assign_ipv6_address_on_creation() {
+    return this._attr('assign_ipv6_address_on_creation')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get availability_zone_id() {
+    return this._attr('availability_zone_id')
+  }
+
+  get cidr_block() {
+    return this._attr('cidr_block')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ipv6_cidr_block() {
+    return this._attr('ipv6_cidr_block')
+  }
+
+  get ipv6_cidr_block_association_id() {
+    return this._attr('ipv6_cidr_block_association_id')
+  }
+
+  get map_public_ip_on_launch() {
+    return this._attr('map_public_ip_on_launch')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

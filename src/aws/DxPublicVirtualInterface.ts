@@ -34,20 +34,57 @@ export class DxPublicVirtualInterface extends Resource<
   DxPublicVirtualInterfaceArguments,
   DxPublicVirtualInterfaceAttributes
 > {
-  kind = 'aws_dx_public_virtual_interface'
-  _outputAttrNames = [
-    'address_family',
-    'amazon_address',
-    'arn',
-    'aws_device',
-    'bgp_asn',
-    'bgp_auth_key',
-    'connection_id',
-    'customer_address',
-    'id',
-    'name',
-    'route_filter_prefixes',
-    'tags',
-    'vlan',
-  ] as const
+  _kind = 'aws_dx_public_virtual_interface'
+
+  get address_family() {
+    return this._attr('address_family')
+  }
+
+  get amazon_address() {
+    return this._attr('amazon_address')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_device() {
+    return this._attr('aws_device')
+  }
+
+  get bgp_asn() {
+    return this._attr('bgp_asn')
+  }
+
+  get bgp_auth_key() {
+    return this._attr('bgp_auth_key')
+  }
+
+  get connection_id() {
+    return this._attr('connection_id')
+  }
+
+  get customer_address() {
+    return this._attr('customer_address')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get route_filter_prefixes() {
+    return this._attr('route_filter_prefixes')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vlan() {
+    return this._attr('vlan')
+  }
 }

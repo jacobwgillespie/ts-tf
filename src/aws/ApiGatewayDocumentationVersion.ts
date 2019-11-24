@@ -18,6 +18,21 @@ export class ApiGatewayDocumentationVersion extends Resource<
   ApiGatewayDocumentationVersionArguments,
   ApiGatewayDocumentationVersionAttributes
 > {
-  kind = 'aws_api_gateway_documentation_version'
-  _outputAttrNames = ['description', 'id', 'rest_api_id', 'version'] as const
+  _kind = 'aws_api_gateway_documentation_version'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

@@ -16,6 +16,17 @@ export class MediaStoreContainerPolicy extends Resource<
   MediaStoreContainerPolicyArguments,
   MediaStoreContainerPolicyAttributes
 > {
-  kind = 'aws_media_store_container_policy'
-  _outputAttrNames = ['container_name', 'id', 'policy'] as const
+  _kind = 'aws_media_store_container_policy'
+
+  get container_name() {
+    return this._attr('container_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

@@ -60,34 +60,113 @@ export interface AutoscalingGroupAttributes {
 }
 
 export class AutoscalingGroup extends Resource<AutoscalingGroupArguments, AutoscalingGroupAttributes> {
-  kind = 'aws_autoscaling_group'
-  _outputAttrNames = [
-    'arn',
-    'availability_zones',
-    'default_cooldown',
-    'desired_capacity',
-    'enabled_metrics',
-    'force_delete',
-    'health_check_grace_period',
-    'health_check_type',
-    'id',
-    'launch_configuration',
-    'load_balancers',
-    'max_size',
-    'metrics_granularity',
-    'min_elb_capacity',
-    'min_size',
-    'name',
-    'name_prefix',
-    'placement_group',
-    'protect_from_scale_in',
-    'service_linked_role_arn',
-    'suspended_processes',
-    'tags',
-    'target_group_arns',
-    'termination_policies',
-    'vpc_zone_identifier',
-    'wait_for_capacity_timeout',
-    'wait_for_elb_capacity',
-  ] as const
+  _kind = 'aws_autoscaling_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get availability_zones() {
+    return this._attr('availability_zones')
+  }
+
+  get default_cooldown() {
+    return this._attr('default_cooldown')
+  }
+
+  get desired_capacity() {
+    return this._attr('desired_capacity')
+  }
+
+  get enabled_metrics() {
+    return this._attr('enabled_metrics')
+  }
+
+  get force_delete() {
+    return this._attr('force_delete')
+  }
+
+  get health_check_grace_period() {
+    return this._attr('health_check_grace_period')
+  }
+
+  get health_check_type() {
+    return this._attr('health_check_type')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get launch_configuration() {
+    return this._attr('launch_configuration')
+  }
+
+  get load_balancers() {
+    return this._attr('load_balancers')
+  }
+
+  get max_size() {
+    return this._attr('max_size')
+  }
+
+  get metrics_granularity() {
+    return this._attr('metrics_granularity')
+  }
+
+  get min_elb_capacity() {
+    return this._attr('min_elb_capacity')
+  }
+
+  get min_size() {
+    return this._attr('min_size')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get placement_group() {
+    return this._attr('placement_group')
+  }
+
+  get protect_from_scale_in() {
+    return this._attr('protect_from_scale_in')
+  }
+
+  get service_linked_role_arn() {
+    return this._attr('service_linked_role_arn')
+  }
+
+  get suspended_processes() {
+    return this._attr('suspended_processes')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get target_group_arns() {
+    return this._attr('target_group_arns')
+  }
+
+  get termination_policies() {
+    return this._attr('termination_policies')
+  }
+
+  get vpc_zone_identifier() {
+    return this._attr('vpc_zone_identifier')
+  }
+
+  get wait_for_capacity_timeout() {
+    return this._attr('wait_for_capacity_timeout')
+  }
+
+  get wait_for_elb_capacity() {
+    return this._attr('wait_for_elb_capacity')
+  }
 }

@@ -22,17 +22,45 @@ export interface LightsailKeyPairAttributes {
 }
 
 export class LightsailKeyPair extends Resource<LightsailKeyPairArguments, LightsailKeyPairAttributes> {
-  kind = 'aws_lightsail_key_pair'
-  _outputAttrNames = [
-    'arn',
-    'encrypted_fingerprint',
-    'encrypted_private_key',
-    'fingerprint',
-    'id',
-    'name',
-    'name_prefix',
-    'pgp_key',
-    'private_key',
-    'public_key',
-  ] as const
+  _kind = 'aws_lightsail_key_pair'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get encrypted_fingerprint() {
+    return this._attr('encrypted_fingerprint')
+  }
+
+  get encrypted_private_key() {
+    return this._attr('encrypted_private_key')
+  }
+
+  get fingerprint() {
+    return this._attr('fingerprint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get pgp_key() {
+    return this._attr('pgp_key')
+  }
+
+  get private_key() {
+    return this._attr('private_key')
+  }
+
+  get public_key() {
+    return this._attr('public_key')
+  }
 }

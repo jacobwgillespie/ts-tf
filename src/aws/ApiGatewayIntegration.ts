@@ -43,25 +43,77 @@ export interface ApiGatewayIntegrationAttributes {
 }
 
 export class ApiGatewayIntegration extends Resource<ApiGatewayIntegrationArguments, ApiGatewayIntegrationAttributes> {
-  kind = 'aws_api_gateway_integration'
-  _outputAttrNames = [
-    'cache_key_parameters',
-    'cache_namespace',
-    'connection_id',
-    'connection_type',
-    'content_handling',
-    'credentials',
-    'http_method',
-    'id',
-    'integration_http_method',
-    'passthrough_behavior',
-    'request_parameters',
-    'request_parameters_in_json',
-    'request_templates',
-    'resource_id',
-    'rest_api_id',
-    'timeout_milliseconds',
-    'type',
-    'uri',
-  ] as const
+  _kind = 'aws_api_gateway_integration'
+
+  get cache_key_parameters() {
+    return this._attr('cache_key_parameters')
+  }
+
+  get cache_namespace() {
+    return this._attr('cache_namespace')
+  }
+
+  get connection_id() {
+    return this._attr('connection_id')
+  }
+
+  get connection_type() {
+    return this._attr('connection_type')
+  }
+
+  get content_handling() {
+    return this._attr('content_handling')
+  }
+
+  get credentials() {
+    return this._attr('credentials')
+  }
+
+  get http_method() {
+    return this._attr('http_method')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get integration_http_method() {
+    return this._attr('integration_http_method')
+  }
+
+  get passthrough_behavior() {
+    return this._attr('passthrough_behavior')
+  }
+
+  get request_parameters() {
+    return this._attr('request_parameters')
+  }
+
+  get request_parameters_in_json() {
+    return this._attr('request_parameters_in_json')
+  }
+
+  get request_templates() {
+    return this._attr('request_templates')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get timeout_milliseconds() {
+    return this._attr('timeout_milliseconds')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
+
+  get uri() {
+    return this._attr('uri')
+  }
 }

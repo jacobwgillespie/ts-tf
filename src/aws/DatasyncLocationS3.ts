@@ -17,6 +17,29 @@ export interface DatasyncLocationS3Attributes {
 }
 
 export class DatasyncLocationS3 extends Resource<DatasyncLocationS3Arguments, DatasyncLocationS3Attributes> {
-  kind = 'aws_datasync_location_s3'
-  _outputAttrNames = ['arn', 'id', 's3_bucket_arn', 'subdirectory', 'tags', 'uri'] as const
+  _kind = 'aws_datasync_location_s3'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get s3_bucket_arn() {
+    return this._attr('s3_bucket_arn')
+  }
+
+  get subdirectory() {
+    return this._attr('subdirectory')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get uri() {
+    return this._attr('uri')
+  }
 }

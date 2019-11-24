@@ -14,6 +14,21 @@ export interface CloudwatchLogStreamAttributes {
 }
 
 export class CloudwatchLogStream extends Resource<CloudwatchLogStreamArguments, CloudwatchLogStreamAttributes> {
-  kind = 'aws_cloudwatch_log_stream'
-  _outputAttrNames = ['arn', 'id', 'log_group_name', 'name'] as const
+  _kind = 'aws_cloudwatch_log_stream'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get log_group_name() {
+    return this._attr('log_group_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

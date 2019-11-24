@@ -18,6 +18,29 @@ export interface BatchJobQueueAttributes {
 }
 
 export class BatchJobQueue extends Resource<BatchJobQueueArguments, BatchJobQueueAttributes> {
-  kind = 'aws_batch_job_queue'
-  _outputAttrNames = ['arn', 'compute_environments', 'id', 'name', 'priority', 'state'] as const
+  _kind = 'aws_batch_job_queue'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get compute_environments() {
+    return this._attr('compute_environments')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get priority() {
+    return this._attr('priority')
+  }
+
+  get state() {
+    return this._attr('state')
+  }
 }

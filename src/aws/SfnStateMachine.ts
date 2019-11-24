@@ -19,6 +19,33 @@ export interface SfnStateMachineAttributes {
 }
 
 export class SfnStateMachine extends Resource<SfnStateMachineArguments, SfnStateMachineAttributes> {
-  kind = 'aws_sfn_state_machine'
-  _outputAttrNames = ['creation_date', 'definition', 'id', 'name', 'role_arn', 'status', 'tags'] as const
+  _kind = 'aws_sfn_state_machine'
+
+  get creation_date() {
+    return this._attr('creation_date')
+  }
+
+  get definition() {
+    return this._attr('definition')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

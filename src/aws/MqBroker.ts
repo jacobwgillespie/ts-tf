@@ -33,21 +33,61 @@ export interface MqBrokerAttributes {
 }
 
 export class MqBroker extends Resource<MqBrokerArguments, MqBrokerAttributes> {
-  kind = 'aws_mq_broker'
-  _outputAttrNames = [
-    'apply_immediately',
-    'arn',
-    'auto_minor_version_upgrade',
-    'broker_name',
-    'deployment_mode',
-    'engine_type',
-    'engine_version',
-    'host_instance_type',
-    'id',
-    'instances',
-    'publicly_accessible',
-    'security_groups',
-    'subnet_ids',
-    'tags',
-  ] as const
+  _kind = 'aws_mq_broker'
+
+  get apply_immediately() {
+    return this._attr('apply_immediately')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get auto_minor_version_upgrade() {
+    return this._attr('auto_minor_version_upgrade')
+  }
+
+  get broker_name() {
+    return this._attr('broker_name')
+  }
+
+  get deployment_mode() {
+    return this._attr('deployment_mode')
+  }
+
+  get engine_type() {
+    return this._attr('engine_type')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get host_instance_type() {
+    return this._attr('host_instance_type')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instances() {
+    return this._attr('instances')
+  }
+
+  get publicly_accessible() {
+    return this._attr('publicly_accessible')
+  }
+
+  get security_groups() {
+    return this._attr('security_groups')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

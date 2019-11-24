@@ -18,6 +18,29 @@ export interface AthenaWorkgroupAttributes {
 }
 
 export class AthenaWorkgroup extends Resource<AthenaWorkgroupArguments, AthenaWorkgroupAttributes> {
-  kind = 'aws_athena_workgroup'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'state', 'tags'] as const
+  _kind = 'aws_athena_workgroup'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get state() {
+    return this._attr('state')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

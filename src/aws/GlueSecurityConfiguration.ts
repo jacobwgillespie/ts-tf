@@ -14,6 +14,13 @@ export class GlueSecurityConfiguration extends Resource<
   GlueSecurityConfigurationArguments,
   GlueSecurityConfigurationAttributes
 > {
-  kind = 'aws_glue_security_configuration'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_glue_security_configuration'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

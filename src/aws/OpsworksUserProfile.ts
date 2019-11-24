@@ -17,6 +17,25 @@ export interface OpsworksUserProfileAttributes {
 }
 
 export class OpsworksUserProfile extends Resource<OpsworksUserProfileArguments, OpsworksUserProfileAttributes> {
-  kind = 'aws_opsworks_user_profile'
-  _outputAttrNames = ['allow_self_management', 'id', 'ssh_public_key', 'ssh_username', 'user_arn'] as const
+  _kind = 'aws_opsworks_user_profile'
+
+  get allow_self_management() {
+    return this._attr('allow_self_management')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ssh_public_key() {
+    return this._attr('ssh_public_key')
+  }
+
+  get ssh_username() {
+    return this._attr('ssh_username')
+  }
+
+  get user_arn() {
+    return this._attr('user_arn')
+  }
 }

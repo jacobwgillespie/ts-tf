@@ -32,22 +32,65 @@ export interface LambdaLayerVersionAttributes {
 }
 
 export class LambdaLayerVersion extends Resource<LambdaLayerVersionArguments, LambdaLayerVersionAttributes> {
-  kind = 'aws_lambda_layer_version'
-  _outputAttrNames = [
-    'arn',
-    'compatible_runtimes',
-    'created_date',
-    'description',
-    'filename',
-    'id',
-    'layer_arn',
-    'layer_name',
-    'license_info',
-    's3_bucket',
-    's3_key',
-    's3_object_version',
-    'source_code_hash',
-    'source_code_size',
-    'version',
-  ] as const
+  _kind = 'aws_lambda_layer_version'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get compatible_runtimes() {
+    return this._attr('compatible_runtimes')
+  }
+
+  get created_date() {
+    return this._attr('created_date')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get filename() {
+    return this._attr('filename')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get layer_arn() {
+    return this._attr('layer_arn')
+  }
+
+  get layer_name() {
+    return this._attr('layer_name')
+  }
+
+  get license_info() {
+    return this._attr('license_info')
+  }
+
+  get s3_bucket() {
+    return this._attr('s3_bucket')
+  }
+
+  get s3_key() {
+    return this._attr('s3_key')
+  }
+
+  get s3_object_version() {
+    return this._attr('s3_object_version')
+  }
+
+  get source_code_hash() {
+    return this._attr('source_code_hash')
+  }
+
+  get source_code_size() {
+    return this._attr('source_code_size')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

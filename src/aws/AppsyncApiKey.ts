@@ -16,6 +16,25 @@ export interface AppsyncApiKeyAttributes {
 }
 
 export class AppsyncApiKey extends Resource<AppsyncApiKeyArguments, AppsyncApiKeyAttributes> {
-  kind = 'aws_appsync_api_key'
-  _outputAttrNames = ['api_id', 'description', 'expires', 'id', 'key'] as const
+  _kind = 'aws_appsync_api_key'
+
+  get api_id() {
+    return this._attr('api_id')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get expires() {
+    return this._attr('expires')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key() {
+    return this._attr('key')
+  }
 }

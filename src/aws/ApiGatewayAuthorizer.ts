@@ -27,17 +27,45 @@ export interface ApiGatewayAuthorizerAttributes {
 }
 
 export class ApiGatewayAuthorizer extends Resource<ApiGatewayAuthorizerArguments, ApiGatewayAuthorizerAttributes> {
-  kind = 'aws_api_gateway_authorizer'
-  _outputAttrNames = [
-    'authorizer_credentials',
-    'authorizer_result_ttl_in_seconds',
-    'authorizer_uri',
-    'id',
-    'identity_source',
-    'identity_validation_expression',
-    'name',
-    'provider_arns',
-    'rest_api_id',
-    'type',
-  ] as const
+  _kind = 'aws_api_gateway_authorizer'
+
+  get authorizer_credentials() {
+    return this._attr('authorizer_credentials')
+  }
+
+  get authorizer_result_ttl_in_seconds() {
+    return this._attr('authorizer_result_ttl_in_seconds')
+  }
+
+  get authorizer_uri() {
+    return this._attr('authorizer_uri')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get identity_source() {
+    return this._attr('identity_source')
+  }
+
+  get identity_validation_expression() {
+    return this._attr('identity_validation_expression')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get provider_arns() {
+    return this._attr('provider_arns')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

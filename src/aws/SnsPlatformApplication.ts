@@ -35,20 +35,57 @@ export class SnsPlatformApplication extends Resource<
   SnsPlatformApplicationArguments,
   SnsPlatformApplicationAttributes
 > {
-  kind = 'aws_sns_platform_application'
-  _outputAttrNames = [
-    'arn',
-    'event_delivery_failure_topic_arn',
-    'event_endpoint_created_topic_arn',
-    'event_endpoint_deleted_topic_arn',
-    'event_endpoint_updated_topic_arn',
-    'failure_feedback_role_arn',
-    'id',
-    'name',
-    'platform',
-    'platform_credential',
-    'platform_principal',
-    'success_feedback_role_arn',
-    'success_feedback_sample_rate',
-  ] as const
+  _kind = 'aws_sns_platform_application'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get event_delivery_failure_topic_arn() {
+    return this._attr('event_delivery_failure_topic_arn')
+  }
+
+  get event_endpoint_created_topic_arn() {
+    return this._attr('event_endpoint_created_topic_arn')
+  }
+
+  get event_endpoint_deleted_topic_arn() {
+    return this._attr('event_endpoint_deleted_topic_arn')
+  }
+
+  get event_endpoint_updated_topic_arn() {
+    return this._attr('event_endpoint_updated_topic_arn')
+  }
+
+  get failure_feedback_role_arn() {
+    return this._attr('failure_feedback_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get platform() {
+    return this._attr('platform')
+  }
+
+  get platform_credential() {
+    return this._attr('platform_credential')
+  }
+
+  get platform_principal() {
+    return this._attr('platform_principal')
+  }
+
+  get success_feedback_role_arn() {
+    return this._attr('success_feedback_role_arn')
+  }
+
+  get success_feedback_sample_rate() {
+    return this._attr('success_feedback_sample_rate')
+  }
 }

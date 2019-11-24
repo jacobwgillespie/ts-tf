@@ -58,36 +58,121 @@ export interface RdsClusterInstanceAttributes {
 }
 
 export class RdsClusterInstance extends Resource<RdsClusterInstanceArguments, RdsClusterInstanceAttributes> {
-  kind = 'aws_rds_cluster_instance'
-  _outputAttrNames = [
-    'apply_immediately',
-    'arn',
-    'auto_minor_version_upgrade',
-    'availability_zone',
-    'cluster_identifier',
-    'copy_tags_to_snapshot',
-    'db_parameter_group_name',
-    'db_subnet_group_name',
-    'dbi_resource_id',
-    'endpoint',
-    'engine',
-    'engine_version',
-    'id',
-    'identifier',
-    'identifier_prefix',
-    'instance_class',
-    'kms_key_id',
-    'monitoring_interval',
-    'monitoring_role_arn',
-    'performance_insights_enabled',
-    'performance_insights_kms_key_id',
-    'port',
-    'preferred_backup_window',
-    'preferred_maintenance_window',
-    'promotion_tier',
-    'publicly_accessible',
-    'storage_encrypted',
-    'tags',
-    'writer',
-  ] as const
+  _kind = 'aws_rds_cluster_instance'
+
+  get apply_immediately() {
+    return this._attr('apply_immediately')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get auto_minor_version_upgrade() {
+    return this._attr('auto_minor_version_upgrade')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get cluster_identifier() {
+    return this._attr('cluster_identifier')
+  }
+
+  get copy_tags_to_snapshot() {
+    return this._attr('copy_tags_to_snapshot')
+  }
+
+  get db_parameter_group_name() {
+    return this._attr('db_parameter_group_name')
+  }
+
+  get db_subnet_group_name() {
+    return this._attr('db_subnet_group_name')
+  }
+
+  get dbi_resource_id() {
+    return this._attr('dbi_resource_id')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get engine() {
+    return this._attr('engine')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get identifier() {
+    return this._attr('identifier')
+  }
+
+  get identifier_prefix() {
+    return this._attr('identifier_prefix')
+  }
+
+  get instance_class() {
+    return this._attr('instance_class')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get monitoring_interval() {
+    return this._attr('monitoring_interval')
+  }
+
+  get monitoring_role_arn() {
+    return this._attr('monitoring_role_arn')
+  }
+
+  get performance_insights_enabled() {
+    return this._attr('performance_insights_enabled')
+  }
+
+  get performance_insights_kms_key_id() {
+    return this._attr('performance_insights_kms_key_id')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get preferred_backup_window() {
+    return this._attr('preferred_backup_window')
+  }
+
+  get preferred_maintenance_window() {
+    return this._attr('preferred_maintenance_window')
+  }
+
+  get promotion_tier() {
+    return this._attr('promotion_tier')
+  }
+
+  get publicly_accessible() {
+    return this._attr('publicly_accessible')
+  }
+
+  get storage_encrypted() {
+    return this._attr('storage_encrypted')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get writer() {
+    return this._attr('writer')
+  }
 }

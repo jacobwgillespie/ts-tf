@@ -18,14 +18,33 @@ export interface NatGatewayAttributes {
 }
 
 export class NatGateway extends Resource<NatGatewayArguments, NatGatewayAttributes> {
-  kind = 'aws_nat_gateway'
-  _outputAttrNames = [
-    'allocation_id',
-    'id',
-    'network_interface_id',
-    'private_ip',
-    'public_ip',
-    'subnet_id',
-    'tags',
-  ] as const
+  _kind = 'aws_nat_gateway'
+
+  get allocation_id() {
+    return this._attr('allocation_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get network_interface_id() {
+    return this._attr('network_interface_id')
+  }
+
+  get private_ip() {
+    return this._attr('private_ip')
+  }
+
+  get public_ip() {
+    return this._attr('public_ip')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

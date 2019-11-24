@@ -13,6 +13,17 @@ export interface VpnConnectionRouteAttributes {
 }
 
 export class VpnConnectionRoute extends Resource<VpnConnectionRouteArguments, VpnConnectionRouteAttributes> {
-  kind = 'aws_vpn_connection_route'
-  _outputAttrNames = ['destination_cidr_block', 'id', 'vpn_connection_id'] as const
+  _kind = 'aws_vpn_connection_route'
+
+  get destination_cidr_block() {
+    return this._attr('destination_cidr_block')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpn_connection_id() {
+    return this._attr('vpn_connection_id')
+  }
 }

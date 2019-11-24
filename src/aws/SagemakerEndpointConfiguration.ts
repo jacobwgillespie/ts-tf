@@ -19,6 +19,25 @@ export class SagemakerEndpointConfiguration extends Resource<
   SagemakerEndpointConfigurationArguments,
   SagemakerEndpointConfigurationAttributes
 > {
-  kind = 'aws_sagemaker_endpoint_configuration'
-  _outputAttrNames = ['arn', 'id', 'kms_key_arn', 'name', 'tags'] as const
+  _kind = 'aws_sagemaker_endpoint_configuration'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_arn() {
+    return this._attr('kms_key_arn')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -9,5 +9,5 @@ export class Module<Arguments = Record<string, any>, Attributes = Record<string,
   ModuleArguments & Arguments,
   Attributes
 > {
-  kind = 'module'
+  _kind = 'module'
 }

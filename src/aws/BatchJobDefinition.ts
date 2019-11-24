@@ -19,6 +19,33 @@ export interface BatchJobDefinitionAttributes {
 }
 
 export class BatchJobDefinition extends Resource<BatchJobDefinitionArguments, BatchJobDefinitionAttributes> {
-  kind = 'aws_batch_job_definition'
-  _outputAttrNames = ['arn', 'container_properties', 'id', 'name', 'parameters', 'revision', 'type'] as const
+  _kind = 'aws_batch_job_definition'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get container_properties() {
+    return this._attr('container_properties')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get parameters() {
+    return this._attr('parameters')
+  }
+
+  get revision() {
+    return this._attr('revision')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

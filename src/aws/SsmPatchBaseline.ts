@@ -23,15 +23,37 @@ export interface SsmPatchBaselineAttributes {
 }
 
 export class SsmPatchBaseline extends Resource<SsmPatchBaselineArguments, SsmPatchBaselineAttributes> {
-  kind = 'aws_ssm_patch_baseline'
-  _outputAttrNames = [
-    'approved_patches',
-    'approved_patches_compliance_level',
-    'description',
-    'id',
-    'name',
-    'operating_system',
-    'rejected_patches',
-    'tags',
-  ] as const
+  _kind = 'aws_ssm_patch_baseline'
+
+  get approved_patches() {
+    return this._attr('approved_patches')
+  }
+
+  get approved_patches_compliance_level() {
+    return this._attr('approved_patches_compliance_level')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get operating_system() {
+    return this._attr('operating_system')
+  }
+
+  get rejected_patches() {
+    return this._attr('rejected_patches')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

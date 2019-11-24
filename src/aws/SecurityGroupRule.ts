@@ -33,19 +33,53 @@ export interface SecurityGroupRuleAttributes {
 }
 
 export class SecurityGroupRule extends Resource<SecurityGroupRuleArguments, SecurityGroupRuleAttributes> {
-  kind = 'aws_security_group_rule'
-  _outputAttrNames = [
-    'cidr_blocks',
-    'description',
-    'from_port',
-    'id',
-    'ipv6_cidr_blocks',
-    'prefix_list_ids',
-    'protocol',
-    'security_group_id',
-    'self',
-    'source_security_group_id',
-    'to_port',
-    'type',
-  ] as const
+  _kind = 'aws_security_group_rule'
+
+  get cidr_blocks() {
+    return this._attr('cidr_blocks')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get from_port() {
+    return this._attr('from_port')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ipv6_cidr_blocks() {
+    return this._attr('ipv6_cidr_blocks')
+  }
+
+  get prefix_list_ids() {
+    return this._attr('prefix_list_ids')
+  }
+
+  get protocol() {
+    return this._attr('protocol')
+  }
+
+  get security_group_id() {
+    return this._attr('security_group_id')
+  }
+
+  get self() {
+    return this._attr('self')
+  }
+
+  get source_security_group_id() {
+    return this._attr('source_security_group_id')
+  }
+
+  get to_port() {
+    return this._attr('to_port')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

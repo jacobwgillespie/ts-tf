@@ -49,32 +49,105 @@ export interface VpnConnectionAttributes {
 }
 
 export class VpnConnection extends Resource<VpnConnectionArguments, VpnConnectionAttributes> {
-  kind = 'aws_vpn_connection'
-  _outputAttrNames = [
-    'customer_gateway_configuration',
-    'customer_gateway_id',
-    'id',
-    'routes',
-    'static_routes_only',
-    'tags',
-    'transit_gateway_attachment_id',
-    'transit_gateway_id',
-    'tunnel1_address',
-    'tunnel1_bgp_asn',
-    'tunnel1_bgp_holdtime',
-    'tunnel1_cgw_inside_address',
-    'tunnel1_inside_cidr',
-    'tunnel1_preshared_key',
-    'tunnel1_vgw_inside_address',
-    'tunnel2_address',
-    'tunnel2_bgp_asn',
-    'tunnel2_bgp_holdtime',
-    'tunnel2_cgw_inside_address',
-    'tunnel2_inside_cidr',
-    'tunnel2_preshared_key',
-    'tunnel2_vgw_inside_address',
-    'type',
-    'vgw_telemetry',
-    'vpn_gateway_id',
-  ] as const
+  _kind = 'aws_vpn_connection'
+
+  get customer_gateway_configuration() {
+    return this._attr('customer_gateway_configuration')
+  }
+
+  get customer_gateway_id() {
+    return this._attr('customer_gateway_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get routes() {
+    return this._attr('routes')
+  }
+
+  get static_routes_only() {
+    return this._attr('static_routes_only')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get transit_gateway_attachment_id() {
+    return this._attr('transit_gateway_attachment_id')
+  }
+
+  get transit_gateway_id() {
+    return this._attr('transit_gateway_id')
+  }
+
+  get tunnel1_address() {
+    return this._attr('tunnel1_address')
+  }
+
+  get tunnel1_bgp_asn() {
+    return this._attr('tunnel1_bgp_asn')
+  }
+
+  get tunnel1_bgp_holdtime() {
+    return this._attr('tunnel1_bgp_holdtime')
+  }
+
+  get tunnel1_cgw_inside_address() {
+    return this._attr('tunnel1_cgw_inside_address')
+  }
+
+  get tunnel1_inside_cidr() {
+    return this._attr('tunnel1_inside_cidr')
+  }
+
+  get tunnel1_preshared_key() {
+    return this._attr('tunnel1_preshared_key')
+  }
+
+  get tunnel1_vgw_inside_address() {
+    return this._attr('tunnel1_vgw_inside_address')
+  }
+
+  get tunnel2_address() {
+    return this._attr('tunnel2_address')
+  }
+
+  get tunnel2_bgp_asn() {
+    return this._attr('tunnel2_bgp_asn')
+  }
+
+  get tunnel2_bgp_holdtime() {
+    return this._attr('tunnel2_bgp_holdtime')
+  }
+
+  get tunnel2_cgw_inside_address() {
+    return this._attr('tunnel2_cgw_inside_address')
+  }
+
+  get tunnel2_inside_cidr() {
+    return this._attr('tunnel2_inside_cidr')
+  }
+
+  get tunnel2_preshared_key() {
+    return this._attr('tunnel2_preshared_key')
+  }
+
+  get tunnel2_vgw_inside_address() {
+    return this._attr('tunnel2_vgw_inside_address')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
+
+  get vgw_telemetry() {
+    return this._attr('vgw_telemetry')
+  }
+
+  get vpn_gateway_id() {
+    return this._attr('vpn_gateway_id')
+  }
 }

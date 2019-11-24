@@ -15,6 +15,17 @@ export class SesDomainIdentityVerification extends Resource<
   SesDomainIdentityVerificationArguments,
   SesDomainIdentityVerificationAttributes
 > {
-  kind = 'aws_ses_domain_identity_verification'
-  _outputAttrNames = ['arn', 'domain', 'id'] as const
+  _kind = 'aws_ses_domain_identity_verification'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

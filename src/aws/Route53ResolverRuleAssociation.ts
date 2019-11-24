@@ -18,6 +18,21 @@ export class Route53ResolverRuleAssociation extends Resource<
   Route53ResolverRuleAssociationArguments,
   Route53ResolverRuleAssociationAttributes
 > {
-  kind = 'aws_route53_resolver_rule_association'
-  _outputAttrNames = ['id', 'name', 'resolver_rule_id', 'vpc_id'] as const
+  _kind = 'aws_route53_resolver_rule_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get resolver_rule_id() {
+    return this._attr('resolver_rule_id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

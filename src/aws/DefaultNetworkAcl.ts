@@ -17,6 +17,29 @@ export interface DefaultNetworkAclAttributes {
 }
 
 export class DefaultNetworkAcl extends Resource<DefaultNetworkAclArguments, DefaultNetworkAclAttributes> {
-  kind = 'aws_default_network_acl'
-  _outputAttrNames = ['default_network_acl_id', 'id', 'owner_id', 'subnet_ids', 'tags', 'vpc_id'] as const
+  _kind = 'aws_default_network_acl'
+
+  get default_network_acl_id() {
+    return this._attr('default_network_acl_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

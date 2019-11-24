@@ -21,6 +21,33 @@ export interface CloudwatchEventTargetAttributes {
 }
 
 export class CloudwatchEventTarget extends Resource<CloudwatchEventTargetArguments, CloudwatchEventTargetAttributes> {
-  kind = 'aws_cloudwatch_event_target'
-  _outputAttrNames = ['arn', 'id', 'input', 'input_path', 'role_arn', 'rule', 'target_id'] as const
+  _kind = 'aws_cloudwatch_event_target'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get input() {
+    return this._attr('input')
+  }
+
+  get input_path() {
+    return this._attr('input_path')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get rule() {
+    return this._attr('rule')
+  }
+
+  get target_id() {
+    return this._attr('target_id')
+  }
 }

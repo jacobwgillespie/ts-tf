@@ -18,6 +18,29 @@ export interface DatasyncAgentAttributes {
 }
 
 export class DatasyncAgent extends Resource<DatasyncAgentArguments, DatasyncAgentAttributes> {
-  kind = 'aws_datasync_agent'
-  _outputAttrNames = ['activation_key', 'arn', 'id', 'ip_address', 'name', 'tags'] as const
+  _kind = 'aws_datasync_agent'
+
+  get activation_key() {
+    return this._attr('activation_key')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ip_address() {
+    return this._attr('ip_address')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

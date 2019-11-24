@@ -12,6 +12,17 @@ export interface DevicefarmProjectAttributes {
 }
 
 export class DevicefarmProject extends Resource<DevicefarmProjectArguments, DevicefarmProjectAttributes> {
-  kind = 'aws_devicefarm_project'
-  _outputAttrNames = ['arn', 'id', 'name'] as const
+  _kind = 'aws_devicefarm_project'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

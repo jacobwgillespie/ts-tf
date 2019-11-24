@@ -17,6 +17,29 @@ export interface MediaPackageChannelAttributes {
 }
 
 export class MediaPackageChannel extends Resource<MediaPackageChannelArguments, MediaPackageChannelAttributes> {
-  kind = 'aws_media_package_channel'
-  _outputAttrNames = ['arn', 'channel_id', 'description', 'hls_ingest', 'id', 'tags'] as const
+  _kind = 'aws_media_package_channel'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get channel_id() {
+    return this._attr('channel_id')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get hls_ingest() {
+    return this._attr('hls_ingest')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

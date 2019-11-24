@@ -42,26 +42,81 @@ export interface LaunchTemplateAttributes {
 }
 
 export class LaunchTemplate extends Resource<LaunchTemplateArguments, LaunchTemplateAttributes> {
-  kind = 'aws_launch_template'
-  _outputAttrNames = [
-    'arn',
-    'default_version',
-    'description',
-    'disable_api_termination',
-    'ebs_optimized',
-    'id',
-    'image_id',
-    'instance_initiated_shutdown_behavior',
-    'instance_type',
-    'kernel_id',
-    'key_name',
-    'latest_version',
-    'name',
-    'name_prefix',
-    'ram_disk_id',
-    'security_group_names',
-    'tags',
-    'user_data',
-    'vpc_security_group_ids',
-  ] as const
+  _kind = 'aws_launch_template'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get default_version() {
+    return this._attr('default_version')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get disable_api_termination() {
+    return this._attr('disable_api_termination')
+  }
+
+  get ebs_optimized() {
+    return this._attr('ebs_optimized')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get image_id() {
+    return this._attr('image_id')
+  }
+
+  get instance_initiated_shutdown_behavior() {
+    return this._attr('instance_initiated_shutdown_behavior')
+  }
+
+  get instance_type() {
+    return this._attr('instance_type')
+  }
+
+  get kernel_id() {
+    return this._attr('kernel_id')
+  }
+
+  get key_name() {
+    return this._attr('key_name')
+  }
+
+  get latest_version() {
+    return this._attr('latest_version')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get ram_disk_id() {
+    return this._attr('ram_disk_id')
+  }
+
+  get security_group_names() {
+    return this._attr('security_group_names')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get user_data() {
+    return this._attr('user_data')
+  }
+
+  get vpc_security_group_ids() {
+    return this._attr('vpc_security_group_ids')
+  }
 }

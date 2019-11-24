@@ -22,13 +22,29 @@ export class S3AccountPublicAccessBlock extends Resource<
   S3AccountPublicAccessBlockArguments,
   S3AccountPublicAccessBlockAttributes
 > {
-  kind = 'aws_s3_account_public_access_block'
-  _outputAttrNames = [
-    'account_id',
-    'block_public_acls',
-    'block_public_policy',
-    'id',
-    'ignore_public_acls',
-    'restrict_public_buckets',
-  ] as const
+  _kind = 'aws_s3_account_public_access_block'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get block_public_acls() {
+    return this._attr('block_public_acls')
+  }
+
+  get block_public_policy() {
+    return this._attr('block_public_policy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ignore_public_acls() {
+    return this._attr('ignore_public_acls')
+  }
+
+  get restrict_public_buckets() {
+    return this._attr('restrict_public_buckets')
+  }
 }

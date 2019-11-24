@@ -32,22 +32,65 @@ export interface ApiGatewayDomainNameAttributes {
 }
 
 export class ApiGatewayDomainName extends Resource<ApiGatewayDomainNameArguments, ApiGatewayDomainNameAttributes> {
-  kind = 'aws_api_gateway_domain_name'
-  _outputAttrNames = [
-    'certificate_arn',
-    'certificate_body',
-    'certificate_chain',
-    'certificate_name',
-    'certificate_private_key',
-    'certificate_upload_date',
-    'cloudfront_domain_name',
-    'cloudfront_zone_id',
-    'domain_name',
-    'id',
-    'regional_certificate_arn',
-    'regional_certificate_name',
-    'regional_domain_name',
-    'regional_zone_id',
-    'security_policy',
-  ] as const
+  _kind = 'aws_api_gateway_domain_name'
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get certificate_body() {
+    return this._attr('certificate_body')
+  }
+
+  get certificate_chain() {
+    return this._attr('certificate_chain')
+  }
+
+  get certificate_name() {
+    return this._attr('certificate_name')
+  }
+
+  get certificate_private_key() {
+    return this._attr('certificate_private_key')
+  }
+
+  get certificate_upload_date() {
+    return this._attr('certificate_upload_date')
+  }
+
+  get cloudfront_domain_name() {
+    return this._attr('cloudfront_domain_name')
+  }
+
+  get cloudfront_zone_id() {
+    return this._attr('cloudfront_zone_id')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get regional_certificate_arn() {
+    return this._attr('regional_certificate_arn')
+  }
+
+  get regional_certificate_name() {
+    return this._attr('regional_certificate_name')
+  }
+
+  get regional_domain_name() {
+    return this._attr('regional_domain_name')
+  }
+
+  get regional_zone_id() {
+    return this._attr('regional_zone_id')
+  }
+
+  get security_policy() {
+    return this._attr('security_policy')
+  }
 }

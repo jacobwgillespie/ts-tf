@@ -14,6 +14,21 @@ export interface IotThingTypeAttributes {
 }
 
 export class IotThingType extends Resource<IotThingTypeArguments, IotThingTypeAttributes> {
-  kind = 'aws_iot_thing_type'
-  _outputAttrNames = ['arn', 'deprecated', 'id', 'name'] as const
+  _kind = 'aws_iot_thing_type'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get deprecated() {
+    return this._attr('deprecated')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

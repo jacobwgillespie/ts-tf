@@ -18,6 +18,21 @@ export class ElasticacheSecurityGroup extends Resource<
   ElasticacheSecurityGroupArguments,
   ElasticacheSecurityGroupAttributes
 > {
-  kind = 'aws_elasticache_security_group'
-  _outputAttrNames = ['description', 'id', 'name', 'security_group_names'] as const
+  _kind = 'aws_elasticache_security_group'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get security_group_names() {
+    return this._attr('security_group_names')
+  }
 }

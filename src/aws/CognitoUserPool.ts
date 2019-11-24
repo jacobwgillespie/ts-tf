@@ -33,22 +33,65 @@ export interface CognitoUserPoolAttributes {
 }
 
 export class CognitoUserPool extends Resource<CognitoUserPoolArguments, CognitoUserPoolAttributes> {
-  kind = 'aws_cognito_user_pool'
-  _outputAttrNames = [
-    'alias_attributes',
-    'arn',
-    'auto_verified_attributes',
-    'creation_date',
-    'email_verification_message',
-    'email_verification_subject',
-    'endpoint',
-    'id',
-    'last_modified_date',
-    'mfa_configuration',
-    'name',
-    'sms_authentication_message',
-    'sms_verification_message',
-    'tags',
-    'username_attributes',
-  ] as const
+  _kind = 'aws_cognito_user_pool'
+
+  get alias_attributes() {
+    return this._attr('alias_attributes')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get auto_verified_attributes() {
+    return this._attr('auto_verified_attributes')
+  }
+
+  get creation_date() {
+    return this._attr('creation_date')
+  }
+
+  get email_verification_message() {
+    return this._attr('email_verification_message')
+  }
+
+  get email_verification_subject() {
+    return this._attr('email_verification_subject')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get last_modified_date() {
+    return this._attr('last_modified_date')
+  }
+
+  get mfa_configuration() {
+    return this._attr('mfa_configuration')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get sms_authentication_message() {
+    return this._attr('sms_authentication_message')
+  }
+
+  get sms_verification_message() {
+    return this._attr('sms_verification_message')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get username_attributes() {
+    return this._attr('username_attributes')
+  }
 }

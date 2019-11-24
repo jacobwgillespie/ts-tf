@@ -25,16 +25,41 @@ export interface FlowLogAttributes {
 }
 
 export class FlowLog extends Resource<FlowLogArguments, FlowLogAttributes> {
-  kind = 'aws_flow_log'
-  _outputAttrNames = [
-    'eni_id',
-    'iam_role_arn',
-    'id',
-    'log_destination',
-    'log_destination_type',
-    'log_group_name',
-    'subnet_id',
-    'traffic_type',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_flow_log'
+
+  get eni_id() {
+    return this._attr('eni_id')
+  }
+
+  get iam_role_arn() {
+    return this._attr('iam_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get log_destination() {
+    return this._attr('log_destination')
+  }
+
+  get log_destination_type() {
+    return this._attr('log_destination_type')
+  }
+
+  get log_group_name() {
+    return this._attr('log_group_name')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get traffic_type() {
+    return this._attr('traffic_type')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

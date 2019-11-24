@@ -16,6 +16,25 @@ export interface DmsCertificateAttributes {
 }
 
 export class DmsCertificate extends Resource<DmsCertificateArguments, DmsCertificateAttributes> {
-  kind = 'aws_dms_certificate'
-  _outputAttrNames = ['certificate_arn', 'certificate_id', 'certificate_pem', 'certificate_wallet', 'id'] as const
+  _kind = 'aws_dms_certificate'
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get certificate_id() {
+    return this._attr('certificate_id')
+  }
+
+  get certificate_pem() {
+    return this._attr('certificate_pem')
+  }
+
+  get certificate_wallet() {
+    return this._attr('certificate_wallet')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

@@ -12,6 +12,17 @@ export interface WafIpsetAttributes {
 }
 
 export class WafIpset extends Resource<WafIpsetArguments, WafIpsetAttributes> {
-  kind = 'aws_waf_ipset'
-  _outputAttrNames = ['arn', 'id', 'name'] as const
+  _kind = 'aws_waf_ipset'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

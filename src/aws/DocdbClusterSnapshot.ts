@@ -24,21 +24,61 @@ export interface DocdbClusterSnapshotAttributes {
 }
 
 export class DocdbClusterSnapshot extends Resource<DocdbClusterSnapshotArguments, DocdbClusterSnapshotAttributes> {
-  kind = 'aws_docdb_cluster_snapshot'
-  _outputAttrNames = [
-    'availability_zones',
-    'db_cluster_identifier',
-    'db_cluster_snapshot_arn',
-    'db_cluster_snapshot_identifier',
-    'engine',
-    'engine_version',
-    'id',
-    'kms_key_id',
-    'port',
-    'snapshot_type',
-    'source_db_cluster_snapshot_arn',
-    'status',
-    'storage_encrypted',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_docdb_cluster_snapshot'
+
+  get availability_zones() {
+    return this._attr('availability_zones')
+  }
+
+  get db_cluster_identifier() {
+    return this._attr('db_cluster_identifier')
+  }
+
+  get db_cluster_snapshot_arn() {
+    return this._attr('db_cluster_snapshot_arn')
+  }
+
+  get db_cluster_snapshot_identifier() {
+    return this._attr('db_cluster_snapshot_identifier')
+  }
+
+  get engine() {
+    return this._attr('engine')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get snapshot_type() {
+    return this._attr('snapshot_type')
+  }
+
+  get source_db_cluster_snapshot_arn() {
+    return this._attr('source_db_cluster_snapshot_arn')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get storage_encrypted() {
+    return this._attr('storage_encrypted')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

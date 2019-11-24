@@ -18,6 +18,29 @@ export interface QuicksightGroupAttributes {
 }
 
 export class QuicksightGroup extends Resource<QuicksightGroupArguments, QuicksightGroupAttributes> {
-  kind = 'aws_quicksight_group'
-  _outputAttrNames = ['arn', 'aws_account_id', 'description', 'group_name', 'id', 'namespace'] as const
+  _kind = 'aws_quicksight_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_account_id() {
+    return this._attr('aws_account_id')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get group_name() {
+    return this._attr('group_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get namespace() {
+    return this._attr('namespace')
+  }
 }

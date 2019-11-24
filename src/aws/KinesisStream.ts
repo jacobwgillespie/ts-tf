@@ -27,17 +27,45 @@ export interface KinesisStreamAttributes {
 }
 
 export class KinesisStream extends Resource<KinesisStreamArguments, KinesisStreamAttributes> {
-  kind = 'aws_kinesis_stream'
-  _outputAttrNames = [
-    'arn',
-    'encryption_type',
-    'enforce_consumer_deletion',
-    'id',
-    'kms_key_id',
-    'name',
-    'retention_period',
-    'shard_count',
-    'shard_level_metrics',
-    'tags',
-  ] as const
+  _kind = 'aws_kinesis_stream'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get encryption_type() {
+    return this._attr('encryption_type')
+  }
+
+  get enforce_consumer_deletion() {
+    return this._attr('enforce_consumer_deletion')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get retention_period() {
+    return this._attr('retention_period')
+  }
+
+  get shard_count() {
+    return this._attr('shard_count')
+  }
+
+  get shard_level_metrics() {
+    return this._attr('shard_level_metrics')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

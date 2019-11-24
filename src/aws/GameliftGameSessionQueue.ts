@@ -19,6 +19,25 @@ export class GameliftGameSessionQueue extends Resource<
   GameliftGameSessionQueueArguments,
   GameliftGameSessionQueueAttributes
 > {
-  kind = 'aws_gamelift_game_session_queue'
-  _outputAttrNames = ['arn', 'destinations', 'id', 'name', 'timeout_in_seconds'] as const
+  _kind = 'aws_gamelift_game_session_queue'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get destinations() {
+    return this._attr('destinations')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get timeout_in_seconds() {
+    return this._attr('timeout_in_seconds')
+  }
 }

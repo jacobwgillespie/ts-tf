@@ -37,22 +37,65 @@ export interface EcsServiceAttributes {
 }
 
 export class EcsService extends Resource<EcsServiceArguments, EcsServiceAttributes> {
-  kind = 'aws_ecs_service'
-  _outputAttrNames = [
-    'cluster',
-    'deployment_maximum_percent',
-    'deployment_minimum_healthy_percent',
-    'desired_count',
-    'enable_ecs_managed_tags',
-    'health_check_grace_period_seconds',
-    'iam_role',
-    'id',
-    'launch_type',
-    'name',
-    'platform_version',
-    'propagate_tags',
-    'scheduling_strategy',
-    'tags',
-    'task_definition',
-  ] as const
+  _kind = 'aws_ecs_service'
+
+  get cluster() {
+    return this._attr('cluster')
+  }
+
+  get deployment_maximum_percent() {
+    return this._attr('deployment_maximum_percent')
+  }
+
+  get deployment_minimum_healthy_percent() {
+    return this._attr('deployment_minimum_healthy_percent')
+  }
+
+  get desired_count() {
+    return this._attr('desired_count')
+  }
+
+  get enable_ecs_managed_tags() {
+    return this._attr('enable_ecs_managed_tags')
+  }
+
+  get health_check_grace_period_seconds() {
+    return this._attr('health_check_grace_period_seconds')
+  }
+
+  get iam_role() {
+    return this._attr('iam_role')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get launch_type() {
+    return this._attr('launch_type')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get platform_version() {
+    return this._attr('platform_version')
+  }
+
+  get propagate_tags() {
+    return this._attr('propagate_tags')
+  }
+
+  get scheduling_strategy() {
+    return this._attr('scheduling_strategy')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get task_definition() {
+    return this._attr('task_definition')
+  }
 }

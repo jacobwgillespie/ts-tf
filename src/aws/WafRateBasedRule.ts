@@ -17,6 +17,25 @@ export interface WafRateBasedRuleAttributes {
 }
 
 export class WafRateBasedRule extends Resource<WafRateBasedRuleArguments, WafRateBasedRuleAttributes> {
-  kind = 'aws_waf_rate_based_rule'
-  _outputAttrNames = ['id', 'metric_name', 'name', 'rate_key', 'rate_limit'] as const
+  _kind = 'aws_waf_rate_based_rule'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_name() {
+    return this._attr('metric_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rate_key() {
+    return this._attr('rate_key')
+  }
+
+  get rate_limit() {
+    return this._attr('rate_limit')
+  }
 }

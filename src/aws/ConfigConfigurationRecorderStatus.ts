@@ -16,6 +16,17 @@ export class ConfigConfigurationRecorderStatus extends Resource<
   ConfigConfigurationRecorderStatusArguments,
   ConfigConfigurationRecorderStatusAttributes
 > {
-  kind = 'aws_config_configuration_recorder_status'
-  _outputAttrNames = ['id', 'is_enabled', 'name'] as const
+  _kind = 'aws_config_configuration_recorder_status'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get is_enabled() {
+    return this._attr('is_enabled')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

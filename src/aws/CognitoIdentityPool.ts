@@ -24,16 +24,41 @@ export interface CognitoIdentityPoolAttributes {
 }
 
 export class CognitoIdentityPool extends Resource<CognitoIdentityPoolArguments, CognitoIdentityPoolAttributes> {
-  kind = 'aws_cognito_identity_pool'
-  _outputAttrNames = [
-    'allow_unauthenticated_identities',
-    'arn',
-    'developer_provider_name',
-    'id',
-    'identity_pool_name',
-    'openid_connect_provider_arns',
-    'saml_provider_arns',
-    'supported_login_providers',
-    'tags',
-  ] as const
+  _kind = 'aws_cognito_identity_pool'
+
+  get allow_unauthenticated_identities() {
+    return this._attr('allow_unauthenticated_identities')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get developer_provider_name() {
+    return this._attr('developer_provider_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get identity_pool_name() {
+    return this._attr('identity_pool_name')
+  }
+
+  get openid_connect_provider_arns() {
+    return this._attr('openid_connect_provider_arns')
+  }
+
+  get saml_provider_arns() {
+    return this._attr('saml_provider_arns')
+  }
+
+  get supported_login_providers() {
+    return this._attr('supported_login_providers')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -12,6 +12,17 @@ export interface Route53DelegationSetAttributes {
 }
 
 export class Route53DelegationSet extends Resource<Route53DelegationSetArguments, Route53DelegationSetAttributes> {
-  kind = 'aws_route53_delegation_set'
-  _outputAttrNames = ['id', 'name_servers', 'reference_name'] as const
+  _kind = 'aws_route53_delegation_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name_servers() {
+    return this._attr('name_servers')
+  }
+
+  get reference_name() {
+    return this._attr('reference_name')
+  }
 }

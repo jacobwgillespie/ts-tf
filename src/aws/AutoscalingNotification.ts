@@ -18,6 +18,21 @@ export class AutoscalingNotification extends Resource<
   AutoscalingNotificationArguments,
   AutoscalingNotificationAttributes
 > {
-  kind = 'aws_autoscaling_notification'
-  _outputAttrNames = ['group_names', 'id', 'notifications', 'topic_arn'] as const
+  _kind = 'aws_autoscaling_notification'
+
+  get group_names() {
+    return this._attr('group_names')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get notifications() {
+    return this._attr('notifications')
+  }
+
+  get topic_arn() {
+    return this._attr('topic_arn')
+  }
 }

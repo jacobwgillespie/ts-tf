@@ -22,15 +22,37 @@ export interface GuarddutyMemberAttributes {
 }
 
 export class GuarddutyMember extends Resource<GuarddutyMemberArguments, GuarddutyMemberAttributes> {
-  kind = 'aws_guardduty_member'
-  _outputAttrNames = [
-    'account_id',
-    'detector_id',
-    'disable_email_notification',
-    'email',
-    'id',
-    'invitation_message',
-    'invite',
-    'relationship_status',
-  ] as const
+  _kind = 'aws_guardduty_member'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get detector_id() {
+    return this._attr('detector_id')
+  }
+
+  get disable_email_notification() {
+    return this._attr('disable_email_notification')
+  }
+
+  get email() {
+    return this._attr('email')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get invitation_message() {
+    return this._attr('invitation_message')
+  }
+
+  get invite() {
+    return this._attr('invite')
+  }
+
+  get relationship_status() {
+    return this._attr('relationship_status')
+  }
 }

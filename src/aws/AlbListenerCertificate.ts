@@ -16,6 +16,17 @@ export class AlbListenerCertificate extends Resource<
   AlbListenerCertificateArguments,
   AlbListenerCertificateAttributes
 > {
-  kind = 'aws_alb_listener_certificate'
-  _outputAttrNames = ['certificate_arn', 'id', 'listener_arn'] as const
+  _kind = 'aws_alb_listener_certificate'
+
+  get certificate_arn() {
+    return this._attr('certificate_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get listener_arn() {
+    return this._attr('listener_arn')
+  }
 }

@@ -21,14 +21,33 @@ export interface GlueConnectionAttributes {
 }
 
 export class GlueConnection extends Resource<GlueConnectionArguments, GlueConnectionAttributes> {
-  kind = 'aws_glue_connection'
-  _outputAttrNames = [
-    'catalog_id',
-    'connection_properties',
-    'connection_type',
-    'description',
-    'id',
-    'match_criteria',
-    'name',
-  ] as const
+  _kind = 'aws_glue_connection'
+
+  get catalog_id() {
+    return this._attr('catalog_id')
+  }
+
+  get connection_properties() {
+    return this._attr('connection_properties')
+  }
+
+  get connection_type() {
+    return this._attr('connection_type')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get match_criteria() {
+    return this._attr('match_criteria')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

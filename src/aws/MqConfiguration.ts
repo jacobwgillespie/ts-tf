@@ -23,16 +23,41 @@ export interface MqConfigurationAttributes {
 }
 
 export class MqConfiguration extends Resource<MqConfigurationArguments, MqConfigurationAttributes> {
-  kind = 'aws_mq_configuration'
-  _outputAttrNames = [
-    'arn',
-    'data',
-    'description',
-    'engine_type',
-    'engine_version',
-    'id',
-    'latest_revision',
-    'name',
-    'tags',
-  ] as const
+  _kind = 'aws_mq_configuration'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get data() {
+    return this._attr('data')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get engine_type() {
+    return this._attr('engine_type')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get latest_revision() {
+    return this._attr('latest_revision')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

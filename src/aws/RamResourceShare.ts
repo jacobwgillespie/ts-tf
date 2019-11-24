@@ -16,6 +16,25 @@ export interface RamResourceShareAttributes {
 }
 
 export class RamResourceShare extends Resource<RamResourceShareArguments, RamResourceShareAttributes> {
-  kind = 'aws_ram_resource_share'
-  _outputAttrNames = ['allow_external_principals', 'arn', 'id', 'name', 'tags'] as const
+  _kind = 'aws_ram_resource_share'
+
+  get allow_external_principals() {
+    return this._attr('allow_external_principals')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

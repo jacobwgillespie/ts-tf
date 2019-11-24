@@ -16,6 +16,17 @@ export class RamPrincipalAssociation extends Resource<
   RamPrincipalAssociationArguments,
   RamPrincipalAssociationAttributes
 > {
-  kind = 'aws_ram_principal_association'
-  _outputAttrNames = ['id', 'principal', 'resource_share_arn'] as const
+  _kind = 'aws_ram_principal_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get principal() {
+    return this._attr('principal')
+  }
+
+  get resource_share_arn() {
+    return this._attr('resource_share_arn')
+  }
 }

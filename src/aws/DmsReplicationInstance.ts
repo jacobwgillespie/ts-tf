@@ -43,25 +43,77 @@ export class DmsReplicationInstance extends Resource<
   DmsReplicationInstanceArguments,
   DmsReplicationInstanceAttributes
 > {
-  kind = 'aws_dms_replication_instance'
-  _outputAttrNames = [
-    'allocated_storage',
-    'apply_immediately',
-    'auto_minor_version_upgrade',
-    'availability_zone',
-    'engine_version',
-    'id',
-    'kms_key_arn',
-    'multi_az',
-    'preferred_maintenance_window',
-    'publicly_accessible',
-    'replication_instance_arn',
-    'replication_instance_class',
-    'replication_instance_id',
-    'replication_instance_private_ips',
-    'replication_instance_public_ips',
-    'replication_subnet_group_id',
-    'tags',
-    'vpc_security_group_ids',
-  ] as const
+  _kind = 'aws_dms_replication_instance'
+
+  get allocated_storage() {
+    return this._attr('allocated_storage')
+  }
+
+  get apply_immediately() {
+    return this._attr('apply_immediately')
+  }
+
+  get auto_minor_version_upgrade() {
+    return this._attr('auto_minor_version_upgrade')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_arn() {
+    return this._attr('kms_key_arn')
+  }
+
+  get multi_az() {
+    return this._attr('multi_az')
+  }
+
+  get preferred_maintenance_window() {
+    return this._attr('preferred_maintenance_window')
+  }
+
+  get publicly_accessible() {
+    return this._attr('publicly_accessible')
+  }
+
+  get replication_instance_arn() {
+    return this._attr('replication_instance_arn')
+  }
+
+  get replication_instance_class() {
+    return this._attr('replication_instance_class')
+  }
+
+  get replication_instance_id() {
+    return this._attr('replication_instance_id')
+  }
+
+  get replication_instance_private_ips() {
+    return this._attr('replication_instance_private_ips')
+  }
+
+  get replication_instance_public_ips() {
+    return this._attr('replication_instance_public_ips')
+  }
+
+  get replication_subnet_group_id() {
+    return this._attr('replication_subnet_group_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_security_group_ids() {
+    return this._attr('vpc_security_group_ids')
+  }
 }

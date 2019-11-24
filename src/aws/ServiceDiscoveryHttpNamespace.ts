@@ -17,6 +17,21 @@ export class ServiceDiscoveryHttpNamespace extends Resource<
   ServiceDiscoveryHttpNamespaceArguments,
   ServiceDiscoveryHttpNamespaceAttributes
 > {
-  kind = 'aws_service_discovery_http_namespace'
-  _outputAttrNames = ['arn', 'description', 'id', 'name'] as const
+  _kind = 'aws_service_discovery_http_namespace'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

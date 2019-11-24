@@ -13,6 +13,17 @@ export interface StoragegatewayCacheAttributes {
 }
 
 export class StoragegatewayCache extends Resource<StoragegatewayCacheArguments, StoragegatewayCacheAttributes> {
-  kind = 'aws_storagegateway_cache'
-  _outputAttrNames = ['disk_id', 'gateway_arn', 'id'] as const
+  _kind = 'aws_storagegateway_cache'
+
+  get disk_id() {
+    return this._attr('disk_id')
+  }
+
+  get gateway_arn() {
+    return this._attr('gateway_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

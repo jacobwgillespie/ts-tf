@@ -18,6 +18,29 @@ export interface OrganizationsPolicyAttributes {
 }
 
 export class OrganizationsPolicy extends Resource<OrganizationsPolicyArguments, OrganizationsPolicyAttributes> {
-  kind = 'aws_organizations_policy'
-  _outputAttrNames = ['arn', 'content', 'description', 'id', 'name', 'type'] as const
+  _kind = 'aws_organizations_policy'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get content() {
+    return this._attr('content')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

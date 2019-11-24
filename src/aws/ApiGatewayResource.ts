@@ -16,6 +16,25 @@ export interface ApiGatewayResourceAttributes {
 }
 
 export class ApiGatewayResource extends Resource<ApiGatewayResourceArguments, ApiGatewayResourceAttributes> {
-  kind = 'aws_api_gateway_resource'
-  _outputAttrNames = ['id', 'parent_id', 'path', 'path_part', 'rest_api_id'] as const
+  _kind = 'aws_api_gateway_resource'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get parent_id() {
+    return this._attr('parent_id')
+  }
+
+  get path() {
+    return this._attr('path')
+  }
+
+  get path_part() {
+    return this._attr('path_part')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
 }

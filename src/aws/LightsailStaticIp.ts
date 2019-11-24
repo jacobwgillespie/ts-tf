@@ -14,6 +14,25 @@ export interface LightsailStaticIpAttributes {
 }
 
 export class LightsailStaticIp extends Resource<LightsailStaticIpArguments, LightsailStaticIpAttributes> {
-  kind = 'aws_lightsail_static_ip'
-  _outputAttrNames = ['arn', 'id', 'ip_address', 'name', 'support_code'] as const
+  _kind = 'aws_lightsail_static_ip'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ip_address() {
+    return this._attr('ip_address')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get support_code() {
+    return this._attr('support_code')
+  }
 }

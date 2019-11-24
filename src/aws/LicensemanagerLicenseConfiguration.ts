@@ -26,15 +26,37 @@ export class LicensemanagerLicenseConfiguration extends Resource<
   LicensemanagerLicenseConfigurationArguments,
   LicensemanagerLicenseConfigurationAttributes
 > {
-  kind = 'aws_licensemanager_license_configuration'
-  _outputAttrNames = [
-    'description',
-    'id',
-    'license_count',
-    'license_count_hard_limit',
-    'license_counting_type',
-    'license_rules',
-    'name',
-    'tags',
-  ] as const
+  _kind = 'aws_licensemanager_license_configuration'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get license_count() {
+    return this._attr('license_count')
+  }
+
+  get license_count_hard_limit() {
+    return this._attr('license_count_hard_limit')
+  }
+
+  get license_counting_type() {
+    return this._attr('license_counting_type')
+  }
+
+  get license_rules() {
+    return this._attr('license_rules')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

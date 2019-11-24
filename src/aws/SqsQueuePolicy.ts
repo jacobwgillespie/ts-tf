@@ -13,6 +13,17 @@ export interface SqsQueuePolicyAttributes {
 }
 
 export class SqsQueuePolicy extends Resource<SqsQueuePolicyArguments, SqsQueuePolicyAttributes> {
-  kind = 'aws_sqs_queue_policy'
-  _outputAttrNames = ['id', 'policy', 'queue_url'] as const
+  _kind = 'aws_sqs_queue_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get queue_url() {
+    return this._attr('queue_url')
+  }
 }

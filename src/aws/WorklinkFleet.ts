@@ -23,17 +23,45 @@ export interface WorklinkFleetAttributes {
 }
 
 export class WorklinkFleet extends Resource<WorklinkFleetArguments, WorklinkFleetAttributes> {
-  kind = 'aws_worklink_fleet'
-  _outputAttrNames = [
-    'arn',
-    'audit_stream_arn',
-    'company_code',
-    'created_time',
-    'device_ca_certificate',
-    'display_name',
-    'id',
-    'last_updated_time',
-    'name',
-    'optimize_for_end_user_location',
-  ] as const
+  _kind = 'aws_worklink_fleet'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get audit_stream_arn() {
+    return this._attr('audit_stream_arn')
+  }
+
+  get company_code() {
+    return this._attr('company_code')
+  }
+
+  get created_time() {
+    return this._attr('created_time')
+  }
+
+  get device_ca_certificate() {
+    return this._attr('device_ca_certificate')
+  }
+
+  get display_name() {
+    return this._attr('display_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get last_updated_time() {
+    return this._attr('last_updated_time')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get optimize_for_end_user_location() {
+    return this._attr('optimize_for_end_user_location')
+  }
 }

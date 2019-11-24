@@ -25,17 +25,45 @@ export interface KmsKeyAttributes {
 }
 
 export class KmsKey extends Resource<KmsKeyArguments, KmsKeyAttributes> {
-  kind = 'aws_kms_key'
-  _outputAttrNames = [
-    'arn',
-    'deletion_window_in_days',
-    'description',
-    'enable_key_rotation',
-    'id',
-    'is_enabled',
-    'key_id',
-    'key_usage',
-    'policy',
-    'tags',
-  ] as const
+  _kind = 'aws_kms_key'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get deletion_window_in_days() {
+    return this._attr('deletion_window_in_days')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get enable_key_rotation() {
+    return this._attr('enable_key_rotation')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get is_enabled() {
+    return this._attr('is_enabled')
+  }
+
+  get key_id() {
+    return this._attr('key_id')
+  }
+
+  get key_usage() {
+    return this._attr('key_usage')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

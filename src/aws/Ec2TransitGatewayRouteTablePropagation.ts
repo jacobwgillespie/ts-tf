@@ -18,12 +18,25 @@ export class Ec2TransitGatewayRouteTablePropagation extends Resource<
   Ec2TransitGatewayRouteTablePropagationArguments,
   Ec2TransitGatewayRouteTablePropagationAttributes
 > {
-  kind = 'aws_ec2_transit_gateway_route_table_propagation'
-  _outputAttrNames = [
-    'id',
-    'resource_id',
-    'resource_type',
-    'transit_gateway_attachment_id',
-    'transit_gateway_route_table_id',
-  ] as const
+  _kind = 'aws_ec2_transit_gateway_route_table_propagation'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get resource_type() {
+    return this._attr('resource_type')
+  }
+
+  get transit_gateway_attachment_id() {
+    return this._attr('transit_gateway_attachment_id')
+  }
+
+  get transit_gateway_route_table_id() {
+    return this._attr('transit_gateway_route_table_id')
+  }
 }

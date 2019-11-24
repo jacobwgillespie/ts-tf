@@ -14,6 +14,13 @@ export class WafregionalGeoMatchSet extends Resource<
   WafregionalGeoMatchSetArguments,
   WafregionalGeoMatchSetAttributes
 > {
-  kind = 'aws_wafregional_geo_match_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_wafregional_geo_match_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

@@ -21,15 +21,37 @@ export interface ConfigConfigRuleAttributes {
 }
 
 export class ConfigConfigRule extends Resource<ConfigConfigRuleArguments, ConfigConfigRuleAttributes> {
-  kind = 'aws_config_config_rule'
-  _outputAttrNames = [
-    'arn',
-    'description',
-    'id',
-    'input_parameters',
-    'maximum_execution_frequency',
-    'name',
-    'rule_id',
-    'tags',
-  ] as const
+  _kind = 'aws_config_config_rule'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get input_parameters() {
+    return this._attr('input_parameters')
+  }
+
+  get maximum_execution_frequency() {
+    return this._attr('maximum_execution_frequency')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rule_id() {
+    return this._attr('rule_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

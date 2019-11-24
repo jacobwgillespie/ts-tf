@@ -17,6 +17,25 @@ export interface CustomerGatewayAttributes {
 }
 
 export class CustomerGateway extends Resource<CustomerGatewayArguments, CustomerGatewayAttributes> {
-  kind = 'aws_customer_gateway'
-  _outputAttrNames = ['bgp_asn', 'id', 'ip_address', 'tags', 'type'] as const
+  _kind = 'aws_customer_gateway'
+
+  get bgp_asn() {
+    return this._attr('bgp_asn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ip_address() {
+    return this._attr('ip_address')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

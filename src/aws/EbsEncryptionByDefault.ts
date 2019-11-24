@@ -14,6 +14,13 @@ export class EbsEncryptionByDefault extends Resource<
   EbsEncryptionByDefaultArguments,
   EbsEncryptionByDefaultAttributes
 > {
-  kind = 'aws_ebs_encryption_by_default'
-  _outputAttrNames = ['enabled', 'id'] as const
+  _kind = 'aws_ebs_encryption_by_default'
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

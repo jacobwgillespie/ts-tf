@@ -30,20 +30,57 @@ export interface IamRoleAttributes {
 }
 
 export class IamRole extends Resource<IamRoleArguments, IamRoleAttributes> {
-  kind = 'aws_iam_role'
-  _outputAttrNames = [
-    'arn',
-    'assume_role_policy',
-    'create_date',
-    'description',
-    'force_detach_policies',
-    'id',
-    'max_session_duration',
-    'name',
-    'name_prefix',
-    'path',
-    'permissions_boundary',
-    'tags',
-    'unique_id',
-  ] as const
+  _kind = 'aws_iam_role'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get assume_role_policy() {
+    return this._attr('assume_role_policy')
+  }
+
+  get create_date() {
+    return this._attr('create_date')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get force_detach_policies() {
+    return this._attr('force_detach_policies')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get max_session_duration() {
+    return this._attr('max_session_duration')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get path() {
+    return this._attr('path')
+  }
+
+  get permissions_boundary() {
+    return this._attr('permissions_boundary')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get unique_id() {
+    return this._attr('unique_id')
+  }
 }

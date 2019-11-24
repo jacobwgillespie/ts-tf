@@ -27,18 +27,49 @@ export interface StoragegatewayGatewayAttributes {
 }
 
 export class StoragegatewayGateway extends Resource<StoragegatewayGatewayArguments, StoragegatewayGatewayAttributes> {
-  kind = 'aws_storagegateway_gateway'
-  _outputAttrNames = [
-    'activation_key',
-    'arn',
-    'gateway_id',
-    'gateway_ip_address',
-    'gateway_name',
-    'gateway_timezone',
-    'gateway_type',
-    'id',
-    'medium_changer_type',
-    'smb_guest_password',
-    'tape_drive_type',
-  ] as const
+  _kind = 'aws_storagegateway_gateway'
+
+  get activation_key() {
+    return this._attr('activation_key')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get gateway_id() {
+    return this._attr('gateway_id')
+  }
+
+  get gateway_ip_address() {
+    return this._attr('gateway_ip_address')
+  }
+
+  get gateway_name() {
+    return this._attr('gateway_name')
+  }
+
+  get gateway_timezone() {
+    return this._attr('gateway_timezone')
+  }
+
+  get gateway_type() {
+    return this._attr('gateway_type')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get medium_changer_type() {
+    return this._attr('medium_changer_type')
+  }
+
+  get smb_guest_password() {
+    return this._attr('smb_guest_password')
+  }
+
+  get tape_drive_type() {
+    return this._attr('tape_drive_type')
+  }
 }

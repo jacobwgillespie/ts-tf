@@ -25,17 +25,45 @@ export interface Ec2ClientVpnEndpointAttributes {
 }
 
 export class Ec2ClientVpnEndpoint extends Resource<Ec2ClientVpnEndpointArguments, Ec2ClientVpnEndpointAttributes> {
-  kind = 'aws_ec2_client_vpn_endpoint'
-  _outputAttrNames = [
-    'client_cidr_block',
-    'description',
-    'dns_name',
-    'dns_servers',
-    'id',
-    'server_certificate_arn',
-    'split_tunnel',
-    'status',
-    'tags',
-    'transport_protocol',
-  ] as const
+  _kind = 'aws_ec2_client_vpn_endpoint'
+
+  get client_cidr_block() {
+    return this._attr('client_cidr_block')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get dns_name() {
+    return this._attr('dns_name')
+  }
+
+  get dns_servers() {
+    return this._attr('dns_servers')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get server_certificate_arn() {
+    return this._attr('server_certificate_arn')
+  }
+
+  get split_tunnel() {
+    return this._attr('split_tunnel')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get transport_protocol() {
+    return this._attr('transport_protocol')
+  }
 }

@@ -20,6 +20,33 @@ export interface DbSubnetGroupAttributes {
 }
 
 export class DbSubnetGroup extends Resource<DbSubnetGroupArguments, DbSubnetGroupAttributes> {
-  kind = 'aws_db_subnet_group'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'name_prefix', 'subnet_ids', 'tags'] as const
+  _kind = 'aws_db_subnet_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

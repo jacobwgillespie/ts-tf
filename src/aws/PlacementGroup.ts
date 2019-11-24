@@ -13,6 +13,17 @@ export interface PlacementGroupAttributes {
 }
 
 export class PlacementGroup extends Resource<PlacementGroupArguments, PlacementGroupAttributes> {
-  kind = 'aws_placement_group'
-  _outputAttrNames = ['id', 'name', 'strategy'] as const
+  _kind = 'aws_placement_group'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get strategy() {
+    return this._attr('strategy')
+  }
 }

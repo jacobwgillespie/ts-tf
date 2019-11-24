@@ -15,6 +15,25 @@ export interface IamSamlProviderAttributes {
 }
 
 export class IamSamlProvider extends Resource<IamSamlProviderArguments, IamSamlProviderAttributes> {
-  kind = 'aws_iam_saml_provider'
-  _outputAttrNames = ['arn', 'id', 'name', 'saml_metadata_document', 'valid_until'] as const
+  _kind = 'aws_iam_saml_provider'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get saml_metadata_document() {
+    return this._attr('saml_metadata_document')
+  }
+
+  get valid_until() {
+    return this._attr('valid_until')
+  }
 }

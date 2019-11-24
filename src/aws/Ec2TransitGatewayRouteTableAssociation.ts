@@ -18,12 +18,25 @@ export class Ec2TransitGatewayRouteTableAssociation extends Resource<
   Ec2TransitGatewayRouteTableAssociationArguments,
   Ec2TransitGatewayRouteTableAssociationAttributes
 > {
-  kind = 'aws_ec2_transit_gateway_route_table_association'
-  _outputAttrNames = [
-    'id',
-    'resource_id',
-    'resource_type',
-    'transit_gateway_attachment_id',
-    'transit_gateway_route_table_id',
-  ] as const
+  _kind = 'aws_ec2_transit_gateway_route_table_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get resource_type() {
+    return this._attr('resource_type')
+  }
+
+  get transit_gateway_attachment_id() {
+    return this._attr('transit_gateway_attachment_id')
+  }
+
+  get transit_gateway_route_table_id() {
+    return this._attr('transit_gateway_route_table_id')
+  }
 }

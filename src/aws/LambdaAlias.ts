@@ -19,6 +19,33 @@ export interface LambdaAliasAttributes {
 }
 
 export class LambdaAlias extends Resource<LambdaAliasArguments, LambdaAliasAttributes> {
-  kind = 'aws_lambda_alias'
-  _outputAttrNames = ['arn', 'description', 'function_name', 'function_version', 'id', 'invoke_arn', 'name'] as const
+  _kind = 'aws_lambda_alias'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get function_name() {
+    return this._attr('function_name')
+  }
+
+  get function_version() {
+    return this._attr('function_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get invoke_arn() {
+    return this._attr('invoke_arn')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

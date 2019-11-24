@@ -38,6 +38,29 @@ export interface RouteTableAttributes {
 }
 
 export class RouteTable extends Resource<RouteTableArguments, RouteTableAttributes> {
-  kind = 'aws_route_table'
-  _outputAttrNames = ['id', 'owner_id', 'propagating_vgws', 'route', 'tags', 'vpc_id'] as const
+  _kind = 'aws_route_table'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get propagating_vgws() {
+    return this._attr('propagating_vgws')
+  }
+
+  get route() {
+    return this._attr('route')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

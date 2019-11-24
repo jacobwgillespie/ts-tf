@@ -17,6 +17,21 @@ export class CodedeployDeploymentConfig extends Resource<
   CodedeployDeploymentConfigArguments,
   CodedeployDeploymentConfigAttributes
 > {
-  kind = 'aws_codedeploy_deployment_config'
-  _outputAttrNames = ['compute_platform', 'deployment_config_id', 'deployment_config_name', 'id'] as const
+  _kind = 'aws_codedeploy_deployment_config'
+
+  get compute_platform() {
+    return this._attr('compute_platform')
+  }
+
+  get deployment_config_id() {
+    return this._attr('deployment_config_id')
+  }
+
+  get deployment_config_name() {
+    return this._attr('deployment_config_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

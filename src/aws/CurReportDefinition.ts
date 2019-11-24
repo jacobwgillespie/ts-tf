@@ -27,17 +27,45 @@ export interface CurReportDefinitionAttributes {
 }
 
 export class CurReportDefinition extends Resource<CurReportDefinitionArguments, CurReportDefinitionAttributes> {
-  kind = 'aws_cur_report_definition'
-  _outputAttrNames = [
-    'additional_artifacts',
-    'additional_schema_elements',
-    'compression',
-    'format',
-    'id',
-    'report_name',
-    's3_bucket',
-    's3_prefix',
-    's3_region',
-    'time_unit',
-  ] as const
+  _kind = 'aws_cur_report_definition'
+
+  get additional_artifacts() {
+    return this._attr('additional_artifacts')
+  }
+
+  get additional_schema_elements() {
+    return this._attr('additional_schema_elements')
+  }
+
+  get compression() {
+    return this._attr('compression')
+  }
+
+  get format() {
+    return this._attr('format')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get report_name() {
+    return this._attr('report_name')
+  }
+
+  get s3_bucket() {
+    return this._attr('s3_bucket')
+  }
+
+  get s3_prefix() {
+    return this._attr('s3_prefix')
+  }
+
+  get s3_region() {
+    return this._attr('s3_region')
+  }
+
+  get time_unit() {
+    return this._attr('time_unit')
+  }
 }

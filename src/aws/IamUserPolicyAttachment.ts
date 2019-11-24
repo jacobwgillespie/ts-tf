@@ -16,6 +16,17 @@ export class IamUserPolicyAttachment extends Resource<
   IamUserPolicyAttachmentArguments,
   IamUserPolicyAttachmentAttributes
 > {
-  kind = 'aws_iam_user_policy_attachment'
-  _outputAttrNames = ['id', 'policy_arn', 'user'] as const
+  _kind = 'aws_iam_user_policy_attachment'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy_arn() {
+    return this._attr('policy_arn')
+  }
+
+  get user() {
+    return this._attr('user')
+  }
 }

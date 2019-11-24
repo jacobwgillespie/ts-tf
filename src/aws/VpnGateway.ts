@@ -17,6 +17,25 @@ export interface VpnGatewayAttributes {
 }
 
 export class VpnGateway extends Resource<VpnGatewayArguments, VpnGatewayAttributes> {
-  kind = 'aws_vpn_gateway'
-  _outputAttrNames = ['amazon_side_asn', 'availability_zone', 'id', 'tags', 'vpc_id'] as const
+  _kind = 'aws_vpn_gateway'
+
+  get amazon_side_asn() {
+    return this._attr('amazon_side_asn')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

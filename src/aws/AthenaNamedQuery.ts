@@ -19,6 +19,29 @@ export interface AthenaNamedQueryAttributes {
 }
 
 export class AthenaNamedQuery extends Resource<AthenaNamedQueryArguments, AthenaNamedQueryAttributes> {
-  kind = 'aws_athena_named_query'
-  _outputAttrNames = ['database', 'description', 'id', 'name', 'query', 'workgroup'] as const
+  _kind = 'aws_athena_named_query'
+
+  get database() {
+    return this._attr('database')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get query() {
+    return this._attr('query')
+  }
+
+  get workgroup() {
+    return this._attr('workgroup')
+  }
 }

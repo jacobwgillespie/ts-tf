@@ -21,14 +21,33 @@ export interface AppautoscalingTargetAttributes {
 }
 
 export class AppautoscalingTarget extends Resource<AppautoscalingTargetArguments, AppautoscalingTargetAttributes> {
-  kind = 'aws_appautoscaling_target'
-  _outputAttrNames = [
-    'id',
-    'max_capacity',
-    'min_capacity',
-    'resource_id',
-    'role_arn',
-    'scalable_dimension',
-    'service_namespace',
-  ] as const
+  _kind = 'aws_appautoscaling_target'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get max_capacity() {
+    return this._attr('max_capacity')
+  }
+
+  get min_capacity() {
+    return this._attr('min_capacity')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get scalable_dimension() {
+    return this._attr('scalable_dimension')
+  }
+
+  get service_namespace() {
+    return this._attr('service_namespace')
+  }
 }

@@ -7,5 +7,5 @@ export interface OutputArguments<T> {
 }
 
 export class Output<T> extends Resource<OutputArguments<T>, any> {
-  kind = 'output'
+  _kind = 'output'
 }

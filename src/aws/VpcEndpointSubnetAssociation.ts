@@ -16,6 +16,17 @@ export class VpcEndpointSubnetAssociation extends Resource<
   VpcEndpointSubnetAssociationArguments,
   VpcEndpointSubnetAssociationAttributes
 > {
-  kind = 'aws_vpc_endpoint_subnet_association'
-  _outputAttrNames = ['id', 'subnet_id', 'vpc_endpoint_id'] as const
+  _kind = 'aws_vpc_endpoint_subnet_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get vpc_endpoint_id() {
+    return this._attr('vpc_endpoint_id')
+  }
 }

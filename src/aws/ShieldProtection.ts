@@ -13,6 +13,17 @@ export interface ShieldProtectionAttributes {
 }
 
 export class ShieldProtection extends Resource<ShieldProtectionArguments, ShieldProtectionAttributes> {
-  kind = 'aws_shield_protection'
-  _outputAttrNames = ['id', 'name', 'resource_arn'] as const
+  _kind = 'aws_shield_protection'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get resource_arn() {
+    return this._attr('resource_arn')
+  }
 }

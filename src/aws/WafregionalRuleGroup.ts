@@ -13,6 +13,17 @@ export interface WafregionalRuleGroupAttributes {
 }
 
 export class WafregionalRuleGroup extends Resource<WafregionalRuleGroupArguments, WafregionalRuleGroupAttributes> {
-  kind = 'aws_wafregional_rule_group'
-  _outputAttrNames = ['id', 'metric_name', 'name'] as const
+  _kind = 'aws_wafregional_rule_group'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_name() {
+    return this._attr('metric_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

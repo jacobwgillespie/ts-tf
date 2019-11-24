@@ -17,12 +17,25 @@ export interface SwfDomainAttributes {
 }
 
 export class SwfDomain extends Resource<SwfDomainArguments, SwfDomainAttributes> {
-  kind = 'aws_swf_domain'
-  _outputAttrNames = [
-    'description',
-    'id',
-    'name',
-    'name_prefix',
-    'workflow_execution_retention_period_in_days',
-  ] as const
+  _kind = 'aws_swf_domain'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get workflow_execution_retention_period_in_days() {
+    return this._attr('workflow_execution_retention_period_in_days')
+  }
 }

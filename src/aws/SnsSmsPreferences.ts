@@ -21,14 +21,33 @@ export interface SnsSmsPreferencesAttributes {
 }
 
 export class SnsSmsPreferences extends Resource<SnsSmsPreferencesArguments, SnsSmsPreferencesAttributes> {
-  kind = 'aws_sns_sms_preferences'
-  _outputAttrNames = [
-    'default_sender_id',
-    'default_sms_type',
-    'delivery_status_iam_role_arn',
-    'delivery_status_success_sampling_rate',
-    'id',
-    'monthly_spend_limit',
-    'usage_report_s3_bucket',
-  ] as const
+  _kind = 'aws_sns_sms_preferences'
+
+  get default_sender_id() {
+    return this._attr('default_sender_id')
+  }
+
+  get default_sms_type() {
+    return this._attr('default_sms_type')
+  }
+
+  get delivery_status_iam_role_arn() {
+    return this._attr('delivery_status_iam_role_arn')
+  }
+
+  get delivery_status_success_sampling_rate() {
+    return this._attr('delivery_status_success_sampling_rate')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get monthly_spend_limit() {
+    return this._attr('monthly_spend_limit')
+  }
+
+  get usage_report_s3_bucket() {
+    return this._attr('usage_report_s3_bucket')
+  }
 }

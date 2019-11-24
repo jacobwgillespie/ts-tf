@@ -18,6 +18,21 @@ export class GlobalacceleratorListener extends Resource<
   GlobalacceleratorListenerArguments,
   GlobalacceleratorListenerAttributes
 > {
-  kind = 'aws_globalaccelerator_listener'
-  _outputAttrNames = ['accelerator_arn', 'client_affinity', 'id', 'protocol'] as const
+  _kind = 'aws_globalaccelerator_listener'
+
+  get accelerator_arn() {
+    return this._attr('accelerator_arn')
+  }
+
+  get client_affinity() {
+    return this._attr('client_affinity')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get protocol() {
+    return this._attr('protocol')
+  }
 }

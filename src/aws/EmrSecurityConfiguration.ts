@@ -19,6 +19,25 @@ export class EmrSecurityConfiguration extends Resource<
   EmrSecurityConfigurationArguments,
   EmrSecurityConfigurationAttributes
 > {
-  kind = 'aws_emr_security_configuration'
-  _outputAttrNames = ['configuration', 'creation_date', 'id', 'name', 'name_prefix'] as const
+  _kind = 'aws_emr_security_configuration'
+
+  get configuration() {
+    return this._attr('configuration')
+  }
+
+  get creation_date() {
+    return this._attr('creation_date')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
 }

@@ -37,22 +37,65 @@ export class DxTransitVirtualInterface extends Resource<
   DxTransitVirtualInterfaceArguments,
   DxTransitVirtualInterfaceAttributes
 > {
-  kind = 'aws_dx_transit_virtual_interface'
-  _outputAttrNames = [
-    'address_family',
-    'amazon_address',
-    'arn',
-    'aws_device',
-    'bgp_asn',
-    'bgp_auth_key',
-    'connection_id',
-    'customer_address',
-    'dx_gateway_id',
-    'id',
-    'jumbo_frame_capable',
-    'mtu',
-    'name',
-    'tags',
-    'vlan',
-  ] as const
+  _kind = 'aws_dx_transit_virtual_interface'
+
+  get address_family() {
+    return this._attr('address_family')
+  }
+
+  get amazon_address() {
+    return this._attr('amazon_address')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_device() {
+    return this._attr('aws_device')
+  }
+
+  get bgp_asn() {
+    return this._attr('bgp_asn')
+  }
+
+  get bgp_auth_key() {
+    return this._attr('bgp_auth_key')
+  }
+
+  get connection_id() {
+    return this._attr('connection_id')
+  }
+
+  get customer_address() {
+    return this._attr('customer_address')
+  }
+
+  get dx_gateway_id() {
+    return this._attr('dx_gateway_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get jumbo_frame_capable() {
+    return this._attr('jumbo_frame_capable')
+  }
+
+  get mtu() {
+    return this._attr('mtu')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vlan() {
+    return this._attr('vlan')
+  }
 }

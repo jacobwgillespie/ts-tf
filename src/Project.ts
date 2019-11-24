@@ -4,13 +4,13 @@ import {Module} from './Module'
 function resourcesToJSON(resources: Resource<any, any>[]) {
   return resources.reduce(
     (obj, resource) => {
-      obj[resource.kind] = obj[resource.kind] || {}
+      obj[resource._kind] = obj[resource._kind] || {}
 
-      if (obj[resource.kind][resource.name] && obj[resource.kind][resource.name] !== resource) {
-        throw new Error(`Duplicate resource, ${resource.kind}.${resource.name} already exists`)
+      if (obj[resource._kind][resource._name] && obj[resource._kind][resource._name] !== resource) {
+        throw new Error(`Duplicate resource, ${resource._kind}.${resource._name} already exists`)
       }
 
-      obj[resource.kind][resource.name] = resource
+      obj[resource._kind][resource._name] = resource
       return obj
     },
     {} as {[kind: string]: {[name: string]: Resource<any, any>}},

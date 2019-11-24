@@ -20,6 +20,25 @@ export class LbCookieStickinessPolicy extends Resource<
   LbCookieStickinessPolicyArguments,
   LbCookieStickinessPolicyAttributes
 > {
-  kind = 'aws_lb_cookie_stickiness_policy'
-  _outputAttrNames = ['cookie_expiration_period', 'id', 'lb_port', 'load_balancer', 'name'] as const
+  _kind = 'aws_lb_cookie_stickiness_policy'
+
+  get cookie_expiration_period() {
+    return this._attr('cookie_expiration_period')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get lb_port() {
+    return this._attr('lb_port')
+  }
+
+  get load_balancer() {
+    return this._attr('load_balancer')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

@@ -14,6 +14,21 @@ export interface ResourcegroupsGroupAttributes {
 }
 
 export class ResourcegroupsGroup extends Resource<ResourcegroupsGroupArguments, ResourcegroupsGroupAttributes> {
-  kind = 'aws_resourcegroups_group'
-  _outputAttrNames = ['arn', 'description', 'id', 'name'] as const
+  _kind = 'aws_resourcegroups_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

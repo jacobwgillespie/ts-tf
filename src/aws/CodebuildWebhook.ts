@@ -16,6 +16,29 @@ export interface CodebuildWebhookAttributes {
 }
 
 export class CodebuildWebhook extends Resource<CodebuildWebhookArguments, CodebuildWebhookAttributes> {
-  kind = 'aws_codebuild_webhook'
-  _outputAttrNames = ['branch_filter', 'id', 'payload_url', 'project_name', 'secret', 'url'] as const
+  _kind = 'aws_codebuild_webhook'
+
+  get branch_filter() {
+    return this._attr('branch_filter')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get payload_url() {
+    return this._attr('payload_url')
+  }
+
+  get project_name() {
+    return this._attr('project_name')
+  }
+
+  get secret() {
+    return this._attr('secret')
+  }
+
+  get url() {
+    return this._attr('url')
+  }
 }

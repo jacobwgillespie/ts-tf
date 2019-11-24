@@ -13,6 +13,17 @@ export interface WafRuleAttributes {
 }
 
 export class WafRule extends Resource<WafRuleArguments, WafRuleAttributes> {
-  kind = 'aws_waf_rule'
-  _outputAttrNames = ['id', 'metric_name', 'name'] as const
+  _kind = 'aws_waf_rule'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_name() {
+    return this._attr('metric_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

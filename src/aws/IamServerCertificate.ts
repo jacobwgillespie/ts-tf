@@ -23,15 +23,37 @@ export interface IamServerCertificateAttributes {
 }
 
 export class IamServerCertificate extends Resource<IamServerCertificateArguments, IamServerCertificateAttributes> {
-  kind = 'aws_iam_server_certificate'
-  _outputAttrNames = [
-    'arn',
-    'certificate_body',
-    'certificate_chain',
-    'id',
-    'name',
-    'name_prefix',
-    'path',
-    'private_key',
-  ] as const
+  _kind = 'aws_iam_server_certificate'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate_body() {
+    return this._attr('certificate_body')
+  }
+
+  get certificate_chain() {
+    return this._attr('certificate_chain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get path() {
+    return this._attr('path')
+  }
+
+  get private_key() {
+    return this._attr('private_key')
+  }
 }

@@ -16,6 +16,17 @@ export class RamResourceAssociation extends Resource<
   RamResourceAssociationArguments,
   RamResourceAssociationAttributes
 > {
-  kind = 'aws_ram_resource_association'
-  _outputAttrNames = ['id', 'resource_arn', 'resource_share_arn'] as const
+  _kind = 'aws_ram_resource_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_arn() {
+    return this._attr('resource_arn')
+  }
+
+  get resource_share_arn() {
+    return this._attr('resource_share_arn')
+  }
 }

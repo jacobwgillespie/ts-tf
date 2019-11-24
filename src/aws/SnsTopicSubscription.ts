@@ -26,17 +26,45 @@ export interface SnsTopicSubscriptionAttributes {
 }
 
 export class SnsTopicSubscription extends Resource<SnsTopicSubscriptionArguments, SnsTopicSubscriptionAttributes> {
-  kind = 'aws_sns_topic_subscription'
-  _outputAttrNames = [
-    'arn',
-    'confirmation_timeout_in_minutes',
-    'delivery_policy',
-    'endpoint',
-    'endpoint_auto_confirms',
-    'filter_policy',
-    'id',
-    'protocol',
-    'raw_message_delivery',
-    'topic_arn',
-  ] as const
+  _kind = 'aws_sns_topic_subscription'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get confirmation_timeout_in_minutes() {
+    return this._attr('confirmation_timeout_in_minutes')
+  }
+
+  get delivery_policy() {
+    return this._attr('delivery_policy')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get endpoint_auto_confirms() {
+    return this._attr('endpoint_auto_confirms')
+  }
+
+  get filter_policy() {
+    return this._attr('filter_policy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get protocol() {
+    return this._attr('protocol')
+  }
+
+  get raw_message_delivery() {
+    return this._attr('raw_message_delivery')
+  }
+
+  get topic_arn() {
+    return this._attr('topic_arn')
+  }
 }

@@ -19,6 +19,29 @@ export interface OpsworksPermissionAttributes {
 }
 
 export class OpsworksPermission extends Resource<OpsworksPermissionArguments, OpsworksPermissionAttributes> {
-  kind = 'aws_opsworks_permission'
-  _outputAttrNames = ['allow_ssh', 'allow_sudo', 'id', 'level', 'stack_id', 'user_arn'] as const
+  _kind = 'aws_opsworks_permission'
+
+  get allow_ssh() {
+    return this._attr('allow_ssh')
+  }
+
+  get allow_sudo() {
+    return this._attr('allow_sudo')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get level() {
+    return this._attr('level')
+  }
+
+  get stack_id() {
+    return this._attr('stack_id')
+  }
+
+  get user_arn() {
+    return this._attr('user_arn')
+  }
 }

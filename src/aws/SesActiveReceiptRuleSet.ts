@@ -14,6 +14,13 @@ export class SesActiveReceiptRuleSet extends Resource<
   SesActiveReceiptRuleSetArguments,
   SesActiveReceiptRuleSetAttributes
 > {
-  kind = 'aws_ses_active_receipt_rule_set'
-  _outputAttrNames = ['id', 'rule_set_name'] as const
+  _kind = 'aws_ses_active_receipt_rule_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get rule_set_name() {
+    return this._attr('rule_set_name')
+  }
 }

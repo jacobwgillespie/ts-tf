@@ -15,6 +15,21 @@ export interface LoadBalancerPolicyAttributes {
 }
 
 export class LoadBalancerPolicy extends Resource<LoadBalancerPolicyArguments, LoadBalancerPolicyAttributes> {
-  kind = 'aws_load_balancer_policy'
-  _outputAttrNames = ['id', 'load_balancer_name', 'policy_name', 'policy_type_name'] as const
+  _kind = 'aws_load_balancer_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get load_balancer_name() {
+    return this._attr('load_balancer_name')
+  }
+
+  get policy_name() {
+    return this._attr('policy_name')
+  }
+
+  get policy_type_name() {
+    return this._attr('policy_type_name')
+  }
 }

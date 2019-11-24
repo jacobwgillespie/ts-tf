@@ -22,13 +22,29 @@ export class ApiGatewayGatewayResponse extends Resource<
   ApiGatewayGatewayResponseArguments,
   ApiGatewayGatewayResponseAttributes
 > {
-  kind = 'aws_api_gateway_gateway_response'
-  _outputAttrNames = [
-    'id',
-    'response_parameters',
-    'response_templates',
-    'response_type',
-    'rest_api_id',
-    'status_code',
-  ] as const
+  _kind = 'aws_api_gateway_gateway_response'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get response_parameters() {
+    return this._attr('response_parameters')
+  }
+
+  get response_templates() {
+    return this._attr('response_templates')
+  }
+
+  get response_type() {
+    return this._attr('response_type')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get status_code() {
+    return this._attr('status_code')
+  }
 }

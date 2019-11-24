@@ -14,6 +14,21 @@ export interface GuarddutyDetectorAttributes {
 }
 
 export class GuarddutyDetector extends Resource<GuarddutyDetectorArguments, GuarddutyDetectorAttributes> {
-  kind = 'aws_guardduty_detector'
-  _outputAttrNames = ['account_id', 'enable', 'finding_publishing_frequency', 'id'] as const
+  _kind = 'aws_guardduty_detector'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get enable() {
+    return this._attr('enable')
+  }
+
+  get finding_publishing_frequency() {
+    return this._attr('finding_publishing_frequency')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

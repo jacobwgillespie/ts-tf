@@ -14,6 +14,21 @@ export interface EcsClusterAttributes {
 }
 
 export class EcsCluster extends Resource<EcsClusterArguments, EcsClusterAttributes> {
-  kind = 'aws_ecs_cluster'
-  _outputAttrNames = ['arn', 'id', 'name', 'tags'] as const
+  _kind = 'aws_ecs_cluster'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -14,6 +14,21 @@ export interface GameliftAliasAttributes {
 }
 
 export class GameliftAlias extends Resource<GameliftAliasArguments, GameliftAliasAttributes> {
-  kind = 'aws_gamelift_alias'
-  _outputAttrNames = ['arn', 'description', 'id', 'name'] as const
+  _kind = 'aws_gamelift_alias'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

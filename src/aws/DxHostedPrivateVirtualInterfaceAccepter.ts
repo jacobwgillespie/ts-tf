@@ -21,6 +21,29 @@ export class DxHostedPrivateVirtualInterfaceAccepter extends Resource<
   DxHostedPrivateVirtualInterfaceAccepterArguments,
   DxHostedPrivateVirtualInterfaceAccepterAttributes
 > {
-  kind = 'aws_dx_hosted_private_virtual_interface_accepter'
-  _outputAttrNames = ['arn', 'dx_gateway_id', 'id', 'tags', 'virtual_interface_id', 'vpn_gateway_id'] as const
+  _kind = 'aws_dx_hosted_private_virtual_interface_accepter'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get dx_gateway_id() {
+    return this._attr('dx_gateway_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get virtual_interface_id() {
+    return this._attr('virtual_interface_id')
+  }
+
+  get vpn_gateway_id() {
+    return this._attr('vpn_gateway_id')
+  }
 }

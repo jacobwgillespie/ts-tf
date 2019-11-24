@@ -13,6 +13,21 @@ export interface SesDomainIdentityAttributes {
 }
 
 export class SesDomainIdentity extends Resource<SesDomainIdentityArguments, SesDomainIdentityAttributes> {
-  kind = 'aws_ses_domain_identity'
-  _outputAttrNames = ['arn', 'domain', 'id', 'verification_token'] as const
+  _kind = 'aws_ses_domain_identity'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get verification_token() {
+    return this._attr('verification_token')
+  }
 }

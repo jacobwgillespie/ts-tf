@@ -17,6 +17,25 @@ export interface OpsworksRdsDbInstanceAttributes {
 }
 
 export class OpsworksRdsDbInstance extends Resource<OpsworksRdsDbInstanceArguments, OpsworksRdsDbInstanceAttributes> {
-  kind = 'aws_opsworks_rds_db_instance'
-  _outputAttrNames = ['db_password', 'db_user', 'id', 'rds_db_instance_arn', 'stack_id'] as const
+  _kind = 'aws_opsworks_rds_db_instance'
+
+  get db_password() {
+    return this._attr('db_password')
+  }
+
+  get db_user() {
+    return this._attr('db_user')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get rds_db_instance_arn() {
+    return this._attr('rds_db_instance_arn')
+  }
+
+  get stack_id() {
+    return this._attr('stack_id')
+  }
 }

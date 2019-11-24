@@ -19,14 +19,33 @@ export class CloudfrontOriginAccessIdentity extends Resource<
   CloudfrontOriginAccessIdentityArguments,
   CloudfrontOriginAccessIdentityAttributes
 > {
-  kind = 'aws_cloudfront_origin_access_identity'
-  _outputAttrNames = [
-    'caller_reference',
-    'cloudfront_access_identity_path',
-    'comment',
-    'etag',
-    'iam_arn',
-    'id',
-    's3_canonical_user_id',
-  ] as const
+  _kind = 'aws_cloudfront_origin_access_identity'
+
+  get caller_reference() {
+    return this._attr('caller_reference')
+  }
+
+  get cloudfront_access_identity_path() {
+    return this._attr('cloudfront_access_identity_path')
+  }
+
+  get comment() {
+    return this._attr('comment')
+  }
+
+  get etag() {
+    return this._attr('etag')
+  }
+
+  get iam_arn() {
+    return this._attr('iam_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get s3_canonical_user_id() {
+    return this._attr('s3_canonical_user_id')
+  }
 }

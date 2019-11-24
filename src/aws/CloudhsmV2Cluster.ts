@@ -28,17 +28,45 @@ export interface CloudhsmV2ClusterAttributes {
 }
 
 export class CloudhsmV2Cluster extends Resource<CloudhsmV2ClusterArguments, CloudhsmV2ClusterAttributes> {
-  kind = 'aws_cloudhsm_v2_cluster'
-  _outputAttrNames = [
-    'cluster_certificates',
-    'cluster_id',
-    'cluster_state',
-    'hsm_type',
-    'id',
-    'security_group_id',
-    'source_backup_identifier',
-    'subnet_ids',
-    'tags',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_cloudhsm_v2_cluster'
+
+  get cluster_certificates() {
+    return this._attr('cluster_certificates')
+  }
+
+  get cluster_id() {
+    return this._attr('cluster_id')
+  }
+
+  get cluster_state() {
+    return this._attr('cluster_state')
+  }
+
+  get hsm_type() {
+    return this._attr('hsm_type')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get security_group_id() {
+    return this._attr('security_group_id')
+  }
+
+  get source_backup_identifier() {
+    return this._attr('source_backup_identifier')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

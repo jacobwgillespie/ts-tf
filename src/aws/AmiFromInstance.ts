@@ -29,23 +29,69 @@ export interface AmiFromInstanceAttributes {
 }
 
 export class AmiFromInstance extends Resource<AmiFromInstanceArguments, AmiFromInstanceAttributes> {
-  kind = 'aws_ami_from_instance'
-  _outputAttrNames = [
-    'architecture',
-    'description',
-    'ena_support',
-    'id',
-    'image_location',
-    'kernel_id',
-    'manage_ebs_snapshots',
-    'name',
-    'ramdisk_id',
-    'root_device_name',
-    'root_snapshot_id',
-    'snapshot_without_reboot',
-    'source_instance_id',
-    'sriov_net_support',
-    'tags',
-    'virtualization_type',
-  ] as const
+  _kind = 'aws_ami_from_instance'
+
+  get architecture() {
+    return this._attr('architecture')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get ena_support() {
+    return this._attr('ena_support')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get image_location() {
+    return this._attr('image_location')
+  }
+
+  get kernel_id() {
+    return this._attr('kernel_id')
+  }
+
+  get manage_ebs_snapshots() {
+    return this._attr('manage_ebs_snapshots')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get ramdisk_id() {
+    return this._attr('ramdisk_id')
+  }
+
+  get root_device_name() {
+    return this._attr('root_device_name')
+  }
+
+  get root_snapshot_id() {
+    return this._attr('root_snapshot_id')
+  }
+
+  get snapshot_without_reboot() {
+    return this._attr('snapshot_without_reboot')
+  }
+
+  get source_instance_id() {
+    return this._attr('source_instance_id')
+  }
+
+  get sriov_net_support() {
+    return this._attr('sriov_net_support')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get virtualization_type() {
+    return this._attr('virtualization_type')
+  }
 }

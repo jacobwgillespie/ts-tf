@@ -22,15 +22,37 @@ export interface VpcDhcpOptionsAttributes {
 }
 
 export class VpcDhcpOptions extends Resource<VpcDhcpOptionsArguments, VpcDhcpOptionsAttributes> {
-  kind = 'aws_vpc_dhcp_options'
-  _outputAttrNames = [
-    'domain_name',
-    'domain_name_servers',
-    'id',
-    'netbios_name_servers',
-    'netbios_node_type',
-    'ntp_servers',
-    'owner_id',
-    'tags',
-  ] as const
+  _kind = 'aws_vpc_dhcp_options'
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get domain_name_servers() {
+    return this._attr('domain_name_servers')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get netbios_name_servers() {
+    return this._attr('netbios_name_servers')
+  }
+
+  get netbios_node_type() {
+    return this._attr('netbios_node_type')
+  }
+
+  get ntp_servers() {
+    return this._attr('ntp_servers')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

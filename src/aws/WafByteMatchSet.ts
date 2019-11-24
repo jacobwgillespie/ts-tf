@@ -11,6 +11,13 @@ export interface WafByteMatchSetAttributes {
 }
 
 export class WafByteMatchSet extends Resource<WafByteMatchSetArguments, WafByteMatchSetAttributes> {
-  kind = 'aws_waf_byte_match_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_waf_byte_match_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

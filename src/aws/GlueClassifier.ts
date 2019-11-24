@@ -11,6 +11,13 @@ export interface GlueClassifierAttributes {
 }
 
 export class GlueClassifier extends Resource<GlueClassifierArguments, GlueClassifierAttributes> {
-  kind = 'aws_glue_classifier'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_glue_classifier'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

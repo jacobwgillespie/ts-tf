@@ -15,6 +15,21 @@ export interface SesDomainMailFromAttributes {
 }
 
 export class SesDomainMailFrom extends Resource<SesDomainMailFromArguments, SesDomainMailFromAttributes> {
-  kind = 'aws_ses_domain_mail_from'
-  _outputAttrNames = ['behavior_on_mx_failure', 'domain', 'id', 'mail_from_domain'] as const
+  _kind = 'aws_ses_domain_mail_from'
+
+  get behavior_on_mx_failure() {
+    return this._attr('behavior_on_mx_failure')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get mail_from_domain() {
+    return this._attr('mail_from_domain')
+  }
 }

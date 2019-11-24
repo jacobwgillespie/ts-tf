@@ -16,6 +16,25 @@ export interface DbSecurityGroupAttributes {
 }
 
 export class DbSecurityGroup extends Resource<DbSecurityGroupArguments, DbSecurityGroupAttributes> {
-  kind = 'aws_db_security_group'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'tags'] as const
+  _kind = 'aws_db_security_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

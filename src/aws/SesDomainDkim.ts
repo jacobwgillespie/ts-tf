@@ -12,6 +12,17 @@ export interface SesDomainDkimAttributes {
 }
 
 export class SesDomainDkim extends Resource<SesDomainDkimArguments, SesDomainDkimAttributes> {
-  kind = 'aws_ses_domain_dkim'
-  _outputAttrNames = ['dkim_tokens', 'domain', 'id'] as const
+  _kind = 'aws_ses_domain_dkim'
+
+  get dkim_tokens() {
+    return this._attr('dkim_tokens')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

@@ -18,6 +18,21 @@ export class LoadBalancerListenerPolicy extends Resource<
   LoadBalancerListenerPolicyArguments,
   LoadBalancerListenerPolicyAttributes
 > {
-  kind = 'aws_load_balancer_listener_policy'
-  _outputAttrNames = ['id', 'load_balancer_name', 'load_balancer_port', 'policy_names'] as const
+  _kind = 'aws_load_balancer_listener_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get load_balancer_name() {
+    return this._attr('load_balancer_name')
+  }
+
+  get load_balancer_port() {
+    return this._attr('load_balancer_port')
+  }
+
+  get policy_names() {
+    return this._attr('policy_names')
+  }
 }

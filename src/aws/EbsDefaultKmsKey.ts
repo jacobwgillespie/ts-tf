@@ -11,6 +11,13 @@ export interface EbsDefaultKmsKeyAttributes {
 }
 
 export class EbsDefaultKmsKey extends Resource<EbsDefaultKmsKeyArguments, EbsDefaultKmsKeyAttributes> {
-  kind = 'aws_ebs_default_kms_key'
-  _outputAttrNames = ['id', 'key_arn'] as const
+  _kind = 'aws_ebs_default_kms_key'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key_arn() {
+    return this._attr('key_arn')
+  }
 }

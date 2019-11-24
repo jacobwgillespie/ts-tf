@@ -25,17 +25,45 @@ export interface KmsGrantAttributes {
 }
 
 export class KmsGrant extends Resource<KmsGrantArguments, KmsGrantAttributes> {
-  kind = 'aws_kms_grant'
-  _outputAttrNames = [
-    'grant_creation_tokens',
-    'grant_id',
-    'grant_token',
-    'grantee_principal',
-    'id',
-    'key_id',
-    'name',
-    'operations',
-    'retire_on_delete',
-    'retiring_principal',
-  ] as const
+  _kind = 'aws_kms_grant'
+
+  get grant_creation_tokens() {
+    return this._attr('grant_creation_tokens')
+  }
+
+  get grant_id() {
+    return this._attr('grant_id')
+  }
+
+  get grant_token() {
+    return this._attr('grant_token')
+  }
+
+  get grantee_principal() {
+    return this._attr('grantee_principal')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key_id() {
+    return this._attr('key_id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get operations() {
+    return this._attr('operations')
+  }
+
+  get retire_on_delete() {
+    return this._attr('retire_on_delete')
+  }
+
+  get retiring_principal() {
+    return this._attr('retiring_principal')
+  }
 }

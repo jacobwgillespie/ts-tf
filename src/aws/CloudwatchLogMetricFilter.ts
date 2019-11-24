@@ -18,6 +18,21 @@ export class CloudwatchLogMetricFilter extends Resource<
   CloudwatchLogMetricFilterArguments,
   CloudwatchLogMetricFilterAttributes
 > {
-  kind = 'aws_cloudwatch_log_metric_filter'
-  _outputAttrNames = ['id', 'log_group_name', 'name', 'pattern'] as const
+  _kind = 'aws_cloudwatch_log_metric_filter'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get log_group_name() {
+    return this._attr('log_group_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get pattern() {
+    return this._attr('pattern')
+  }
 }

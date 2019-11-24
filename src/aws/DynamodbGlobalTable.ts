@@ -12,6 +12,17 @@ export interface DynamodbGlobalTableAttributes {
 }
 
 export class DynamodbGlobalTable extends Resource<DynamodbGlobalTableArguments, DynamodbGlobalTableAttributes> {
-  kind = 'aws_dynamodb_global_table'
-  _outputAttrNames = ['arn', 'id', 'name'] as const
+  _kind = 'aws_dynamodb_global_table'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

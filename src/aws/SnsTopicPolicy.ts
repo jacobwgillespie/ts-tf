@@ -13,6 +13,17 @@ export interface SnsTopicPolicyAttributes {
 }
 
 export class SnsTopicPolicy extends Resource<SnsTopicPolicyArguments, SnsTopicPolicyAttributes> {
-  kind = 'aws_sns_topic_policy'
-  _outputAttrNames = ['arn', 'id', 'policy'] as const
+  _kind = 'aws_sns_topic_policy'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

@@ -11,6 +11,13 @@ export interface SimpledbDomainAttributes {
 }
 
 export class SimpledbDomain extends Resource<SimpledbDomainArguments, SimpledbDomainAttributes> {
-  kind = 'aws_simpledb_domain'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_simpledb_domain'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

@@ -29,18 +29,49 @@ export interface BudgetsBudgetAttributes {
 }
 
 export class BudgetsBudget extends Resource<BudgetsBudgetArguments, BudgetsBudgetAttributes> {
-  kind = 'aws_budgets_budget'
-  _outputAttrNames = [
-    'account_id',
-    'budget_type',
-    'cost_filters',
-    'id',
-    'limit_amount',
-    'limit_unit',
-    'name',
-    'name_prefix',
-    'time_period_end',
-    'time_period_start',
-    'time_unit',
-  ] as const
+  _kind = 'aws_budgets_budget'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get budget_type() {
+    return this._attr('budget_type')
+  }
+
+  get cost_filters() {
+    return this._attr('cost_filters')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get limit_amount() {
+    return this._attr('limit_amount')
+  }
+
+  get limit_unit() {
+    return this._attr('limit_unit')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get time_period_end() {
+    return this._attr('time_period_end')
+  }
+
+  get time_period_start() {
+    return this._attr('time_period_start')
+  }
+
+  get time_unit() {
+    return this._attr('time_unit')
+  }
 }

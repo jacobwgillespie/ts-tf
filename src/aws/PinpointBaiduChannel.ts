@@ -17,6 +17,25 @@ export interface PinpointBaiduChannelAttributes {
 }
 
 export class PinpointBaiduChannel extends Resource<PinpointBaiduChannelArguments, PinpointBaiduChannelAttributes> {
-  kind = 'aws_pinpoint_baidu_channel'
-  _outputAttrNames = ['api_key', 'application_id', 'enabled', 'id', 'secret_key'] as const
+  _kind = 'aws_pinpoint_baidu_channel'
+
+  get api_key() {
+    return this._attr('api_key')
+  }
+
+  get application_id() {
+    return this._attr('application_id')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get secret_key() {
+    return this._attr('secret_key')
+  }
 }

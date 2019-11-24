@@ -16,6 +16,25 @@ export interface DaxSubnetGroupAttributes {
 }
 
 export class DaxSubnetGroup extends Resource<DaxSubnetGroupArguments, DaxSubnetGroupAttributes> {
-  kind = 'aws_dax_subnet_group'
-  _outputAttrNames = ['description', 'id', 'name', 'subnet_ids', 'vpc_id'] as const
+  _kind = 'aws_dax_subnet_group'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

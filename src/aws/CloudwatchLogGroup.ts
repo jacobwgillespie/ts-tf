@@ -20,6 +20,33 @@ export interface CloudwatchLogGroupAttributes {
 }
 
 export class CloudwatchLogGroup extends Resource<CloudwatchLogGroupArguments, CloudwatchLogGroupAttributes> {
-  kind = 'aws_cloudwatch_log_group'
-  _outputAttrNames = ['arn', 'id', 'kms_key_id', 'name', 'name_prefix', 'retention_in_days', 'tags'] as const
+  _kind = 'aws_cloudwatch_log_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get retention_in_days() {
+    return this._attr('retention_in_days')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

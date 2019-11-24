@@ -15,6 +15,21 @@ export interface SesReceiptFilterAttributes {
 }
 
 export class SesReceiptFilter extends Resource<SesReceiptFilterArguments, SesReceiptFilterAttributes> {
-  kind = 'aws_ses_receipt_filter'
-  _outputAttrNames = ['cidr', 'id', 'name', 'policy'] as const
+  _kind = 'aws_ses_receipt_filter'
+
+  get cidr() {
+    return this._attr('cidr')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

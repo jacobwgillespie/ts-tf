@@ -19,6 +19,25 @@ export class IamOpenidConnectProvider extends Resource<
   IamOpenidConnectProviderArguments,
   IamOpenidConnectProviderAttributes
 > {
-  kind = 'aws_iam_openid_connect_provider'
-  _outputAttrNames = ['arn', 'client_id_list', 'id', 'thumbprint_list', 'url'] as const
+  _kind = 'aws_iam_openid_connect_provider'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get client_id_list() {
+    return this._attr('client_id_list')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get thumbprint_list() {
+    return this._attr('thumbprint_list')
+  }
+
+  get url() {
+    return this._attr('url')
+  }
 }

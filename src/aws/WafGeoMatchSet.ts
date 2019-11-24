@@ -11,6 +11,13 @@ export interface WafGeoMatchSetAttributes {
 }
 
 export class WafGeoMatchSet extends Resource<WafGeoMatchSetArguments, WafGeoMatchSetAttributes> {
-  kind = 'aws_waf_geo_match_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_waf_geo_match_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

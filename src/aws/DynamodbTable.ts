@@ -30,20 +30,57 @@ export interface DynamodbTableAttributes {
 }
 
 export class DynamodbTable extends Resource<DynamodbTableArguments, DynamodbTableAttributes> {
-  kind = 'aws_dynamodb_table'
-  _outputAttrNames = [
-    'arn',
-    'billing_mode',
-    'hash_key',
-    'id',
-    'name',
-    'range_key',
-    'read_capacity',
-    'stream_arn',
-    'stream_enabled',
-    'stream_label',
-    'stream_view_type',
-    'tags',
-    'write_capacity',
-  ] as const
+  _kind = 'aws_dynamodb_table'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get billing_mode() {
+    return this._attr('billing_mode')
+  }
+
+  get hash_key() {
+    return this._attr('hash_key')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get range_key() {
+    return this._attr('range_key')
+  }
+
+  get read_capacity() {
+    return this._attr('read_capacity')
+  }
+
+  get stream_arn() {
+    return this._attr('stream_arn')
+  }
+
+  get stream_enabled() {
+    return this._attr('stream_enabled')
+  }
+
+  get stream_label() {
+    return this._attr('stream_label')
+  }
+
+  get stream_view_type() {
+    return this._attr('stream_view_type')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get write_capacity() {
+    return this._attr('write_capacity')
+  }
 }

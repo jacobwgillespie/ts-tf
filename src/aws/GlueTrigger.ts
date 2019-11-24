@@ -19,6 +19,29 @@ export interface GlueTriggerAttributes {
 }
 
 export class GlueTrigger extends Resource<GlueTriggerArguments, GlueTriggerAttributes> {
-  kind = 'aws_glue_trigger'
-  _outputAttrNames = ['description', 'enabled', 'id', 'name', 'schedule', 'type'] as const
+  _kind = 'aws_glue_trigger'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get schedule() {
+    return this._attr('schedule')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

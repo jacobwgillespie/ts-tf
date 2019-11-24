@@ -15,6 +15,25 @@ export interface IotPolicyAttributes {
 }
 
 export class IotPolicy extends Resource<IotPolicyArguments, IotPolicyAttributes> {
-  kind = 'aws_iot_policy'
-  _outputAttrNames = ['arn', 'default_version_id', 'id', 'name', 'policy'] as const
+  _kind = 'aws_iot_policy'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get default_version_id() {
+    return this._attr('default_version_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

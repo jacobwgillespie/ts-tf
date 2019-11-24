@@ -15,6 +15,21 @@ export interface AthenaDatabaseAttributes {
 }
 
 export class AthenaDatabase extends Resource<AthenaDatabaseArguments, AthenaDatabaseAttributes> {
-  kind = 'aws_athena_database'
-  _outputAttrNames = ['bucket', 'force_destroy', 'id', 'name'] as const
+  _kind = 'aws_athena_database'
+
+  get bucket() {
+    return this._attr('bucket')
+  }
+
+  get force_destroy() {
+    return this._attr('force_destroy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

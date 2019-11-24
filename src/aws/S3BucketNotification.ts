@@ -11,6 +11,13 @@ export interface S3BucketNotificationAttributes {
 }
 
 export class S3BucketNotification extends Resource<S3BucketNotificationArguments, S3BucketNotificationAttributes> {
-  kind = 'aws_s3_bucket_notification'
-  _outputAttrNames = ['bucket', 'id'] as const
+  _kind = 'aws_s3_bucket_notification'
+
+  get bucket() {
+    return this._attr('bucket')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

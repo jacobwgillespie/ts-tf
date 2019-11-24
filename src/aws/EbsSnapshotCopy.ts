@@ -26,19 +26,53 @@ export interface EbsSnapshotCopyAttributes {
 }
 
 export class EbsSnapshotCopy extends Resource<EbsSnapshotCopyArguments, EbsSnapshotCopyAttributes> {
-  kind = 'aws_ebs_snapshot_copy'
-  _outputAttrNames = [
-    'data_encryption_key_id',
-    'description',
-    'encrypted',
-    'id',
-    'kms_key_id',
-    'owner_alias',
-    'owner_id',
-    'source_region',
-    'source_snapshot_id',
-    'tags',
-    'volume_id',
-    'volume_size',
-  ] as const
+  _kind = 'aws_ebs_snapshot_copy'
+
+  get data_encryption_key_id() {
+    return this._attr('data_encryption_key_id')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get encrypted() {
+    return this._attr('encrypted')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get owner_alias() {
+    return this._attr('owner_alias')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get source_region() {
+    return this._attr('source_region')
+  }
+
+  get source_snapshot_id() {
+    return this._attr('source_snapshot_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get volume_id() {
+    return this._attr('volume_id')
+  }
+
+  get volume_size() {
+    return this._attr('volume_size')
+  }
 }

@@ -11,6 +11,13 @@ export interface SsmResourceDataSyncAttributes {
 }
 
 export class SsmResourceDataSync extends Resource<SsmResourceDataSyncArguments, SsmResourceDataSyncAttributes> {
-  kind = 'aws_ssm_resource_data_sync'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_ssm_resource_data_sync'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

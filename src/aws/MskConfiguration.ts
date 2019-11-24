@@ -19,14 +19,33 @@ export interface MskConfigurationAttributes {
 }
 
 export class MskConfiguration extends Resource<MskConfigurationArguments, MskConfigurationAttributes> {
-  kind = 'aws_msk_configuration'
-  _outputAttrNames = [
-    'arn',
-    'description',
-    'id',
-    'kafka_versions',
-    'latest_revision',
-    'name',
-    'server_properties',
-  ] as const
+  _kind = 'aws_msk_configuration'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kafka_versions() {
+    return this._attr('kafka_versions')
+  }
+
+  get latest_revision() {
+    return this._attr('latest_revision')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get server_properties() {
+    return this._attr('server_properties')
+  }
 }

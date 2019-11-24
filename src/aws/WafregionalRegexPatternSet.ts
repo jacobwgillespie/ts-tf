@@ -16,6 +16,17 @@ export class WafregionalRegexPatternSet extends Resource<
   WafregionalRegexPatternSetArguments,
   WafregionalRegexPatternSetAttributes
 > {
-  kind = 'aws_wafregional_regex_pattern_set'
-  _outputAttrNames = ['id', 'name', 'regex_pattern_strings'] as const
+  _kind = 'aws_wafregional_regex_pattern_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get regex_pattern_strings() {
+    return this._attr('regex_pattern_strings')
+  }
 }

@@ -36,25 +36,77 @@ export interface VpcEndpointAttributes {
 }
 
 export class VpcEndpoint extends Resource<VpcEndpointArguments, VpcEndpointAttributes> {
-  kind = 'aws_vpc_endpoint'
-  _outputAttrNames = [
-    'auto_accept',
-    'cidr_blocks',
-    'dns_entry',
-    'id',
-    'network_interface_ids',
-    'owner_id',
-    'policy',
-    'prefix_list_id',
-    'private_dns_enabled',
-    'requester_managed',
-    'route_table_ids',
-    'security_group_ids',
-    'service_name',
-    'state',
-    'subnet_ids',
-    'tags',
-    'vpc_endpoint_type',
-    'vpc_id',
-  ] as const
+  _kind = 'aws_vpc_endpoint'
+
+  get auto_accept() {
+    return this._attr('auto_accept')
+  }
+
+  get cidr_blocks() {
+    return this._attr('cidr_blocks')
+  }
+
+  get dns_entry() {
+    return this._attr('dns_entry')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get network_interface_ids() {
+    return this._attr('network_interface_ids')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get prefix_list_id() {
+    return this._attr('prefix_list_id')
+  }
+
+  get private_dns_enabled() {
+    return this._attr('private_dns_enabled')
+  }
+
+  get requester_managed() {
+    return this._attr('requester_managed')
+  }
+
+  get route_table_ids() {
+    return this._attr('route_table_ids')
+  }
+
+  get security_group_ids() {
+    return this._attr('security_group_ids')
+  }
+
+  get service_name() {
+    return this._attr('service_name')
+  }
+
+  get state() {
+    return this._attr('state')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_endpoint_type() {
+    return this._attr('vpc_endpoint_type')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

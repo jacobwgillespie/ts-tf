@@ -20,15 +20,37 @@ export interface EfsMountTargetAttributes {
 }
 
 export class EfsMountTarget extends Resource<EfsMountTargetArguments, EfsMountTargetAttributes> {
-  kind = 'aws_efs_mount_target'
-  _outputAttrNames = [
-    'dns_name',
-    'file_system_arn',
-    'file_system_id',
-    'id',
-    'ip_address',
-    'network_interface_id',
-    'security_groups',
-    'subnet_id',
-  ] as const
+  _kind = 'aws_efs_mount_target'
+
+  get dns_name() {
+    return this._attr('dns_name')
+  }
+
+  get file_system_arn() {
+    return this._attr('file_system_arn')
+  }
+
+  get file_system_id() {
+    return this._attr('file_system_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ip_address() {
+    return this._attr('ip_address')
+  }
+
+  get network_interface_id() {
+    return this._attr('network_interface_id')
+  }
+
+  get security_groups() {
+    return this._attr('security_groups')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
 }

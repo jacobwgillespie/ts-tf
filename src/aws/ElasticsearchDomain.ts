@@ -23,17 +23,45 @@ export interface ElasticsearchDomainAttributes {
 }
 
 export class ElasticsearchDomain extends Resource<ElasticsearchDomainArguments, ElasticsearchDomainAttributes> {
-  kind = 'aws_elasticsearch_domain'
-  _outputAttrNames = [
-    'access_policies',
-    'advanced_options',
-    'arn',
-    'domain_id',
-    'domain_name',
-    'elasticsearch_version',
-    'endpoint',
-    'id',
-    'kibana_endpoint',
-    'tags',
-  ] as const
+  _kind = 'aws_elasticsearch_domain'
+
+  get access_policies() {
+    return this._attr('access_policies')
+  }
+
+  get advanced_options() {
+    return this._attr('advanced_options')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get domain_id() {
+    return this._attr('domain_id')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get elasticsearch_version() {
+    return this._attr('elasticsearch_version')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kibana_endpoint() {
+    return this._attr('kibana_endpoint')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -22,15 +22,37 @@ export interface DbOptionGroupAttributes {
 }
 
 export class DbOptionGroup extends Resource<DbOptionGroupArguments, DbOptionGroupAttributes> {
-  kind = 'aws_db_option_group'
-  _outputAttrNames = [
-    'arn',
-    'engine_name',
-    'id',
-    'major_engine_version',
-    'name',
-    'name_prefix',
-    'option_group_description',
-    'tags',
-  ] as const
+  _kind = 'aws_db_option_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get engine_name() {
+    return this._attr('engine_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get major_engine_version() {
+    return this._attr('major_engine_version')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get option_group_description() {
+    return this._attr('option_group_description')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

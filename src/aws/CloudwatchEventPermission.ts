@@ -18,6 +18,21 @@ export class CloudwatchEventPermission extends Resource<
   CloudwatchEventPermissionArguments,
   CloudwatchEventPermissionAttributes
 > {
-  kind = 'aws_cloudwatch_event_permission'
-  _outputAttrNames = ['action', 'id', 'principal', 'statement_id'] as const
+  _kind = 'aws_cloudwatch_event_permission'
+
+  get action() {
+    return this._attr('action')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get principal() {
+    return this._attr('principal')
+  }
+
+  get statement_id() {
+    return this._attr('statement_id')
+  }
 }

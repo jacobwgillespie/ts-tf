@@ -23,6 +23,33 @@ export class ElastictranscoderPipeline extends Resource<
   ElastictranscoderPipelineArguments,
   ElastictranscoderPipelineAttributes
 > {
-  kind = 'aws_elastictranscoder_pipeline'
-  _outputAttrNames = ['arn', 'aws_kms_key_arn', 'id', 'input_bucket', 'name', 'output_bucket', 'role'] as const
+  _kind = 'aws_elastictranscoder_pipeline'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get aws_kms_key_arn() {
+    return this._attr('aws_kms_key_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get input_bucket() {
+    return this._attr('input_bucket')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get output_bucket() {
+    return this._attr('output_bucket')
+  }
+
+  get role() {
+    return this._attr('role')
+  }
 }

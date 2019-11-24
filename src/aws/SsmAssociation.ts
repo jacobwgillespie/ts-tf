@@ -28,18 +28,49 @@ export interface SsmAssociationAttributes {
 }
 
 export class SsmAssociation extends Resource<SsmAssociationArguments, SsmAssociationAttributes> {
-  kind = 'aws_ssm_association'
-  _outputAttrNames = [
-    'association_id',
-    'association_name',
-    'compliance_severity',
-    'document_version',
-    'id',
-    'instance_id',
-    'max_concurrency',
-    'max_errors',
-    'name',
-    'parameters',
-    'schedule_expression',
-  ] as const
+  _kind = 'aws_ssm_association'
+
+  get association_id() {
+    return this._attr('association_id')
+  }
+
+  get association_name() {
+    return this._attr('association_name')
+  }
+
+  get compliance_severity() {
+    return this._attr('compliance_severity')
+  }
+
+  get document_version() {
+    return this._attr('document_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance_id() {
+    return this._attr('instance_id')
+  }
+
+  get max_concurrency() {
+    return this._attr('max_concurrency')
+  }
+
+  get max_errors() {
+    return this._attr('max_errors')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get parameters() {
+    return this._attr('parameters')
+  }
+
+  get schedule_expression() {
+    return this._attr('schedule_expression')
+  }
 }

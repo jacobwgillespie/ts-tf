@@ -12,6 +12,17 @@ export interface SesEmailIdentityAttributes {
 }
 
 export class SesEmailIdentity extends Resource<SesEmailIdentityArguments, SesEmailIdentityAttributes> {
-  kind = 'aws_ses_email_identity'
-  _outputAttrNames = ['arn', 'email', 'id'] as const
+  _kind = 'aws_ses_email_identity'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get email() {
+    return this._attr('email')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

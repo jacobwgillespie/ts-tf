@@ -14,6 +14,21 @@ export interface EcrRepositoryPolicyAttributes {
 }
 
 export class EcrRepositoryPolicy extends Resource<EcrRepositoryPolicyArguments, EcrRepositoryPolicyAttributes> {
-  kind = 'aws_ecr_repository_policy'
-  _outputAttrNames = ['id', 'policy', 'registry_id', 'repository'] as const
+  _kind = 'aws_ecr_repository_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get registry_id() {
+    return this._attr('registry_id')
+  }
+
+  get repository() {
+    return this._attr('repository')
+  }
 }

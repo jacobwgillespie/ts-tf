@@ -16,6 +16,17 @@ export class VpcDhcpOptionsAssociation extends Resource<
   VpcDhcpOptionsAssociationArguments,
   VpcDhcpOptionsAssociationAttributes
 > {
-  kind = 'aws_vpc_dhcp_options_association'
-  _outputAttrNames = ['dhcp_options_id', 'id', 'vpc_id'] as const
+  _kind = 'aws_vpc_dhcp_options_association'
+
+  get dhcp_options_id() {
+    return this._attr('dhcp_options_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

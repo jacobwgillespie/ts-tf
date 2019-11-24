@@ -23,16 +23,41 @@ export interface Cloud9EnvironmentEc2Attributes {
 }
 
 export class Cloud9EnvironmentEc2 extends Resource<Cloud9EnvironmentEc2Arguments, Cloud9EnvironmentEc2Attributes> {
-  kind = 'aws_cloud9_environment_ec2'
-  _outputAttrNames = [
-    'arn',
-    'automatic_stop_time_minutes',
-    'description',
-    'id',
-    'instance_type',
-    'name',
-    'owner_arn',
-    'subnet_id',
-    'type',
-  ] as const
+  _kind = 'aws_cloud9_environment_ec2'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get automatic_stop_time_minutes() {
+    return this._attr('automatic_stop_time_minutes')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance_type() {
+    return this._attr('instance_type')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get owner_arn() {
+    return this._attr('owner_arn')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

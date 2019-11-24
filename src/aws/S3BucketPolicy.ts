@@ -13,6 +13,17 @@ export interface S3BucketPolicyAttributes {
 }
 
 export class S3BucketPolicy extends Resource<S3BucketPolicyArguments, S3BucketPolicyAttributes> {
-  kind = 'aws_s3_bucket_policy'
-  _outputAttrNames = ['bucket', 'id', 'policy'] as const
+  _kind = 'aws_s3_bucket_policy'
+
+  get bucket() {
+    return this._attr('bucket')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

@@ -30,19 +30,53 @@ export interface AppautoscalingPolicyAttributes {
 }
 
 export class AppautoscalingPolicy extends Resource<AppautoscalingPolicyArguments, AppautoscalingPolicyAttributes> {
-  kind = 'aws_appautoscaling_policy'
-  _outputAttrNames = [
-    'adjustment_type',
-    'alarms',
-    'arn',
-    'cooldown',
-    'id',
-    'metric_aggregation_type',
-    'min_adjustment_magnitude',
-    'name',
-    'policy_type',
-    'resource_id',
-    'scalable_dimension',
-    'service_namespace',
-  ] as const
+  _kind = 'aws_appautoscaling_policy'
+
+  get adjustment_type() {
+    return this._attr('adjustment_type')
+  }
+
+  get alarms() {
+    return this._attr('alarms')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get cooldown() {
+    return this._attr('cooldown')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get metric_aggregation_type() {
+    return this._attr('metric_aggregation_type')
+  }
+
+  get min_adjustment_magnitude() {
+    return this._attr('min_adjustment_magnitude')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get policy_type() {
+    return this._attr('policy_type')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get scalable_dimension() {
+    return this._attr('scalable_dimension')
+  }
+
+  get service_namespace() {
+    return this._attr('service_namespace')
+  }
 }

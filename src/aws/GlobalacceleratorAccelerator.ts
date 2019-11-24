@@ -19,6 +19,25 @@ export class GlobalacceleratorAccelerator extends Resource<
   GlobalacceleratorAcceleratorArguments,
   GlobalacceleratorAcceleratorAttributes
 > {
-  kind = 'aws_globalaccelerator_accelerator'
-  _outputAttrNames = ['enabled', 'id', 'ip_address_type', 'ip_sets', 'name'] as const
+  _kind = 'aws_globalaccelerator_accelerator'
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ip_address_type() {
+    return this._attr('ip_address_type')
+  }
+
+  get ip_sets() {
+    return this._attr('ip_sets')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

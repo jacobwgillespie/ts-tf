@@ -33,19 +33,53 @@ export interface AcmCertificateAttributes {
 }
 
 export class AcmCertificate extends Resource<AcmCertificateArguments, AcmCertificateAttributes> {
-  kind = 'aws_acm_certificate'
-  _outputAttrNames = [
-    'arn',
-    'certificate_authority_arn',
-    'certificate_body',
-    'certificate_chain',
-    'domain_name',
-    'domain_validation_options',
-    'id',
-    'private_key',
-    'subject_alternative_names',
-    'tags',
-    'validation_emails',
-    'validation_method',
-  ] as const
+  _kind = 'aws_acm_certificate'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate_authority_arn() {
+    return this._attr('certificate_authority_arn')
+  }
+
+  get certificate_body() {
+    return this._attr('certificate_body')
+  }
+
+  get certificate_chain() {
+    return this._attr('certificate_chain')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get domain_validation_options() {
+    return this._attr('domain_validation_options')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get private_key() {
+    return this._attr('private_key')
+  }
+
+  get subject_alternative_names() {
+    return this._attr('subject_alternative_names')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get validation_emails() {
+    return this._attr('validation_emails')
+  }
+
+  get validation_method() {
+    return this._attr('validation_method')
+  }
 }

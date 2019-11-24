@@ -16,6 +16,17 @@ export class CloudwatchLogDestinationPolicy extends Resource<
   CloudwatchLogDestinationPolicyArguments,
   CloudwatchLogDestinationPolicyAttributes
 > {
-  kind = 'aws_cloudwatch_log_destination_policy'
-  _outputAttrNames = ['access_policy', 'destination_name', 'id'] as const
+  _kind = 'aws_cloudwatch_log_destination_policy'
+
+  get access_policy() {
+    return this._attr('access_policy')
+  }
+
+  get destination_name() {
+    return this._attr('destination_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

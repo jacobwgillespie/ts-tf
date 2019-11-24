@@ -17,6 +17,25 @@ export interface SesTemplateAttributes {
 }
 
 export class SesTemplate extends Resource<SesTemplateArguments, SesTemplateAttributes> {
-  kind = 'aws_ses_template'
-  _outputAttrNames = ['html', 'id', 'name', 'subject', 'text'] as const
+  _kind = 'aws_ses_template'
+
+  get html() {
+    return this._attr('html')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get subject() {
+    return this._attr('subject')
+  }
+
+  get text() {
+    return this._attr('text')
+  }
 }

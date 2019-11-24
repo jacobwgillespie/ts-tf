@@ -28,21 +28,61 @@ export interface EipAttributes {
 }
 
 export class Eip extends Resource<EipArguments, EipAttributes> {
-  kind = 'aws_eip'
-  _outputAttrNames = [
-    'allocation_id',
-    'associate_with_private_ip',
-    'association_id',
-    'domain',
-    'id',
-    'instance',
-    'network_interface',
-    'private_dns',
-    'private_ip',
-    'public_dns',
-    'public_ip',
-    'public_ipv4_pool',
-    'tags',
-    'vpc',
-  ] as const
+  _kind = 'aws_eip'
+
+  get allocation_id() {
+    return this._attr('allocation_id')
+  }
+
+  get associate_with_private_ip() {
+    return this._attr('associate_with_private_ip')
+  }
+
+  get association_id() {
+    return this._attr('association_id')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance() {
+    return this._attr('instance')
+  }
+
+  get network_interface() {
+    return this._attr('network_interface')
+  }
+
+  get private_dns() {
+    return this._attr('private_dns')
+  }
+
+  get private_ip() {
+    return this._attr('private_ip')
+  }
+
+  get public_dns() {
+    return this._attr('public_dns')
+  }
+
+  get public_ip() {
+    return this._attr('public_ip')
+  }
+
+  get public_ipv4_pool() {
+    return this._attr('public_ipv4_pool')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc() {
+    return this._attr('vpc')
+  }
 }

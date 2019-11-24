@@ -31,19 +31,53 @@ export interface ApiGatewayMethodAttributes {
 }
 
 export class ApiGatewayMethod extends Resource<ApiGatewayMethodArguments, ApiGatewayMethodAttributes> {
-  kind = 'aws_api_gateway_method'
-  _outputAttrNames = [
-    'api_key_required',
-    'authorization',
-    'authorization_scopes',
-    'authorizer_id',
-    'http_method',
-    'id',
-    'request_models',
-    'request_parameters',
-    'request_parameters_in_json',
-    'request_validator_id',
-    'resource_id',
-    'rest_api_id',
-  ] as const
+  _kind = 'aws_api_gateway_method'
+
+  get api_key_required() {
+    return this._attr('api_key_required')
+  }
+
+  get authorization() {
+    return this._attr('authorization')
+  }
+
+  get authorization_scopes() {
+    return this._attr('authorization_scopes')
+  }
+
+  get authorizer_id() {
+    return this._attr('authorizer_id')
+  }
+
+  get http_method() {
+    return this._attr('http_method')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get request_models() {
+    return this._attr('request_models')
+  }
+
+  get request_parameters() {
+    return this._attr('request_parameters')
+  }
+
+  get request_parameters_in_json() {
+    return this._attr('request_parameters_in_json')
+  }
+
+  get request_validator_id() {
+    return this._attr('request_validator_id')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
 }

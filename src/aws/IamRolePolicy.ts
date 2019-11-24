@@ -17,6 +17,25 @@ export interface IamRolePolicyAttributes {
 }
 
 export class IamRolePolicy extends Resource<IamRolePolicyArguments, IamRolePolicyAttributes> {
-  kind = 'aws_iam_role_policy'
-  _outputAttrNames = ['id', 'name', 'name_prefix', 'policy', 'role'] as const
+  _kind = 'aws_iam_role_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get role() {
+    return this._attr('role')
+  }
 }

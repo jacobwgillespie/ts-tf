@@ -17,6 +17,29 @@ export interface KmsAliasAttributes {
 }
 
 export class KmsAlias extends Resource<KmsAliasArguments, KmsAliasAttributes> {
-  kind = 'aws_kms_alias'
-  _outputAttrNames = ['arn', 'id', 'name', 'name_prefix', 'target_key_arn', 'target_key_id'] as const
+  _kind = 'aws_kms_alias'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get target_key_arn() {
+    return this._attr('target_key_arn')
+  }
+
+  get target_key_id() {
+    return this._attr('target_key_id')
+  }
 }

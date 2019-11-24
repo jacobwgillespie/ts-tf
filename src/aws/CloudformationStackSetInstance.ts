@@ -23,14 +23,33 @@ export class CloudformationStackSetInstance extends Resource<
   CloudformationStackSetInstanceArguments,
   CloudformationStackSetInstanceAttributes
 > {
-  kind = 'aws_cloudformation_stack_set_instance'
-  _outputAttrNames = [
-    'account_id',
-    'id',
-    'parameter_overrides',
-    'region',
-    'retain_stack',
-    'stack_id',
-    'stack_set_name',
-  ] as const
+  _kind = 'aws_cloudformation_stack_set_instance'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get parameter_overrides() {
+    return this._attr('parameter_overrides')
+  }
+
+  get region() {
+    return this._attr('region')
+  }
+
+  get retain_stack() {
+    return this._attr('retain_stack')
+  }
+
+  get stack_id() {
+    return this._attr('stack_id')
+  }
+
+  get stack_set_name() {
+    return this._attr('stack_set_name')
+  }
 }

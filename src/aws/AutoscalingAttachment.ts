@@ -15,6 +15,21 @@ export interface AutoscalingAttachmentAttributes {
 }
 
 export class AutoscalingAttachment extends Resource<AutoscalingAttachmentArguments, AutoscalingAttachmentAttributes> {
-  kind = 'aws_autoscaling_attachment'
-  _outputAttrNames = ['alb_target_group_arn', 'autoscaling_group_name', 'elb', 'id'] as const
+  _kind = 'aws_autoscaling_attachment'
+
+  get alb_target_group_arn() {
+    return this._attr('alb_target_group_arn')
+  }
+
+  get autoscaling_group_name() {
+    return this._attr('autoscaling_group_name')
+  }
+
+  get elb() {
+    return this._attr('elb')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

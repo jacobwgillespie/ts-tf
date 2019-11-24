@@ -17,6 +17,25 @@ export interface BackupSelectionAttributes {
 }
 
 export class BackupSelection extends Resource<BackupSelectionArguments, BackupSelectionAttributes> {
-  kind = 'aws_backup_selection'
-  _outputAttrNames = ['iam_role_arn', 'id', 'name', 'plan_id', 'resources'] as const
+  _kind = 'aws_backup_selection'
+
+  get iam_role_arn() {
+    return this._attr('iam_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get plan_id() {
+    return this._attr('plan_id')
+  }
+
+  get resources() {
+    return this._attr('resources')
+  }
 }

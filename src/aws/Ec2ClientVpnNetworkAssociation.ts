@@ -19,6 +19,29 @@ export class Ec2ClientVpnNetworkAssociation extends Resource<
   Ec2ClientVpnNetworkAssociationArguments,
   Ec2ClientVpnNetworkAssociationAttributes
 > {
-  kind = 'aws_ec2_client_vpn_network_association'
-  _outputAttrNames = ['client_vpn_endpoint_id', 'id', 'security_groups', 'status', 'subnet_id', 'vpc_id'] as const
+  _kind = 'aws_ec2_client_vpn_network_association'
+
+  get client_vpn_endpoint_id() {
+    return this._attr('client_vpn_endpoint_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get security_groups() {
+    return this._attr('security_groups')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

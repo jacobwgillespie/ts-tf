@@ -16,6 +16,17 @@ export class RedshiftSnapshotScheduleAssociation extends Resource<
   RedshiftSnapshotScheduleAssociationArguments,
   RedshiftSnapshotScheduleAssociationAttributes
 > {
-  kind = 'aws_redshift_snapshot_schedule_association'
-  _outputAttrNames = ['cluster_identifier', 'id', 'schedule_identifier'] as const
+  _kind = 'aws_redshift_snapshot_schedule_association'
+
+  get cluster_identifier() {
+    return this._attr('cluster_identifier')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get schedule_identifier() {
+    return this._attr('schedule_identifier')
+  }
 }

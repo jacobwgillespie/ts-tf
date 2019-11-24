@@ -113,64 +113,233 @@ export interface DbInstanceAttributes {
 }
 
 export class DbInstance extends Resource<DbInstanceArguments, DbInstanceAttributes> {
-  kind = 'aws_db_instance'
-  _outputAttrNames = [
-    'address',
-    'allocated_storage',
-    'allow_major_version_upgrade',
-    'apply_immediately',
-    'arn',
-    'auto_minor_version_upgrade',
-    'availability_zone',
-    'backup_retention_period',
-    'backup_window',
-    'ca_cert_identifier',
-    'character_set_name',
-    'copy_tags_to_snapshot',
-    'db_subnet_group_name',
-    'deletion_protection',
-    'domain',
-    'domain_iam_role_name',
-    'enabled_cloudwatch_logs_exports',
-    'endpoint',
-    'engine',
-    'engine_version',
-    'final_snapshot_identifier',
-    'hosted_zone_id',
-    'iam_database_authentication_enabled',
-    'id',
-    'identifier',
-    'identifier_prefix',
-    'instance_class',
-    'iops',
-    'kms_key_id',
-    'license_model',
-    'maintenance_window',
-    'max_allocated_storage',
-    'monitoring_interval',
-    'monitoring_role_arn',
-    'multi_az',
-    'name',
-    'option_group_name',
-    'parameter_group_name',
-    'password',
-    'performance_insights_enabled',
-    'performance_insights_kms_key_id',
-    'performance_insights_retention_period',
-    'port',
-    'publicly_accessible',
-    'replicas',
-    'replicate_source_db',
-    'resource_id',
-    'security_group_names',
-    'skip_final_snapshot',
-    'snapshot_identifier',
-    'status',
-    'storage_encrypted',
-    'storage_type',
-    'tags',
-    'timezone',
-    'username',
-    'vpc_security_group_ids',
-  ] as const
+  _kind = 'aws_db_instance'
+
+  get address() {
+    return this._attr('address')
+  }
+
+  get allocated_storage() {
+    return this._attr('allocated_storage')
+  }
+
+  get allow_major_version_upgrade() {
+    return this._attr('allow_major_version_upgrade')
+  }
+
+  get apply_immediately() {
+    return this._attr('apply_immediately')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get auto_minor_version_upgrade() {
+    return this._attr('auto_minor_version_upgrade')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get backup_retention_period() {
+    return this._attr('backup_retention_period')
+  }
+
+  get backup_window() {
+    return this._attr('backup_window')
+  }
+
+  get ca_cert_identifier() {
+    return this._attr('ca_cert_identifier')
+  }
+
+  get character_set_name() {
+    return this._attr('character_set_name')
+  }
+
+  get copy_tags_to_snapshot() {
+    return this._attr('copy_tags_to_snapshot')
+  }
+
+  get db_subnet_group_name() {
+    return this._attr('db_subnet_group_name')
+  }
+
+  get deletion_protection() {
+    return this._attr('deletion_protection')
+  }
+
+  get domain() {
+    return this._attr('domain')
+  }
+
+  get domain_iam_role_name() {
+    return this._attr('domain_iam_role_name')
+  }
+
+  get enabled_cloudwatch_logs_exports() {
+    return this._attr('enabled_cloudwatch_logs_exports')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get engine() {
+    return this._attr('engine')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get final_snapshot_identifier() {
+    return this._attr('final_snapshot_identifier')
+  }
+
+  get hosted_zone_id() {
+    return this._attr('hosted_zone_id')
+  }
+
+  get iam_database_authentication_enabled() {
+    return this._attr('iam_database_authentication_enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get identifier() {
+    return this._attr('identifier')
+  }
+
+  get identifier_prefix() {
+    return this._attr('identifier_prefix')
+  }
+
+  get instance_class() {
+    return this._attr('instance_class')
+  }
+
+  get iops() {
+    return this._attr('iops')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get license_model() {
+    return this._attr('license_model')
+  }
+
+  get maintenance_window() {
+    return this._attr('maintenance_window')
+  }
+
+  get max_allocated_storage() {
+    return this._attr('max_allocated_storage')
+  }
+
+  get monitoring_interval() {
+    return this._attr('monitoring_interval')
+  }
+
+  get monitoring_role_arn() {
+    return this._attr('monitoring_role_arn')
+  }
+
+  get multi_az() {
+    return this._attr('multi_az')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get option_group_name() {
+    return this._attr('option_group_name')
+  }
+
+  get parameter_group_name() {
+    return this._attr('parameter_group_name')
+  }
+
+  get password() {
+    return this._attr('password')
+  }
+
+  get performance_insights_enabled() {
+    return this._attr('performance_insights_enabled')
+  }
+
+  get performance_insights_kms_key_id() {
+    return this._attr('performance_insights_kms_key_id')
+  }
+
+  get performance_insights_retention_period() {
+    return this._attr('performance_insights_retention_period')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get publicly_accessible() {
+    return this._attr('publicly_accessible')
+  }
+
+  get replicas() {
+    return this._attr('replicas')
+  }
+
+  get replicate_source_db() {
+    return this._attr('replicate_source_db')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get security_group_names() {
+    return this._attr('security_group_names')
+  }
+
+  get skip_final_snapshot() {
+    return this._attr('skip_final_snapshot')
+  }
+
+  get snapshot_identifier() {
+    return this._attr('snapshot_identifier')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get storage_encrypted() {
+    return this._attr('storage_encrypted')
+  }
+
+  get storage_type() {
+    return this._attr('storage_type')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get timezone() {
+    return this._attr('timezone')
+  }
+
+  get username() {
+    return this._attr('username')
+  }
+
+  get vpc_security_group_ids() {
+    return this._attr('vpc_security_group_ids')
+  }
 }

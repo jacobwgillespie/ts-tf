@@ -21,14 +21,33 @@ export interface EipAssociationAttributes {
 }
 
 export class EipAssociation extends Resource<EipAssociationArguments, EipAssociationAttributes> {
-  kind = 'aws_eip_association'
-  _outputAttrNames = [
-    'allocation_id',
-    'allow_reassociation',
-    'id',
-    'instance_id',
-    'network_interface_id',
-    'private_ip_address',
-    'public_ip',
-  ] as const
+  _kind = 'aws_eip_association'
+
+  get allocation_id() {
+    return this._attr('allocation_id')
+  }
+
+  get allow_reassociation() {
+    return this._attr('allow_reassociation')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance_id() {
+    return this._attr('instance_id')
+  }
+
+  get network_interface_id() {
+    return this._attr('network_interface_id')
+  }
+
+  get private_ip_address() {
+    return this._attr('private_ip_address')
+  }
+
+  get public_ip() {
+    return this._attr('public_ip')
+  }
 }

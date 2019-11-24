@@ -21,6 +21,29 @@ export class InspectorAssessmentTemplate extends Resource<
   InspectorAssessmentTemplateArguments,
   InspectorAssessmentTemplateAttributes
 > {
-  kind = 'aws_inspector_assessment_template'
-  _outputAttrNames = ['arn', 'duration', 'id', 'name', 'rules_package_arns', 'target_arn'] as const
+  _kind = 'aws_inspector_assessment_template'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get duration() {
+    return this._attr('duration')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get rules_package_arns() {
+    return this._attr('rules_package_arns')
+  }
+
+  get target_arn() {
+    return this._attr('target_arn')
+  }
 }

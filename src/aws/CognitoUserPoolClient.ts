@@ -38,23 +38,69 @@ export interface CognitoUserPoolClientAttributes {
 }
 
 export class CognitoUserPoolClient extends Resource<CognitoUserPoolClientArguments, CognitoUserPoolClientAttributes> {
-  kind = 'aws_cognito_user_pool_client'
-  _outputAttrNames = [
-    'allowed_oauth_flows',
-    'allowed_oauth_flows_user_pool_client',
-    'allowed_oauth_scopes',
-    'callback_urls',
-    'client_secret',
-    'default_redirect_uri',
-    'explicit_auth_flows',
-    'generate_secret',
-    'id',
-    'logout_urls',
-    'name',
-    'read_attributes',
-    'refresh_token_validity',
-    'supported_identity_providers',
-    'user_pool_id',
-    'write_attributes',
-  ] as const
+  _kind = 'aws_cognito_user_pool_client'
+
+  get allowed_oauth_flows() {
+    return this._attr('allowed_oauth_flows')
+  }
+
+  get allowed_oauth_flows_user_pool_client() {
+    return this._attr('allowed_oauth_flows_user_pool_client')
+  }
+
+  get allowed_oauth_scopes() {
+    return this._attr('allowed_oauth_scopes')
+  }
+
+  get callback_urls() {
+    return this._attr('callback_urls')
+  }
+
+  get client_secret() {
+    return this._attr('client_secret')
+  }
+
+  get default_redirect_uri() {
+    return this._attr('default_redirect_uri')
+  }
+
+  get explicit_auth_flows() {
+    return this._attr('explicit_auth_flows')
+  }
+
+  get generate_secret() {
+    return this._attr('generate_secret')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get logout_urls() {
+    return this._attr('logout_urls')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get read_attributes() {
+    return this._attr('read_attributes')
+  }
+
+  get refresh_token_validity() {
+    return this._attr('refresh_token_validity')
+  }
+
+  get supported_identity_providers() {
+    return this._attr('supported_identity_providers')
+  }
+
+  get user_pool_id() {
+    return this._attr('user_pool_id')
+  }
+
+  get write_attributes() {
+    return this._attr('write_attributes')
+  }
 }

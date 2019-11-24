@@ -13,6 +13,17 @@ export interface Route53QueryLogAttributes {
 }
 
 export class Route53QueryLog extends Resource<Route53QueryLogArguments, Route53QueryLogAttributes> {
-  kind = 'aws_route53_query_log'
-  _outputAttrNames = ['cloudwatch_log_group_arn', 'id', 'zone_id'] as const
+  _kind = 'aws_route53_query_log'
+
+  get cloudwatch_log_group_arn() {
+    return this._attr('cloudwatch_log_group_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get zone_id() {
+    return this._attr('zone_id')
+  }
 }

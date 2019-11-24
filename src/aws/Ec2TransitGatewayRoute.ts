@@ -20,12 +20,25 @@ export class Ec2TransitGatewayRoute extends Resource<
   Ec2TransitGatewayRouteArguments,
   Ec2TransitGatewayRouteAttributes
 > {
-  kind = 'aws_ec2_transit_gateway_route'
-  _outputAttrNames = [
-    'blackhole',
-    'destination_cidr_block',
-    'id',
-    'transit_gateway_attachment_id',
-    'transit_gateway_route_table_id',
-  ] as const
+  _kind = 'aws_ec2_transit_gateway_route'
+
+  get blackhole() {
+    return this._attr('blackhole')
+  }
+
+  get destination_cidr_block() {
+    return this._attr('destination_cidr_block')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get transit_gateway_attachment_id() {
+    return this._attr('transit_gateway_attachment_id')
+  }
+
+  get transit_gateway_route_table_id() {
+    return this._attr('transit_gateway_route_table_id')
+  }
 }

@@ -16,6 +16,17 @@ export class GuarddutyInviteAccepter extends Resource<
   GuarddutyInviteAccepterArguments,
   GuarddutyInviteAccepterAttributes
 > {
-  kind = 'aws_guardduty_invite_accepter'
-  _outputAttrNames = ['detector_id', 'id', 'master_account_id'] as const
+  _kind = 'aws_guardduty_invite_accepter'
+
+  get detector_id() {
+    return this._attr('detector_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get master_account_id() {
+    return this._attr('master_account_id')
+  }
 }

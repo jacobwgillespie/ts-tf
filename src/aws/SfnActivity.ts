@@ -14,6 +14,21 @@ export interface SfnActivityAttributes {
 }
 
 export class SfnActivity extends Resource<SfnActivityArguments, SfnActivityAttributes> {
-  kind = 'aws_sfn_activity'
-  _outputAttrNames = ['creation_date', 'id', 'name', 'tags'] as const
+  _kind = 'aws_sfn_activity'
+
+  get creation_date() {
+    return this._attr('creation_date')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

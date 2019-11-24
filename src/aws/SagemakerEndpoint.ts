@@ -16,6 +16,25 @@ export interface SagemakerEndpointAttributes {
 }
 
 export class SagemakerEndpoint extends Resource<SagemakerEndpointArguments, SagemakerEndpointAttributes> {
-  kind = 'aws_sagemaker_endpoint'
-  _outputAttrNames = ['arn', 'endpoint_config_name', 'id', 'name', 'tags'] as const
+  _kind = 'aws_sagemaker_endpoint'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get endpoint_config_name() {
+    return this._attr('endpoint_config_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

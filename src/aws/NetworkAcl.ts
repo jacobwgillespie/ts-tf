@@ -62,6 +62,37 @@ export interface NetworkAclAttributes {
 }
 
 export class NetworkAcl extends Resource<NetworkAclArguments, NetworkAclAttributes> {
-  kind = 'aws_network_acl'
-  _outputAttrNames = ['egress', 'id', 'ingress', 'owner_id', 'subnet_id', 'subnet_ids', 'tags', 'vpc_id'] as const
+  _kind = 'aws_network_acl'
+
+  get egress() {
+    return this._attr('egress')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ingress() {
+    return this._attr('ingress')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

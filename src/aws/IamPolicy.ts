@@ -20,6 +20,33 @@ export interface IamPolicyAttributes {
 }
 
 export class IamPolicy extends Resource<IamPolicyArguments, IamPolicyAttributes> {
-  kind = 'aws_iam_policy'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'name_prefix', 'path', 'policy'] as const
+  _kind = 'aws_iam_policy'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get path() {
+    return this._attr('path')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
 }

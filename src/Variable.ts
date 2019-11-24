@@ -7,5 +7,5 @@ export interface VariableArguments {
 }
 
 export class Variable extends Resource<VariableArguments, void> {
-  kind = 'var'
+  _kind = 'var'
 }

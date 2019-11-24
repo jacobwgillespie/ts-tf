@@ -26,15 +26,37 @@ export class ApiGatewayMethodResponse extends Resource<
   ApiGatewayMethodResponseArguments,
   ApiGatewayMethodResponseAttributes
 > {
-  kind = 'aws_api_gateway_method_response'
-  _outputAttrNames = [
-    'http_method',
-    'id',
-    'resource_id',
-    'response_models',
-    'response_parameters',
-    'response_parameters_in_json',
-    'rest_api_id',
-    'status_code',
-  ] as const
+  _kind = 'aws_api_gateway_method_response'
+
+  get http_method() {
+    return this._attr('http_method')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get response_models() {
+    return this._attr('response_models')
+  }
+
+  get response_parameters() {
+    return this._attr('response_parameters')
+  }
+
+  get response_parameters_in_json() {
+    return this._attr('response_parameters_in_json')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get status_code() {
+    return this._attr('status_code')
+  }
 }

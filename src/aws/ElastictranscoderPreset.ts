@@ -23,6 +23,33 @@ export class ElastictranscoderPreset extends Resource<
   ElastictranscoderPresetArguments,
   ElastictranscoderPresetAttributes
 > {
-  kind = 'aws_elastictranscoder_preset'
-  _outputAttrNames = ['arn', 'container', 'description', 'id', 'name', 'type', 'video_codec_options'] as const
+  _kind = 'aws_elastictranscoder_preset'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get container() {
+    return this._attr('container')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
+
+  get video_codec_options() {
+    return this._attr('video_codec_options')
+  }
 }

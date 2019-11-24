@@ -18,6 +18,33 @@ export interface EcrRepositoryAttributes {
 }
 
 export class EcrRepository extends Resource<EcrRepositoryArguments, EcrRepositoryAttributes> {
-  kind = 'aws_ecr_repository'
-  _outputAttrNames = ['arn', 'id', 'image_tag_mutability', 'name', 'registry_id', 'repository_url', 'tags'] as const
+  _kind = 'aws_ecr_repository'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get image_tag_mutability() {
+    return this._attr('image_tag_mutability')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get registry_id() {
+    return this._attr('registry_id')
+  }
+
+  get repository_url() {
+    return this._attr('repository_url')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

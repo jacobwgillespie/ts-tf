@@ -11,6 +11,13 @@ export interface SesReceiptRuleSetAttributes {
 }
 
 export class SesReceiptRuleSet extends Resource<SesReceiptRuleSetArguments, SesReceiptRuleSetAttributes> {
-  kind = 'aws_ses_receipt_rule_set'
-  _outputAttrNames = ['id', 'rule_set_name'] as const
+  _kind = 'aws_ses_receipt_rule_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get rule_set_name() {
+    return this._attr('rule_set_name')
+  }
 }

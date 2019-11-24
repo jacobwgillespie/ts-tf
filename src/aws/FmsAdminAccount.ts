@@ -11,6 +11,13 @@ export interface FmsAdminAccountAttributes {
 }
 
 export class FmsAdminAccount extends Resource<FmsAdminAccountArguments, FmsAdminAccountAttributes> {
-  kind = 'aws_fms_admin_account'
-  _outputAttrNames = ['account_id', 'id'] as const
+  _kind = 'aws_fms_admin_account'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

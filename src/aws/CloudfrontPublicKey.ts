@@ -19,6 +19,33 @@ export interface CloudfrontPublicKeyAttributes {
 }
 
 export class CloudfrontPublicKey extends Resource<CloudfrontPublicKeyArguments, CloudfrontPublicKeyAttributes> {
-  kind = 'aws_cloudfront_public_key'
-  _outputAttrNames = ['caller_reference', 'comment', 'encoded_key', 'etag', 'id', 'name', 'name_prefix'] as const
+  _kind = 'aws_cloudfront_public_key'
+
+  get caller_reference() {
+    return this._attr('caller_reference')
+  }
+
+  get comment() {
+    return this._attr('comment')
+  }
+
+  get encoded_key() {
+    return this._attr('encoded_key')
+  }
+
+  get etag() {
+    return this._attr('etag')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
 }

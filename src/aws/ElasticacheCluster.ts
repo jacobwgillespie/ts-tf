@@ -58,34 +58,113 @@ export interface ElasticacheClusterAttributes {
 }
 
 export class ElasticacheCluster extends Resource<ElasticacheClusterArguments, ElasticacheClusterAttributes> {
-  kind = 'aws_elasticache_cluster'
-  _outputAttrNames = [
-    'apply_immediately',
-    'availability_zone',
-    'availability_zones',
-    'az_mode',
-    'cache_nodes',
-    'cluster_address',
-    'cluster_id',
-    'configuration_endpoint',
-    'engine',
-    'engine_version',
-    'id',
-    'maintenance_window',
-    'node_type',
-    'notification_topic_arn',
-    'num_cache_nodes',
-    'parameter_group_name',
-    'port',
-    'preferred_availability_zones',
-    'replication_group_id',
-    'security_group_ids',
-    'security_group_names',
-    'snapshot_arns',
-    'snapshot_name',
-    'snapshot_retention_limit',
-    'snapshot_window',
-    'subnet_group_name',
-    'tags',
-  ] as const
+  _kind = 'aws_elasticache_cluster'
+
+  get apply_immediately() {
+    return this._attr('apply_immediately')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get availability_zones() {
+    return this._attr('availability_zones')
+  }
+
+  get az_mode() {
+    return this._attr('az_mode')
+  }
+
+  get cache_nodes() {
+    return this._attr('cache_nodes')
+  }
+
+  get cluster_address() {
+    return this._attr('cluster_address')
+  }
+
+  get cluster_id() {
+    return this._attr('cluster_id')
+  }
+
+  get configuration_endpoint() {
+    return this._attr('configuration_endpoint')
+  }
+
+  get engine() {
+    return this._attr('engine')
+  }
+
+  get engine_version() {
+    return this._attr('engine_version')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get maintenance_window() {
+    return this._attr('maintenance_window')
+  }
+
+  get node_type() {
+    return this._attr('node_type')
+  }
+
+  get notification_topic_arn() {
+    return this._attr('notification_topic_arn')
+  }
+
+  get num_cache_nodes() {
+    return this._attr('num_cache_nodes')
+  }
+
+  get parameter_group_name() {
+    return this._attr('parameter_group_name')
+  }
+
+  get port() {
+    return this._attr('port')
+  }
+
+  get preferred_availability_zones() {
+    return this._attr('preferred_availability_zones')
+  }
+
+  get replication_group_id() {
+    return this._attr('replication_group_id')
+  }
+
+  get security_group_ids() {
+    return this._attr('security_group_ids')
+  }
+
+  get security_group_names() {
+    return this._attr('security_group_names')
+  }
+
+  get snapshot_arns() {
+    return this._attr('snapshot_arns')
+  }
+
+  get snapshot_name() {
+    return this._attr('snapshot_name')
+  }
+
+  get snapshot_retention_limit() {
+    return this._attr('snapshot_retention_limit')
+  }
+
+  get snapshot_window() {
+    return this._attr('snapshot_window')
+  }
+
+  get subnet_group_name() {
+    return this._attr('subnet_group_name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

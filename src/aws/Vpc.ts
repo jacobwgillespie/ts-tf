@@ -34,25 +34,77 @@ export interface VpcAttributes {
 }
 
 export class Vpc extends Resource<VpcArguments, VpcAttributes> {
-  kind = 'aws_vpc'
-  _outputAttrNames = [
-    'arn',
-    'assign_generated_ipv6_cidr_block',
-    'cidr_block',
-    'default_network_acl_id',
-    'default_route_table_id',
-    'default_security_group_id',
-    'dhcp_options_id',
-    'enable_classiclink',
-    'enable_classiclink_dns_support',
-    'enable_dns_hostnames',
-    'enable_dns_support',
-    'id',
-    'instance_tenancy',
-    'ipv6_association_id',
-    'ipv6_cidr_block',
-    'main_route_table_id',
-    'owner_id',
-    'tags',
-  ] as const
+  _kind = 'aws_vpc'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get assign_generated_ipv6_cidr_block() {
+    return this._attr('assign_generated_ipv6_cidr_block')
+  }
+
+  get cidr_block() {
+    return this._attr('cidr_block')
+  }
+
+  get default_network_acl_id() {
+    return this._attr('default_network_acl_id')
+  }
+
+  get default_route_table_id() {
+    return this._attr('default_route_table_id')
+  }
+
+  get default_security_group_id() {
+    return this._attr('default_security_group_id')
+  }
+
+  get dhcp_options_id() {
+    return this._attr('dhcp_options_id')
+  }
+
+  get enable_classiclink() {
+    return this._attr('enable_classiclink')
+  }
+
+  get enable_classiclink_dns_support() {
+    return this._attr('enable_classiclink_dns_support')
+  }
+
+  get enable_dns_hostnames() {
+    return this._attr('enable_dns_hostnames')
+  }
+
+  get enable_dns_support() {
+    return this._attr('enable_dns_support')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get instance_tenancy() {
+    return this._attr('instance_tenancy')
+  }
+
+  get ipv6_association_id() {
+    return this._attr('ipv6_association_id')
+  }
+
+  get ipv6_cidr_block() {
+    return this._attr('ipv6_cidr_block')
+  }
+
+  get main_route_table_id() {
+    return this._attr('main_route_table_id')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

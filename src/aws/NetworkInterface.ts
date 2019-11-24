@@ -26,17 +26,45 @@ export interface NetworkInterfaceAttributes {
 }
 
 export class NetworkInterface extends Resource<NetworkInterfaceArguments, NetworkInterfaceAttributes> {
-  kind = 'aws_network_interface'
-  _outputAttrNames = [
-    'description',
-    'id',
-    'private_dns_name',
-    'private_ip',
-    'private_ips',
-    'private_ips_count',
-    'security_groups',
-    'source_dest_check',
-    'subnet_id',
-    'tags',
-  ] as const
+  _kind = 'aws_network_interface'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get private_dns_name() {
+    return this._attr('private_dns_name')
+  }
+
+  get private_ip() {
+    return this._attr('private_ip')
+  }
+
+  get private_ips() {
+    return this._attr('private_ips')
+  }
+
+  get private_ips_count() {
+    return this._attr('private_ips_count')
+  }
+
+  get security_groups() {
+    return this._attr('security_groups')
+  }
+
+  get source_dest_check() {
+    return this._attr('source_dest_check')
+  }
+
+  get subnet_id() {
+    return this._attr('subnet_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

@@ -14,6 +14,21 @@ export interface EcrLifecyclePolicyAttributes {
 }
 
 export class EcrLifecyclePolicy extends Resource<EcrLifecyclePolicyArguments, EcrLifecyclePolicyAttributes> {
-  kind = 'aws_ecr_lifecycle_policy'
-  _outputAttrNames = ['id', 'policy', 'registry_id', 'repository'] as const
+  _kind = 'aws_ecr_lifecycle_policy'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get registry_id() {
+    return this._attr('registry_id')
+  }
+
+  get repository() {
+    return this._attr('repository')
+  }
 }

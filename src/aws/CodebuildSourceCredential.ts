@@ -21,6 +21,29 @@ export class CodebuildSourceCredential extends Resource<
   CodebuildSourceCredentialArguments,
   CodebuildSourceCredentialAttributes
 > {
-  kind = 'aws_codebuild_source_credential'
-  _outputAttrNames = ['arn', 'auth_type', 'id', 'server_type', 'token', 'user_name'] as const
+  _kind = 'aws_codebuild_source_credential'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get auth_type() {
+    return this._attr('auth_type')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get server_type() {
+    return this._attr('server_type')
+  }
+
+  get token() {
+    return this._attr('token')
+  }
+
+  get user_name() {
+    return this._attr('user_name')
+  }
 }

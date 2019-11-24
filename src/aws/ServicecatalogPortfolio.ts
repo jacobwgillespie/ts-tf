@@ -22,6 +22,33 @@ export class ServicecatalogPortfolio extends Resource<
   ServicecatalogPortfolioArguments,
   ServicecatalogPortfolioAttributes
 > {
-  kind = 'aws_servicecatalog_portfolio'
-  _outputAttrNames = ['arn', 'created_time', 'description', 'id', 'name', 'provider_name', 'tags'] as const
+  _kind = 'aws_servicecatalog_portfolio'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get created_time() {
+    return this._attr('created_time')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get provider_name() {
+    return this._attr('provider_name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

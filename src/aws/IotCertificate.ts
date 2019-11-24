@@ -17,6 +17,33 @@ export interface IotCertificateAttributes {
 }
 
 export class IotCertificate extends Resource<IotCertificateArguments, IotCertificateAttributes> {
-  kind = 'aws_iot_certificate'
-  _outputAttrNames = ['active', 'arn', 'certificate_pem', 'csr', 'id', 'private_key', 'public_key'] as const
+  _kind = 'aws_iot_certificate'
+
+  get active() {
+    return this._attr('active')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate_pem() {
+    return this._attr('certificate_pem')
+  }
+
+  get csr() {
+    return this._attr('csr')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get private_key() {
+    return this._attr('private_key')
+  }
+
+  get public_key() {
+    return this._attr('public_key')
+  }
 }

@@ -18,6 +18,29 @@ export interface RedshiftSubnetGroupAttributes {
 }
 
 export class RedshiftSubnetGroup extends Resource<RedshiftSubnetGroupArguments, RedshiftSubnetGroupAttributes> {
-  kind = 'aws_redshift_subnet_group'
-  _outputAttrNames = ['arn', 'description', 'id', 'name', 'subnet_ids', 'tags'] as const
+  _kind = 'aws_redshift_subnet_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get subnet_ids() {
+    return this._attr('subnet_ids')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

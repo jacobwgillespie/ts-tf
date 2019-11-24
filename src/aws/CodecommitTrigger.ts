@@ -12,6 +12,17 @@ export interface CodecommitTriggerAttributes {
 }
 
 export class CodecommitTrigger extends Resource<CodecommitTriggerArguments, CodecommitTriggerAttributes> {
-  kind = 'aws_codecommit_trigger'
-  _outputAttrNames = ['configuration_id', 'id', 'repository_name'] as const
+  _kind = 'aws_codecommit_trigger'
+
+  get configuration_id() {
+    return this._attr('configuration_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get repository_name() {
+    return this._attr('repository_name')
+  }
 }

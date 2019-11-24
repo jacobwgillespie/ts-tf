@@ -33,25 +33,77 @@ export interface AmiCopyAttributes {
 }
 
 export class AmiCopy extends Resource<AmiCopyArguments, AmiCopyAttributes> {
-  kind = 'aws_ami_copy'
-  _outputAttrNames = [
-    'architecture',
-    'description',
-    'ena_support',
-    'encrypted',
-    'id',
-    'image_location',
-    'kernel_id',
-    'kms_key_id',
-    'manage_ebs_snapshots',
-    'name',
-    'ramdisk_id',
-    'root_device_name',
-    'root_snapshot_id',
-    'source_ami_id',
-    'source_ami_region',
-    'sriov_net_support',
-    'tags',
-    'virtualization_type',
-  ] as const
+  _kind = 'aws_ami_copy'
+
+  get architecture() {
+    return this._attr('architecture')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get ena_support() {
+    return this._attr('ena_support')
+  }
+
+  get encrypted() {
+    return this._attr('encrypted')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get image_location() {
+    return this._attr('image_location')
+  }
+
+  get kernel_id() {
+    return this._attr('kernel_id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get manage_ebs_snapshots() {
+    return this._attr('manage_ebs_snapshots')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get ramdisk_id() {
+    return this._attr('ramdisk_id')
+  }
+
+  get root_device_name() {
+    return this._attr('root_device_name')
+  }
+
+  get root_snapshot_id() {
+    return this._attr('root_snapshot_id')
+  }
+
+  get source_ami_id() {
+    return this._attr('source_ami_id')
+  }
+
+  get source_ami_region() {
+    return this._attr('source_ami_region')
+  }
+
+  get sriov_net_support() {
+    return this._attr('sriov_net_support')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get virtualization_type() {
+    return this._attr('virtualization_type')
+  }
 }

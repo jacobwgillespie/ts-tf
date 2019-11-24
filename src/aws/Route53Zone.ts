@@ -25,17 +25,45 @@ export interface Route53ZoneAttributes {
 }
 
 export class Route53Zone extends Resource<Route53ZoneArguments, Route53ZoneAttributes> {
-  kind = 'aws_route53_zone'
-  _outputAttrNames = [
-    'comment',
-    'delegation_set_id',
-    'force_destroy',
-    'id',
-    'name',
-    'name_servers',
-    'tags',
-    'vpc_id',
-    'vpc_region',
-    'zone_id',
-  ] as const
+  _kind = 'aws_route53_zone'
+
+  get comment() {
+    return this._attr('comment')
+  }
+
+  get delegation_set_id() {
+    return this._attr('delegation_set_id')
+  }
+
+  get force_destroy() {
+    return this._attr('force_destroy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_servers() {
+    return this._attr('name_servers')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
+
+  get vpc_region() {
+    return this._attr('vpc_region')
+  }
+
+  get zone_id() {
+    return this._attr('zone_id')
+  }
 }

@@ -11,6 +11,13 @@ export interface SesConfigurationSetAttributes {
 }
 
 export class SesConfigurationSet extends Resource<SesConfigurationSetArguments, SesConfigurationSetAttributes> {
-  kind = 'aws_ses_configuration_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_ses_configuration_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

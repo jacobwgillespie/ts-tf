@@ -11,6 +11,13 @@ export interface IamAccountAliasAttributes {
 }
 
 export class IamAccountAlias extends Resource<IamAccountAliasArguments, IamAccountAliasAttributes> {
-  kind = 'aws_iam_account_alias'
-  _outputAttrNames = ['account_alias', 'id'] as const
+  _kind = 'aws_iam_account_alias'
+
+  get account_alias() {
+    return this._attr('account_alias')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

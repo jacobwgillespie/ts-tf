@@ -19,6 +19,25 @@ export class RedshiftSnapshotCopyGrant extends Resource<
   RedshiftSnapshotCopyGrantArguments,
   RedshiftSnapshotCopyGrantAttributes
 > {
-  kind = 'aws_redshift_snapshot_copy_grant'
-  _outputAttrNames = ['arn', 'id', 'kms_key_id', 'snapshot_copy_grant_name', 'tags'] as const
+  _kind = 'aws_redshift_snapshot_copy_grant'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_key_id() {
+    return this._attr('kms_key_id')
+  }
+
+  get snapshot_copy_grant_name() {
+    return this._attr('snapshot_copy_grant_name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

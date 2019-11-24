@@ -14,6 +14,13 @@ export class SecurityhubStandardsSubscription extends Resource<
   SecurityhubStandardsSubscriptionArguments,
   SecurityhubStandardsSubscriptionAttributes
 > {
-  kind = 'aws_securityhub_standards_subscription'
-  _outputAttrNames = ['id', 'standards_arn'] as const
+  _kind = 'aws_securityhub_standards_subscription'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get standards_arn() {
+    return this._attr('standards_arn')
+  }
 }

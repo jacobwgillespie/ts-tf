@@ -1,4 +1,4 @@
-import {AttributeReference, AttributeReferencesOf} from './AttributeReference'
+import {AttributeReference} from './AttributeReference'
 
 type ArgumentsWithReferences<T> = {
   [K in keyof T]: T[K] extends object
@@ -6,30 +6,21 @@ type ArgumentsWithReferences<T> = {
     : T[K] | AttributeReference<T[K]>
 }
 
-// type StringKeyOf<T> = Extract<keyof T, string>
+type StringKeyOf<T> = Extract<keyof T, string>
 
 export abstract class Resource<Arguments, Attributes> {
-  abstract readonly kind: string
+  abstract readonly _kind: string
 
-  name: string
+  _name: string
   private _inputAttrs: ArgumentsWithReferences<Arguments>
 
   constructor(name: string, attrs: ArgumentsWithReferences<Arguments>) {
-    this.name = name
+    this._name = name
     this._inputAttrs = attrs
   }
 
-  get attrs(): AttributeReferencesOf<Attributes> {
-    const resource = this
-    const proxy = new Proxy({} as AttributeReferencesOf<Attributes>, {
-      get(_target, key) {
-        if (typeof key === 'string') {
-          return new AttributeReference<Attributes[typeof name]>(resource, resource.kind, resource.name, key)
-        }
-        return undefined
-      },
-    })
-    return proxy
+  protected _attr<K extends StringKeyOf<Attributes>>(key: K): AttributeReference<Attributes[K]> {
+    return new AttributeReference<Attributes[K]>(this, this._kind, this._name, key)
   }
 
   /**
@@ -51,7 +42,7 @@ export abstract class Resource<Arguments, Attributes> {
   }
 
   toReference() {
-    return `\${${this.kind}.${this.name}}`
+    return `\${${this._kind}.${this._name}}`
   }
 
   toJSON() {

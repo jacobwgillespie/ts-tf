@@ -16,6 +16,25 @@ export interface KmsCiphertextAttributes {
 }
 
 export class KmsCiphertext extends Resource<KmsCiphertextArguments, KmsCiphertextAttributes> {
-  kind = 'aws_kms_ciphertext'
-  _outputAttrNames = ['ciphertext_blob', 'context', 'id', 'key_id', 'plaintext'] as const
+  _kind = 'aws_kms_ciphertext'
+
+  get ciphertext_blob() {
+    return this._attr('ciphertext_blob')
+  }
+
+  get context() {
+    return this._attr('context')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get key_id() {
+    return this._attr('key_id')
+  }
+
+  get plaintext() {
+    return this._attr('plaintext')
+  }
 }

@@ -14,6 +14,21 @@ export interface InternetGatewayAttributes {
 }
 
 export class InternetGateway extends Resource<InternetGatewayArguments, InternetGatewayAttributes> {
-  kind = 'aws_internet_gateway'
-  _outputAttrNames = ['id', 'owner_id', 'tags', 'vpc_id'] as const
+  _kind = 'aws_internet_gateway'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get owner_id() {
+    return this._attr('owner_id')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get vpc_id() {
+    return this._attr('vpc_id')
+  }
 }

@@ -52,28 +52,89 @@ export class OpsworksNodejsAppLayer extends Resource<
   OpsworksNodejsAppLayerArguments,
   OpsworksNodejsAppLayerAttributes
 > {
-  kind = 'aws_opsworks_nodejs_app_layer'
-  _outputAttrNames = [
-    'auto_assign_elastic_ips',
-    'auto_assign_public_ips',
-    'auto_healing',
-    'custom_configure_recipes',
-    'custom_deploy_recipes',
-    'custom_instance_profile_arn',
-    'custom_json',
-    'custom_security_group_ids',
-    'custom_setup_recipes',
-    'custom_shutdown_recipes',
-    'custom_undeploy_recipes',
-    'drain_elb_on_shutdown',
-    'elastic_load_balancer',
-    'id',
-    'install_updates_on_boot',
-    'instance_shutdown_timeout',
-    'name',
-    'nodejs_version',
-    'stack_id',
-    'system_packages',
-    'use_ebs_optimized_instances',
-  ] as const
+  _kind = 'aws_opsworks_nodejs_app_layer'
+
+  get auto_assign_elastic_ips() {
+    return this._attr('auto_assign_elastic_ips')
+  }
+
+  get auto_assign_public_ips() {
+    return this._attr('auto_assign_public_ips')
+  }
+
+  get auto_healing() {
+    return this._attr('auto_healing')
+  }
+
+  get custom_configure_recipes() {
+    return this._attr('custom_configure_recipes')
+  }
+
+  get custom_deploy_recipes() {
+    return this._attr('custom_deploy_recipes')
+  }
+
+  get custom_instance_profile_arn() {
+    return this._attr('custom_instance_profile_arn')
+  }
+
+  get custom_json() {
+    return this._attr('custom_json')
+  }
+
+  get custom_security_group_ids() {
+    return this._attr('custom_security_group_ids')
+  }
+
+  get custom_setup_recipes() {
+    return this._attr('custom_setup_recipes')
+  }
+
+  get custom_shutdown_recipes() {
+    return this._attr('custom_shutdown_recipes')
+  }
+
+  get custom_undeploy_recipes() {
+    return this._attr('custom_undeploy_recipes')
+  }
+
+  get drain_elb_on_shutdown() {
+    return this._attr('drain_elb_on_shutdown')
+  }
+
+  get elastic_load_balancer() {
+    return this._attr('elastic_load_balancer')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get install_updates_on_boot() {
+    return this._attr('install_updates_on_boot')
+  }
+
+  get instance_shutdown_timeout() {
+    return this._attr('instance_shutdown_timeout')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get nodejs_version() {
+    return this._attr('nodejs_version')
+  }
+
+  get stack_id() {
+    return this._attr('stack_id')
+  }
+
+  get system_packages() {
+    return this._attr('system_packages')
+  }
+
+  get use_ebs_optimized_instances() {
+    return this._attr('use_ebs_optimized_instances')
+  }
 }

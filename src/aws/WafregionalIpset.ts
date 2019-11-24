@@ -12,6 +12,17 @@ export interface WafregionalIpsetAttributes {
 }
 
 export class WafregionalIpset extends Resource<WafregionalIpsetArguments, WafregionalIpsetAttributes> {
-  kind = 'aws_wafregional_ipset'
-  _outputAttrNames = ['arn', 'id', 'name'] as const
+  _kind = 'aws_wafregional_ipset'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

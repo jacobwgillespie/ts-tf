@@ -13,6 +13,17 @@ export interface IotPolicyAttachmentAttributes {
 }
 
 export class IotPolicyAttachment extends Resource<IotPolicyAttachmentArguments, IotPolicyAttachmentAttributes> {
-  kind = 'aws_iot_policy_attachment'
-  _outputAttrNames = ['id', 'policy', 'target'] as const
+  _kind = 'aws_iot_policy_attachment'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get target() {
+    return this._attr('target')
+  }
 }

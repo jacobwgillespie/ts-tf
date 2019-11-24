@@ -16,6 +16,17 @@ export class DirectoryServiceLogSubscription extends Resource<
   DirectoryServiceLogSubscriptionArguments,
   DirectoryServiceLogSubscriptionAttributes
 > {
-  kind = 'aws_directory_service_log_subscription'
-  _outputAttrNames = ['directory_id', 'id', 'log_group_name'] as const
+  _kind = 'aws_directory_service_log_subscription'
+
+  get directory_id() {
+    return this._attr('directory_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get log_group_name() {
+    return this._attr('log_group_name')
+  }
 }

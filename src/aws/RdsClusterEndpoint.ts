@@ -21,15 +21,37 @@ export interface RdsClusterEndpointAttributes {
 }
 
 export class RdsClusterEndpoint extends Resource<RdsClusterEndpointArguments, RdsClusterEndpointAttributes> {
-  kind = 'aws_rds_cluster_endpoint'
-  _outputAttrNames = [
-    'arn',
-    'cluster_endpoint_identifier',
-    'cluster_identifier',
-    'custom_endpoint_type',
-    'endpoint',
-    'excluded_members',
-    'id',
-    'static_members',
-  ] as const
+  _kind = 'aws_rds_cluster_endpoint'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get cluster_endpoint_identifier() {
+    return this._attr('cluster_endpoint_identifier')
+  }
+
+  get cluster_identifier() {
+    return this._attr('cluster_identifier')
+  }
+
+  get custom_endpoint_type() {
+    return this._attr('custom_endpoint_type')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get excluded_members() {
+    return this._attr('excluded_members')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get static_members() {
+    return this._attr('static_members')
+  }
 }

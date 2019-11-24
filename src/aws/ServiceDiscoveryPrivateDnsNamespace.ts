@@ -20,6 +20,29 @@ export class ServiceDiscoveryPrivateDnsNamespace extends Resource<
   ServiceDiscoveryPrivateDnsNamespaceArguments,
   ServiceDiscoveryPrivateDnsNamespaceAttributes
 > {
-  kind = 'aws_service_discovery_private_dns_namespace'
-  _outputAttrNames = ['arn', 'description', 'hosted_zone', 'id', 'name', 'vpc'] as const
+  _kind = 'aws_service_discovery_private_dns_namespace'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get hosted_zone() {
+    return this._attr('hosted_zone')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get vpc() {
+    return this._attr('vpc')
+  }
 }

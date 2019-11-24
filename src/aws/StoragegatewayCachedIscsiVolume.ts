@@ -31,21 +31,61 @@ export class StoragegatewayCachedIscsiVolume extends Resource<
   StoragegatewayCachedIscsiVolumeArguments,
   StoragegatewayCachedIscsiVolumeAttributes
 > {
-  kind = 'aws_storagegateway_cached_iscsi_volume'
-  _outputAttrNames = [
-    'arn',
-    'chap_enabled',
-    'gateway_arn',
-    'id',
-    'lun_number',
-    'network_interface_id',
-    'network_interface_port',
-    'snapshot_id',
-    'source_volume_arn',
-    'target_arn',
-    'target_name',
-    'volume_arn',
-    'volume_id',
-    'volume_size_in_bytes',
-  ] as const
+  _kind = 'aws_storagegateway_cached_iscsi_volume'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get chap_enabled() {
+    return this._attr('chap_enabled')
+  }
+
+  get gateway_arn() {
+    return this._attr('gateway_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get lun_number() {
+    return this._attr('lun_number')
+  }
+
+  get network_interface_id() {
+    return this._attr('network_interface_id')
+  }
+
+  get network_interface_port() {
+    return this._attr('network_interface_port')
+  }
+
+  get snapshot_id() {
+    return this._attr('snapshot_id')
+  }
+
+  get source_volume_arn() {
+    return this._attr('source_volume_arn')
+  }
+
+  get target_arn() {
+    return this._attr('target_arn')
+  }
+
+  get target_name() {
+    return this._attr('target_name')
+  }
+
+  get volume_arn() {
+    return this._attr('volume_arn')
+  }
+
+  get volume_id() {
+    return this._attr('volume_id')
+  }
+
+  get volume_size_in_bytes() {
+    return this._attr('volume_size_in_bytes')
+  }
 }

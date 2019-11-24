@@ -19,6 +19,25 @@ export class ConfigAggregateAuthorization extends Resource<
   ConfigAggregateAuthorizationArguments,
   ConfigAggregateAuthorizationAttributes
 > {
-  kind = 'aws_config_aggregate_authorization'
-  _outputAttrNames = ['account_id', 'arn', 'id', 'region', 'tags'] as const
+  _kind = 'aws_config_aggregate_authorization'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get region() {
+    return this._attr('region')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

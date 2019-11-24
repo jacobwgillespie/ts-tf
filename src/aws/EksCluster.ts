@@ -23,18 +23,49 @@ export interface EksClusterAttributes {
 }
 
 export class EksCluster extends Resource<EksClusterArguments, EksClusterAttributes> {
-  kind = 'aws_eks_cluster'
-  _outputAttrNames = [
-    'arn',
-    'certificate_authority',
-    'created_at',
-    'enabled_cluster_log_types',
-    'endpoint',
-    'id',
-    'name',
-    'platform_version',
-    'role_arn',
-    'status',
-    'version',
-  ] as const
+  _kind = 'aws_eks_cluster'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate_authority() {
+    return this._attr('certificate_authority')
+  }
+
+  get created_at() {
+    return this._attr('created_at')
+  }
+
+  get enabled_cluster_log_types() {
+    return this._attr('enabled_cluster_log_types')
+  }
+
+  get endpoint() {
+    return this._attr('endpoint')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get platform_version() {
+    return this._attr('platform_version')
+  }
+
+  get role_arn() {
+    return this._attr('role_arn')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

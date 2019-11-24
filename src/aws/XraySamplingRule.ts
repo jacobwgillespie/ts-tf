@@ -34,21 +34,61 @@ export interface XraySamplingRuleAttributes {
 }
 
 export class XraySamplingRule extends Resource<XraySamplingRuleArguments, XraySamplingRuleAttributes> {
-  kind = 'aws_xray_sampling_rule'
-  _outputAttrNames = [
-    'arn',
-    'attributes',
-    'fixed_rate',
-    'host',
-    'http_method',
-    'id',
-    'priority',
-    'reservoir_size',
-    'resource_arn',
-    'rule_name',
-    'service_name',
-    'service_type',
-    'url_path',
-    'version',
-  ] as const
+  _kind = 'aws_xray_sampling_rule'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get attributes() {
+    return this._attr('attributes')
+  }
+
+  get fixed_rate() {
+    return this._attr('fixed_rate')
+  }
+
+  get host() {
+    return this._attr('host')
+  }
+
+  get http_method() {
+    return this._attr('http_method')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get priority() {
+    return this._attr('priority')
+  }
+
+  get reservoir_size() {
+    return this._attr('reservoir_size')
+  }
+
+  get resource_arn() {
+    return this._attr('resource_arn')
+  }
+
+  get rule_name() {
+    return this._attr('rule_name')
+  }
+
+  get service_name() {
+    return this._attr('service_name')
+  }
+
+  get service_type() {
+    return this._attr('service_type')
+  }
+
+  get url_path() {
+    return this._attr('url_path')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

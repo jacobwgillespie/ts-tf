@@ -12,6 +12,17 @@ export interface LightsailDomainAttributes {
 }
 
 export class LightsailDomain extends Resource<LightsailDomainArguments, LightsailDomainAttributes> {
-  kind = 'aws_lightsail_domain'
-  _outputAttrNames = ['arn', 'domain_name', 'id'] as const
+  _kind = 'aws_lightsail_domain'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get domain_name() {
+    return this._attr('domain_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

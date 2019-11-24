@@ -23,15 +23,37 @@ export interface SesReceiptRuleAttributes {
 }
 
 export class SesReceiptRule extends Resource<SesReceiptRuleArguments, SesReceiptRuleAttributes> {
-  kind = 'aws_ses_receipt_rule'
-  _outputAttrNames = [
-    'after',
-    'enabled',
-    'id',
-    'name',
-    'recipients',
-    'rule_set_name',
-    'scan_enabled',
-    'tls_policy',
-  ] as const
+  _kind = 'aws_ses_receipt_rule'
+
+  get after() {
+    return this._attr('after')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get recipients() {
+    return this._attr('recipients')
+  }
+
+  get rule_set_name() {
+    return this._attr('rule_set_name')
+  }
+
+  get scan_enabled() {
+    return this._attr('scan_enabled')
+  }
+
+  get tls_policy() {
+    return this._attr('tls_policy')
+  }
 }

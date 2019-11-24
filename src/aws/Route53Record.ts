@@ -28,18 +28,49 @@ export interface Route53RecordAttributes {
 }
 
 export class Route53Record extends Resource<Route53RecordArguments, Route53RecordAttributes> {
-  kind = 'aws_route53_record'
-  _outputAttrNames = [
-    'allow_overwrite',
-    'fqdn',
-    'health_check_id',
-    'id',
-    'multivalue_answer_routing_policy',
-    'name',
-    'records',
-    'set_identifier',
-    'ttl',
-    'type',
-    'zone_id',
-  ] as const
+  _kind = 'aws_route53_record'
+
+  get allow_overwrite() {
+    return this._attr('allow_overwrite')
+  }
+
+  get fqdn() {
+    return this._attr('fqdn')
+  }
+
+  get health_check_id() {
+    return this._attr('health_check_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get multivalue_answer_routing_policy() {
+    return this._attr('multivalue_answer_routing_policy')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get records() {
+    return this._attr('records')
+  }
+
+  get set_identifier() {
+    return this._attr('set_identifier')
+  }
+
+  get ttl() {
+    return this._attr('ttl')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
+
+  get zone_id() {
+    return this._attr('zone_id')
+  }
 }

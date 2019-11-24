@@ -18,6 +18,21 @@ export class DirectoryServiceConditionalForwarder extends Resource<
   DirectoryServiceConditionalForwarderArguments,
   DirectoryServiceConditionalForwarderAttributes
 > {
-  kind = 'aws_directory_service_conditional_forwarder'
-  _outputAttrNames = ['directory_id', 'dns_ips', 'id', 'remote_domain_name'] as const
+  _kind = 'aws_directory_service_conditional_forwarder'
+
+  get directory_id() {
+    return this._attr('directory_id')
+  }
+
+  get dns_ips() {
+    return this._attr('dns_ips')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get remote_domain_name() {
+    return this._attr('remote_domain_name')
+  }
 }

@@ -24,18 +24,49 @@ export interface MskClusterAttributes {
 }
 
 export class MskCluster extends Resource<MskClusterArguments, MskClusterAttributes> {
-  kind = 'aws_msk_cluster'
-  _outputAttrNames = [
-    'arn',
-    'bootstrap_brokers',
-    'bootstrap_brokers_tls',
-    'cluster_name',
-    'current_version',
-    'enhanced_monitoring',
-    'id',
-    'kafka_version',
-    'number_of_broker_nodes',
-    'tags',
-    'zookeeper_connect_string',
-  ] as const
+  _kind = 'aws_msk_cluster'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get bootstrap_brokers() {
+    return this._attr('bootstrap_brokers')
+  }
+
+  get bootstrap_brokers_tls() {
+    return this._attr('bootstrap_brokers_tls')
+  }
+
+  get cluster_name() {
+    return this._attr('cluster_name')
+  }
+
+  get current_version() {
+    return this._attr('current_version')
+  }
+
+  get enhanced_monitoring() {
+    return this._attr('enhanced_monitoring')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kafka_version() {
+    return this._attr('kafka_version')
+  }
+
+  get number_of_broker_nodes() {
+    return this._attr('number_of_broker_nodes')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get zookeeper_connect_string() {
+    return this._attr('zookeeper_connect_string')
+  }
 }

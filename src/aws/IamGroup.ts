@@ -15,6 +15,25 @@ export interface IamGroupAttributes {
 }
 
 export class IamGroup extends Resource<IamGroupArguments, IamGroupAttributes> {
-  kind = 'aws_iam_group'
-  _outputAttrNames = ['arn', 'id', 'name', 'path', 'unique_id'] as const
+  _kind = 'aws_iam_group'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get path() {
+    return this._attr('path')
+  }
+
+  get unique_id() {
+    return this._attr('unique_id')
+  }
 }

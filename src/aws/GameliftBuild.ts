@@ -15,6 +15,21 @@ export interface GameliftBuildAttributes {
 }
 
 export class GameliftBuild extends Resource<GameliftBuildArguments, GameliftBuildAttributes> {
-  kind = 'aws_gamelift_build'
-  _outputAttrNames = ['id', 'name', 'operating_system', 'version'] as const
+  _kind = 'aws_gamelift_build'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get operating_system() {
+    return this._attr('operating_system')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

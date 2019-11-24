@@ -17,6 +17,29 @@ export interface DatasyncLocationNfsAttributes {
 }
 
 export class DatasyncLocationNfs extends Resource<DatasyncLocationNfsArguments, DatasyncLocationNfsAttributes> {
-  kind = 'aws_datasync_location_nfs'
-  _outputAttrNames = ['arn', 'id', 'server_hostname', 'subdirectory', 'tags', 'uri'] as const
+  _kind = 'aws_datasync_location_nfs'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get server_hostname() {
+    return this._attr('server_hostname')
+  }
+
+  get subdirectory() {
+    return this._attr('subdirectory')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get uri() {
+    return this._attr('uri')
+  }
 }

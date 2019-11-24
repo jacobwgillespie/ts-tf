@@ -16,6 +16,17 @@ export class StoragegatewayUploadBuffer extends Resource<
   StoragegatewayUploadBufferArguments,
   StoragegatewayUploadBufferAttributes
 > {
-  kind = 'aws_storagegateway_upload_buffer'
-  _outputAttrNames = ['disk_id', 'gateway_arn', 'id'] as const
+  _kind = 'aws_storagegateway_upload_buffer'
+
+  get disk_id() {
+    return this._attr('disk_id')
+  }
+
+  get gateway_arn() {
+    return this._attr('gateway_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
 }

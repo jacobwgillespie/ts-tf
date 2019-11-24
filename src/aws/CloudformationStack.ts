@@ -36,22 +36,65 @@ export interface CloudformationStackAttributes {
 }
 
 export class CloudformationStack extends Resource<CloudformationStackArguments, CloudformationStackAttributes> {
-  kind = 'aws_cloudformation_stack'
-  _outputAttrNames = [
-    'capabilities',
-    'disable_rollback',
-    'iam_role_arn',
-    'id',
-    'name',
-    'notification_arns',
-    'on_failure',
-    'outputs',
-    'parameters',
-    'policy_body',
-    'policy_url',
-    'tags',
-    'template_body',
-    'template_url',
-    'timeout_in_minutes',
-  ] as const
+  _kind = 'aws_cloudformation_stack'
+
+  get capabilities() {
+    return this._attr('capabilities')
+  }
+
+  get disable_rollback() {
+    return this._attr('disable_rollback')
+  }
+
+  get iam_role_arn() {
+    return this._attr('iam_role_arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get notification_arns() {
+    return this._attr('notification_arns')
+  }
+
+  get on_failure() {
+    return this._attr('on_failure')
+  }
+
+  get outputs() {
+    return this._attr('outputs')
+  }
+
+  get parameters() {
+    return this._attr('parameters')
+  }
+
+  get policy_body() {
+    return this._attr('policy_body')
+  }
+
+  get policy_url() {
+    return this._attr('policy_url')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get template_body() {
+    return this._attr('template_body')
+  }
+
+  get template_url() {
+    return this._attr('template_url')
+  }
+
+  get timeout_in_minutes() {
+    return this._attr('timeout_in_minutes')
+  }
 }

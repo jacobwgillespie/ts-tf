@@ -16,6 +16,17 @@ export class LicensemanagerAssociation extends Resource<
   LicensemanagerAssociationArguments,
   LicensemanagerAssociationAttributes
 > {
-  kind = 'aws_licensemanager_association'
-  _outputAttrNames = ['id', 'license_configuration_arn', 'resource_arn'] as const
+  _kind = 'aws_licensemanager_association'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get license_configuration_arn() {
+    return this._attr('license_configuration_arn')
+  }
+
+  get resource_arn() {
+    return this._attr('resource_arn')
+  }
 }

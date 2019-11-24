@@ -33,21 +33,61 @@ export interface EcsTaskDefinitionAttributes {
 }
 
 export class EcsTaskDefinition extends Resource<EcsTaskDefinitionArguments, EcsTaskDefinitionAttributes> {
-  kind = 'aws_ecs_task_definition'
-  _outputAttrNames = [
-    'arn',
-    'container_definitions',
-    'cpu',
-    'execution_role_arn',
-    'family',
-    'id',
-    'ipc_mode',
-    'memory',
-    'network_mode',
-    'pid_mode',
-    'requires_compatibilities',
-    'revision',
-    'tags',
-    'task_role_arn',
-  ] as const
+  _kind = 'aws_ecs_task_definition'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get container_definitions() {
+    return this._attr('container_definitions')
+  }
+
+  get cpu() {
+    return this._attr('cpu')
+  }
+
+  get execution_role_arn() {
+    return this._attr('execution_role_arn')
+  }
+
+  get family() {
+    return this._attr('family')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ipc_mode() {
+    return this._attr('ipc_mode')
+  }
+
+  get memory() {
+    return this._attr('memory')
+  }
+
+  get network_mode() {
+    return this._attr('network_mode')
+  }
+
+  get pid_mode() {
+    return this._attr('pid_mode')
+  }
+
+  get requires_compatibilities() {
+    return this._attr('requires_compatibilities')
+  }
+
+  get revision() {
+    return this._attr('revision')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get task_role_arn() {
+    return this._attr('task_role_arn')
+  }
 }

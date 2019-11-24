@@ -61,31 +61,101 @@ export interface EmrClusterAttributes {
 }
 
 export class EmrCluster extends Resource<EmrClusterArguments, EmrClusterAttributes> {
-  kind = 'aws_emr_cluster'
-  _outputAttrNames = [
-    'additional_info',
-    'applications',
-    'autoscaling_role',
-    'cluster_state',
-    'configurations',
-    'configurations_json',
-    'core_instance_count',
-    'core_instance_type',
-    'custom_ami_id',
-    'ebs_root_volume_size',
-    'id',
-    'keep_job_flow_alive_when_no_steps',
-    'log_uri',
-    'master_instance_type',
-    'master_public_dns',
-    'name',
-    'release_label',
-    'scale_down_behavior',
-    'security_configuration',
-    'service_role',
-    'step',
-    'tags',
-    'termination_protection',
-    'visible_to_all_users',
-  ] as const
+  _kind = 'aws_emr_cluster'
+
+  get additional_info() {
+    return this._attr('additional_info')
+  }
+
+  get applications() {
+    return this._attr('applications')
+  }
+
+  get autoscaling_role() {
+    return this._attr('autoscaling_role')
+  }
+
+  get cluster_state() {
+    return this._attr('cluster_state')
+  }
+
+  get configurations() {
+    return this._attr('configurations')
+  }
+
+  get configurations_json() {
+    return this._attr('configurations_json')
+  }
+
+  get core_instance_count() {
+    return this._attr('core_instance_count')
+  }
+
+  get core_instance_type() {
+    return this._attr('core_instance_type')
+  }
+
+  get custom_ami_id() {
+    return this._attr('custom_ami_id')
+  }
+
+  get ebs_root_volume_size() {
+    return this._attr('ebs_root_volume_size')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get keep_job_flow_alive_when_no_steps() {
+    return this._attr('keep_job_flow_alive_when_no_steps')
+  }
+
+  get log_uri() {
+    return this._attr('log_uri')
+  }
+
+  get master_instance_type() {
+    return this._attr('master_instance_type')
+  }
+
+  get master_public_dns() {
+    return this._attr('master_public_dns')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get release_label() {
+    return this._attr('release_label')
+  }
+
+  get scale_down_behavior() {
+    return this._attr('scale_down_behavior')
+  }
+
+  get security_configuration() {
+    return this._attr('security_configuration')
+  }
+
+  get service_role() {
+    return this._attr('service_role')
+  }
+
+  get step() {
+    return this._attr('step')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get termination_protection() {
+    return this._attr('termination_protection')
+  }
+
+  get visible_to_all_users() {
+    return this._attr('visible_to_all_users')
+  }
 }

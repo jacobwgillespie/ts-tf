@@ -24,17 +24,45 @@ export interface DxLagAttributes {
 }
 
 export class DxLag extends Resource<DxLagArguments, DxLagAttributes> {
-  kind = 'aws_dx_lag'
-  _outputAttrNames = [
-    'arn',
-    'connections_bandwidth',
-    'force_destroy',
-    'has_logical_redundancy',
-    'id',
-    'jumbo_frame_capable',
-    'location',
-    'name',
-    'number_of_connections',
-    'tags',
-  ] as const
+  _kind = 'aws_dx_lag'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get connections_bandwidth() {
+    return this._attr('connections_bandwidth')
+  }
+
+  get force_destroy() {
+    return this._attr('force_destroy')
+  }
+
+  get has_logical_redundancy() {
+    return this._attr('has_logical_redundancy')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get jumbo_frame_capable() {
+    return this._attr('jumbo_frame_capable')
+  }
+
+  get location() {
+    return this._attr('location')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get number_of_connections() {
+    return this._attr('number_of_connections')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
 }

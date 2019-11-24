@@ -11,6 +11,13 @@ export interface WafSizeConstraintSetAttributes {
 }
 
 export class WafSizeConstraintSet extends Resource<WafSizeConstraintSetArguments, WafSizeConstraintSetAttributes> {
-  kind = 'aws_waf_size_constraint_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_waf_size_constraint_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

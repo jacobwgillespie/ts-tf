@@ -28,20 +28,57 @@ export class AcmpcaCertificateAuthority extends Resource<
   AcmpcaCertificateAuthorityArguments,
   AcmpcaCertificateAuthorityAttributes
 > {
-  kind = 'aws_acmpca_certificate_authority'
-  _outputAttrNames = [
-    'arn',
-    'certificate',
-    'certificate_chain',
-    'certificate_signing_request',
-    'enabled',
-    'id',
-    'not_after',
-    'not_before',
-    'permanent_deletion_time_in_days',
-    'serial',
-    'status',
-    'tags',
-    'type',
-  ] as const
+  _kind = 'aws_acmpca_certificate_authority'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get certificate() {
+    return this._attr('certificate')
+  }
+
+  get certificate_chain() {
+    return this._attr('certificate_chain')
+  }
+
+  get certificate_signing_request() {
+    return this._attr('certificate_signing_request')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get not_after() {
+    return this._attr('not_after')
+  }
+
+  get not_before() {
+    return this._attr('not_before')
+  }
+
+  get permanent_deletion_time_in_days() {
+    return this._attr('permanent_deletion_time_in_days')
+  }
+
+  get serial() {
+    return this._attr('serial')
+  }
+
+  get status() {
+    return this._attr('status')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }

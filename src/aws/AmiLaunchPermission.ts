@@ -13,6 +13,17 @@ export interface AmiLaunchPermissionAttributes {
 }
 
 export class AmiLaunchPermission extends Resource<AmiLaunchPermissionArguments, AmiLaunchPermissionAttributes> {
-  kind = 'aws_ami_launch_permission'
-  _outputAttrNames = ['account_id', 'id', 'image_id'] as const
+  _kind = 'aws_ami_launch_permission'
+
+  get account_id() {
+    return this._attr('account_id')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get image_id() {
+    return this._attr('image_id')
+  }
 }

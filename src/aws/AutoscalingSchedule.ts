@@ -26,17 +26,45 @@ export interface AutoscalingScheduleAttributes {
 }
 
 export class AutoscalingSchedule extends Resource<AutoscalingScheduleArguments, AutoscalingScheduleAttributes> {
-  kind = 'aws_autoscaling_schedule'
-  _outputAttrNames = [
-    'arn',
-    'autoscaling_group_name',
-    'desired_capacity',
-    'end_time',
-    'id',
-    'max_size',
-    'min_size',
-    'recurrence',
-    'scheduled_action_name',
-    'start_time',
-  ] as const
+  _kind = 'aws_autoscaling_schedule'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get autoscaling_group_name() {
+    return this._attr('autoscaling_group_name')
+  }
+
+  get desired_capacity() {
+    return this._attr('desired_capacity')
+  }
+
+  get end_time() {
+    return this._attr('end_time')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get max_size() {
+    return this._attr('max_size')
+  }
+
+  get min_size() {
+    return this._attr('min_size')
+  }
+
+  get recurrence() {
+    return this._attr('recurrence')
+  }
+
+  get scheduled_action_name() {
+    return this._attr('scheduled_action_name')
+  }
+
+  get start_time() {
+    return this._attr('start_time')
+  }
 }

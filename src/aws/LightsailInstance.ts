@@ -32,24 +32,73 @@ export interface LightsailInstanceAttributes {
 }
 
 export class LightsailInstance extends Resource<LightsailInstanceArguments, LightsailInstanceAttributes> {
-  kind = 'aws_lightsail_instance'
-  _outputAttrNames = [
-    'arn',
-    'availability_zone',
-    'blueprint_id',
-    'bundle_id',
-    'cpu_count',
-    'created_at',
-    'id',
-    'ipv6_address',
-    'is_static_ip',
-    'key_pair_name',
-    'name',
-    'private_ip_address',
-    'public_ip_address',
-    'ram_size',
-    'tags',
-    'user_data',
-    'username',
-  ] as const
+  _kind = 'aws_lightsail_instance'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get availability_zone() {
+    return this._attr('availability_zone')
+  }
+
+  get blueprint_id() {
+    return this._attr('blueprint_id')
+  }
+
+  get bundle_id() {
+    return this._attr('bundle_id')
+  }
+
+  get cpu_count() {
+    return this._attr('cpu_count')
+  }
+
+  get created_at() {
+    return this._attr('created_at')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get ipv6_address() {
+    return this._attr('ipv6_address')
+  }
+
+  get is_static_ip() {
+    return this._attr('is_static_ip')
+  }
+
+  get key_pair_name() {
+    return this._attr('key_pair_name')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get private_ip_address() {
+    return this._attr('private_ip_address')
+  }
+
+  get public_ip_address() {
+    return this._attr('public_ip_address')
+  }
+
+  get ram_size() {
+    return this._attr('ram_size')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get user_data() {
+    return this._attr('user_data')
+  }
+
+  get username() {
+    return this._attr('username')
+  }
 }

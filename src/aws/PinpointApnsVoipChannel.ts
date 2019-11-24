@@ -30,17 +30,45 @@ export class PinpointApnsVoipChannel extends Resource<
   PinpointApnsVoipChannelArguments,
   PinpointApnsVoipChannelAttributes
 > {
-  kind = 'aws_pinpoint_apns_voip_channel'
-  _outputAttrNames = [
-    'application_id',
-    'bundle_id',
-    'certificate',
-    'default_authentication_method',
-    'enabled',
-    'id',
-    'private_key',
-    'team_id',
-    'token_key',
-    'token_key_id',
-  ] as const
+  _kind = 'aws_pinpoint_apns_voip_channel'
+
+  get application_id() {
+    return this._attr('application_id')
+  }
+
+  get bundle_id() {
+    return this._attr('bundle_id')
+  }
+
+  get certificate() {
+    return this._attr('certificate')
+  }
+
+  get default_authentication_method() {
+    return this._attr('default_authentication_method')
+  }
+
+  get enabled() {
+    return this._attr('enabled')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get private_key() {
+    return this._attr('private_key')
+  }
+
+  get team_id() {
+    return this._attr('team_id')
+  }
+
+  get token_key() {
+    return this._attr('token_key')
+  }
+
+  get token_key_id() {
+    return this._attr('token_key_id')
+  }
 }

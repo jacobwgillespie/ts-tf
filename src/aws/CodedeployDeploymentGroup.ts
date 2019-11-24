@@ -22,13 +22,29 @@ export class CodedeployDeploymentGroup extends Resource<
   CodedeployDeploymentGroupArguments,
   CodedeployDeploymentGroupAttributes
 > {
-  kind = 'aws_codedeploy_deployment_group'
-  _outputAttrNames = [
-    'app_name',
-    'autoscaling_groups',
-    'deployment_config_name',
-    'deployment_group_name',
-    'id',
-    'service_role_arn',
-  ] as const
+  _kind = 'aws_codedeploy_deployment_group'
+
+  get app_name() {
+    return this._attr('app_name')
+  }
+
+  get autoscaling_groups() {
+    return this._attr('autoscaling_groups')
+  }
+
+  get deployment_config_name() {
+    return this._attr('deployment_config_name')
+  }
+
+  get deployment_group_name() {
+    return this._attr('deployment_group_name')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get service_role_arn() {
+    return this._attr('service_role_arn')
+  }
 }

@@ -38,23 +38,69 @@ export interface SqsQueueAttributes {
 }
 
 export class SqsQueue extends Resource<SqsQueueArguments, SqsQueueAttributes> {
-  kind = 'aws_sqs_queue'
-  _outputAttrNames = [
-    'arn',
-    'content_based_deduplication',
-    'delay_seconds',
-    'fifo_queue',
-    'id',
-    'kms_data_key_reuse_period_seconds',
-    'kms_master_key_id',
-    'max_message_size',
-    'message_retention_seconds',
-    'name',
-    'name_prefix',
-    'policy',
-    'receive_wait_time_seconds',
-    'redrive_policy',
-    'tags',
-    'visibility_timeout_seconds',
-  ] as const
+  _kind = 'aws_sqs_queue'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get content_based_deduplication() {
+    return this._attr('content_based_deduplication')
+  }
+
+  get delay_seconds() {
+    return this._attr('delay_seconds')
+  }
+
+  get fifo_queue() {
+    return this._attr('fifo_queue')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kms_data_key_reuse_period_seconds() {
+    return this._attr('kms_data_key_reuse_period_seconds')
+  }
+
+  get kms_master_key_id() {
+    return this._attr('kms_master_key_id')
+  }
+
+  get max_message_size() {
+    return this._attr('max_message_size')
+  }
+
+  get message_retention_seconds() {
+    return this._attr('message_retention_seconds')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get name_prefix() {
+    return this._attr('name_prefix')
+  }
+
+  get policy() {
+    return this._attr('policy')
+  }
+
+  get receive_wait_time_seconds() {
+    return this._attr('receive_wait_time_seconds')
+  }
+
+  get redrive_policy() {
+    return this._attr('redrive_policy')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get visibility_timeout_seconds() {
+    return this._attr('visibility_timeout_seconds')
+  }
 }

@@ -13,6 +13,17 @@ export interface RedshiftSecurityGroupAttributes {
 }
 
 export class RedshiftSecurityGroup extends Resource<RedshiftSecurityGroupArguments, RedshiftSecurityGroupAttributes> {
-  kind = 'aws_redshift_security_group'
-  _outputAttrNames = ['description', 'id', 'name'] as const
+  _kind = 'aws_redshift_security_group'
+
+  get description() {
+    return this._attr('description')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

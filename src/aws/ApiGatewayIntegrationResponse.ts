@@ -30,17 +30,45 @@ export class ApiGatewayIntegrationResponse extends Resource<
   ApiGatewayIntegrationResponseArguments,
   ApiGatewayIntegrationResponseAttributes
 > {
-  kind = 'aws_api_gateway_integration_response'
-  _outputAttrNames = [
-    'content_handling',
-    'http_method',
-    'id',
-    'resource_id',
-    'response_parameters',
-    'response_parameters_in_json',
-    'response_templates',
-    'rest_api_id',
-    'selection_pattern',
-    'status_code',
-  ] as const
+  _kind = 'aws_api_gateway_integration_response'
+
+  get content_handling() {
+    return this._attr('content_handling')
+  }
+
+  get http_method() {
+    return this._attr('http_method')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get resource_id() {
+    return this._attr('resource_id')
+  }
+
+  get response_parameters() {
+    return this._attr('response_parameters')
+  }
+
+  get response_parameters_in_json() {
+    return this._attr('response_parameters_in_json')
+  }
+
+  get response_templates() {
+    return this._attr('response_templates')
+  }
+
+  get rest_api_id() {
+    return this._attr('rest_api_id')
+  }
+
+  get selection_pattern() {
+    return this._attr('selection_pattern')
+  }
+
+  get status_code() {
+    return this._attr('status_code')
+  }
 }

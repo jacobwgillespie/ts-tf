@@ -11,6 +11,13 @@ export interface WafXssMatchSetAttributes {
 }
 
 export class WafXssMatchSet extends Resource<WafXssMatchSetArguments, WafXssMatchSetAttributes> {
-  kind = 'aws_waf_xss_match_set'
-  _outputAttrNames = ['id', 'name'] as const
+  _kind = 'aws_waf_xss_match_set'
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
 }

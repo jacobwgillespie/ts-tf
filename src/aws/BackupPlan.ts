@@ -15,6 +15,25 @@ export interface BackupPlanAttributes {
 }
 
 export class BackupPlan extends Resource<BackupPlanArguments, BackupPlanAttributes> {
-  kind = 'aws_backup_plan'
-  _outputAttrNames = ['arn', 'id', 'name', 'tags', 'version'] as const
+  _kind = 'aws_backup_plan'
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get name() {
+    return this._attr('name')
+  }
+
+  get tags() {
+    return this._attr('tags')
+  }
+
+  get version() {
+    return this._attr('version')
+  }
 }

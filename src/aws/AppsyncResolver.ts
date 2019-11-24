@@ -24,16 +24,41 @@ export interface AppsyncResolverAttributes {
 }
 
 export class AppsyncResolver extends Resource<AppsyncResolverArguments, AppsyncResolverAttributes> {
-  kind = 'aws_appsync_resolver'
-  _outputAttrNames = [
-    'api_id',
-    'arn',
-    'data_source',
-    'field',
-    'id',
-    'kind',
-    'request_template',
-    'response_template',
-    'type',
-  ] as const
+  _kind = 'aws_appsync_resolver'
+
+  get api_id() {
+    return this._attr('api_id')
+  }
+
+  get arn() {
+    return this._attr('arn')
+  }
+
+  get data_source() {
+    return this._attr('data_source')
+  }
+
+  get field() {
+    return this._attr('field')
+  }
+
+  get id() {
+    return this._attr('id')
+  }
+
+  get kind() {
+    return this._attr('kind')
+  }
+
+  get request_template() {
+    return this._attr('request_template')
+  }
+
+  get response_template() {
+    return this._attr('response_template')
+  }
+
+  get type() {
+    return this._attr('type')
+  }
 }
