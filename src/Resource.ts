@@ -1,12 +1,11 @@
 import {AttributeReference} from './AttributeReference'
+import {StringKeyOf} from './types'
 
-type ArgumentsWithReferences<T> = {
+export type ArgumentsWithReferences<T> = {
   [K in keyof T]: T[K] extends object
     ? T[K] | AttributeReference<T[K]> | Resource<any, T[K]>
     : T[K] | AttributeReference<T[K]>
 }
-
-type StringKeyOf<T> = Extract<keyof T, string>
 
 export abstract class Resource<Arguments, Attributes> {
   abstract readonly _kind: string
