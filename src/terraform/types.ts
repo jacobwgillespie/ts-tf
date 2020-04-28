@@ -2,7 +2,9 @@ import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {assertNever} from '../utils'
+import {ConfigSchema} from './configSchema'
 import {AttributeType, Block} from './providerSchema'
+import {parseTypeString} from './typeStringParser'
 
 export function tfTypeToTSType(type: AttributeType): string {
   // Handle multiple valid types
@@ -38,7 +40,7 @@ export function tfTypeToTSType(type: AttributeType): string {
   switch (type) {
     case 'any':
       // TODO: is this ever used? Can we remove or return a generic type?
-      return 'any'
+      return 'unknown'
 
     case 'bool':
       return 'boolean'
@@ -112,6 +114,27 @@ export function buildBlockInterface(name: string, block: Block, argumentsOnly = 
   const interfaceAttributes: string[] = buildBlockAttributes(block, argumentsOnly)
   const interfaceName = `${fastCase.pascalize(name)}${argumentsOnly ? 'Arguments' : 'Attributes'}`
 
+  return {
+    name: interfaceName,
+    code: format(`interface ${interfaceName} {\n${interfaceAttributes.join('\n')}\n}`),
+  }
+}
+
+export function buildModuleVariableInterface(name: string, schema: ConfigSchema) {
+  const interfaceAttributes: string[] = []
+
+  const variableNames = Object.keys(schema.variables)
+  for (const variableName of variableNames) {
+    const variable = schema.variables[variableName]
+    const variableType = variable.type ? parseTypeString(variable.type) : 'any'
+    const modifier = variable.default === undefined ? ':' : '?:'
+    if (variable.description) {
+      interfaceAttributes.push(`/** ${variable.description} */`)
+    }
+    interfaceAttributes.push(`"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`)
+  }
+
+  const interfaceName = `${fastCase.pascalize(name)}Arguments`
   return {
     name: interfaceName,
     code: format(`interface ${interfaceName} {\n${interfaceAttributes.join('\n')}\n}`),

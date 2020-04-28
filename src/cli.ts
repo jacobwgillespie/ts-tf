@@ -1,7 +1,7 @@
-import 'source-map-support/register'
 import fs from 'fs-extra'
-import {ProvidersSchema} from './terraform/schema'
-import {buildBlockInterface} from './terraform/types'
+import 'source-map-support/register'
+import {ProvidersSchema} from './terraform/providerSchema'
+import {buildBlockInterface, buildModuleVariableInterface} from './terraform/types'
 
 async function run() {
   const schema: ProvidersSchema = await fs.readJSON('providers.json')
@@ -27,6 +27,13 @@ async function run() {
     // console.log(buildBlockInterface('attrs', providerSchema.resource_schemas.aws_instance.block).code)
     // console.log(buildBlockInterface('args', providerSchema.resource_schemas.aws_instance.block, true).code)
   }
+
+  const moduleSchema = await fs.readJSON('module.json')
+  console.log(buildModuleVariableInterface('module', moduleSchema).code)
+
+  // console.log(tfTypeToTSType(parseTypeString('object({ cidrs = map(string), object = map(list(string)) })')))
+  // console.log(JSON.stringify(lex('map(string)')))
+  // console.log(lex('object({ cidrs = map(string), tags = map(string) })'))
 }
 
 run().catch((err) => {
