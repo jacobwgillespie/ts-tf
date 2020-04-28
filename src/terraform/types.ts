@@ -2,7 +2,7 @@ import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {assertNever} from '../utils'
-import {AttributeType, Block} from './schema'
+import {AttributeType, Block} from './providerSchema'
 
 export function tfTypeToTSType(type: AttributeType): string {
   // Handle multiple valid types
