@@ -1,7 +1,7 @@
 {
   "name": "@ts-tf/parse-tf-module",
-  "description": "Parse Terraform module, discovering modules and outputs",
   "version": "0.1.0",
+  "description": "Parse Terraform module, discovering modules and outputs",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

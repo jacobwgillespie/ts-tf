@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "@ts-tf/cli",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.13.4",
+    "@types/prettier": "^2.0.0",
+    "fast-case": "^1.4.0",
+    "fs-extra": "^9.0.0",
+    "prettier": "^2.0.5",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@sindresorhus/is": "^2.1.1",
+    "chevrotain": "^7.0.1",
+    "source-map-support": "^0.5.19"
+  }
+}
