@@ -71,13 +71,16 @@ function goBridge(getBytes: Promise<Buffer>) {
   return proxy
 }
 
-const wasm = goBridge(fs.readFile(path.join(__dirname, 'main.wasm')))
+const wasm = goBridge(fs.readFile(path.join(__dirname, '../dist/main.wasm')))
 
-export async function parse(dir: string): Promise<ModuleMetadata> {
+export async function parseModule(dir: string): Promise<ModuleMetadata> {
   const paths = await globby(path.join(dir, '*.tf'))
   const sources = []
   for (const p of paths) {
     sources.push((await fs.readFile(p)).toString('utf8'))
   }
-  return JSON.parse(await wasm.parseModule(sources.join('\n\n')))
+  const metadata: ModuleMetadata = JSON.parse(await wasm.parseModule(sources.join('\n\n')))
+  metadata.outputs.sort((a, b) => a.name.localeCompare(b.name))
+  metadata.variables.sort((a, b) => a.name.localeCompare(b.name))
+  return metadata
 }
