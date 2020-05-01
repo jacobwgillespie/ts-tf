@@ -1,0 +1,22 @@
+{
+  "name": "@ts-tf/lint-config",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist",
+    "lint": "eslint . --ext .ts,.js",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "tslib": "^1.11.1"
+  },
+  "devDependencies": {
+    "@types/eslint": "^6.8.0",
+    "@types/node": "^12",
+    "@types/prettier": "^2.0.0",
+    "typescript": "^3.8.3"
+  }
+}
