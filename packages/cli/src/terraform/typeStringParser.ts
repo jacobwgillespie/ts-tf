@@ -1,13 +1,16 @@
+/* eslint-disable unicorn/no-abusive-eslint-disable */
+/* eslint-disable */
+
 import {createToken, EmbeddedActionsParser, ILexingError, Lexer, IRecognitionException} from 'chevrotain'
 
 export type CollectionType = 'list' | 'map' | 'set'
 export type SimpleType = 'any' | 'bool' | 'number' | 'string'
 export type AttributeType =
   | SimpleType
-  | ['list', AttributeType]
-  | ['map', AttributeType]
-  | ['object', {[name: string]: AttributeType}]
-  | ['set', AttributeType]
+  | readonly ['list', AttributeType]
+  | readonly ['map', AttributeType]
+  | readonly ['object', {readonly [name: string]: AttributeType}]
+  | readonly ['set', AttributeType]
 
 const WhiteSpace = createToken({name: 'WhiteSpace', pattern: /\s+/, group: Lexer.SKIPPED})
 

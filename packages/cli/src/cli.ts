@@ -1,9 +1,11 @@
+/* eslint-disable functional/functional-parameters,functional/no-loop-statement,functional/no-expression-statement */
+
 import fs from 'fs-extra'
 import 'source-map-support/register'
 import {ProvidersSchema} from './terraform/providerSchema'
 import {buildBlockInterface, buildModuleVariableInterface} from './terraform/types'
 
-async function run() {
+async function run(): Promise<void> {
   const schema: ProvidersSchema = await fs.readJSON('providers.json')
 
   for (const providerName of Object.keys(schema.provider_schemas)) {
@@ -36,7 +38,7 @@ async function run() {
   // console.log(lex('object({ cidrs = map(string), tags = map(string) })'))
 }
 
-run().catch((err) => {
-  console.log(err.stack)
+run().catch((error) => {
+  console.log(error.stack)
   process.exit(1)
 })
