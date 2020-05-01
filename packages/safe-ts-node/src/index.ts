@@ -1,3 +1,5 @@
+import 'source-map-support/register'
+
 import {lint} from './lint'
 import {run} from './run'
 
