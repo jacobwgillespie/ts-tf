@@ -75,23 +75,18 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
           const inner = buildBlockAttributes(nestedBlock.block).join('\n')
 
           switch (nestedBlock.nesting_mode) {
-            case 'list': {
+            case 'list':
               return `"${nestedBlockName}"${modifier} Array<{\n${inner}\n}>`
-              break
-            }
 
             case 'map':
               return `"${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
-              break
 
             case 'set':
               return `"${nestedBlockName}"${modifier} Set<{\n${inner}\n}>`
-              break
 
             case 'group':
             case 'single':
               return `"${nestedBlockName}"${modifier} {\n${inner}\n}`
-              break
 
             default:
               return assertNever(nestedBlock.nesting_mode)
