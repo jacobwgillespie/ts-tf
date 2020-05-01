@@ -11,7 +11,7 @@
   "scripts": {
     "build": "run-p -l 'build:*'",
     "build:go": "env GOOS=js GOARCH=wasm go build -o dist/main.wasm ./src",
-    "build:ts": "tsc",
+    "build:ts": "tsc -b",
     "test": "jest",
     "watch": "run-p -l 'watch:*'",
     "watch:go": "find {src,lib} | entr -n yarn build:go",
@@ -26,7 +26,7 @@
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.4",
+    "@types/node": "^12",
     "@types/node-fetch": "^2.5.7",
     "jest": "^25.5.3",
     "npm-run-all": "^4.1.5",

@@ -2,10 +2,8 @@
   "extends": "@ts-tf/build-config/tsconfig.base.json",
 
   "compilerOptions": {
-    "lib": ["es2018", "es2019", "dom"],
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node", "jest"],
     "composite": true
   },
 

@@ -1,4 +1,5 @@
 *.log
+*.tsbuildinfo
 .vscode
 dist
 node_modules

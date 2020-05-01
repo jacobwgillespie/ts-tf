@@ -1,11 +1,17 @@
 {
-  "name": "ts-tf",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "tsc -b build-all-tsconfig.json",
+    "clean": "rm -rf ./packages/*/dist ./packages/*/*.tsbuildinfo",
+    "prebuild": "typescript-monorepo-toolkit inject-refs -a ."
+  },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "lerna": "^3.20.2",
+    "prettier": "^2.0.5",
+    "typescript-monorepo-toolkit": "^0.0.7"
   },
   "prettier": {
     "bracketSpacing": false,

@@ -1,9 +1,8 @@
 import is from '@sindresorhus/is'
+import {AttributeType, Block, ConfigSchema} from '@ts-tf/types'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {assertNever} from '../utils'
-import {ConfigSchema} from './configSchema'
-import {AttributeType, Block} from './providerSchema'
 import {parseTypeString} from './typeStringParser'
 
 type ArrayAttribute<T = AttributeType> = T extends readonly any[] ? T : never

@@ -1,0 +1,14 @@
+{
+  "references": [
+    {
+      "path": "packages/cli"
+    },
+    {
+      "path": "packages/parse-tf-module"
+    },
+    {
+      "path": "packages/safe-ts-node"
+    }
+  ],
+  "include": []
+}

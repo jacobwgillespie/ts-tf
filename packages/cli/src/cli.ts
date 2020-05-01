@@ -1,8 +1,8 @@
 /* eslint-disable functional/functional-parameters,functional/no-loop-statement,functional/no-expression-statement */
 
+import {ProvidersSchema} from '@ts-tf/types'
 import fs from 'fs-extra'
 import 'source-map-support/register'
-import {ProvidersSchema} from './terraform/providerSchema'
 import {buildBlockInterface, buildModuleVariableInterface} from './terraform/types'
 
 async function run(): Promise<void> {

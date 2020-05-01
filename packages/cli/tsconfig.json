@@ -1,19 +1,15 @@
 {
+  "extends": "@ts-tf/build-config/tsconfig.base.json",
+
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "declaration": true,
     "outDir": "dist",
     "rootDir": "src",
-    "sourceMap": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "types": ["node"]
-  }
+    "types": ["node"],
+    "composite": true
+  },
+
+  "include": ["src"],
+  "references": [{
+    "path": "../types"
+  }]
 }
