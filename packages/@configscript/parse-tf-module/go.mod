@@ -1,4 +1,4 @@
-module github.com/jacobwgillespie/configscript
+module github.com/jacobwgillespie/configscript/packages/configscript/parse-tf-module
 
 go 1.14
 
