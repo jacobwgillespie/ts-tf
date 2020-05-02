@@ -127,7 +127,7 @@ export function run() {
       },
     },
     cwd: process.cwd(),
-    extensions: ['.js', '.ts'],
+    extensions: ['.ts'],
     resolvePluginsRelativeTo: require.resolve('@ts-tf/lint-config'),
     useEslintrc: false,
   })
@@ -154,10 +154,14 @@ export function run() {
     process.exit(1)
   }
 
-  register({
-    transpileOnly: true,
-    compilerOptions: defaultCompilerOptions,
-  })
+  if (process.env.SWC !== '1') {
+    register({
+      // transpileOnly: true,
+      compilerOptions: defaultCompilerOptions,
+    })
+  } else {
+    require('@swc/register')
+  }
 
   require(scriptPath)
 

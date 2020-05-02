@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@sindresorhus/is": "^2.1.1",
+    "@swc/core": "^1.1.39",
+    "@swc/register": "^0.1.7",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "chalk": "^4.0.0",
