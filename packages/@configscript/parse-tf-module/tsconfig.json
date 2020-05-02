@@ -1,5 +1,5 @@
 {
-  "extends": "@ts-tf/build-config/tsconfig.base.json",
+  "extends": "@configscript/build-config/tsconfig.base.json",
 
   "compilerOptions": {
     "lib": ["es2018", "es2019", "dom"],

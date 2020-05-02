@@ -1,16 +1,16 @@
 {
   "references": [
     {
-      "path": "packages/cli"
+      "path": "packages/configscript"
     },
     {
-      "path": "packages/lint-config"
+      "path": "packages/@configscript/cli"
     },
     {
-      "path": "packages/parse-tf-module"
+      "path": "packages/@configscript/lint-config"
     },
     {
-      "path": "packages/safe-ts-node"
+      "path": "packages/@configscript/parse-tf-module"
     }
   ],
   "include": []

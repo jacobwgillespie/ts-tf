@@ -1,4 +1,4 @@
-module github.com/jacobwgillespie/ts-tf
+module github.com/jacobwgillespie/configscript
 
 go 1.14
 

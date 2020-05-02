@@ -2,7 +2,7 @@
 import {resolve} from 'path'
 import {register} from 'ts-node'
 import {CLIEngine} from 'eslint'
-import lintConfig from '@ts-tf/lint-config'
+import lintConfig from '@configscript/lint-config'
 import * as ts from 'typescript'
 import chalk from 'chalk'
 import path from 'path'
@@ -128,7 +128,7 @@ export function run() {
     },
     cwd: process.cwd(),
     extensions: ['.ts'],
-    resolvePluginsRelativeTo: require.resolve('@ts-tf/lint-config'),
+    resolvePluginsRelativeTo: require.resolve('@configscript/lint-config'),
     useEslintrc: false,
   })
   const report = cli.executeOnFiles(['.'])

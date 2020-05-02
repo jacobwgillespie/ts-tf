@@ -1,10 +1,9 @@
 {
-  "extends": "@ts-tf/build-config/tsconfig.base.json",
+  "extends": "@configscript/build-config/tsconfig.base.json",
 
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"],
     "composite": true
   },
 

@@ -14,7 +14,7 @@ async function main() {
       break
 
     default:
-      throw new Error('Usage: safe-ts-node [run|lint]')
+      throw new Error('Usage: config [run|lint]')
   }
 }
 

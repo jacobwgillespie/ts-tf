@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@ts-tf/safe-ts-node",
+  "name": "configscript",
   "version": "0.1.0",
   "engines": {
     "node": ">=12.0.0"

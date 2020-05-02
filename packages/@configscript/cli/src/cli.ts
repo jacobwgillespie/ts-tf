@@ -1,6 +1,6 @@
 /* eslint-disable functional/functional-parameters,functional/no-loop-statement,functional/no-expression-statement */
 
-import {ProvidersSchema} from '@ts-tf/types'
+import {ProvidersSchema} from '@configscript/types'
 import fs from 'fs-extra'
 import 'source-map-support/register'
 import {buildBlockInterface, buildModuleVariableInterface} from './terraform/types'

@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/@configscript/*"
   ],
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",

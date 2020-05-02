@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is'
-import {AttributeType, Block, ConfigSchema} from '@ts-tf/types'
+import {AttributeType, Block, ConfigSchema} from '@configscript/types'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {parseTypeString} from './typeStringParser'

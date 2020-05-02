@@ -1,5 +1,5 @@
 {
-  "name": "@ts-tf/parse-tf-module",
+  "name": "@configscript/parse-tf-module",
   "version": "0.1.0",
   "description": "Parse Terraform module, discovering modules and outputs",
   "license": "MIT",

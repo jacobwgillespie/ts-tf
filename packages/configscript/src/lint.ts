@@ -2,10 +2,10 @@ import {CLIEngine} from 'eslint'
 
 export function lint() {
   const cli = new CLIEngine({
-    baseConfig: require('@ts-tf/lint-config'),
+    baseConfig: require('@configscript/lint-config'),
     cwd: process.cwd(),
     extensions: ['.js', '.ts'],
-    resolvePluginsRelativeTo: require.resolve('@ts-tf/lint-config'),
+    resolvePluginsRelativeTo: require.resolve('@configscript/lint-config'),
     useEslintrc: false,
   })
   const report = cli.executeOnFiles(['.'])
