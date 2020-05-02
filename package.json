@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
-    "clean": "rm -rf ./packages/*/dist ./packages/*/*.tsbuildinfo",
+    "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
     "prebuild": "typescript-monorepo-toolkit inject-refs -a ."
   },
   "devDependencies": {
