@@ -29,7 +29,7 @@ function tfTypeToTSType(type) {
       return `{[key: string]: ${tfTypeToTSType(type[1])}}`
 
     case 'object':
-      const keyTypes = Object.keys(type[1]).map(key => `"${key}": ${tfTypeToTSType(type[1][key])}`)
+      const keyTypes = Object.keys(type[1]).map((key) => `"${key}": ${tfTypeToTSType(type[1][key])}`)
       return `{${keyTypes.join(', ')}}`
 
     case 'set':
@@ -65,7 +65,7 @@ async function run() {
     const argumentsInterfaceName = `${className}Arguments`
     const argumentsInterfaceType = `interface ${argumentsInterfaceName} {
     ${attributeNames
-      .map(attributeName => {
+      .map((attributeName) => {
         const attribute = attributes[attributeName]
 
         if (attribute.computed && !attribute.optional) {
@@ -77,14 +77,14 @@ async function run() {
 
         return `${description}"${attributeName}"${optional}: ${tfTypeToTSType(attribute.type)}`
       })
-      .filter(s => s)
+      .filter((s) => s)
       .join('\n  ')}
   }`
 
     const attributesInterfaceName = `${className}Attributes`
     const attributesInterfaceType = `interface ${attributesInterfaceName} {
     ${attributeNames
-      .map(attributeName => {
+      .map((attributeName) => {
         const attribute = attributes[attributeName]
 
         const optional = !attribute.computed && attribute.optional ? '?' : ''
@@ -92,7 +92,7 @@ async function run() {
 
         return `${description}"${attributeName}"${optional}: ${tfTypeToTSType(attribute.type)}`
       })
-      .filter(s => s)
+      .filter((s) => s)
       .join('\n  ')}
   }`
 
@@ -107,7 +107,7 @@ export class ${className} extends Resource<${argumentsInterfaceName}, ${attribut
   _kind = "${resourceName}"
 
   ${attributeNames
-    .map(attributeName => `get ${attributeName}() { return this._attr('${attributeName}') }`)
+    .map((attributeName) => `get ${attributeName}() { return this._attr('${attributeName}') }`)
     .join('\n\n')}
 }
   `
@@ -116,13 +116,13 @@ export class ${className} extends Resource<${argumentsInterfaceName}, ${attribut
   }
 
   const indexCode = `
-${classNames.map(name => `export * from './${name}'`).join('\n')}
+${classNames.map((name) => `export * from './${name}'`).join('\n')}
 `
 
   await fs.writeFile('./src/aws/index.ts', prettier.format(indexCode, {...pkg.prettier, parser: 'typescript'}))
 }
 
-run().catch(err => {
+run().catch((err) => {
   console.error(err.stack)
   process.exit(1)
 })

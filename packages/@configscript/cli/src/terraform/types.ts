@@ -4,7 +4,7 @@ import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {parseTypeString} from './typeStringParser'
 
-type ArrayAttribute<T = AttributeType> = T extends readonly any[] ? T : never
+type ArrayAttribute<T = AttributeType> = T extends readonly unknown[] ? T : never
 
 function tfArrayTypeToTSType(type: ArrayAttribute): string {
   switch (type[0]) {
@@ -47,19 +47,23 @@ export function tfTypeToTSType(type: AttributeType): string {
 }
 
 function buildBlockAttributes(block: Block, argumentsOnly = false): readonly string[] {
-  const attributeKeys = block.attributes ? Object.keys(block.attributes) : []
-  const validAttributeKeys = argumentsOnly
-    ? attributeKeys.filter((attributeName) => {
-        const attribute = block.attributes[attributeName]
-        return attribute.required || (attribute.optional && attributeName !== 'id')
-      })
-    : attributeKeys
+  const blockAttributes = block.attributes ?? {}
+  const attributeKeys = Object.keys(blockAttributes)
+  const validAttributeKeys =
+    block.attributes != undefined && argumentsOnly
+      ? Object.keys(block.attributes).filter((attributeName) => {
+          const attribute = blockAttributes[attributeName]
+          return attribute.required || (attribute.optional && attributeName !== 'id')
+        })
+      : attributeKeys
 
   const interfaceAttributes = validAttributeKeys.flatMap((attributeName) => {
-    const attribute = block.attributes[attributeName]
+    const attribute = blockAttributes[attributeName]
     const modifier = (!argumentsOnly && attribute.computed) || attribute.required ? ':' : '?:'
     const interfaceAttribute = `"${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
-    return attribute.description ? [`/** ${attribute.description} */`, interfaceAttribute] : interfaceAttribute
+    return attribute.description !== undefined
+      ? [`/** ${attribute.description} */`, interfaceAttribute]
+      : interfaceAttribute
   })
 
   const interfaceBlockAttributes =
@@ -109,10 +113,12 @@ export function buildModuleVariableInterface(
 ): {readonly name: string; readonly code: string} {
   const interfaceAttributes = Object.keys(schema.variables).flatMap((variableName) => {
     const variable = schema.variables[variableName]
-    const variableType = variable.type ? parseTypeString(variable.type) : 'any'
+    const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'
     const modifier = variable.default === undefined ? ':' : '?:'
     const interfaceAttribute = `"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
-    return variable.description ? [`/** ${variable.description} */`, interfaceAttribute] : interfaceAttribute
+    return variable.description != undefined
+      ? [`/** ${variable.description} */`, interfaceAttribute]
+      : interfaceAttribute
   })
 
   const interfaceName = `${fastCase.pascalize(name)}Arguments`
@@ -122,6 +128,14 @@ export function buildModuleVariableInterface(
   }
 }
 
+const PRETTIER_CONFIG: prettier.Options = {
+  bracketSpacing: false,
+  printWidth: 120,
+  semi: false,
+  singleQuote: true,
+  trailingComma: 'all',
+}
+
 function format(code: string): string {
-  return prettier.format(code, {...require('../../package.json').prettier, parser: 'typescript'})
+  return prettier.format(code, {...PRETTIER_CONFIG, parser: 'typescript'})
 }

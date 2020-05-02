@@ -16,27 +16,30 @@ const defaultCompilerOptions: ts.CompilerOptions = {
   plugins: [{name: 'typescript-eslint-language-service'}],
 }
 
-function typeCheck(fileNames: string[], options: ts.CompilerOptions): readonly ts.Diagnostic[] {
+function typeCheck(fileNames: readonly string[], options: ts.CompilerOptions): readonly ts.Diagnostic[] {
   const program = ts.createProgram(fileNames, {...options, noEmit: true})
   // const emitResult = program.emit()
   return ts.getPreEmitDiagnostics(program) //.concat(emitResult.diagnostics)
 }
 
-function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]) {
+function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]): readonly DiagnosticMessage[] {
   return diagnostics.map((diagnostic) => {
-    const {line, character} = diagnostic.file
-      ? diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start!)
-      : {
-          line: 0,
-          character: 0,
-        }
+    const {line, character} =
+      diagnostic.file && diagnostic.start != undefined
+        ? diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start)
+        : {
+            line: 0,
+            character: 0,
+          }
     return {
       file: diagnostic.file ? diagnostic.file.fileName : '',
       line: line + 1,
       column: character + 1,
       error: diagnostic.category === ts.DiagnosticCategory.Error,
       message: ts.formatDiagnosticsWithColorAndContext([diagnostic], {
+        // eslint-disable-next-line functional/functional-parameters
         getNewLine: () => ts.sys.newLine,
+        // eslint-disable-next-line functional/functional-parameters
         getCurrentDirectory: () => process.cwd(),
         getCanonicalFileName: ts.sys.useCaseSensitiveFileNames ? (x) => x : (x) => x.toLowerCase(),
       }),
@@ -44,14 +47,14 @@ function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]) {
   })
 }
 
-function formatESLintResults(results: CLIEngine.LintResult[]) {
+function formatESLintResults(results: readonly CLIEngine.LintResult[]): readonly DiagnosticMessage[] {
   return results.flatMap((result) => {
     const relativePath = chalk.cyan(path.relative(process.cwd(), result.filePath))
-    const sourceLines = (result.source || '').split('\n')
+    const sourceLines = (result.source ?? '').split('\n')
 
     return result.messages.map((message) => {
       const firstLine = message.line
-      const lastLine = message.endLine || message.line
+      const lastLine = message.endLine ?? message.line
 
       const line = chalk.yellow(message.line)
       const column = chalk.yellow(message.column)
@@ -68,7 +71,8 @@ function formatESLintResults(results: CLIEngine.LintResult[]) {
       const lineNumber = chalk.black.bgWhite(String(firstLine).padStart(gutterWidth, ' '))
       const emptyGutter = chalk.black.bgWhite(String('').padStart(gutterWidth, ' '))
 
-      const lastCharForLine = (message.line === message.endLine ? message.endColumn : null) || relevantSourceLine.length
+      const lastCharForLine =
+        (message.line === message.endLine ? message.endColumn : undefined) ?? relevantSourceLine.length
       const prefix = relevantSourceLine.slice(0, message.column - 1).replace(/\S/g, ' ')
       const squiggle = (message.severity === 2 ? chalk.red : chalk.cyan)(
         relevantSourceLine.slice(message.column - 1, lastCharForLine - 1).replace(/./g, '~'),
@@ -89,15 +93,15 @@ ${emptyGutter} ${prefix}${squiggle}`,
 }
 
 type DiagnosticMessage = {
-  file: string
-  line: number
-  column: number
-  error: boolean
-  message: string
+  readonly file: string
+  readonly line: number
+  readonly column: number
+  readonly error: boolean
+  readonly message: string
 }
 
-function sortDiagnosticMessages(messages: DiagnosticMessage[]): DiagnosticMessage[] {
-  return messages.sort((a, b) => {
+function sortDiagnosticMessages(messages: readonly DiagnosticMessage[]): readonly DiagnosticMessage[] {
+  return [...messages].sort((a, b) => {
     const filenameComparison = a.file.localeCompare(b.file)
     if (filenameComparison !== 0) {
       return filenameComparison
@@ -111,9 +115,10 @@ function pluralize(number: number, singular: string, plural: string): string {
   return number === 1 ? singular : plural
 }
 
-export function run() {
+// eslint-disable-next-line functional/functional-parameters,functional/no-return-void
+export function run(): void {
   const cwd = process.cwd()
-  const scriptPath = resolve(cwd, process.argv[3] || '.')
+  const scriptPath = resolve(cwd, process.argv[3] ?? '.')
 
   const tsDiagnostics = typeCheck([scriptPath], defaultCompilerOptions)
 
@@ -121,7 +126,7 @@ export function run() {
     baseConfig: {
       ...lintConfig,
       parserOptions: {
-        ...(lintConfig.parserOptions || {}),
+        ...(lintConfig.parserOptions ?? {}),
         tsconfigRootDir: process.cwd(),
         project: ['./tsconfig.json'],
       },
@@ -151,18 +156,22 @@ export function run() {
   if (errorCount > 0) {
     console.log()
     console.log(chalk.red(`${errorCount} ${pluralize(errorCount, 'error', 'errors')}`))
+    // eslint-disable-next-line functional/no-expression-statement
     process.exit(1)
   }
 
   if (process.env.SWC !== '1') {
+    // eslint-disable-next-line functional/no-expression-statement
     register({
       // transpileOnly: true,
       compilerOptions: defaultCompilerOptions,
     })
   } else {
+    // eslint-disable-next-line functional/no-expression-statement
     require('@swc/register')
   }
 
+  // eslint-disable-next-line functional/no-expression-statement
   require(scriptPath)
 
   // const module = new Module(scriptPath)

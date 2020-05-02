@@ -1,4 +1,5 @@
-/* eslint-disable functional/functional-parameters,functional/no-loop-statement,functional/no-expression-statement */
+/* eslint-disable unicorn/no-abusive-eslint-disable */
+/* eslint-disable */
 
 import {ProvidersSchema} from '@configscript/types'
 import fs from 'fs-extra'
@@ -11,6 +12,7 @@ async function run(): Promise<void> {
   for (const providerName of Object.keys(schema.provider_schemas)) {
     const providerSchema = schema.provider_schemas[providerName]
     console.log(`Provider ${providerName}:`)
+    console.log(providerSchema.provider.block)
     console.log(buildBlockInterface(providerName, providerSchema.provider.block, true).code)
 
     for (const resourceName of Object.keys(providerSchema.resource_schemas)) {
@@ -19,11 +21,11 @@ async function run(): Promise<void> {
       console.log(buildBlockInterface(resourceName, resource.block).code)
     }
 
-    // for (const dataSourceName of Object.keys(providerSchema.data_source_schemas)) {
-    //   const dataSource = providerSchema.data_source_schemas[dataSourceName]
-    //   console.log(buildBlockInterface(dataSourceName, dataSource.block, true).code)
-    //   console.log(buildBlockInterface(dataSourceName, dataSource.block).code)
-    // }
+    for (const dataSourceName of Object.keys(providerSchema.data_source_schemas)) {
+      const dataSource = providerSchema.data_source_schemas[dataSourceName]
+      console.log(buildBlockInterface(dataSourceName, dataSource.block, true).code)
+      console.log(buildBlockInterface(dataSourceName, dataSource.block).code)
+    }
 
     // console.log(providerSchema.resource_schemas.aws_instance.block)
     // console.log(buildBlockInterface('attrs', providerSchema.resource_schemas.aws_instance.block).code)
@@ -38,7 +40,7 @@ async function run(): Promise<void> {
   // console.log(lex('object({ cidrs = map(string), tags = map(string) })'))
 }
 
-run().catch((error) => {
+run().catch((error: Error) => {
   console.log(error.stack)
   process.exit(1)
 })

@@ -1,8 +1,10 @@
 import {CLIEngine} from 'eslint'
+import lintConfig from '@configscript/lint-config'
 
-export function lint() {
+// eslint-disable-next-line functional/functional-parameters,functional/no-return-void
+export function lint(): void {
   const cli = new CLIEngine({
-    baseConfig: require('@configscript/lint-config'),
+    baseConfig: lintConfig,
     cwd: process.cwd(),
     extensions: ['.js', '.ts'],
     resolvePluginsRelativeTo: require.resolve('@configscript/lint-config'),

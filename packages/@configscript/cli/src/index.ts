@@ -8,4 +8,4 @@ const lg2 = new CloudwatchLogGroup('log_group_2', {id: lg.id, retention_in_days:
 const out = new Output<string>('lg_id', {type: 'string', value: lg2.id})
 
 const project = Project.fromResource(out)
-console.log(JSON.stringify(project, null, 2))
+console.log(JSON.stringify(project, undefined, 2))

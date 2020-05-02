@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/no-abusive-eslint-disable */
+/* eslint-disable */
+
 import {Resource} from './Resource'
 
 export interface ModuleArguments {

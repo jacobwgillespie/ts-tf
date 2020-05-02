@@ -22,29 +22,57 @@ const eslintConfig: Linter.BaseConfig = {
     require.resolve('eslint-config-prettier/@typescript-eslint'),
   ],
   rules: {
-    '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: false,
-        argsIgnorePattern: '^_',
-      },
+      {vars: 'all', args: 'after-used', ignoreRestSiblings: false, argsIgnorePattern: '^_'},
     ],
+    '@typescript-eslint/method-signature-style': ['error', 'property'],
+    '@typescript-eslint/no-base-to-string': 'error',
+    '@typescript-eslint/no-dynamic-delete': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-extra-non-null-assertion': 'error',
+    '@typescript-eslint/no-floating-promises': 'error',
+    '@typescript-eslint/no-implied-eval': 'error',
+    '@typescript-eslint/no-invalid-void-type': 'error',
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-throw-literal': 'error',
+    '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
+    '@typescript-eslint/no-unnecessary-condition': ['error', {ignoreRhs: true}],
+    '@typescript-eslint/no-unnecessary-type-arguments': 'error',
+    '@typescript-eslint/no-unsafe-assignment': 'error',
+    '@typescript-eslint/no-unsafe-call': 'error',
+    '@typescript-eslint/no-unsafe-member-access': 'error',
+    '@typescript-eslint/no-unsafe-return': 'error',
     '@typescript-eslint/no-use-before-define': ['error', {functions: false, classes: false}],
+    '@typescript-eslint/prefer-as-const': 'error',
+    '@typescript-eslint/prefer-function-type': 'error',
+    '@typescript-eslint/prefer-nullish-coalescing': 'error',
+    '@typescript-eslint/prefer-optional-chain': 'error',
+    '@typescript-eslint/prefer-reduce-type-parameter': 'error',
+    '@typescript-eslint/prefer-ts-expect-error': 'error',
+    '@typescript-eslint/promise-function-async': 'error',
+    '@typescript-eslint/require-array-sort-compare': 'error',
+    '@typescript-eslint/restrict-plus-operands': ['error', {checkCompoundAssignments: true}],
+    '@typescript-eslint/switch-exhaustiveness-check': 'error',
+    '@typescript-eslint/unified-signatures': 'error',
+
+    'functional/no-conditional-statement': ['off', {allowReturningBranches: 'ifExhaustive'}],
+    'functional/no-expression-statement': ['error', {ignorePattern: 'console\\.log'}],
+    'functional/no-method-signature': 'error',
+
     'no-process-exit': 'off',
+
     'node/no-unsupported-features/es-syntax': ['error', {ignores: ['modules']}],
+
     'unicorn/no-nested-ternary': 'off',
     'unicorn/no-process-exit': 'off',
     'unicorn/prevent-abbreviations': 'off',
 
-    'functional/no-conditional-statement': ['off', {allowReturningBranches: 'ifExhaustive'}],
-    'functional/no-expression-statement': ['error', {ignorePattern: 'console\\.log'}],
-
     // remove later
-    '@typescript-eslint/no-explicit-any': 'off',
     'unicorn/filename-case': 'off',
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/strict-boolean-expressions': ['error', {allowNullable: true, allowSafe: true}],
   },
   settings: {
     node: {

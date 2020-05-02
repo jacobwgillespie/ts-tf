@@ -1,5 +1,6 @@
 /dist
 /node_modules
+/support
 /tmp
 
 /src/aws

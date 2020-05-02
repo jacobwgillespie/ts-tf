@@ -21,7 +21,7 @@ export type SchemaRepresentation = {
 }
 
 export type Block = {
-  readonly attributes: {
+  readonly attributes?: {
     readonly [attributeName: string]: Attribute
   }
   readonly block_types: {
@@ -46,10 +46,10 @@ export type AttributeType =
 
 export type Attribute = {
   readonly type: AttributeType
-  readonly description: string
-  readonly description_kind: string
-  readonly required: boolean
-  readonly optional: boolean
-  readonly computed: boolean
-  readonly sensitive: boolean
+  readonly description?: string
+  readonly description_kind?: string
+  readonly required?: boolean
+  readonly optional?: boolean
+  readonly computed?: boolean
+  readonly sensitive?: boolean
 }
