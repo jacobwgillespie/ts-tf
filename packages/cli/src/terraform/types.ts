@@ -2,7 +2,6 @@ import is from '@sindresorhus/is'
 import {AttributeType, Block, ConfigSchema} from '@ts-tf/types'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
-import {assertNever} from '../utils'
 import {parseTypeString} from './typeStringParser'
 
 type ArrayAttribute<T = AttributeType> = T extends readonly any[] ? T : never
@@ -23,9 +22,6 @@ function tfArrayTypeToTSType(type: ArrayAttribute): string {
 
     case 'set':
       return `Set<${tfTypeToTSType(type[1])}>`
-
-    default:
-      return assertNever(type)
   }
 }
 
@@ -86,9 +82,6 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
             case 'group':
             case 'single':
               return `"${nestedBlockName}"${modifier} {\n${inner}\n}`
-
-            default:
-              return assertNever(nestedBlock.nesting_mode)
           }
         })
       : []

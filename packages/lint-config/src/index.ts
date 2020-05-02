@@ -1,10 +1,11 @@
-export = {
-  root: true,
+import {Linter} from 'eslint'
+
+const eslintConfig: Linter.BaseConfig = {
   parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    tsconfigRootDir: process.cwd(),
-    project: ['./tsconfig.json'],
-  },
+  // parserOptions: {
+  //   tsconfigRootDir: process.cwd(),
+  //   project: ['./tsconfig.json'],
+  // },
   plugins: ['@typescript-eslint', 'functional'],
   extends: [
     'eslint:recommended',
@@ -21,6 +22,7 @@ export = {
     require.resolve('eslint-config-prettier/@typescript-eslint'),
   ],
   rules: {
+    '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -37,7 +39,8 @@ export = {
     'unicorn/no-process-exit': 'off',
     'unicorn/prevent-abbreviations': 'off',
 
-    'functional/no-conditional-statement': ['error', {allowReturningBranches: 'ifExhaustive'}],
+    'functional/no-conditional-statement': ['off', {allowReturningBranches: 'ifExhaustive'}],
+    'functional/no-expression-statement': ['error', {ignorePattern: 'console\\.log'}],
 
     // remove later
     '@typescript-eslint/no-explicit-any': 'off',
@@ -49,3 +52,5 @@ export = {
     },
   },
 }
+
+export = eslintConfig

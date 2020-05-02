@@ -4,6 +4,9 @@
       "path": "packages/cli"
     },
     {
+      "path": "packages/lint-config"
+    },
+    {
       "path": "packages/parse-tf-module"
     },
     {
