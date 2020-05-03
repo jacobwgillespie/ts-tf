@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@configscript/config-prettier": "0.1.0",
+    "@configscript/config-prettier": "0.0.0",
     "@monorepolint/core": "^0.4.0",
     "@monorepolint/utils": "^0.4.0",
     "jest-diff": "^25.5.0",
