@@ -2,6 +2,13 @@ import {Config} from '@monorepolint/core'
 
 const config: Config = {
   rules: {
+    ':file-contents': {
+      options: {
+        file: '.gitignore',
+        templateFile: './support/template.gitignore',
+      },
+    },
+
     ':standard-tsconfig': {
       options: {
         templateFile: './support/tsconfig.template.json',
