@@ -1,0 +1,1 @@
+./packages/configscript/README.md
