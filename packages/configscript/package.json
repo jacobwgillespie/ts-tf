@@ -9,7 +9,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "config": "./dist/index.js"
+    "config": "./bin/config"
   },
   "files": [
     "dist"
