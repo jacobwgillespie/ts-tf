@@ -57,6 +57,7 @@ const eslintConfig: Linter.BaseConfig = {
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/unified-signatures': 'error',
 
+    'functional/functional-parameters': ['error', {ignorePattern: 'toJSON'}],
     'functional/no-conditional-statement': ['off', {allowReturningBranches: 'ifExhaustive'}],
     'functional/no-expression-statement': ['error', {ignorePattern: 'console\\.log'}],
     'functional/no-method-signature': 'error',
