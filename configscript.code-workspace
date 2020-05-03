@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {"path": ".", "name": "Workspace Root"},
+    {"path": "packages/configscript"},
+    {"path": "packages/@configscript/build-config"},
+    {"path": "packages/@configscript/cli"},
+    {"path": "packages/@configscript/lint-config"},
+    {"path": "packages/@configscript/parse-tf-module"},
+    {"path": "packages/@configscript/types"}
+  ],
+  "settings": {
+    "npm.packageManager": "yarn",
+    "typescript.tsdk": "Workspace Root/node_modules/typescript/lib"
+  }
+}
