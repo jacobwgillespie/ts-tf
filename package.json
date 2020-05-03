@@ -1,21 +1,23 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*",
-    "packages/@configscript/*"
-  ],
-  "scripts": {
-    "build": "tsc -b build-all-tsconfig.json",
-    "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
-    "lint": "eslint . --ext .ts",
-    "prebuild": "typescript-monorepo-toolkit inject-refs -a .",
-    "watch": "yarn build -w"
-  },
   "devDependencies": {
     "@configscript/config-prettier": "0.1.0",
     "lerna": "^3.20.2",
     "prettier": "^2.0.5",
+    "syncpack": "^5.0.1",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
-  "prettier": "@configscript/config-prettier"
+  "prettier": "@configscript/config-prettier",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b build-all-tsconfig.json",
+    "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
+    "fmt": "syncpack format",
+    "lint": "eslint . --ext .ts",
+    "prebuild": "typescript-monorepo-toolkit inject-refs -a .",
+    "watch": "yarn build -w"
+  },
+  "workspaces": [
+    "packages/*",
+    "packages/@configscript/*"
+  ]
 }
