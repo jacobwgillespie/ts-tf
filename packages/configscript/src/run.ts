@@ -1,11 +1,10 @@
 // import Module from 'module'
-import {resolve} from 'path'
-import {register} from 'ts-node'
-import {CLIEngine} from 'eslint'
 import lintConfig from '@configscript/lint-config'
-import * as ts from 'typescript'
 import chalk from 'chalk'
+import {CLIEngine} from 'eslint'
 import path from 'path'
+import {register} from 'ts-node'
+import * as ts from 'typescript'
 
 const defaultCompilerOptions: ts.CompilerOptions = {
   strict: true,
@@ -117,8 +116,20 @@ function pluralize(number: number, singular: string, plural: string): string {
 
 // eslint-disable-next-line functional/functional-parameters,functional/no-return-void
 export function run(): void {
+  if (process.env.SWC !== '1') {
+    // eslint-disable-next-line functional/no-expression-statement
+    register({
+      transpileOnly: true,
+      compilerOptions: defaultCompilerOptions,
+      preferTsExts: true,
+    })
+  } else {
+    // eslint-disable-next-line functional/no-expression-statement
+    require('@swc/register')
+  }
+
   const cwd = process.cwd()
-  const scriptPath = resolve(cwd, process.argv[3] ?? '.')
+  const scriptPath = require.resolve(path.join(cwd, process.argv[3] ?? '.'))
 
   const tsDiagnostics = typeCheck([scriptPath], defaultCompilerOptions)
 
@@ -146,7 +157,10 @@ export function run(): void {
   const errorCount = allIssues.filter((issue) => issue.error).length
   const warningCount = allIssues.length - errorCount
 
-  console.log(allIssues.map((issue) => issue.message).join('\n\n'))
+  if (allIssues.length > 0) {
+    console.log()
+    console.log(allIssues.map((issue) => issue.message).join('\n\n'))
+  }
 
   if (warningCount > 0) {
     console.log()
@@ -158,17 +172,6 @@ export function run(): void {
     console.log(chalk.red(`${errorCount} ${pluralize(errorCount, 'error', 'errors')}`))
     // eslint-disable-next-line functional/no-expression-statement
     process.exit(1)
-  }
-
-  if (process.env.SWC !== '1') {
-    // eslint-disable-next-line functional/no-expression-statement
-    register({
-      // transpileOnly: true,
-      compilerOptions: defaultCompilerOptions,
-    })
-  } else {
-    // eslint-disable-next-line functional/no-expression-statement
-    require('@swc/register')
   }
 
   // eslint-disable-next-line functional/no-expression-statement
