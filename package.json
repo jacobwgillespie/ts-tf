@@ -1,9 +1,13 @@
 {
   "devDependencies": {
     "@configscript/config-prettier": "0.1.0",
+    "@monorepolint/core": "^0.4.0",
+    "@monorepolint/utils": "^0.4.0",
+    "jest-diff": "^25.5.0",
     "lerna": "^3.20.2",
+    "monorepolint": "^0.4.0",
     "prettier": "^2.0.5",
-    "syncpack": "^5.0.1",
+    "runtypes": "^4.2.0",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
   "prettier": "@configscript/config-prettier",
@@ -11,7 +15,7 @@
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
     "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
-    "fmt": "syncpack format",
+    "fmt": "monorepolint check --fix",
     "lint": "eslint . --ext .ts",
     "prebuild": "typescript-monorepo-toolkit inject-refs -a .",
     "watch": "yarn build -w"
