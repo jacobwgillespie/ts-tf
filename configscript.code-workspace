@@ -5,7 +5,6 @@
     {"path": "packages/@configscript/config-eslint"},
     {"path": "packages/@configscript/config-prettier"},
     {"path": "packages/@configscript/config-typescript"},
-    {"path": "packages/@configscript/parse-tf-module"},
     {"path": "packages/@configscript/provider-terraform"},
     {"path": "packages/@configscript/types"}
   ],

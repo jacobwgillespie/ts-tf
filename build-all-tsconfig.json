@@ -4,9 +4,6 @@
       "path": "packages/configscript"
     },
     {
-      "path": "packages/@configscript/parse-tf-module"
-    },
-    {
       "path": "packages/@configscript/provider-terraform"
     }
   ],

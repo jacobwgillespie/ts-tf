@@ -1,4 +1,0 @@
-*.log
-*.tsbuildinfo
-dist/
-node_modules/
