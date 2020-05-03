@@ -40,6 +40,9 @@ const config: Config = {
             //   type: 'GitHub',
             //   url: 'https://github.com/sponsors/jacobwgillespie',
             // },
+            // publishConfig: {
+            //   access: 'public',
+            // },
           },
         },
       },

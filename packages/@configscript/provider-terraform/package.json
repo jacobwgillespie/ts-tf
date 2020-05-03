@@ -17,6 +17,9 @@
     "lint": "eslint . --ext .ts",
     "watch": "tsc -b -w"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@configscript/config-prettier": "0.0.0",
     "@configscript/types": "0.0.0",

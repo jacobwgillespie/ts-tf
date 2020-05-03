@@ -6,6 +6,9 @@
   "files": [
     "tsconfig.json"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "funding": {
     "type": "GitHub",
     "url": "https://github.com/sponsors/jacobwgillespie"

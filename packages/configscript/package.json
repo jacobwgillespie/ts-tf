@@ -17,6 +17,9 @@
     "lint": "eslint . --ext .ts",
     "watch": "tsc -b -w"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@configscript/config-eslint": "0.0.0",
     "chalk": "^4.0.0",
