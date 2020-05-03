@@ -1,6 +1,6 @@
 {
   "name": "configscript",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "engines": {
@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@configscript/config-eslint": "0.0.0",
+    "@configscript/config-eslint": "^0.0.1",
     "chalk": "^4.0.0",
     "eslint": "^6.8.0",
     "prettier": "^2.0.5",
