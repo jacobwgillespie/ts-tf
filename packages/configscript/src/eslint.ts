@@ -1,5 +1,5 @@
 /* eslint-disable functional/functional-parameters */
-import lintConfig from '@configscript/lint-config'
+import lintConfig from '@configscript/config-eslint'
 import chalk from 'chalk'
 import {CLIEngine} from 'eslint'
 import path from 'path'
@@ -24,7 +24,7 @@ export function getESLint(): CLIEngine {
     baseConfig,
     cwd: process.cwd(),
     extensions: ['.ts'],
-    resolvePluginsRelativeTo: require.resolve('@configscript/lint-config'),
+    resolvePluginsRelativeTo: require.resolve('@configscript/config-eslint'),
     useEslintrc: false,
   })
 

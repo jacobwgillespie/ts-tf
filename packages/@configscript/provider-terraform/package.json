@@ -12,7 +12,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@configscript/prettier-config": "0.1.0",
+    "@configscript/config-prettier": "0.1.0",
     "@configscript/types": "0.1.0",
     "@sindresorhus/is": "^2.1.1",
     "chevrotain": "^7.0.1",

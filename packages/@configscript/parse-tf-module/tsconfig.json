@@ -1,5 +1,5 @@
 {
-  "extends": "@configscript/build-config/tsconfig.base.json",
+  "extends": "@configscript/config-typescript/tsconfig.base.json",
 
   "compilerOptions": {
     "lib": ["es2018", "es2019", "dom"],

@@ -1,5 +1,5 @@
 {
-  "extends": "@configscript/build-config/tsconfig.base.json",
+  "extends": "@configscript/config-typescript/tsconfig.base.json",
 
   "compilerOptions": {
     "outDir": "dist",
@@ -10,7 +10,7 @@
 
   "include": ["src"],
   "references": [{
-    "path": "../prettier-config"
+    "path": "../config-prettier"
   }, {
     "path": "../types"
   }]

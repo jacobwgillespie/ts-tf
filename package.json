@@ -12,10 +12,10 @@
     "watch": "yarn build -w"
   },
   "devDependencies": {
-    "@configscript/prettier-config": "0.1.0",
+    "@configscript/config-prettier": "0.1.0",
     "lerna": "^3.20.2",
     "prettier": "^2.0.5",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
-  "prettier": "@configscript/prettier-config"
+  "prettier": "@configscript/config-prettier"
 }

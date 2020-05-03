@@ -1,4 +1,4 @@
-import prettierConfig from '@configscript/prettier-config'
+import prettierConfig from '@configscript/config-prettier'
 import {AttributeType, Block, ConfigSchema} from '@configscript/types'
 import is from '@sindresorhus/is'
 import fastCase from 'fast-case'

@@ -1,5 +1,5 @@
 {
-  "extends": "@configscript/build-config/tsconfig.base.json",
+  "extends": "@configscript/config-typescript/tsconfig.base.json",
 
   "compilerOptions": {
     "outDir": "dist",
@@ -10,6 +10,6 @@
 
   "include": ["src"],
   "references": [{
-    "path": "../@configscript/lint-config"
+    "path": "../@configscript/config-eslint"
   }]
 }
