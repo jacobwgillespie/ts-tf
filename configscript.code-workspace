@@ -3,10 +3,10 @@
     {"path": ".", "name": "Workspace Root"},
     {"path": "packages/configscript"},
     {"path": "packages/@configscript/build-config"},
-    {"path": "packages/@configscript/cli"},
     {"path": "packages/@configscript/lint-config"},
     {"path": "packages/@configscript/parse-tf-module"},
     {"path": "packages/@configscript/prettier-config"},
+    {"path": "packages/@configscript/provider-terraform"},
     {"path": "packages/@configscript/types"}
   ],
   "settings": {
