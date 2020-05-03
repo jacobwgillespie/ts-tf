@@ -4,6 +4,9 @@
       "path": "packages/configscript"
     },
     {
+      "path": "packages/@configscript/config-typescript"
+    },
+    {
       "path": "packages/@configscript/provider-terraform"
     }
   ],

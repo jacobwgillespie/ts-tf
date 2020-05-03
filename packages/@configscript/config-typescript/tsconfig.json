@@ -17,5 +17,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "types": ["node"]
-  }
+  },
+
+  "references": []
 }

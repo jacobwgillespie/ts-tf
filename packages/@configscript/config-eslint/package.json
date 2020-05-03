@@ -1,13 +1,18 @@
 {
   "name": "@configscript/config-eslint",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "lint": "eslint . --ext .ts,.js",
-    "watch": "tsc -w"
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -b -w"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^2.30.0",
@@ -24,5 +29,9 @@
     "@types/node": "^12",
     "@types/prettier": "^2.0.0",
     "typescript": "^3.8.3"
+  },
+  "funding": {
+    "type": "GitHub",
+    "url": "https://github.com/sponsors/jacobwgillespie"
   }
 }

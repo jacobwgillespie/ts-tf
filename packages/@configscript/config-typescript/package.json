@@ -1,7 +1,13 @@
 {
   "name": "@configscript/config-typescript",
   "version": "0.1.0",
-  "scripts": {
-    "clean": "rm -rf dist *.tsbuildinfo"
+  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "tsconfig.json"
+  ],
+  "funding": {
+    "type": "GitHub",
+    "url": "https://github.com/sponsors/jacobwgillespie"
   }
 }

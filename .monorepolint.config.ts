@@ -2,19 +2,47 @@ import {Config} from '@monorepolint/core'
 
 const config: Config = {
   rules: {
-    ':alphabetical-dependencies': true,
-    './support/alphabeticalScripts': true,
     ':consistent-dependencies': true,
 
     ':package-script': {
       options: {
         scripts: {
           clean: 'rm -rf dist *.tsbuildinfo',
-          // "compile": "tsc -b",
-          // "watch": "tsc -b -w",
+          build: 'tsc -b',
+          lint: 'eslint . --ext .ts',
+          watch: 'tsc -b -w',
         },
       },
+      excludePackages: ['@configscript/config-typescript'],
     },
+
+    ':package-entry': [
+      {
+        options: {
+          entries: {
+            author: 'Jacob Gillespie <jacobwgillespie@gmail.com>',
+            license: 'MIT',
+            // funding: {
+            //   type: 'GitHub',
+            //   url: 'https://github.com/sponsors/jacobwgillespie',
+            // },
+          },
+        },
+      },
+      {
+        options: {
+          entries: {
+            main: './dist/index.js',
+            types: './dist/index.d.ts',
+            // files: ['dist'],
+          },
+        },
+        excludePackages: ['@configscript/config-typescript'],
+      },
+    ],
+
+    ':alphabetical-dependencies': true,
+    './support/alphabeticalScripts': true,
 
     ':package-order': {
       options: {
