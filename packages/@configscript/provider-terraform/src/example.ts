@@ -1,28 +1,32 @@
+type ArgumentsOrReferences<Arguments extends object> = {
+  [k in keyof Arguments]: Arguments[k] | AttributeReference<Arguments[k]>
+}
+
 type ResourceAttributeReferences<Attributes extends object> = {
-  readonly [k in keyof Attributes]: AttributeReference<Attributes, k>
+  readonly [k in keyof Attributes]: AttributeReference<Attributes[k]>
 }
 
 type Resource<Type, Arguments extends object, Attributes extends object> = {
   readonly __kind: 'Resource'
   readonly __type: Type
   readonly __name: string
-  readonly __args: Arguments
+  readonly __args: ArgumentsOrReferences<Arguments>
 } & ResourceAttributeReferences<Attributes>
 
-type AttributeReference<Attributes, AttributeName extends keyof Attributes> = {
+type AttributeReference<T> = {
   readonly __kind: 'AttributeReference'
-  readonly __type: Attributes[AttributeName]
+  readonly __type: T
 
   readonly __parentName: string
   readonly __parentKind: string
-  readonly __name: AttributeName
+  readonly __name: string
 }
 
 export function attributeReference<Attributes, AttributeName extends keyof Attributes>(
   parentName: string,
   parentKind: string,
-  name: AttributeName,
-): AttributeReference<Attributes, AttributeName> {
+  name: string,
+): AttributeReference<Attributes[AttributeName]> {
   return {
     __kind: 'AttributeReference',
     __type: {} as Attributes[AttributeName],
@@ -57,7 +61,7 @@ export type IamUserAttributes = {
 export function resource<Type, Arguments extends object, Attributes extends object>(
   type: Type,
   name: string,
-  args: Arguments,
+  args: ArgumentsOrReferences<Arguments>,
   attrRefs: ResourceAttributeReferences<Attributes>,
 ): Resource<Type, Arguments, Attributes> {
   return {
@@ -69,10 +73,10 @@ export function resource<Type, Arguments extends object, Attributes extends obje
   }
 }
 
-export function iamUser<Args extends IamUserArguments>(
+export function iamUser<Arguments extends IamUserArguments>(
   name: string,
-  args: Args,
-): Resource<'iam_user', Args, IamUserAttributes> {
+  args: ArgumentsOrReferences<Arguments>,
+): Resource<'iam_user', Arguments, IamUserAttributes> {
   const attrRefs: ResourceAttributeReferences<IamUserAttributes> = {
     arn: attributeReference('iam_user', name, 'arn'),
     force_destroy: attributeReference('iam_user', name, 'force_destroy'),
@@ -86,8 +90,7 @@ export function iamUser<Args extends IamUserArguments>(
   return resource('iam_user', name, args, attrRefs)
 }
 
-export const user = iamUser('my-user', {name: 'my-user'} as const)
-export const name = user.name
+export const user = iamUser('my-user', {name: 'my-user'})
+export const user2 = iamUser('my-user', {name: user.name})
 
-console.log(user)
-console.log(name)
+console.log(user2)
