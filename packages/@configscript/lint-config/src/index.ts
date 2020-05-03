@@ -64,6 +64,7 @@ const eslintConfig: Linter.BaseConfig = {
     'no-process-exit': 'off',
 
     'node/no-unsupported-features/es-syntax': ['error', {ignores: ['modules']}],
+    'node/no-extraneous-import': 'off',
 
     'unicorn/no-nested-ternary': 'off',
     'unicorn/no-process-exit': 'off',

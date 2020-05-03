@@ -1,5 +1,6 @@
-import is from '@sindresorhus/is'
+import prettierConfig from '@configscript/prettier-config'
 import {AttributeType, Block, ConfigSchema} from '@configscript/types'
+import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {parseTypeString} from './typeStringParser'
@@ -128,14 +129,6 @@ export function buildModuleVariableInterface(
   }
 }
 
-const PRETTIER_CONFIG: prettier.Options = {
-  bracketSpacing: false,
-  printWidth: 120,
-  semi: false,
-  singleQuote: true,
-  trailingComma: 'all',
-}
-
 function format(code: string): string {
-  return prettier.format(code, {...PRETTIER_CONFIG, parser: 'typescript'})
+  return prettier.format(code, {...prettierConfig, parser: 'typescript'})
 }
