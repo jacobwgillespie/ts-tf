@@ -2,6 +2,13 @@ import {Config} from '@monorepolint/core'
 
 const config: Config = {
   rules: {
+    ':standard-tsconfig': {
+      options: {
+        templateFile: './support/tsconfig.template.json',
+      },
+      excludePackages: ['@configscript/config-typescript'],
+    },
+
     ':consistent-dependencies': true,
 
     ':package-script': {

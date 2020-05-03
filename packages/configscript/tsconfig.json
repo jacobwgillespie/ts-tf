@@ -1,14 +1,13 @@
 {
   "extends": "@configscript/config-typescript",
-
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"],
     "composite": true
   },
-
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "references": [
     {
       "path": "../@configscript/config-eslint"

@@ -1,12 +1,11 @@
 {
   "extends": "@configscript/config-typescript",
+
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
     "composite": true
   },
-  "include": [
-    "src"
-  ],
-  "references": []
+
+  "include": ["src"]
 }
