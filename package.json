@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@configscript/config-prettier": "0.0.0",
     "@monorepolint/core": "^0.4.0",
     "@monorepolint/utils": "^0.4.0",
     "jest-diff": "^25.5.0",
@@ -10,7 +9,7 @@
     "runtypes": "^4.2.0",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
-  "prettier": "@configscript/config-prettier",
+  "prettier": "./packages/@configscript/config-prettier",
   "private": true,
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
