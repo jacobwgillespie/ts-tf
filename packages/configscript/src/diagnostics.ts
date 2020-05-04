@@ -1,4 +1,4 @@
-export type DiagnosticMessage = {
+export interface DiagnosticMessage {
   readonly file: string
   readonly position?: {
     readonly line: number

@@ -29,7 +29,7 @@ type Resource<Arguments extends object = object, Attributes extends object = obj
   readonly __args: ArgumentsOrReferences<Arguments>
 } & ResourceAttributeReferences<Attributes>
 
-type AttributeReference<T> = {
+interface AttributeReference<T> {
   readonly __kind: 'AttributeReference'
   readonly __type: T
 
@@ -52,7 +52,7 @@ export function attributeReference<Attributes, AttributeName extends keyof Attri
   }
 }
 
-export type IamUserArguments = {
+export interface IamUserArguments {
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
   readonly force_destroy?: boolean
   readonly id?: string
@@ -62,7 +62,7 @@ export type IamUserArguments = {
   readonly tags?: {readonly [key: string]: string}
 }
 
-export type IamUserAttributes = {
+export interface IamUserAttributes {
   readonly arn: string
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
   readonly force_destroy?: boolean

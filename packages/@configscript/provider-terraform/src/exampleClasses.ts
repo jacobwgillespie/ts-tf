@@ -83,7 +83,7 @@ abstract class TerraformResource<Arguments extends object = {}, Attributes exten
   }
 }
 
-export type IamUserArguments = {
+export interface IamUserArguments {
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
   readonly force_destroy?: boolean
   readonly id?: string
@@ -93,7 +93,7 @@ export type IamUserArguments = {
   readonly tags?: {readonly [key: string]: string}
 }
 
-export type IamUserAttributes = {
+export interface IamUserAttributes {
   readonly arn: string
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
   readonly force_destroy?: boolean

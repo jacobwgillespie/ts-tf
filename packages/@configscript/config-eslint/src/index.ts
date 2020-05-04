@@ -80,6 +80,9 @@ const eslintConfig: Linter.BaseConfig = {
       {ignorePattern: ['console\\.log', 'super', 'Object\\.freeze', 'Object\\.seal', '[\\w]+ =', 'process\\.exit']},
     ],
 
+    'functional/prefer-type-literal': 'off',
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+
     // remove later
     'unicorn/filename-case': 'off',
     '@typescript-eslint/camelcase': 'off',

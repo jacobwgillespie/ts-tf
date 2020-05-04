@@ -1,4 +1,4 @@
-export type ProvidersSchema = {
+export interface ProvidersSchema {
   readonly format_version: '0.1'
   readonly provider_schemas: {
     readonly [providerName: string]: {
@@ -15,12 +15,12 @@ export type ProvidersSchema = {
   }
 }
 
-export type SchemaRepresentation = {
+export interface SchemaRepresentation {
   readonly version: number
   readonly block: Block
 }
 
-export type Block = {
+export interface Block {
   readonly attributes?: {
     readonly [attributeName: string]: Attribute
   }
@@ -44,7 +44,7 @@ export type AttributeType =
   | readonly ['object', {readonly [name: string]: AttributeType}]
   | readonly ['set', AttributeType]
 
-export type Attribute = {
+export interface Attribute {
   readonly type: AttributeType
   readonly description?: string
   readonly description_kind?: string
