@@ -2,7 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "incremental": true,
-    "target": "es2019",
+    "target": "esnext",
     "module": "commonjs",
     "declaration": true,
     "declarationMap": true,
@@ -16,6 +16,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "useDefineForClassFields": false,
     "types": ["node"]
   },
 
