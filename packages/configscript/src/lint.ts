@@ -4,8 +4,7 @@ import {lintFiles} from './eslint'
 import {typeCheckFiles} from './typescript'
 import {pluralize} from './utils'
 
-// eslint-disable-next-line functional/functional-parameters,functional/no-return-void
-export function lint(files: readonly string[]): void {
+export function lint(files: readonly string[]): boolean {
   const allIssues = sortDiagnosticMessages([...lintFiles(files.concat(['.'])), ...typeCheckFiles(files)])
 
   const errorCount = allIssues.filter((issue) => issue.error).length
@@ -24,7 +23,8 @@ export function lint(files: readonly string[]): void {
   if (errorCount > 0) {
     console.log()
     console.log(chalk.red(`${errorCount} ${pluralize(errorCount, 'error', 'errors')}`))
-    // eslint-disable-next-line functional/no-expression-statement
-    process.exit(1)
+    return false
   }
+
+  return true
 }

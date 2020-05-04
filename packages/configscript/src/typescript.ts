@@ -37,9 +37,7 @@ function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]): readonly Di
       column: character + 1,
       error: diagnostic.category === ts.DiagnosticCategory.Error,
       message: ts.formatDiagnosticsWithColorAndContext([diagnostic], {
-        // eslint-disable-next-line functional/functional-parameters
         getNewLine: () => ts.sys.newLine,
-        // eslint-disable-next-line functional/functional-parameters
         getCurrentDirectory: () => process.cwd(),
         getCanonicalFileName: ts.sys.useCaseSensitiveFileNames ? (x) => x : (x) => x.toLowerCase(),
       }),

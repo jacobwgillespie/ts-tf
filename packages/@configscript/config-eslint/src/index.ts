@@ -73,11 +73,11 @@ const eslintConfig: Linter.BaseConfig = {
 
     // Allow classes
     'functional/no-this-expression': 'off',
-    'functional/functional-parameters': 'off',
+    'functional/functional-parameters': ['error', {enforceParameterCount: false}],
     'functional/no-class': 'off',
     'functional/no-expression-statement': [
       'error',
-      {ignorePattern: ['console\\.log', 'super', 'Object\\.freeze', 'Object\\.seal', '[\\w]+ =']},
+      {ignorePattern: ['console\\.log', 'super', 'Object\\.freeze', 'Object\\.seal', '[\\w]+ =', 'process\\.exit']},
     ],
 
     // remove later

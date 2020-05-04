@@ -1,13 +1,12 @@
-import {register as tsNodeRegister} from 'ts-node'
+import {register as tsNodeRegister, Register} from 'ts-node'
 import * as ts from 'typescript'
 import {defaultCompilerOptions} from './typescript'
 
-// eslint-disable-next-line functional/no-return-void
-export function registerConfigScript(compilerOptions: ts.CompilerOptions = defaultCompilerOptions): void {
-  // eslint-disable-next-line functional/no-expression-statement
-  tsNodeRegister({
+export function registerConfigScript(compilerOptions: ts.CompilerOptions = defaultCompilerOptions): Register {
+  return tsNodeRegister({
     transpileOnly: true,
-    compilerOptions,
+    compilerOptions: {...compilerOptions, allowJs: true},
     preferTsExts: true,
+    ignore: [],
   })
 }

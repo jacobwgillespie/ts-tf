@@ -3,8 +3,8 @@ import path from 'path'
 import {lint} from './lint'
 import {registerConfigScript} from './register'
 
-// eslint-disable-next-line functional/functional-parameters,@typescript-eslint/explicit-function-return-type,@typescript-eslint/require-await
-async function main() {
+// eslint-disable-next-line @typescript-eslint/require-await
+async function main(): Promise<void> {
   // eslint-disable-next-line functional/no-expression-statement
   registerConfigScript()
 
@@ -13,15 +13,17 @@ async function main() {
 
   switch (process.argv[2]) {
     case 'run':
-      // eslint-disable-next-line functional/no-expression-statement
-      lint([scriptPath])
+      if (!lint([scriptPath])) {
+        process.exit(1)
+      }
       // eslint-disable-next-line functional/no-expression-statement
       require(scriptPath)
       break
 
     case 'lint':
-      // eslint-disable-next-line functional/no-expression-statement
-      lint([scriptPath])
+      if (!lint([scriptPath])) {
+        process.exit(1)
+      }
       break
 
     default:
@@ -32,6 +34,5 @@ async function main() {
 
 main().catch((error: Error) => {
   console.log(error.stack)
-  // eslint-disable-next-line functional/no-expression-statement
   process.exit(1)
 })

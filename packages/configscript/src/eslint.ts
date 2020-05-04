@@ -1,4 +1,3 @@
-/* eslint-disable functional/functional-parameters */
 import lintConfig from '@configscript/config-eslint'
 import chalk from 'chalk'
 import {CLIEngine} from 'eslint'
