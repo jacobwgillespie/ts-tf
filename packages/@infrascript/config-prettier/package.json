@@ -1,5 +1,5 @@
 {
-  "name": "@configscript/types",
+  "name": "@infrascript/config-prettier",
   "version": "0.0.3",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
@@ -21,6 +21,8 @@
     "tslib": "^1.11.1"
   },
   "devDependencies": {
+    "@types/node": "^12",
+    "@types/prettier": "^2.0.0",
     "typescript": "^3.8.3"
   },
   "funding": {

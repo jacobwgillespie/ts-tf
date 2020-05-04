@@ -1,5 +1,5 @@
 {
-  "extends": "@configscript/config-typescript",
+  "extends": "@infrascript/config-typescript",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
@@ -10,7 +10,10 @@
   ],
   "references": [
     {
-      "path": "../@configscript/config-eslint"
+      "path": "../config-prettier"
+    },
+    {
+      "path": "../types"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@configscript/provider-terraform",
+  "name": "@infrascript/provider-terraform",
   "version": "0.0.3",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
@@ -21,8 +21,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@configscript/config-prettier": "^0.0.3",
-    "@configscript/types": "^0.0.3",
+    "@infrascript/config-prettier": "^0.0.3",
+    "@infrascript/types": "^0.0.3",
     "@sindresorhus/is": "^2.1.1",
     "chevrotain": "^7.0.1",
     "fast-case": "^1.4.0",

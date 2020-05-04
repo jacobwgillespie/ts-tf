@@ -1,1 +1,1 @@
-./packages/configscript/README.md
+./packages/infrascript/README.md

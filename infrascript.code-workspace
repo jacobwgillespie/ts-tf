@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {"path": ".", "name": "Workspace Root"},
+    {"path": "packages/infrascript"},
+    {"path": "packages/@infrascript/config-eslint"},
+    {"path": "packages/@infrascript/config-prettier"},
+    {"path": "packages/@infrascript/config-typescript"},
+    {"path": "packages/@infrascript/provider-terraform"},
+    {"path": "packages/@infrascript/types"}
+  ],
+  "settings": {
+    "go.useLanguageServer": true,
+    "npm.packageManager": "yarn",
+    "typescript.tsdk": "Workspace Root/node_modules/typescript/lib"
+  }
+}

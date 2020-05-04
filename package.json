@@ -9,11 +9,11 @@
     "runtypes": "^4.2.0",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
-  "prettier": "./packages/@configscript/config-prettier",
+  "prettier": "./packages/@infrascript/config-prettier",
   "private": true,
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
-    "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
+    "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@infrascript/*/{dist,tsconfig.tsbuildinfo}",
     "fmt": "monorepolint check --fix && prettier --write './**/*.{js,md,ts}'",
     "fmt:check": "monorepolint check && prettier --check './**/*.{js,md,ts}'",
     "lint": "eslint . --ext .ts",
@@ -22,6 +22,6 @@
   },
   "workspaces": [
     "packages/*",
-    "packages/@configscript/*"
+    "packages/@infrascript/*"
   ]
 }

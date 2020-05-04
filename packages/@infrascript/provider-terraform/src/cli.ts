@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-abusive-eslint-disable */
 /* eslint-disable */
 
-import {ProvidersSchema} from '@configscript/types'
+import {ProvidersSchema} from '@infrascript/types'
 import fs from 'fs-extra'
 import 'source-map-support/register'
 import {buildBlockInterface, buildModuleVariableInterface} from './terraform/types'

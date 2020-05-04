@@ -1,8 +1,8 @@
-# ConfigScript
+# InfraScript
 
 **Status:** Alpha
 
-ConfigScript is a language for writing configuration, based on TypeScript, and primarily targeting infrastructure-as-code tools like Terraform or declarative configuration like Kubernetes manifests.
+InfraScript is a language for writing configuration, based on TypeScript, and primarily targeting infrastructure-as-code tools like Terraform or declarative configuration like Kubernetes manifests.
 
 ## Why
 
@@ -14,7 +14,7 @@ ConfigScript is a language for writing configuration, based on TypeScript, and p
 ## Installation
 
 ```
-$ yarn global add configscript
+$ yarn global add infrascript
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ $ config run src/index.ts
 
 ## Contributing
 
-Contributions are welcome, though note that ConfigScript is very much a work-in-progress, code can change significantly.
+Contributions are welcome, though note that InfraScript is very much a work-in-progress, code can change significantly.
 
 ## License
 

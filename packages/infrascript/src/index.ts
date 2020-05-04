@@ -1,12 +1,12 @@
 import 'source-map-support/register'
 import path from 'path'
 import {lint} from './lint'
-import {registerConfigScript} from './register'
+import {registerinfrascript} from './register'
 
 // eslint-disable-next-line @typescript-eslint/require-await
 async function main(): Promise<void> {
   // eslint-disable-next-line functional/no-expression-statement
-  registerConfigScript()
+  registerinfrascript()
 
   const cwd = process.cwd()
   const scriptPath = require.resolve(path.join(cwd, process.argv[3] ?? '.'))

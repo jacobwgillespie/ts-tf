@@ -13,7 +13,7 @@ const config: Config = {
       options: {
         templateFile: './support/tsconfig.template.json',
       },
-      excludePackages: ['@configscript/config-typescript'],
+      excludePackages: ['@infrascript/config-typescript'],
     },
 
     ':consistent-dependencies': true,
@@ -27,7 +27,7 @@ const config: Config = {
           watch: 'tsc -b -w',
         },
       },
-      excludePackages: ['@configscript/config-typescript'],
+      excludePackages: ['@infrascript/config-typescript'],
     },
 
     ':package-entry': [
@@ -54,7 +54,7 @@ const config: Config = {
             // files: ['dist'],
           },
         },
-        excludePackages: ['@configscript/config-typescript'],
+        excludePackages: ['@infrascript/config-typescript'],
       },
     ],
 

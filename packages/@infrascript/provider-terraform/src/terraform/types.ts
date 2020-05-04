@@ -1,5 +1,5 @@
-import prettierConfig from '@configscript/config-prettier'
-import {AttributeType, Block, ConfigSchema} from '@configscript/types'
+import prettierConfig from '@infrascript/config-prettier'
+import {AttributeType, Block, ConfigSchema} from '@infrascript/types'
 import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'

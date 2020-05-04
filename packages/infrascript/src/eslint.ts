@@ -1,4 +1,4 @@
-import lintConfig from '@configscript/config-eslint'
+import lintConfig from '@infrascript/config-eslint'
 import chalk from 'chalk'
 import {CLIEngine} from 'eslint'
 import path from 'path'
@@ -23,7 +23,7 @@ export function getESLint(): CLIEngine {
     baseConfig,
     cwd: process.cwd(),
     extensions: ['.ts'],
-    resolvePluginsRelativeTo: require.resolve('@configscript/config-eslint'),
+    resolvePluginsRelativeTo: require.resolve('@infrascript/config-eslint'),
     useEslintrc: false,
   })
 
