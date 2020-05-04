@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
     "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@configscript/*/{dist,tsconfig.tsbuildinfo}",
-    "fmt": "monorepolint check --fix",
+    "fmt": "monorepolint check --fix && prettier --write './**/*.{js,md,ts}'",
+    "fmt:check": "monorepolint check && prettier --check './**/*.{js,md,ts}'",
     "lint": "eslint . --ext .ts",
     "prebuild": "typescript-monorepo-toolkit inject-refs -a .",
     "watch": "yarn build -w"
