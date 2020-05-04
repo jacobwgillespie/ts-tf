@@ -80,11 +80,6 @@ const eslintConfig: Linter.BaseConfig = {
       {ignorePattern: ['console\\.log', 'super', 'Object\\.freeze', 'Object\\.seal', '[\\w]+ =']},
     ],
 
-    // allowLocalMutation
-    'functional/no-let': ['error', {allowLocalMutation: true}],
-    'functional/prefer-type-literal': ['error', {allowLocalMutation: true}],
-    'functional/prefer-readonly-type': ['error', {allowLocalMutation: true}],
-
     // remove later
     'unicorn/filename-case': 'off',
     '@typescript-eslint/camelcase': 'off',
