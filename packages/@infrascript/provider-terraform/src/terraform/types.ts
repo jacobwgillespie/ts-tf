@@ -10,19 +10,19 @@ type ArrayAttribute<T = AttributeType> = T extends readonly unknown[] ? T : neve
 function tfArrayTypeToTSType(type: ArrayAttribute): string {
   switch (type[0]) {
     case 'list':
-      return `Array<${tfTypeToTSType(type[1])}>`
+      return `ReadonlyArray<${tfTypeToTSType(type[1])}>`
 
     case 'map':
       return `Record<string, ${tfTypeToTSType(type[1])}>`
 
     case 'object': {
       const keys = Object.keys(type[1])
-      const inside = keys.map((key) => `"${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
+      const inside = keys.map((key) => `readonly "${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
       return `{${inside}}`
     }
 
     case 'set':
-      return `Set<${tfTypeToTSType(type[1])}>`
+      return `ReadonlySet<${tfTypeToTSType(type[1])}>`
   }
 }
 
@@ -60,8 +60,12 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
 
   const interfaceAttributes = validAttributeKeys.flatMap((attributeName) => {
     const attribute = blockAttributes[attributeName]
-    const modifier = (!argumentsOnly && attribute.computed) || attribute.required ? ':' : '?:'
-    const interfaceAttribute = `"${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
+    const modifier =
+      (argumentsOnly && (attribute.computed || attribute.optional)) ||
+      (!argumentsOnly && !attribute.computed && !attribute.required)
+        ? '?:'
+        : ':'
+    const interfaceAttribute = `readonly "${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
     return attribute.description !== undefined
       ? [`/** ${attribute.description} */`, interfaceAttribute]
       : interfaceAttribute
@@ -72,21 +76,21 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
       ? Object.keys(block.block_types).map((nestedBlockName) => {
           const nestedBlock = block.block_types[nestedBlockName]
           const modifier = is.number(nestedBlock.min_items) && nestedBlock.min_items > 0 ? ':' : '?:'
-          const inner = buildBlockAttributes(nestedBlock.block).join('\n')
+          const inner = buildBlockAttributes(nestedBlock.block, argumentsOnly).join('\n')
 
           switch (nestedBlock.nesting_mode) {
             case 'list':
-              return `"${nestedBlockName}"${modifier} Array<{\n${inner}\n}>`
+              return `readonly "${nestedBlockName}"${modifier} ReadonlyArray<{\n${inner}\n}>`
 
             case 'map':
-              return `"${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
+              return `readonly "${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
 
             case 'set':
-              return `"${nestedBlockName}"${modifier} Set<{\n${inner}\n}>`
+              return `readonly "${nestedBlockName}"${modifier} ReadonlySet<{\n${inner}\n}>`
 
             case 'group':
             case 'single':
-              return `"${nestedBlockName}"${modifier} {\n${inner}\n}`
+              return `readonly "${nestedBlockName}"${modifier} {\n${inner}\n}`
           }
         })
       : []
@@ -116,7 +120,7 @@ export function buildModuleVariableInterface(
     const variable = schema.variables[variableName]
     const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'
     const modifier = variable.default === undefined ? ':' : '?:'
-    const interfaceAttribute = `"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
+    const interfaceAttribute = `readonly "${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
     return variable.description != undefined
       ? [`/** ${variable.description} */`, interfaceAttribute]
       : interfaceAttribute

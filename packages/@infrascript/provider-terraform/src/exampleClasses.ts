@@ -4,13 +4,13 @@ function keysOf<T extends object>(value: T): readonly StringKeyOf<T>[] {
   return (Object.keys(value) as unknown) as readonly StringKeyOf<T>[]
 }
 
-type AttrOrRefInner<T> = T extends object ? T | ArgumentsOrReferences<T> : T
+export type AttrOrRefInner<T> = T extends object ? T | ArgumentsOrReferences<T> : T
 
-type ArgumentsOrReferences<Arguments extends object> = {
+export type ArgumentsOrReferences<Arguments extends object> = {
   [k in keyof Arguments]: AttrOrRefInner<Arguments[k]> | AttributeReference<AttrOrRefInner<Arguments[k]>>
 }
 
-class AttributeReference<T> {
+export class AttributeReference<T> {
   readonly #type: T = {} as T
   readonly #parent: Resource
 
@@ -32,7 +32,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 }
 
 function unwrapArray<T>(value: ReadonlyArray<T | AttributeReference<T>>): readonly unknown[] {
-  return value.map((item) => (item instanceof AttributeReference ? item.render() : item))
+  return value.map((item) => unwrap(item))
 }
 
 function unwrapObject<T>(value: Record<string, T>): Record<string, unknown> {
@@ -44,13 +44,15 @@ function unwrap<T>(value: T): unknown {
     return value.render()
   } else if (Array.isArray(value)) {
     return unwrapArray(value)
+  } else if (value instanceof Set) {
+    return unwrapArray([...value])
   } else if (isPlainObject(value)) {
     return unwrapObject(value)
   }
   return value
 }
 
-abstract class Resource<Arguments extends object = {}, Attributes extends object = {}> {
+export abstract class Resource<Arguments extends object = {}, Attributes extends object = {}> {
   abstract get __kind(): string
   abstract get __provider(): string
 
@@ -64,8 +66,6 @@ abstract class Resource<Arguments extends object = {}, Attributes extends object
       return {...renderedArgs, [key]: unwrap(value)}
     }, {})
 
-    console.log(args)
-
     return {[this.__kind]: {[this.__name]: args}}
   }
 
@@ -74,7 +74,7 @@ abstract class Resource<Arguments extends object = {}, Attributes extends object
   }
 }
 
-abstract class TerraformResource<Arguments extends object = {}, Attributes extends object = {}> extends Resource<
+export abstract class TerraformResource<Arguments extends object = {}, Attributes extends object = {}> extends Resource<
   Arguments,
   Attributes
 > {
@@ -105,7 +105,7 @@ export interface IamUserAttributes {
   readonly unique_id: string
 }
 
-class IamUser extends TerraformResource<IamUserArguments, IamUserAttributes> {
+export class IamUser extends TerraformResource<IamUserArguments, IamUserAttributes> {
   get __kind(): 'iam_user' {
     return 'iam_user'
   }
@@ -125,12 +125,12 @@ class IamUser extends TerraformResource<IamUserArguments, IamUserAttributes> {
   readonly unique_id = this.__attr('unique_id')
 }
 
-export const user = new IamUser('my-user', {name: 'my-user'})
-export const user2 = new IamUser('my-user', {
-  name: user.name,
-  tags: {asdf: 'true', 'other-user': user.arn},
-})
+// export const user = new IamUser('my-user', {name: 'my-user'})
+// export const user2 = new IamUser('my-user', {
+//   name: user.name,
+//   tags: {asdf: 'true', 'other-user': user.arn},
+// })
 
-console.log(user2)
-console.log(user2.name)
-console.log(JSON.stringify(user2.render(), undefined, 2))
+// console.log(user2)
+// console.log(user2.name)
+// console.log(JSON.stringify(user2.render(), undefined, 2))
