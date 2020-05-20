@@ -76,6 +76,7 @@ const eslintConfig: Linter.BaseConfig = {
 
     // remove later
     'unicorn/filename-case': 'off',
+    'unicorn/no-reduce': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/strict-boolean-expressions': ['error', {allowNullable: true, allowSafe: true}],
   },
