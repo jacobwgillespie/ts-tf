@@ -20,14 +20,14 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "2.31.0",
-    "eslint": "6.8.0",
+    "eslint": "7.0.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-unicorn": "19.0.1",
     "tslib": "^1.11.1"
   },
   "devDependencies": {
-    "@types/eslint": "6.8.0",
+    "@types/eslint": "6.8.1",
     "@types/node": "^12",
     "@types/prettier": "^2.0.0",
     "typescript": "^3.8.3"

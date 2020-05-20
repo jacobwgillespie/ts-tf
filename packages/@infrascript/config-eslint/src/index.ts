@@ -6,7 +6,7 @@ const eslintConfig: Linter.BaseConfig = {
   //   tsconfigRootDir: process.cwd(),
   //   project: ['./tsconfig.json'],
   // },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'node'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -17,6 +17,12 @@ const eslintConfig: Linter.BaseConfig = {
 
     require.resolve('eslint-config-prettier'),
     require.resolve('eslint-config-prettier/@typescript-eslint'),
+  ],
+  overrides: [
+    {
+      files: '*.ts',
+      parser: require.resolve('@typescript-eslint/parser'),
+    },
   ],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
@@ -58,8 +64,11 @@ const eslintConfig: Linter.BaseConfig = {
 
     'no-process-exit': 'off',
 
-    'node/no-unsupported-features/es-syntax': ['error', {ignores: ['modules']}],
+    'node/no-unsupported-features/es-builtins': ['error', {version: '>=12.0.0'}],
+    'node/no-unsupported-features/es-syntax': ['error', {version: '>=12.0.0', ignores: ['modules']}],
+    'node/no-unsupported-features/node-builtins': ['error', {version: '>=12.0.0'}],
     'node/no-extraneous-import': 'off',
+    'node/no-path-concat': 'error',
 
     'unicorn/no-nested-ternary': 'off',
     'unicorn/no-process-exit': 'off',
