@@ -30,13 +30,13 @@ export function getESLint(): CLIEngine {
   return cli
 }
 
-export function lintFiles(files: readonly string[]): readonly DiagnosticMessage[] {
+export function lintFiles(files: string[]): DiagnosticMessage[] {
   const cli = getESLint()
   const results = cli.executeOnFiles([...files])
   return lintResultsToDiagnosticMessages(results.results)
 }
 
-function lintResultsToDiagnosticMessages(results: readonly CLIEngine.LintResult[]): readonly DiagnosticMessage[] {
+function lintResultsToDiagnosticMessages(results: CLIEngine.LintResult[]): DiagnosticMessage[] {
   return results.flatMap((result) => {
     const relativePath = path.relative(process.cwd(), result.filePath)
     const sourceLines = (result.source ?? '').split('\n')

@@ -1,11 +1,11 @@
 export interface DiagnosticMessage {
-  readonly file: string
-  readonly position?: {
-    readonly line: number
-    readonly column: number
+  file: string
+  position?: {
+    line: number
+    column: number
   }
-  readonly error: boolean
-  readonly message: string
+  error: boolean
+  message: string
 }
 
 /**
@@ -13,7 +13,7 @@ export interface DiagnosticMessage {
  *
  * @param messages Array of diagnostic messages
  */
-export function sortDiagnosticMessages(messages: readonly DiagnosticMessage[]): readonly DiagnosticMessage[] {
+export function sortDiagnosticMessages(messages: DiagnosticMessage[]): DiagnosticMessage[] {
   return [...messages].sort((a, b) => {
     if (a.position === undefined && b.position !== undefined) {
       return 1

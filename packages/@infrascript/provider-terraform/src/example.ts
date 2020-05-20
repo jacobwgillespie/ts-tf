@@ -1,15 +1,15 @@
 export type Primitive = null | undefined | string | number | boolean | symbol | bigint
 
-type Json = string | number | boolean | null | {readonly [property: string]: Json} | readonly Json[]
+type Json = string | number | boolean | null | {[property: string]: Json} | Json[]
 
-function isPlainObject(value: unknown): value is {readonly [property: string]: Json} {
+function isPlainObject(value: unknown): value is {[property: string]: Json} {
   return typeof value === 'object' && value !== null && value.constructor === Object
 }
 
 type StringKeyOf<T> = Extract<keyof T, string>
 
-function keysOf<T extends object>(value: T): readonly StringKeyOf<T>[] {
-  return (Object.keys(value) as unknown) as readonly StringKeyOf<T>[]
+function keysOf<T extends object>(value: T): StringKeyOf<T>[] {
+  return (Object.keys(value) as unknown) as StringKeyOf<T>[]
 }
 
 type AttrOrRefInner<T> = T extends object ? T | ArgumentsOrReferences<T> : T
@@ -19,23 +19,23 @@ type ArgumentsOrReferences<Arguments extends object> = {
 }
 
 type ResourceAttributeReferences<Attributes extends object> = {
-  readonly [k in keyof Attributes]: AttributeReference<Attributes[k]>
+  [k in keyof Attributes]: AttributeReference<Attributes[k]>
 }
 
 type Resource<Arguments extends object = object, Attributes extends object = object> = {
-  readonly __kind: 'Resource'
-  readonly __type: string
-  readonly __name: string
-  readonly __args: ArgumentsOrReferences<Arguments>
+  __kind: 'Resource'
+  __type: string
+  __name: string
+  __args: ArgumentsOrReferences<Arguments>
 } & ResourceAttributeReferences<Attributes>
 
 interface AttributeReference<T> {
-  readonly __kind: 'AttributeReference'
-  readonly __type: T
+  __kind: 'AttributeReference'
+  __type: T
 
-  readonly __parentName: string
-  readonly __parentKind: string
-  readonly __name: string
+  __parentName: string
+  __parentKind: string
+  __name: string
 }
 
 export function attributeReference<Attributes, AttributeName extends keyof Attributes>(
@@ -54,24 +54,24 @@ export function attributeReference<Attributes, AttributeName extends keyof Attri
 
 export interface IamUserArguments {
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
-  readonly force_destroy?: boolean
-  readonly id?: string
-  readonly name: string
-  readonly path?: string
-  readonly permissions_boundary?: string
-  readonly tags?: {readonly [key: string]: string}
+  force_destroy?: boolean
+  id?: string
+  name: string
+  path?: string
+  permissions_boundary?: string
+  tags?: {[key: string]: string}
 }
 
 export interface IamUserAttributes {
-  readonly arn: string
+  arn: string
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
-  readonly force_destroy?: boolean
-  readonly id: string
-  readonly name: string
-  readonly path?: string
-  readonly permissions_boundary?: string
-  readonly tags?: {readonly [key: string]: string}
-  readonly unique_id: string
+  force_destroy?: boolean
+  id: string
+  name: string
+  path?: string
+  permissions_boundary?: string
+  tags?: {[key: string]: string}
+  unique_id: string
 }
 
 export function resource<Arguments extends object, Attributes extends object>(

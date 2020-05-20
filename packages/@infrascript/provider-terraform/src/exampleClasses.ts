@@ -1,7 +1,7 @@
 type StringKeyOf<T> = Extract<keyof T, string>
 
-function keysOf<T extends object>(value: T): readonly StringKeyOf<T>[] {
-  return (Object.keys(value) as unknown) as readonly StringKeyOf<T>[]
+function keysOf<T extends object>(value: T): StringKeyOf<T>[] {
+  return (Object.keys(value) as unknown) as StringKeyOf<T>[]
 }
 
 export type AttrOrRefInner<T> = T extends object ? T | ArgumentsOrReferences<T> : T
@@ -11,10 +11,10 @@ export type ArgumentsOrReferences<Arguments extends object> = {
 }
 
 export class AttributeReference<T> {
-  readonly #type: T = {} as T
-  readonly #parent: Resource
+  #type: T = {} as T
+  #parent: Resource
 
-  constructor(parent: Resource, public readonly name: string) {
+  constructor(parent: Resource, public name: string) {
     this.#parent = parent
 
     // This does nothing, but it's required to make TypeScript happy
@@ -30,7 +30,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && value.constructor === Object
 }
 
-function unwrapArray<T>(value: ReadonlyArray<T | AttributeReference<T>>): readonly unknown[] {
+function unwrapArray<T>(value: Array<T | AttributeReference<T>>): unknown[] {
   return value.map((item) => unwrap(item))
 }
 
@@ -55,7 +55,7 @@ export abstract class Resource<Arguments extends object = {}, Attributes extends
   abstract get __kind(): string
   abstract get __provider(): string
 
-  constructor(public readonly __name: string, public readonly __args: ArgumentsOrReferences<Arguments>) {}
+  constructor(public __name: string, public __args: ArgumentsOrReferences<Arguments>) {}
 
   render(): object {
     const args: ArgumentsOrReferences<Record<string, unknown>> = keysOf(this.__args).reduce<
@@ -84,24 +84,24 @@ export abstract class TerraformResource<Arguments extends object = {}, Attribute
 
 export interface IamUserArguments {
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
-  readonly force_destroy?: boolean
-  readonly id?: string
-  readonly name: string
-  readonly path?: string
-  readonly permissions_boundary?: string
-  readonly tags?: {readonly [key: string]: string}
+  force_destroy?: boolean
+  id?: string
+  name: string
+  path?: string
+  permissions_boundary?: string
+  tags?: {[key: string]: string}
 }
 
 export interface IamUserAttributes {
-  readonly arn: string
+  arn: string
   /** Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices */
-  readonly force_destroy?: boolean
-  readonly id: string
-  readonly name: string
-  readonly path?: string
-  readonly permissions_boundary?: string
-  readonly tags?: {readonly [key: string]: string}
-  readonly unique_id: string
+  force_destroy?: boolean
+  id: string
+  name: string
+  path?: string
+  permissions_boundary?: string
+  tags?: {[key: string]: string}
+  unique_id: string
 }
 
 export class IamUser extends TerraformResource<IamUserArguments, IamUserAttributes> {
@@ -114,14 +114,14 @@ export class IamUser extends TerraformResource<IamUserArguments, IamUserAttribut
     Object.freeze(this)
   }
 
-  readonly arn = this.__attr('arn')
-  readonly force_destroy = this.__attr('force_destroy')
-  readonly id = this.__attr('id')
-  readonly name = this.__attr('name')
-  readonly path = this.__attr('path')
-  readonly permissions_boundary = this.__attr('permissions_boundary')
-  readonly tags = this.__attr('tags')
-  readonly unique_id = this.__attr('unique_id')
+  arn = this.__attr('arn')
+  force_destroy = this.__attr('force_destroy')
+  id = this.__attr('id')
+  name = this.__attr('name')
+  path = this.__attr('path')
+  permissions_boundary = this.__attr('permissions_boundary')
+  tags = this.__attr('tags')
+  unique_id = this.__attr('unique_id')
 }
 
 // export const user = new IamUser('my-user', {name: 'my-user'})

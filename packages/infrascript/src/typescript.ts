@@ -14,15 +14,15 @@ export function findConfigFile(searchPath = './'): string | undefined {
 }
 
 export function typeCheckFiles(
-  files: readonly string[],
+  files: string[],
   options: ts.CompilerOptions = defaultCompilerOptions,
-): readonly DiagnosticMessage[] {
+): DiagnosticMessage[] {
   const program = ts.createProgram(files, {...options, noEmit: true})
   // const emitResult = program.emit()
   return formatTSDiagnostics(ts.getPreEmitDiagnostics(program)) //.concat(emitResult.diagnostics)
 }
 
-function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]): readonly DiagnosticMessage[] {
+function formatTSDiagnostics(diagnostics: readonly ts.Diagnostic[]): DiagnosticMessage[] {
   return diagnostics.map((diagnostic) => {
     const {line, character} =
       diagnostic.file && diagnostic.start != undefined

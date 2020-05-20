@@ -28,9 +28,7 @@ async function run(): Promise<void> {
       const filename = path.join(process.cwd(), 'src/__generated__/aws', `${pascalName}.ts`)
       await fs.mkdirp(path.dirname(filename))
 
-      const props = Object.keys(resource.block.attributes || {}).map(
-        (prop) => `readonly ${prop} = this.__attr('${prop}')`,
-      )
+      const props = Object.keys(resource.block.attributes || {}).map((prop) => `${prop} = this.__attr('${prop}')`)
 
       await fs.writeFile(
         filename,

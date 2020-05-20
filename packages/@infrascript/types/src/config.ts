@@ -1,29 +1,29 @@
 export interface ConfigSchema {
-  readonly path: string
-  readonly variables: Record<string, Variable>
-  readonly outputs: Record<string, Output>
-  readonly required_providers: Record<string, ProviderConstraints>
+  path: string
+  variables: Record<string, Variable>
+  outputs: Record<string, Output>
+  required_providers: Record<string, ProviderConstraints>
 }
 
 interface Variable {
-  readonly name: string
-  readonly type?: string
-  readonly description?: string
-  readonly default?: unknown
-  readonly pos: Position
+  name: string
+  type?: string
+  description?: string
+  default?: unknown
+  pos: Position
 }
 
 interface Output {
-  readonly name: string
-  readonly description?: string
-  readonly pos: Position
+  name: string
+  description?: string
+  pos: Position
 }
 
 interface ProviderConstraints {
-  readonly version?: string
+  version?: string
 }
 
 interface Position {
-  readonly filename: string
-  readonly line: number
+  filename: string
+  line: number
 }

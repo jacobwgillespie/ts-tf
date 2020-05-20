@@ -4,7 +4,7 @@ import {lintFiles} from './eslint'
 import {typeCheckFiles} from './typescript'
 import {pluralize} from './utils'
 
-export function lint(files: readonly string[]): boolean {
+export function lint(files: string[]): boolean {
   const allIssues = sortDiagnosticMessages([...lintFiles(files.concat(['.'])), ...typeCheckFiles(files)])
 
   const errorCount = allIssues.filter((issue) => issue.error).length

@@ -11,7 +11,7 @@ export type ArgumentsWithReferences<T> = {
 }
 
 export abstract class Resource<Arguments, Attributes> {
-  abstract readonly _kind: string
+  abstract _kind: string
 
   _name: string
   private _inputAttrs: ArgumentsWithReferences<Arguments>

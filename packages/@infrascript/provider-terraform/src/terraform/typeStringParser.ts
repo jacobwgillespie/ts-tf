@@ -7,10 +7,10 @@ export type CollectionType = 'list' | 'map' | 'set'
 export type SimpleType = 'any' | 'bool' | 'number' | 'string'
 export type AttributeType =
   | SimpleType
-  | readonly ['list', AttributeType]
-  | readonly ['map', AttributeType]
-  | readonly ['object', {readonly [name: string]: AttributeType}]
-  | readonly ['set', AttributeType]
+  | ['list', AttributeType]
+  | ['map', AttributeType]
+  | ['object', {[name: string]: AttributeType}]
+  | ['set', AttributeType]
 
 const WhiteSpace = createToken({name: 'WhiteSpace', pattern: /\s+/, group: Lexer.SKIPPED})
 

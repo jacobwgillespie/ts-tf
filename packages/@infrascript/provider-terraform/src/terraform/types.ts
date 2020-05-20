@@ -5,24 +5,24 @@ import fastCase from 'fast-case'
 import prettier from 'prettier'
 import {parseTypeString} from './typeStringParser'
 
-type ArrayAttribute<T = AttributeType> = T extends readonly unknown[] ? T : never
+type ArrayAttribute<T = AttributeType> = T extends unknown[] ? T : never
 
 function tfArrayTypeToTSType(type: ArrayAttribute): string {
   switch (type[0]) {
     case 'list':
-      return `ReadonlyArray<${tfTypeToTSType(type[1])}>`
+      return `Array<${tfTypeToTSType(type[1])}>`
 
     case 'map':
       return `Record<string, ${tfTypeToTSType(type[1])}>`
 
     case 'object': {
       const keys = Object.keys(type[1])
-      const inside = keys.map((key) => `readonly "${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
+      const inside = keys.map((key) => `"${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
       return `{${inside}}`
     }
 
     case 'set':
-      return `ReadonlySet<${tfTypeToTSType(type[1])}>`
+      return `Set<${tfTypeToTSType(type[1])}>`
   }
 }
 
@@ -47,7 +47,7 @@ export function tfTypeToTSType(type: AttributeType): string {
   }
 }
 
-function buildBlockAttributes(block: Block, argumentsOnly = false): readonly string[] {
+function buildBlockAttributes(block: Block, argumentsOnly = false): string[] {
   const blockAttributes = block.attributes ?? {}
   const attributeKeys = Object.keys(blockAttributes)
   const validAttributeKeys =
@@ -65,7 +65,7 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
       (!argumentsOnly && !attribute.computed && !attribute.required)
         ? '?:'
         : ':'
-    const interfaceAttribute = `readonly "${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
+    const interfaceAttribute = `"${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
     return attribute.description !== undefined
       ? [`/** ${attribute.description} */`, interfaceAttribute]
       : interfaceAttribute
@@ -80,17 +80,17 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
 
           switch (nestedBlock.nesting_mode) {
             case 'list':
-              return `readonly "${nestedBlockName}"${modifier} ReadonlyArray<{\n${inner}\n}>`
+              return `"${nestedBlockName}"${modifier} Array<{\n${inner}\n}>`
 
             case 'map':
-              return `readonly "${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
+              return `"${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
 
             case 'set':
-              return `readonly "${nestedBlockName}"${modifier} ReadonlySet<{\n${inner}\n}>`
+              return `"${nestedBlockName}"${modifier} Set<{\n${inner}\n}>`
 
             case 'group':
             case 'single':
-              return `readonly "${nestedBlockName}"${modifier} {\n${inner}\n}`
+              return `"${nestedBlockName}"${modifier} {\n${inner}\n}`
           }
         })
       : []
@@ -98,11 +98,7 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): readonly str
   return [...interfaceAttributes, ...interfaceBlockAttributes]
 }
 
-export function buildBlockInterface(
-  name: string,
-  block: Block,
-  argumentsOnly = false,
-): {readonly name: string; readonly code: string} {
+export function buildBlockInterface(name: string, block: Block, argumentsOnly = false): {name: string; code: string} {
   const interfaceAttributes = buildBlockAttributes(block, argumentsOnly)
   const interfaceName = `${fastCase.pascalize(name)}${argumentsOnly ? 'Arguments' : 'Attributes'}`
 
@@ -112,15 +108,12 @@ export function buildBlockInterface(
   }
 }
 
-export function buildModuleVariableInterface(
-  name: string,
-  schema: ConfigSchema,
-): {readonly name: string; readonly code: string} {
+export function buildModuleVariableInterface(name: string, schema: ConfigSchema): {name: string; code: string} {
   const interfaceAttributes = Object.keys(schema.variables).flatMap((variableName) => {
     const variable = schema.variables[variableName]
     const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'
     const modifier = variable.default === undefined ? ':' : '?:'
-    const interfaceAttribute = `readonly "${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
+    const interfaceAttribute = `"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
     return variable.description != undefined
       ? [`/** ${variable.description} */`, interfaceAttribute]
       : interfaceAttribute
