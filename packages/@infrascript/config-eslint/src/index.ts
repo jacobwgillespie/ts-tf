@@ -6,7 +6,7 @@ const eslintConfig: Linter.BaseConfig = {
   //   tsconfigRootDir: process.cwd(),
   //   project: ['./tsconfig.json'],
   // },
-  plugins: ['@typescript-eslint', 'functional'],
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -14,9 +14,6 @@ const eslintConfig: Linter.BaseConfig = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:node/recommended',
     'plugin:unicorn/recommended',
-
-    'plugin:functional/external-recommended',
-    'plugin:functional/recommended',
 
     require.resolve('eslint-config-prettier'),
     require.resolve('eslint-config-prettier/@typescript-eslint'),
@@ -57,11 +54,6 @@ const eslintConfig: Linter.BaseConfig = {
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
     '@typescript-eslint/unified-signatures': 'error',
 
-    // 'functional/functional-parameters': ['error', {ignorePattern: 'toJSON'}],
-    'functional/no-conditional-statement': ['off', {allowReturningBranches: 'ifExhaustive'}],
-    // 'functional/no-expression-statement': ['error', {ignorePattern: 'console\\.log'}],
-    'functional/no-method-signature': 'error',
-
     'no-process-exit': 'off',
 
     'node/no-unsupported-features/es-syntax': ['error', {ignores: ['modules']}],
@@ -71,23 +63,12 @@ const eslintConfig: Linter.BaseConfig = {
     'unicorn/no-process-exit': 'off',
     'unicorn/prevent-abbreviations': 'off',
 
-    // Allow classes
-    'functional/no-this-expression': 'off',
-    'functional/functional-parameters': ['error', {enforceParameterCount: false}],
-    'functional/no-class': 'off',
-    'functional/no-expression-statement': [
-      'error',
-      {ignorePattern: ['console\\.log', 'super', 'Object\\.freeze', 'Object\\.seal', '[\\w]+ =', 'process\\.exit']},
-    ],
-
-    'functional/prefer-type-literal': 'off',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
     // remove later
     'unicorn/filename-case': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/strict-boolean-expressions': ['error', {allowNullable: true, allowSafe: true}],
-    'functional/no-throw-statement': 'off',
   },
   settings: {
     node: {

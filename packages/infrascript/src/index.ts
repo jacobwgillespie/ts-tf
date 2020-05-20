@@ -5,7 +5,6 @@ import {registerinfrascript} from './register'
 
 // eslint-disable-next-line @typescript-eslint/require-await
 async function main(): Promise<void> {
-  // eslint-disable-next-line functional/no-expression-statement
   registerinfrascript()
 
   const cwd = process.cwd()
@@ -16,7 +15,6 @@ async function main(): Promise<void> {
       if (!lint([scriptPath])) {
         process.exit(1)
       }
-      // eslint-disable-next-line functional/no-expression-statement
       require(scriptPath)
       break
 
@@ -27,7 +25,6 @@ async function main(): Promise<void> {
       break
 
     default:
-      // eslint-disable-next-line functional/no-throw-statement
       throw new Error('Usage: config [run|lint]')
   }
 }

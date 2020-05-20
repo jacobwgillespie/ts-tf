@@ -18,7 +18,6 @@ export class AttributeReference<T> {
     this.#parent = parent
 
     // This does nothing, but it's required to make TypeScript happy
-    // eslint-disable-next-line functional/no-expression-statement
     this.#type
   }
 
