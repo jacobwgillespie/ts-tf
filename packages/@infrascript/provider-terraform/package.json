@@ -29,7 +29,7 @@
     "fs-extra": "^9.0.0",
     "prettier": "^2.0.5",
     "source-map-support": "^0.5.19",
-    "tslib": "^1.11.1"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
@@ -38,7 +38,7 @@
     "fast-case": "^1.4.0",
     "fs-extra": "^9.0.0",
     "prettier": "^2.0.5",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "funding": {
     "type": "GitHub",

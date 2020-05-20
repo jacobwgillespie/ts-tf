@@ -18,10 +18,10 @@
     "access": "public"
   },
   "dependencies": {
-    "tslib": "^1.11.1"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "funding": {
     "type": "GitHub",
