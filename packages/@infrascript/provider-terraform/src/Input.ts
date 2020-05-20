@@ -21,11 +21,3 @@ export type UnwrapPrimitive<T> = T extends primitive
       [K in keyof T]: Unwrap<T[K]>
     }
   : never
-
-// export interface UnwrappedArray<T> extends Array<Unwrap<T>> {}
-
-// export type UnwrappedObject<T> =
-
-declare const thing: Unwrap<{a: Output<string>[]}>
-
-const a = thing.a
