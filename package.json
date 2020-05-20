@@ -2,8 +2,8 @@
   "devDependencies": {
     "@monorepolint/core": "^0.4.0",
     "@monorepolint/utils": "^0.4.0",
-    "jest-diff": "^25.5.0",
-    "lerna": "^3.20.2",
+    "jest-diff": "^26.0.1",
+    "lerna": "^3.21.0",
     "monorepolint": "^0.4.0",
     "prettier": "^2.0.5",
     "runtypes": "^4.2.0",
