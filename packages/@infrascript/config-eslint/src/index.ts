@@ -19,6 +19,8 @@ const eslintConfig: Linter.BaseConfig = {
     require.resolve('eslint-config-prettier/@typescript-eslint'),
   ],
   rules: {
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    '@typescript-eslint/explicit-function-return-type': ['error', {allowExpressions: true}],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {vars: 'all', args: 'after-used', ignoreRestSiblings: false, argsIgnorePattern: '^_'},
@@ -62,8 +64,6 @@ const eslintConfig: Linter.BaseConfig = {
     'unicorn/no-nested-ternary': 'off',
     'unicorn/no-process-exit': 'off',
     'unicorn/prevent-abbreviations': 'off',
-
-    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
     // remove later
     'unicorn/filename-case': 'off',
