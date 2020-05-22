@@ -1,11 +1,11 @@
 import 'source-map-support/register'
 import path from 'path'
 import {lint} from './lint'
-import {registerinfrascript} from './register'
+import {registerTSNode} from './register'
 
 // eslint-disable-next-line @typescript-eslint/require-await
 async function main(): Promise<void> {
-  registerinfrascript()
+  registerTSNode()
 
   const cwd = process.cwd()
   const scriptPath = require.resolve(path.join(cwd, process.argv[3] ?? '.'))
