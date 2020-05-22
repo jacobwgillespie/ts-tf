@@ -49,7 +49,9 @@ function lintResultsToDiagnosticMessages(results: CLIEngine.LintResult[]): Diagn
           ? chalk.yellow('warning')
           : chalk.gray('info')
 
-      if (message.line === undefined) {
+      // Sometimes the line is undefined, like if there's an ESLint error
+      // which the types don't account for
+      if ((message.line as number | undefined) === undefined) {
         return {
           file: result.filePath,
           error: message.severity === 2,

@@ -129,7 +129,7 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
     const layer = this.#currentLayer ?? this.#createLayer()
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const ctx = this
-    return function (this: unknown) {
+    return function (this: unknown): T {
       ctx.#enter(layer)
       try {
         // eslint-disable-next-line prefer-rest-params
@@ -142,18 +142,18 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
     }
   }
 
-  destroy() {
+  destroy(): void {
     contexts.delete(this.#name)
   }
 
-  #enter = (layer: Layer<Data>) => {
+  #enter = (layer: Layer<Data>): void => {
     if (this.#currentLayer) {
       this.#parentLayers.push(this.#currentLayer)
     }
     this.#currentLayer = layer
   }
 
-  #exit = (layer: Layer<Data>) => {
+  #exit = (layer: Layer<Data>): void => {
     if (this.#currentLayer === layer) {
       const nextActive = this.#parentLayers.pop()
       this.#currentLayer = nextActive

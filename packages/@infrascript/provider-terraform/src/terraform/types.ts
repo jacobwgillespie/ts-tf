@@ -71,10 +71,11 @@ function buildBlockAttributes(block: Block, argumentsOnly = false): string[] {
       : interfaceAttribute
   })
 
+  const blockTypes = block.block_types
   const interfaceBlockAttributes =
-    argumentsOnly && block.block_types
-      ? Object.keys(block.block_types).map((nestedBlockName) => {
-          const nestedBlock = block.block_types[nestedBlockName]
+    argumentsOnly && blockTypes !== undefined
+      ? Object.keys(blockTypes).map((nestedBlockName) => {
+          const nestedBlock = blockTypes[nestedBlockName]
           const modifier = is.number(nestedBlock.min_items) && nestedBlock.min_items > 0 ? ':' : '?:'
           const inner = buildBlockAttributes(nestedBlock.block, argumentsOnly).join('\n')
 
@@ -112,7 +113,7 @@ export function buildModuleVariableInterface(name: string, schema: ConfigSchema)
   const interfaceAttributes = Object.keys(schema.variables).flatMap((variableName) => {
     const variable = schema.variables[variableName]
     const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'
-    const modifier = variable.default === undefined ? ':' : '?:'
+    const modifier = typeof variable.default === 'undefined' ? ':' : '?:'
     const interfaceAttribute = `"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
     return variable.description != undefined
       ? [`/** ${variable.description} */`, interfaceAttribute]

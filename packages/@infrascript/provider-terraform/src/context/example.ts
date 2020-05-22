@@ -28,7 +28,7 @@ context1.run(function () {
   requestHandler()
 })
 
-export function requestHandler() {
+function requestHandler() {
   context1.run(() => {
     console.log(context1.get('value'), 'expected to be 0')
     context1.set('value', 1)

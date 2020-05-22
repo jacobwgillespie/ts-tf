@@ -10,6 +10,7 @@ export type Unwrap<T> = T extends Promise<infer U>
   ? UnwrapPrimitive<U1>
   : UnwrapPrimitive<T>
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type primitive = Function | string | number | boolean | undefined | null
 
 export type UnwrapPrimitive<T> = T extends primitive

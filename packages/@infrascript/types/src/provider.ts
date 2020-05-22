@@ -24,7 +24,7 @@ export interface Block {
   attributes?: {
     [attributeName: string]: Attribute
   }
-  block_types: {
+  block_types?: {
     [blockName: string]: {
       nesting_mode: 'single' | 'group' | 'list' | 'set' | 'map'
       block: Block
