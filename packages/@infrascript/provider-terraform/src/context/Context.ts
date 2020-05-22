@@ -1,7 +1,7 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
 import {isPromise} from '../utils'
 
-const namespaces = new Map<string, Context<unknown>>()
+const contexts = new Map<string, Context<unknown>>()
 
 const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
 
@@ -23,7 +23,7 @@ export class Context<Data> {
 
   static for<Data>(name: string, initialData?: Data): Context<Data> {
     // If this context already exists, return the existing one
-    const existing = namespaces.get(name)
+    const existing = contexts.get(name)
     if (existing) {
       return existing as Context<Data>
     }
@@ -38,7 +38,7 @@ export class Context<Data> {
   private constructor(name: string, initialData?: Data) {
     this.#name = name
 
-    namespaces.set(name, this as Context<unknown>)
+    contexts.set(name, this as Context<unknown>)
 
     if (initialData !== undefined) {
       this.#currentLayer = {data: initialData}
@@ -143,7 +143,7 @@ export class Context<Data> {
   }
 
   destroy() {
-    namespaces.delete(this.#name)
+    contexts.delete(this.#name)
   }
 
   #enter = (layer: Layer<Data>) => {
