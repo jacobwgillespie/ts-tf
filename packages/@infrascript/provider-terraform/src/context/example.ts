@@ -1,12 +1,16 @@
 import 'source-map-support/register'
 import {Context} from './Context'
 
-interface Data {
-  value: number
+declare global {
+  interface ContextData {
+    ctx: {
+      value: number
+    }
+  }
 }
 
-const context1 = Context.for<Data>('ctx')
-const context2 = Context.for<Data>('ctx')
+const context1 = Context.for('ctx')
+const context2 = Context.for('ctx')
 console.log(context1 === context2, 'expected to be true')
 
 function logger(expected: number) {
@@ -64,6 +68,6 @@ context1
   )
   .catch((error) => {
     console.log('catch (outer)', context1.get('value'), 'expected to be 123')
-    const ctx = Context.fromError<Data>(error)
+    const ctx = Context.fromError('ctx', error)
     console.log('catch (outer) - error context', ctx?.get('value'), 'expected to be 4')
   })

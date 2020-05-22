@@ -1,44 +1,50 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
 import {isPromise} from '../utils'
 
-const contexts = new Map<string, Context<unknown>>()
+const contexts = new Map<string, Context<string, unknown>>()
 
 const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
 
 declare global {
   interface Error {
-    [ERROR_CONTEXT]?: Context<unknown>
+    [ERROR_CONTEXT]?: Context<string, unknown>
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface ContextData {}
 }
 
 interface Layer<Data> {
   data: Data
 }
 
-export class Context<Data> {
+type DataType<Name> = Name extends keyof ContextData ? ContextData[Name] : object
+
+export class Context<Name extends string, Data = Name extends keyof ContextData ? ContextData[Name] : object> {
   #name: string
   #currentLayer?: Layer<Data>
   #parentLayers: Layer<Data>[] = []
   #asyncExecutionLayers = new Map<number, Layer<Data>>()
 
-  static for<Data>(name: string, initialData?: Data): Context<Data> {
+  static for<Name extends string>(name: Name, initialData?: DataType<Name>): Context<Name, DataType<Name>> {
     // If this context already exists, return the existing one
     const existing = contexts.get(name)
     if (existing) {
-      return existing as Context<Data>
+      return existing as Context<Name, DataType<Name>>
     }
 
     return new Context(name, initialData)
   }
 
-  static fromError<Data>(error: Error): Context<Data> | undefined {
-    return error?.[ERROR_CONTEXT] ? (error[ERROR_CONTEXT] as Context<Data>) : undefined
+  static fromError<Name extends string>(name: Name, error: Error): Context<Name, DataType<Name>> | undefined {
+    const context = error?.[ERROR_CONTEXT]
+    return context && context.#name === name ? (error[ERROR_CONTEXT] as Context<Name, DataType<Name>>) : undefined
   }
 
-  private constructor(name: string, initialData?: Data) {
+  private constructor(name: Name, initialData?: Data) {
     this.#name = name
 
-    contexts.set(name, this as Context<unknown>)
+    contexts.set(name, this as Context<Name, unknown>)
 
     if (initialData !== undefined) {
       this.#currentLayer = {data: initialData}
@@ -105,7 +111,7 @@ export class Context<Data> {
           return result
         })
         .catch((error: Error) => {
-          error[ERROR_CONTEXT] = this as Context<unknown>
+          error[ERROR_CONTEXT] = this as Context<string, unknown>
           this.#exit(layer)
           throw error
         })
@@ -115,7 +121,7 @@ export class Context<Data> {
       return fn()
     } catch (error) {
       const err = error as Error
-      err[ERROR_CONTEXT] = this as Context<unknown>
+      err[ERROR_CONTEXT] = this as Context<string, unknown>
       throw err
     } finally {
       this.#exit(layer)
@@ -133,7 +139,7 @@ export class Context<Data> {
         return Reflect.apply(fn, this, arguments) as T
       } catch (error) {
         const err = error as Error
-        err[ERROR_CONTEXT] = ctx as Context<unknown>
+        err[ERROR_CONTEXT] = ctx as Context<string, unknown>
         throw err
       } finally {
         ctx.#exit(layer)
