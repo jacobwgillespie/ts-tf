@@ -67,7 +67,7 @@ context1
       }),
   )
   .catch((error) => {
-    console.log('catch (outer)', context1.get('value'), 'expected to be 123')
+    console.log('catch (outer)', context1.get('value'), 'expected to be 4')
     const ctx = Context.fromError('ctx', error)
     console.log('catch (outer) - error context', ctx?.get('value'), 'expected to be 4')
   })

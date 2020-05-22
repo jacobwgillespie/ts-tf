@@ -7,7 +7,7 @@ const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
 
 declare global {
   interface Error {
-    [ERROR_CONTEXT]?: Context<string, unknown>
+    [ERROR_CONTEXT]?: Map<string, Context<string, unknown>>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -37,8 +37,8 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
   }
 
   static fromError<Name extends string>(name: Name, error: Error): Context<Name, DataType<Name>> | undefined {
-    const context = error?.[ERROR_CONTEXT]
-    return context && context.#name === name ? (error[ERROR_CONTEXT] as Context<Name, DataType<Name>>) : undefined
+    const context = error?.[ERROR_CONTEXT]?.get(name)
+    return context ? (context as Context<Name, DataType<Name>>) : undefined
   }
 
   private constructor(name: Name, initialData?: Data) {
@@ -111,18 +111,15 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
           return result
         })
         .catch((error: Error) => {
-          error[ERROR_CONTEXT] = this as Context<string, unknown>
           this.#exit(layer)
-          throw error
+          throw this.#wrapError(error)
         })
     }
 
     try {
       return fn()
     } catch (error) {
-      const err = error as Error
-      err[ERROR_CONTEXT] = this as Context<string, unknown>
-      throw err
+      throw this.#wrapError(error as Error)
     } finally {
       this.#exit(layer)
     }
@@ -138,9 +135,7 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
         // eslint-disable-next-line prefer-rest-params
         return Reflect.apply(fn, this, arguments) as T
       } catch (error) {
-        const err = error as Error
-        err[ERROR_CONTEXT] = ctx as Context<string, unknown>
-        throw err
+        throw ctx.#wrapError(error as Error)
       } finally {
         ctx.#exit(layer)
       }
@@ -177,5 +172,12 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
     return {
       data: Object.create(this.#currentLayer !== undefined ? this.#currentLayer.data : Object.prototype) as Data,
     }
+  }
+
+  #wrapError = (error: Error): Error => {
+    const errorContext = error[ERROR_CONTEXT] ?? new Map()
+    errorContext.set(this.#name, this as Context<string, unknown>)
+    error[ERROR_CONTEXT] = errorContext
+    return error
   }
 }
