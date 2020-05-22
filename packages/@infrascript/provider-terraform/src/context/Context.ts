@@ -46,11 +46,10 @@ export class Context<Data> {
 
     const hook = createHook({
       init: (asyncID) => {
-        const currentAsyncID = executionAsyncId()
         if (this.#currentLayer) {
           this.#asyncExecutionLayers.set(asyncID, this.#currentLayer)
-        } else if (currentAsyncID === 0) {
-          // currentAsyncID is 0 when triggered from C++ (no JS context above)
+        } else if (executionAsyncId() === 0) {
+          // executionAsyncId() is 0 when triggered from C++ (no JS context above)
           // https://github.com/nodejs/node/blob/master/doc/api/async_hooks.md#triggerasyncid
           const triggerAsyncID = triggerAsyncId()
           const triggerLayer = this.#asyncExecutionLayers.get(triggerAsyncID)
