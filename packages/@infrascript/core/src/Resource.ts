@@ -50,8 +50,7 @@ export abstract class Resource<Props extends object = object> extends Entity {
   // eslint-disable-next-line @typescript-eslint/promise-function-async
   protected attr<T extends StringKeyOf<Props>>(key: T): ReferenceProp<WrappedValueOf<Props[T]>> {
     const prop = this.#props[key]
-    // TODO: can we avoid this cast?
-    return ReferenceProp.wrap(prop, this) as ReferenceProp<WrappedValueOf<Props[T]>>
+    return ReferenceProp.wrap(prop, this)
   }
 
   get urn(): string {

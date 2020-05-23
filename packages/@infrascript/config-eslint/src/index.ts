@@ -76,7 +76,7 @@ const eslintConfig: Linter.BaseConfig = {
   ],
   rules: {
     '@typescript-eslint/ban-types': ['error', {types: bannedTypes, extendDefaults: false}],
-    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    '@typescript-eslint/consistent-type-definitions': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',

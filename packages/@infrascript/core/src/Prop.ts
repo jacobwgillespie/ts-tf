@@ -1,6 +1,6 @@
 import {Resource} from './Resource'
 
-export type Prop<T> = T | Promise<T> | ReferenceProp<T> | PredictedProp<T>
+export type Prop<T = unknown> = T | Promise<T> | ReferenceProp<T> | PredictedProp<T>
 
 export type WrappedValueOf<T> = T extends Prop<infer U> ? U : T
 
@@ -17,12 +17,14 @@ export class ReferenceProp<T> extends Promise<T> {
     this.source = source
   }
 
+  // TODO: The casts in this method are due to TypeScript not currently supporting promise unwrapping
+  // They can be removed when TypeScript's `awaited` type lands in an upcoming version
   // eslint-disable-next-line @typescript-eslint/promise-function-async
-  static wrap<T>(prop: Prop<T>, source: Resource): ReferenceProp<T> {
+  static wrap<ValueType>(prop: Prop<ValueType>, source: Resource): ReferenceProp<WrappedValueOf<ValueType>> {
     if (prop instanceof ReferenceProp) {
-      return prop
+      return prop as ReferenceProp<WrappedValueOf<ValueType>>
     }
-    return new ReferenceProp<T>((resolve) => resolve(prop), source)
+    return new ReferenceProp((resolve) => resolve(prop as Prop<WrappedValueOf<ValueType>>), source)
   }
 }
 
