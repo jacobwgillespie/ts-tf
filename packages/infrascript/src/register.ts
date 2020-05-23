@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment,@typescript-eslint/prefer-ts-expect-error
-// @ts-ignore - no types available
 import * as pirates from 'pirates'
 
 import {register as tsNodeRegister, Register} from 'ts-node'
