@@ -4,6 +4,19 @@ import {Entity} from './Entity'
 import {Graph} from './Graph'
 import {ReferenceProp} from './Prop'
 import {Resource} from './Resource'
+import {DuplicateURNError} from './errors'
+
+declare global {
+  namespace Context {
+    interface Data {
+      ctx: CtxData
+    }
+
+    interface CtxData {
+      globalURNs: Set<string>
+    }
+  }
+}
 
 export class Namespace extends Entity {
   #root = false
@@ -58,6 +71,12 @@ export class Namespace extends Entity {
   }
 
   _registerResource(resource: Resource): void {
+    const globalURNs = Context.for('ctx').get('globalURNs')
+    if (globalURNs.has(resource.urn)) {
+      throw new DuplicateURNError(resource.urn)
+    }
+    globalURNs.add(resource.urn)
+
     this.#subgraph.addEdge(this, resource)
     this.#childURNs.add(resource.urn)
   }
