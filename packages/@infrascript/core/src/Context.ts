@@ -1,14 +1,18 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
 import {ContextMissingError, InfraScriptError} from './errors'
-import {isPromise} from './utils'
-
-const contexts = new Map<string, Context<string, unknown>>()
+import {isPromise, StringKeyOf} from './utils'
 
 const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
 
+// This interface constrains the map keys to only store their corresponding Context instance type
+interface ContextMap extends Map<ContextName, Context<ContextName>> {
+  get: <K extends ContextName>(key: K) => Context<K> | undefined
+  set: <K extends ContextName>(key: K, value: Context<K>) => this
+}
+
 declare global {
   interface Error {
-    [ERROR_CONTEXT]?: Map<string, Context<string, unknown>>
+    [ERROR_CONTEXT]?: ContextMap
   }
 
   namespace Context {
@@ -17,65 +21,58 @@ declare global {
   }
 }
 
-interface Layer<Data> {
-  data: Data
-}
+type ContextName = StringKeyOf<Context.Data>
+type ContextData<Name extends ContextName> = Context.Data[Name]
 
-type DataType<Name> = Name extends keyof Context.Data ? Context.Data[Name] : object
+const allContexts = new Map<string, Context<ContextName>>() as ContextMap
 
-export class Context<Name extends string, Data = Name extends keyof Context.Data ? Context.Data[Name] : object> {
-  #name: string
-  #currentLayer?: Layer<Data>
-  #parentLayers: Layer<Data>[] = []
-  #asyncExecutionLayers = new Map<number, Layer<Data>>()
+export class Context<Name extends ContextName> {
+  #name: Name
+  #currentLayer?: ContextData<Name>
+  #parentLayers: ContextData<Name>[] = []
+  #asyncExecutionLayers = new Map<number, ContextData<Name>>()
 
-  static for<Name extends string>(name: Name, initialData?: DataType<Name>): Context<Name, DataType<Name>> {
+  static for<Name extends ContextName>(name: Name, initialData?: ContextData<Name>): Context<Name> {
     // If this context already exists, return the existing one
-    const existing = contexts.get(name)
-    if (existing) {
-      return existing as Context<Name, DataType<Name>>
-    }
-
-    return new Context(name, initialData)
+    return allContexts.get(name) ?? new Context(name, initialData)
   }
 
-  static fromError<Name extends string>(name: Name, error: Error): Context<Name, DataType<Name>> | undefined {
-    const context = error?.[ERROR_CONTEXT]?.get(name)
-    return context ? (context as Context<Name, DataType<Name>>) : undefined
+  static fromError<Name extends ContextName>(name: Name, error: Error): Context<Name> | undefined {
+    return error?.[ERROR_CONTEXT]?.get(name)
   }
 
-  private constructor(name: Name, initialData?: Data) {
+  private constructor(name: Name, initialData?: ContextData<Name>) {
     this.#name = name
 
-    contexts.set(name, this as Context<Name, unknown>)
+    allContexts.set(name, this)
 
     if (initialData !== undefined) {
-      this.#currentLayer = {data: initialData}
+      this.#currentLayer = this.#createLayer(initialData)
     }
 
     const hook = createHook({
       init: (asyncID) => {
-        if (this.#currentLayer) {
+        if (this.#currentLayer !== undefined) {
           this.#asyncExecutionLayers.set(asyncID, this.#currentLayer)
         } else if (executionAsyncId() === 0) {
           // executionAsyncId() is 0 when triggered from C++ (no JS context above)
           // https://github.com/nodejs/node/blob/master/doc/api/async_hooks.md#triggerasyncid
           const triggerAsyncID = triggerAsyncId()
           const triggerLayer = this.#asyncExecutionLayers.get(triggerAsyncID)
-          if (triggerLayer) {
+          if (triggerLayer !== undefined) {
             this.#asyncExecutionLayers.set(asyncID, triggerLayer)
           }
         }
       },
       before: (asyncID) => {
         const context = this.#asyncExecutionLayers.get(asyncID)
-        if (context) {
+        if (context !== undefined) {
           this.#enter(context)
         }
       },
       after: (asyncID) => {
         const context = this.#asyncExecutionLayers.get(asyncID)
-        if (context) {
+        if (context !== undefined) {
           this.#exit(context)
         }
       },
@@ -86,18 +83,22 @@ export class Context<Name extends string, Data = Name extends keyof Context.Data
     hook.enable()
   }
 
-  get<Key extends keyof Data>(key: Key): Data[Key] {
-    if (!this.#currentLayer) {
-      throw new ContextMissingError()
-    }
-    return this.#currentLayer.data[key]
+  get name(): string {
+    return this.#name
   }
 
-  set<Key extends keyof Data>(key: Key, value: Data[Key]): Data[Key] {
-    if (!this.#currentLayer) {
+  get<Key extends keyof ContextData<Name>>(key: Key): ContextData<Name>[Key] {
+    if (this.#currentLayer === undefined) {
       throw new ContextMissingError()
     }
-    this.#currentLayer.data[key] = value
+    return this.#currentLayer[key]
+  }
+
+  set<Key extends keyof ContextData<Name>>(key: Key, value: ContextData<Name>[Key]): ContextData<Name>[Key] {
+    if (this.#currentLayer === undefined) {
+      throw new ContextMissingError()
+    }
+    this.#currentLayer[key] = value
     return value
   }
 
@@ -146,17 +147,17 @@ export class Context<Name extends string, Data = Name extends keyof Context.Data
   }
 
   destroy(): void {
-    contexts.delete(this.#name)
+    allContexts.delete(this.#name)
   }
 
-  #enter = (layer: Layer<Data>): void => {
-    if (this.#currentLayer) {
+  #enter = (layer: ContextData<Name>): void => {
+    if (this.#currentLayer !== undefined) {
       this.#parentLayers.push(this.#currentLayer)
     }
     this.#currentLayer = layer
   }
 
-  #exit = (layer: Layer<Data>): void => {
+  #exit = (layer: ContextData<Name>): void => {
     if (this.#currentLayer === layer) {
       const nextActive = this.#parentLayers.pop()
       this.#currentLayer = nextActive
@@ -171,15 +172,13 @@ export class Context<Name extends string, Data = Name extends keyof Context.Data
     this.#parentLayers.splice(index, 1)
   }
 
-  #createLayer = (): Layer<Data> => {
-    return {
-      data: Object.create(this.#currentLayer !== undefined ? this.#currentLayer.data : Object.prototype) as Data,
-    }
+  #createLayer = (source: ContextData<Name> | undefined = this.#currentLayer): ContextData<Name> => {
+    return Object.create(source !== undefined ? source : Object.prototype) as ContextData<Name>
   }
 
   #wrapError = (error: Error): Error => {
     const errorContext = error[ERROR_CONTEXT] ?? new Map()
-    errorContext.set(this.#name, this as Context<string, unknown>)
+    errorContext.set(this.#name, this)
     error[ERROR_CONTEXT] = errorContext
     return error
   }
