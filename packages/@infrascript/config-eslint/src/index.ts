@@ -111,6 +111,7 @@ const eslintConfig: Linter.BaseConfig = {
     '@typescript-eslint/require-array-sort-compare': 'error',
     '@typescript-eslint/restrict-plus-operands': ['error', {checkCompoundAssignments: true}],
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
+    '@typescript-eslint/unbound-method': ['error', {ignoreStatic: true}],
     '@typescript-eslint/unified-signatures': 'error',
 
     'no-process-exit': 'off',

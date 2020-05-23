@@ -1,0 +1,37 @@
+{
+  "name": "@infrascript/core",
+  "version": "0.0.3",
+  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -b -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@infrascript/config-prettier": "^0.0.3",
+    "@infrascript/types": "^0.0.3",
+    "@sindresorhus/is": "^2.1.1",
+    "fast-case": "^1.4.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  },
+  "funding": {
+    "type": "GitHub",
+    "url": "https://github.com/sponsors/jacobwgillespie"
+  }
+}
