@@ -1,14 +1,18 @@
 import is from '@sindresorhus/is'
 import {inspect} from 'util'
-import {Context} from './context'
+import {Context} from './Context'
 import {Entity} from './Entity'
 import {Namespace} from './Namespace'
 import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
 import {keysOf, StringKeyOf} from './utils'
 
 declare global {
-  interface ContextData {
-    ctx: {
+  namespace Context {
+    interface Data {
+      ctx: CtxData
+    }
+
+    interface CtxData {
       namespace: Namespace
     }
   }
@@ -25,7 +29,7 @@ export abstract class Resource<Props extends object = object> extends Entity {
   abstract get kind(): string
 
   #ctx = Context.for('ctx')
-  #namespace = this.#ctx.get('namespace')
+  #namespace: Namespace = this.#ctx.get('namespace')
   #props: Props
 
   constructor(name: string, props: Props | (() => Props)) {

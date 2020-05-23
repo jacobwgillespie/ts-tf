@@ -90,6 +90,7 @@ const eslintConfig: Linter.BaseConfig = {
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/no-implied-eval': 'error',
     '@typescript-eslint/no-invalid-void-type': 'error',
+    '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
     '@typescript-eslint/no-throw-literal': 'error',

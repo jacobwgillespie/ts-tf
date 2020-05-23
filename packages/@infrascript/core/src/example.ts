@@ -1,9 +1,9 @@
-import {Context} from './context'
+import {Context} from './Context'
 import {Namespace} from './Namespace'
 import {ExampleResource1, ExampleResource2} from './Resource'
 
 async function run() {
-  Context.for('ctx', {namespace: Namespace.root})
+  Context.for('ctx', {namespace: Namespace.root, globalURNs: new Set<string>()})
 
   const r1 = new ExampleResource1('resource', {prop1: 1, prop2: '2'})
   console.log(r1)

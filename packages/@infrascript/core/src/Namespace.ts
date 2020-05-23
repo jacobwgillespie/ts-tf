@@ -1,5 +1,5 @@
 import {inspect} from 'util'
-import {Context} from './context'
+import {Context} from './Context'
 import {Entity} from './Entity'
 import {Graph} from './Graph'
 import {ReferenceProp} from './Prop'
@@ -58,10 +58,6 @@ export class Namespace extends Entity {
   }
 
   _registerResource(resource: Resource): void {
-    if (this.#childURNs.has(resource.urn)) {
-      throw new Error(`Duplicate resource name: ${resource.name}`)
-    }
-
     this.#subgraph.addEdge(this, resource)
     this.#childURNs.add(resource.urn)
   }

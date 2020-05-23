@@ -2,11 +2,12 @@
 /* eslint-disable */
 import prettierConfig from '@infrascript/config-prettier'
 import prettier from 'prettier'
+import {InfraScriptError} from './errors'
 
 export type StringKeyOf<T> = Extract<keyof T, string>
 
 export function assertNever(val: never): never {
-  throw new Error(`Unexpected value: ${val}`)
+  throw new InfraScriptError(`Unexpected value: ${val}`)
 }
 
 export function formatTypeScript(code: string): string {

@@ -1,5 +1,6 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
-import {isPromise} from '../utils'
+import {ContextMissingError, InfraScriptError} from './errors'
+import {isPromise} from './utils'
 
 const contexts = new Map<string, Context<string, unknown>>()
 
@@ -10,17 +11,19 @@ declare global {
     [ERROR_CONTEXT]?: Map<string, Context<string, unknown>>
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface ContextData {}
+  namespace Context {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Data {}
+  }
 }
 
 interface Layer<Data> {
   data: Data
 }
 
-type DataType<Name> = Name extends keyof ContextData ? ContextData[Name] : object
+type DataType<Name> = Name extends keyof Context.Data ? Context.Data[Name] : object
 
-export class Context<Name extends string, Data = Name extends keyof ContextData ? ContextData[Name] : object> {
+export class Context<Name extends string, Data = Name extends keyof Context.Data ? Context.Data[Name] : object> {
   #name: string
   #currentLayer?: Layer<Data>
   #parentLayers: Layer<Data>[] = []
@@ -85,14 +88,14 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
 
   get<Key extends keyof Data>(key: Key): Data[Key] {
     if (!this.#currentLayer) {
-      throw new Error(`Context is not active`)
+      throw new ContextMissingError()
     }
     return this.#currentLayer.data[key]
   }
 
   set<Key extends keyof Data>(key: Key, value: Data[Key]): Data[Key] {
     if (!this.#currentLayer) {
-      throw new Error(`Context is not active`)
+      throw new ContextMissingError()
     }
     this.#currentLayer.data[key] = value
     return value
@@ -162,7 +165,7 @@ export class Context<Name extends string, Data = Name extends keyof ContextData 
 
     const index = this.#parentLayers.lastIndexOf(layer)
     if (index < 0) {
-      throw new Error('Unable to exit context')
+      throw new InfraScriptError('Unable to exit context')
     }
 
     this.#parentLayers.splice(index, 1)
