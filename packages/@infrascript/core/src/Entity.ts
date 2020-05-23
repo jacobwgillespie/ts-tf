@@ -8,4 +8,8 @@ export class Entity {
   get name(): string {
     return this.#name
   }
+
+  get urn(): string {
+    return `urn:infra:entity::${this.#name}`
+  }
 }

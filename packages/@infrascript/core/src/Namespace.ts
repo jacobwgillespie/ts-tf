@@ -22,7 +22,7 @@ export class Namespace extends Entity {
     this.#subgraph.addNode(this)
 
     // Hack, this should be abstracted
-    if (name !== '@root@') {
+    if (name !== 'ROOT') {
       Namespace.root.#subgraph.addEdge(Namespace.root, this)
     }
   }
@@ -33,6 +33,10 @@ export class Namespace extends Entity {
 
   isRoot(): boolean {
     return this.#root
+  }
+
+  get urn(): string {
+    return `urn:infra:ns::${this.name}`
   }
 
   get graph(): Graph<Entity> {
@@ -67,4 +71,4 @@ export class Namespace extends Entity {
   }
 }
 
-const root = new Namespace('@root@')
+const root = new Namespace('ROOT')

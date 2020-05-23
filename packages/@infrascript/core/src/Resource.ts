@@ -54,7 +54,7 @@ export abstract class Resource<Props extends object = object> extends Entity {
   }
 
   get urn(): string {
-    return `urn:infrascript:${this.#namespace.name}:${this.kind}::${this.name}`
+    return `urn:infra:${this.#namespace.name}:resource::${this.kind}/${this.name}`
   }
 }
 
