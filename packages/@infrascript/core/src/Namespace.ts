@@ -2,6 +2,7 @@ import {Entity} from './Entity'
 import {Graph} from './Graph'
 import {ReferenceProp} from './Prop'
 import {Resource} from './Resource'
+import {Context} from './context'
 
 export class Namespace extends Entity {
   #root = false
@@ -26,6 +27,14 @@ export class Namespace extends Entity {
 
   get graph(): Graph<Entity> {
     return this.#graph
+  }
+
+  async withNamespace(fn: () => void | Promise<void>): Promise<void> {
+    const ctx = Context.for('ctx')
+    await ctx.run(async () => {
+      ctx.set('namespace', this)
+      return await fn()
+    })
   }
 
   _registerResource(resource: Resource): void {
