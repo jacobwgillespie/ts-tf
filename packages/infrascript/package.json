@@ -30,7 +30,6 @@
     "pirates": "^4.0.1",
     "prettier": "^2.0.5",
     "source-map-support": "^0.5.19",
-    "sucrase": "^3.15.0",
     "ts-node": "^8.9.1",
     "tslib": "^2.0.0",
     "typescript": "^3.9.3"
