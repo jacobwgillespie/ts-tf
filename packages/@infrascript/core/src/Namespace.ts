@@ -1,12 +1,13 @@
+import {inspect} from 'util'
+import {Context} from './context'
 import {Entity} from './Entity'
 import {Graph} from './Graph'
 import {ReferenceProp} from './Prop'
 import {Resource} from './Resource'
-import {Context} from './context'
 
 export class Namespace extends Entity {
   #root = false
-  #graph = new Graph<Entity>()
+  #subgraph = new Graph<Entity>()
   #childURNs = new Set<string>()
 
   static get root(): Namespace {
@@ -18,7 +19,16 @@ export class Namespace extends Entity {
 
   constructor(name: string) {
     super(name)
-    this.#graph.addNode(this)
+    this.#subgraph.addNode(this)
+
+    // Hack, this should be abstracted
+    if (name !== '@root@') {
+      Namespace.root.#subgraph.addEdge(Namespace.root, this)
+    }
+  }
+
+  protected [inspect.custom](): string {
+    return `Namespace ${inspect({name: this.name})}`
   }
 
   isRoot(): boolean {
@@ -26,7 +36,13 @@ export class Namespace extends Entity {
   }
 
   get graph(): Graph<Entity> {
-    return this.#graph
+    let flattened = this.#subgraph
+    for (const node of flattened.nodes()) {
+      if (node instanceof Namespace && node !== this) {
+        flattened = Graph.merge(flattened, node.graph)
+      }
+    }
+    return flattened
   }
 
   async withNamespace(fn: () => void | Promise<void>): Promise<void> {
@@ -42,12 +58,12 @@ export class Namespace extends Entity {
       throw new Error(`Duplicate resource name: ${resource.name}`)
     }
 
-    this.#graph.addEdge(this, resource)
+    this.#subgraph.addEdge(this, resource)
     this.#childURNs.add(resource.urn)
   }
 
   _registerReferenceProp<T>(prop: ReferenceProp<T>, destinationResource: Resource): void {
-    this.#graph.addEdge(prop.source, destinationResource)
+    this.#subgraph.addEdge(prop.source, destinationResource)
   }
 }
 
