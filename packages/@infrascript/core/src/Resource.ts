@@ -9,7 +9,6 @@ import {keysOf, StringKeyOf} from './utils'
 declare global {
   interface ContextData {
     ctx: {
-      prefix: string
       namespace: Namespace
     }
   }
