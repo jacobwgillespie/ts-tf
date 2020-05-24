@@ -194,7 +194,6 @@ export class Context<Name extends ContextName> {
   }
 
   #createLayer = (source: ContextData<Name> | undefined = this.#currentLayer): ContextData<Name> => {
-    console.log('creating layer for', source)
     return Object.create(source !== undefined ? source : Object.prototype) as ContextData<Name>
   }
 
