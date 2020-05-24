@@ -1,17 +1,10 @@
-/* eslint-disable unicorn/no-abusive-eslint-disable */
-/* eslint-disable */
-import prettierConfig from '@infrascript/config-prettier'
-import prettier from 'prettier'
 import {InfraScriptError} from './errors'
 
 export type StringKeyOf<T> = Extract<keyof T, string>
 
 export function assertNever(val: never): never {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   throw new InfraScriptError(`Unexpected value: ${val}`)
-}
-
-export function formatTypeScript(code: string): string {
-  return prettier.format(code, {...prettierConfig, parser: 'typescript'})
 }
 
 export function isPromise<T>(value: unknown): value is Promise<T> {
@@ -19,7 +12,7 @@ export function isPromise<T>(value: unknown): value is Promise<T> {
     return false
   }
 
-  if (value === null || value === undefined) {
+  if (value === null) {
     return false
   }
 
