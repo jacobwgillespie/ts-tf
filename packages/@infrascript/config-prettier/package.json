@@ -21,6 +21,7 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@infrascript/config-typescript": "0.0.3",
     "@types/node": "^12",
     "@types/prettier": "^2.0.1",
     "typescript": "^3.9.3"

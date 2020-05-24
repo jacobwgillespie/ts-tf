@@ -25,13 +25,18 @@
     "@sindresorhus/is": "^2.1.1",
     "error-stack-parser": "^2.0.6",
     "fast-case": "^1.4.0",
+    "fs-extra": "^9.0.0",
+    "source-map-support": "^0.5.19",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "^0.25.2",
+    "@infrascript/config-typescript": "0.0.3",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@types/babel__code-frame": "^7.0.1",
+    "@types/fs-extra": "^9.0.1",
+    "@types/node": "^12",
     "@wessberg/rollup-plugin-ts": "^1.2.24",
     "rollup": "^2.10.9",
     "rollup-plugin-dts": "^1.4.7",

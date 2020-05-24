@@ -8,6 +8,7 @@
     "monorepolint": "^0.4.0",
     "prettier": "^2.0.5",
     "runtypes": "^4.2.0",
+    "typescript": "^3.9.3",
     "typescript-monorepo-toolkit": "^0.0.7"
   },
   "prettier": "./packages/@infrascript/config-prettier",
