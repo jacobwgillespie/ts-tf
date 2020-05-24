@@ -21,13 +21,16 @@
     "access": "public"
   },
   "dependencies": {
+    "@babel/code-frame": "^7.8.3",
     "@infrascript/config-prettier": "^0.0.3",
     "@infrascript/types": "^0.0.3",
     "@sindresorhus/is": "^2.1.1",
+    "error-stack-parser": "^2.0.6",
     "fast-case": "^1.4.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@types/babel__code-frame": "^7.0.1",
     "typescript": "^3.9.3"
   },
   "funding": {
