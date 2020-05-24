@@ -138,6 +138,7 @@ class RootResource extends Resource<{}> {
   }
 }
 
+/** globalRoot returns the global root resource for the current context */
 export function globalRoot(): RootResource {
   return RootResource.instance
 }
