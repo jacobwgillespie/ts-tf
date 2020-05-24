@@ -2,6 +2,7 @@ import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
+import {DuplicateURNError} from './errors'
 import {Graph} from './Graph'
 import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
 import {keysOf, StringKeyOf} from './utils'
@@ -58,6 +59,12 @@ export abstract class Resource<Props extends object = object> {
     }
 
     this.#urn = `${this.#parent.$urn}${this.#parent.isRoot ? '://' : '/'}${this.$kind}:${this.$name}`
+
+    const globalURNs = ctx.get('globalURNs')
+    if (globalURNs.has(this.$urn)) {
+      throw new DuplicateURNError(this.$urn)
+    }
+    globalURNs.add(this.$urn)
 
     // Register any reference props with namespace
     for (const k of keysOf(this.#props)) {
