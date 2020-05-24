@@ -8,9 +8,9 @@
   "include": [
     "src"
   ],
-  "references": [
-    {
-      "path": "../@infrascript/config-eslint"
-    }
-  ]
+  "references": [{
+    "path": "../@infrascript/config-typescript"
+  }, {
+    "path": "../@infrascript/config-eslint"
+  }]
 }

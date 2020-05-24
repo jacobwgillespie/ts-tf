@@ -8,12 +8,11 @@
   "include": [
     "src"
   ],
-  "references": [
-    {
-      "path": "../config-prettier"
-    },
-    {
-      "path": "../types"
-    }
-  ]
+  "references": [{
+    "path": "../config-typescript"
+  }, {
+    "path": "../config-prettier"
+  }, {
+    "path": "../types"
+  }]
 }
