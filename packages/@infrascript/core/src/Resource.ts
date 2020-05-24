@@ -28,8 +28,8 @@ function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
   return props
 }
 
-export const resourceSymbol = Symbol('resource')
-export const rootSymbol = Symbol('root')
+const resourceSymbol = Symbol('resource')
+const globalRootSymbol = Symbol('globalRoot')
 
 export abstract class Resource<Props extends object = object> {
   abstract get kind(): string
@@ -48,13 +48,15 @@ export abstract class Resource<Props extends object = object> {
 
   constructor(name: string, props: Props | (() => Props)) {
     this.#name = name
-
-    const isRoot = this.$sym === rootSymbol
-    this.#parent = isRoot ? this : ctx.get('parent') ?? globalRoot()
     this.#props = unwrapPropsFn(props)
 
-    // Register this resource with the current context's parent
-    if (!isRoot) {
+    if (this.$sym === globalRootSymbol) {
+      // Set parent to self (we are the global root) and adopt the current context
+      this.#parent = this
+      ctx.set('parent', this)
+    } else {
+      // Register this resource with the current context's parent
+      this.#parent = ctx.get('parent') ?? globalRoot()
       this.#parent.#children.add(this)
       this.#parent.#childrenURNs.add(this.urn)
       this.#parent.#dependents.addEdge(this.#parent, this)
@@ -66,10 +68,6 @@ export abstract class Resource<Props extends object = object> {
       if (prop instanceof ReferenceProp) {
         prop.source.#dependents.addEdge(prop.source, this)
       }
-    }
-
-    if (isRoot) {
-      ctx.set('parent', this)
     }
   }
 
@@ -126,7 +124,7 @@ class RootResource extends Resource<{}> {
   }
 
   protected get $sym(): symbol {
-    return rootSymbol
+    return globalRootSymbol
   }
 
   get kind(): 'root' {
