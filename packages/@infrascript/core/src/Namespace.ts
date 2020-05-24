@@ -1,89 +1,11 @@
-import {inspect} from 'util'
-import {Context} from './Context'
-import {Entity} from './Entity'
-import {Graph} from './Graph'
-import {ReferenceProp} from './Prop'
 import {Resource} from './Resource'
-import {DuplicateURNError} from './errors'
 
-declare global {
-  namespace Context {
-    interface Data {
-      ctx: CtxData
-    }
-
-    interface CtxData {
-      globalURNs: Set<string>
-    }
-  }
-}
-
-export class Namespace extends Entity {
-  #root = false
-  #subgraph = new Graph<Entity>()
-  #childURNs = new Set<string>()
-
-  static get root(): Namespace {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    root.#root = true
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return root
+export class Namespace extends Resource<{}> {
+  get kind(): 'namespace' {
+    return 'namespace'
   }
 
   constructor(name: string) {
-    super(name)
-    this.#subgraph.addNode(this)
-
-    // Hack, this should be abstracted
-    if (name !== 'ROOT') {
-      Namespace.root.#subgraph.addEdge(Namespace.root, this)
-    }
-  }
-
-  protected [inspect.custom](): string {
-    return `Namespace ${inspect({name: this.name})}`
-  }
-
-  isRoot(): boolean {
-    return this.#root
-  }
-
-  get urn(): string {
-    return `urn:infra:ns::${this.name}`
-  }
-
-  get graph(): Graph<Entity> {
-    let flattened = this.#subgraph
-    for (const node of flattened.nodes()) {
-      if (node instanceof Namespace && node !== this) {
-        flattened = Graph.merge(flattened, node.graph)
-      }
-    }
-    return flattened
-  }
-
-  async withNamespace(fn: () => void | Promise<void>): Promise<void> {
-    const ctx = Context.for('ctx')
-    await ctx.run(async () => {
-      ctx.set('namespace', this)
-      return await fn()
-    })
-  }
-
-  _registerResource(resource: Resource): void {
-    const globalURNs = Context.for('ctx').get('globalURNs')
-    if (globalURNs.has(resource.urn)) {
-      throw new DuplicateURNError(resource.urn)
-    }
-    globalURNs.add(resource.urn)
-
-    this.#subgraph.addEdge(this, resource)
-    this.#childURNs.add(resource.urn)
-  }
-
-  _registerReferenceProp<T>(prop: ReferenceProp<T>, destinationResource: Resource): void {
-    this.#subgraph.addEdge(prop.source, destinationResource)
+    super(name, {})
   }
 }
-
-const root = new Namespace('ROOT')

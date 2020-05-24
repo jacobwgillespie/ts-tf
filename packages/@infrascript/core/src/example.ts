@@ -1,9 +1,11 @@
-import {Context} from './Context'
+import 'source-map-support/register'
+
 import {Namespace} from './Namespace'
-import {ExampleResource1, ExampleResource2} from './Resource'
+import {ExampleResource1, ExampleResource2, RootResource, root} from './Resource'
+import {Context} from './Context'
 
 async function run() {
-  Context.for('ctx', {namespace: Namespace.root, globalURNs: new Set()})
+  Context.for('ctx', {globalURNs: new Set(), parent: root})
 
   const r1 = new ExampleResource1('resource', {prop1: 1, prop2: '2'})
   console.log(r1)
@@ -12,14 +14,16 @@ async function run() {
   console.log(r2)
 
   const customNamespace = new Namespace('custom')
-  await customNamespace.withNamespace(() => {
+  await customNamespace.asParent(() => {
     const r3 = new ExampleResource1('resource', {prop1: 1, prop2: r1.prop2})
     console.log(r3)
   })
 
-  console.log('nodes', Namespace.root.graph.nodes())
-  console.log('edges', Namespace.root.graph.edges())
-  console.log(Namespace.root.graph.dot((n) => n.urn))
+  const graph = RootResource.instance.dependentsGraph
+
+  console.log('nodes', graph.nodes())
+  console.log('edges', graph.edges())
+  console.log(graph.dot((n) => n.urn))
 }
 
 run().catch((error: Error) => {

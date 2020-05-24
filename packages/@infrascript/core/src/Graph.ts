@@ -1,12 +1,19 @@
 export class Graph<Node> {
   #nodes = new Set<Node>()
   #edges = new Map<Node, Set<Node>>()
+  #isEmpty = true
+
+  get isEmpty(): boolean {
+    return this.#isEmpty
+  }
 
   addNode(node: Node): void {
+    this.#isEmpty = false
     this.#nodes.add(node)
   }
 
   addEdge(from: Node, to: Node): void {
+    this.#isEmpty = false
     this.addNode(from)
     this.addNode(to)
     const nodeEdges = this.#edges.get(from) ?? new Set()

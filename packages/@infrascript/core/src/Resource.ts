@@ -2,7 +2,7 @@ import is from '@sindresorhus/is'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {Entity} from './Entity'
-import {Namespace} from './Namespace'
+import {Graph} from './Graph'
 import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
 import {keysOf, StringKeyOf} from './utils'
 
@@ -13,7 +13,7 @@ declare global {
     }
 
     interface CtxData {
-      namespace: Namespace
+      parent: Resource
     }
   }
 }
@@ -25,24 +25,48 @@ function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
   return props
 }
 
+export const resourceSymbol = Symbol('resource')
+export const rootSymbol = Symbol('root')
+
 export abstract class Resource<Props extends object = object> extends Entity {
   abstract get kind(): string
+  protected get $sym(): symbol {
+    return resourceSymbol
+  }
 
-  #ctx = Context.for('ctx')
-  #namespace: Namespace = this.#ctx.get('namespace')
+  #parent: Resource
   #props: Props
+
+  #children = new Set<Resource>()
+  #childrenURNs = new Set<string>()
+
+  #dependents = new Graph<Resource>()
 
   constructor(name: string, props: Props | (() => Props)) {
     super(name)
+    const ctx = Context.for('ctx')
+
+    const isRoot = this.$sym === rootSymbol
+    this.#parent = isRoot ? this : ctx.get('parent')
     this.#props = unwrapPropsFn(props)
-    this.#namespace._registerResource(this)
+
+    // Register this resource with the current context's parent
+    if (!isRoot) {
+      this.#parent.#children.add(this)
+      this.#parent.#childrenURNs.add(this.urn)
+      this.#parent.#dependents.addEdge(this.#parent, this)
+    }
 
     // Register any reference props with namespace
     for (const k of keysOf(this.#props)) {
       const prop = this.#props[k]
       if (prop instanceof ReferenceProp) {
-        this.#namespace._registerReferenceProp(prop, this)
+        prop.source.#dependents.addEdge(prop.source, this)
       }
+    }
+
+    if (isRoot) {
+      ctx.set('parent', this)
     }
   }
 
@@ -56,10 +80,59 @@ export abstract class Resource<Props extends object = object> extends Entity {
     return ReferenceProp.wrap(prop, this)
   }
 
+  get isRoot(): boolean {
+    return this.#parent === this
+  }
+
   get urn(): string {
-    return `urn:infra:${this.#namespace.name}:resource::${this.kind}/${this.name}`
+    return `urn:infra:${this.#parent.name}:resource::${this.kind}/${this.name}`
+  }
+
+  get dependentsGraph(): Graph<Resource> {
+    let flattened = this.#dependents
+    for (const node of this.#children) {
+      const subgraph = node.dependentsGraph
+      if (!subgraph.isEmpty) {
+        flattened = Graph.merge(flattened, subgraph)
+      }
+    }
+    return flattened
+  }
+
+  async asParent(fn: () => void | Promise<void>): Promise<void> {
+    const ctx = Context.for('ctx')
+    await ctx.run(async () => {
+      ctx.set('parent', this)
+      return await fn()
+    })
   }
 }
+
+export const rootURN = 'urn:infra:ROOT'
+
+export class RootResource extends Resource<{}> {
+  static instance = new RootResource()
+
+  private constructor() {
+    super('root', {})
+  }
+
+  protected get $sym(): symbol {
+    return rootSymbol
+  }
+
+  get kind(): 'root' {
+    return 'root'
+  }
+
+  // Returning a fixed URN effectively makes this a singleton, since
+  // no two resources in the current context are allowed to share a URN
+  get urn(): string {
+    return rootURN
+  }
+}
+
+export const root = RootResource.instance
 
 interface ExampleResource1Props {
   prop1: Prop<number>

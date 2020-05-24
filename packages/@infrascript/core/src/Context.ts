@@ -1,4 +1,5 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
+import {inspect} from 'util'
 import {ContextMissingError, InfraScriptError} from './errors'
 import {isPromise, StringKeyOf} from './utils'
 
@@ -28,13 +29,23 @@ const allContexts = new Map<string, Context<ContextName>>() as ContextMap
 
 export class Context<Name extends ContextName> {
   #name: Name
+  #receivedInitialData = false
   #currentLayer?: ContextData<Name>
   #parentLayers: ContextData<Name>[] = []
   #asyncExecutionLayers = new Map<number, ContextData<Name>>()
 
   static for<Name extends ContextName>(name: Name, initialData?: ContextData<Name>): Context<Name> {
     // If this context already exists, return the existing one
-    return allContexts.get(name) ?? new Context(name, initialData)
+    const ctx = allContexts.get(name) ?? new Context(name, initialData)
+    // if (initialData !== undefined) {
+    if (!ctx.#receivedInitialData && ctx.#currentLayer === undefined) {
+      ctx.#currentLayer = ctx.#createLayer(initialData)
+      ctx.#receivedInitialData = true
+      // } else if (initialData !== undefined) {
+      //   throw new DuplicateContextDataError(ctx.name)
+      // }
+    }
+    return ctx
   }
 
   static fromError<Name extends ContextName>(name: Name, error: Error): Context<Name> | undefined {
@@ -48,6 +59,7 @@ export class Context<Name extends ContextName> {
 
     if (initialData !== undefined) {
       this.#currentLayer = this.#createLayer(initialData)
+      this.#receivedInitialData = true
     }
 
     const hook = createHook({
@@ -81,6 +93,10 @@ export class Context<Name extends ContextName> {
       },
     })
     hook.enable()
+  }
+
+  protected [inspect.custom](): string {
+    return `Resource ${inspect(this.#currentLayer)}`
   }
 
   get name(): string {
@@ -173,6 +189,7 @@ export class Context<Name extends ContextName> {
   }
 
   #createLayer = (source: ContextData<Name> | undefined = this.#currentLayer): ContextData<Name> => {
+    console.log('creating layer for', source)
     return Object.create(source !== undefined ? source : Object.prototype) as ContextData<Name>
   }
 
