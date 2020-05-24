@@ -2,6 +2,7 @@
   "devDependencies": {
     "@monorepolint/core": "^0.4.0",
     "@monorepolint/utils": "^0.4.0",
+    "@types/node": "^12",
     "jest-diff": "^26.0.1",
     "lerna": "^3.21.0",
     "monorepolint": "^0.4.0",
