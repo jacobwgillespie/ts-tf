@@ -150,7 +150,7 @@ export class Context<Name extends ContextName> {
     }
   }
 
-  bind<T, A extends unknown[]>(fn: (...args: A) => T): (...args: A) => T {
+  bindLayer<T, A extends unknown[]>(fn: (...args: A) => T): (...args: A) => T {
     const layer = this.#currentLayer ?? this.#createLayer()
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const ctx = this
