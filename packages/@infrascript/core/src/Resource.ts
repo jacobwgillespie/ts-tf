@@ -50,7 +50,7 @@ export abstract class Resource<Props extends object = object> extends Entity {
     super(name)
 
     const isRoot = this.$sym === rootSymbol
-    this.#parent = isRoot ? this : ctx.get('parent')
+    this.#parent = isRoot ? this : ctx.get('parent') ?? globalRoot()
     this.#props = unwrapPropsFn(props)
 
     // Register this resource with the current context's parent
@@ -110,13 +110,15 @@ export abstract class Resource<Props extends object = object> extends Entity {
   }
 }
 
-export const rootURN = 'urn:infra:ROOT'
-
-export class RootResource extends Resource<{}> {
-  static instance = new RootResource()
+/** RootResource is the root of all resources within a context */
+class RootResource extends Resource<{}> {
+  static get instance(): RootResource {
+    return ctx.get('globalRoot') ?? new RootResource()
+  }
 
   private constructor() {
     super('root', {})
+    ctx.set('globalRoot', this)
   }
 
   protected get $sym(): symbol {
@@ -127,14 +129,16 @@ export class RootResource extends Resource<{}> {
     return 'root'
   }
 
-  // Returning a fixed URN effectively makes this a singleton, since
-  // no two resources in the current context are allowed to share a URN
+  // Returning a fixed URN effectively makes this a singleton, since no two
+  // resources in the current context are allowed to share a URN within a context
   get urn(): string {
-    return rootURN
+    return 'urn:infra:ROOT'
   }
 }
 
-export const root = RootResource.instance
+export function globalRoot(): RootResource {
+  return RootResource.instance
+}
 
 interface ExampleResource1Props {
   prop1: Prop<number>
