@@ -1,7 +1,6 @@
 import is from '@sindresorhus/is'
 import {inspect} from 'util'
 import {Context} from './Context'
-import {Entity} from './Entity'
 import {Graph} from './Graph'
 import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
 import {keysOf, StringKeyOf} from './utils'
@@ -32,12 +31,13 @@ function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
 export const resourceSymbol = Symbol('resource')
 export const rootSymbol = Symbol('root')
 
-export abstract class Resource<Props extends object = object> extends Entity {
+export abstract class Resource<Props extends object = object> {
   abstract get kind(): string
   protected get $sym(): symbol {
     return resourceSymbol
   }
 
+  #name: string
   #parent: Resource
   #props: Props
 
@@ -47,7 +47,7 @@ export abstract class Resource<Props extends object = object> extends Entity {
   #dependents = new Graph<Resource>()
 
   constructor(name: string, props: Props | (() => Props)) {
-    super(name)
+    this.#name = name
 
     const isRoot = this.$sym === rootSymbol
     this.#parent = isRoot ? this : ctx.get('parent') ?? globalRoot()
@@ -85,6 +85,10 @@ export abstract class Resource<Props extends object = object> extends Entity {
 
   get isRoot(): boolean {
     return this.#parent === this
+  }
+
+  get name(): string {
+    return this.#name
   }
 
   get urn(): string {
