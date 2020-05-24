@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is'
-import fastCase from 'fast-case'
+import * as fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {DuplicateURNError} from './errors'
