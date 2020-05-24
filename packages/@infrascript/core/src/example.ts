@@ -11,15 +11,15 @@ async function run() {
   console.log(r2)
 
   const customNamespace = new Namespace('custom')
-  await customNamespace.asParent(() => {
+  await customNamespace.$asParent(() => {
     const r3 = new ExampleResource1('resource', {prop1: 1, prop2: r1.prop2})
     console.log(r3)
   })
 
-  const graph = globalRoot().dependentsGraph
+  const graph = globalRoot().$dependentsGraph
   console.log('nodes', graph.nodes())
   console.log('edges', graph.edges())
-  console.log(graph.dot((n) => n.urn))
+  console.log(graph.dot((n) => n.$urn))
 }
 
 run().catch((error: Error) => {

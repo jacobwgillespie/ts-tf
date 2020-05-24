@@ -33,14 +33,6 @@ const resourceSymbol = Symbol('resource')
 const globalRootSymbol = Symbol('globalRoot')
 
 export abstract class Resource<Props extends object = object> {
-  protected get kind(): string {
-    return fastCase.camelize(this.constructor.name)
-  }
-
-  protected get $sym(): symbol {
-    return resourceSymbol
-  }
-
   #urn: string
   #name: string
   #parent: Resource
@@ -61,11 +53,11 @@ export abstract class Resource<Props extends object = object> {
       // Register this resource with the current context's parent
       this.#parent = ctx.get('parent') ?? globalRoot()
       this.#parent.#children.add(this)
-      this.#parent.#childrenURNs.add(this.urn)
+      this.#parent.#childrenURNs.add(this.$urn)
       this.#parent.#dependents.addEdge(this.#parent, this)
     }
 
-    this.#urn = `${this.#parent.urn}${this.#parent.isRoot ? '://' : '/'}${this.kind}:${this.name}`
+    this.#urn = `${this.#parent.$urn}${this.#parent.isRoot ? '://' : '/'}${this.$kind}:${this.$name}`
 
     // Register any reference props with namespace
     for (const k of keysOf(this.#props)) {
@@ -77,7 +69,7 @@ export abstract class Resource<Props extends object = object> {
   }
 
   protected [inspect.custom](): string {
-    return `Resource ${inspect({$urn: this.urn, ...this.#props})}`
+    return `Resource ${inspect({$urn: this.$urn, ...this.#props})}`
   }
 
   // eslint-disable-next-line @typescript-eslint/promise-function-async
@@ -86,22 +78,30 @@ export abstract class Resource<Props extends object = object> {
     return ReferenceProp.wrap(prop, this)
   }
 
+  protected get $kind(): string {
+    return fastCase.camelize(this.constructor.name)
+  }
+
+  protected get $sym(): symbol {
+    return resourceSymbol
+  }
+
   get isRoot(): boolean {
     return this.#parent === this
   }
 
-  get name(): string {
+  get $name(): string {
     return this.#name
   }
 
-  get urn(): string {
+  get $urn(): string {
     return this.#urn
   }
 
-  get dependentsGraph(): Graph<Resource> {
+  get $dependentsGraph(): Graph<Resource> {
     let flattened = this.#dependents
     for (const node of this.#children) {
-      const subgraph = node.dependentsGraph
+      const subgraph = node.$dependentsGraph
       if (!subgraph.isEmpty) {
         flattened = Graph.merge(flattened, subgraph)
       }
@@ -109,7 +109,7 @@ export abstract class Resource<Props extends object = object> {
     return flattened
   }
 
-  async asParent(fn: () => void | Promise<void>): Promise<void> {
+  async $asParent(fn: () => void | Promise<void>): Promise<void> {
     await ctx.run(async () => {
       ctx.set('parent', this)
       return await fn()
@@ -132,13 +132,13 @@ class RootResource extends Resource<{}> {
     return globalRootSymbol
   }
 
-  get kind(): 'root' {
+  get $kind(): 'root' {
     return 'root'
   }
 
   // Returning a fixed URN effectively makes this a singleton, since no two
   // resources in the current context are allowed to share a URN within a context
-  get urn(): string {
+  get $urn(): string {
     return 'infra'
   }
 }
