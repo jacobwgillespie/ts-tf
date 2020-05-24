@@ -13,10 +13,14 @@ declare global {
     }
 
     interface CtxData {
-      parent: Resource
+      globalRoot?: RootResource
+      parent?: Resource
+      globalURNs: Set<string>
     }
   }
 }
+
+const ctx = Context.for('ctx', {globalURNs: new Set()})
 
 function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
   if (is.function_(props)) {
@@ -44,7 +48,6 @@ export abstract class Resource<Props extends object = object> extends Entity {
 
   constructor(name: string, props: Props | (() => Props)) {
     super(name)
-    const ctx = Context.for('ctx')
 
     const isRoot = this.$sym === rootSymbol
     this.#parent = isRoot ? this : ctx.get('parent')
@@ -100,7 +103,6 @@ export abstract class Resource<Props extends object = object> extends Entity {
   }
 
   async asParent(fn: () => void | Promise<void>): Promise<void> {
-    const ctx = Context.for('ctx')
     await ctx.run(async () => {
       ctx.set('parent', this)
       return await fn()
