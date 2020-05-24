@@ -13,7 +13,6 @@ async function run() {
 
   const r2 = new ExampleResource2('resource2', {prop1: 1, prop2: r1.prop2})
   console.log(r2)
-  new ExampleResource2('resource2', {prop1: 1, prop2: r1.prop2})
 
   const customNamespace = new Namespace('custom')
   await customNamespace.$asParent(() => {
