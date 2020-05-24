@@ -11,6 +11,12 @@ export class ContextMissingError extends InfraScriptError {
   }
 }
 
+export class DuplicateContextDataError extends InfraScriptError {
+  constructor(contextName: string) {
+    super(`Context ${contextName} initialData provided twice`)
+  }
+}
+
 export class DuplicateURNError extends InfraScriptError {
   constructor(urn: string) {
     super(`Duplicate URN: ${urn}`)

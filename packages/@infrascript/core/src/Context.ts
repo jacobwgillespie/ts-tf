@@ -1,6 +1,6 @@
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
 import {inspect} from 'util'
-import {ContextMissingError, InfraScriptError} from './errors'
+import {ContextMissingError, DuplicateContextDataError, InfraScriptError} from './errors'
 import {isPromise, StringKeyOf} from './utils'
 
 const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
@@ -36,15 +36,20 @@ export class Context<Name extends ContextName> {
 
   static for<Name extends ContextName>(name: Name, initialData?: ContextData<Name>): Context<Name> {
     // If this context already exists, return the existing one
-    const ctx = allContexts.get(name) ?? new Context(name, initialData)
-    // if (initialData !== undefined) {
-    if (!ctx.#receivedInitialData && ctx.#currentLayer === undefined) {
+    const ctx = allContexts.get(name)
+
+    if (ctx === undefined) {
+      return new Context(name, initialData)
+    }
+
+    if (initialData !== undefined) {
+      if (ctx.#receivedInitialData) {
+        throw new DuplicateContextDataError(ctx.name)
+      }
       ctx.#currentLayer = ctx.#createLayer(initialData)
       ctx.#receivedInitialData = true
-      // } else if (initialData !== undefined) {
-      //   throw new DuplicateContextDataError(ctx.name)
-      // }
     }
+
     return ctx
   }
 
