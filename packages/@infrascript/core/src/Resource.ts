@@ -1,4 +1,5 @@
 import is from '@sindresorhus/is'
+import fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {Graph} from './Graph'
@@ -32,18 +33,20 @@ const resourceSymbol = Symbol('resource')
 const globalRootSymbol = Symbol('globalRoot')
 
 export abstract class Resource<Props extends object = object> {
-  abstract get kind(): string
+  protected get kind(): string {
+    return fastCase.camelize(this.constructor.name)
+  }
+
   protected get $sym(): symbol {
     return resourceSymbol
   }
 
+  #urn: string
   #name: string
   #parent: Resource
   #props: Props
-
   #children = new Set<Resource>()
   #childrenURNs = new Set<string>()
-
   #dependents = new Graph<Resource>()
 
   constructor(name: string, props: Props | (() => Props)) {
@@ -61,6 +64,8 @@ export abstract class Resource<Props extends object = object> {
       this.#parent.#childrenURNs.add(this.urn)
       this.#parent.#dependents.addEdge(this.#parent, this)
     }
+
+    this.#urn = `${this.#parent.urn}${this.#parent.isRoot ? '://' : '/'}${this.kind}:${this.name}`
 
     // Register any reference props with namespace
     for (const k of keysOf(this.#props)) {
@@ -90,7 +95,7 @@ export abstract class Resource<Props extends object = object> {
   }
 
   get urn(): string {
-    return `urn:infra:${this.#parent.name}:resource::${this.kind}/${this.name}`
+    return this.#urn
   }
 
   get dependentsGraph(): Graph<Resource> {
@@ -134,7 +139,7 @@ class RootResource extends Resource<{}> {
   // Returning a fixed URN effectively makes this a singleton, since no two
   // resources in the current context are allowed to share a URN within a context
   get urn(): string {
-    return 'urn:infra:ROOT'
+    return 'infra'
   }
 }
 
@@ -149,10 +154,6 @@ interface ExampleResource1Props {
 }
 
 export class ExampleResource1 extends Resource<ExampleResource1Props> {
-  get kind(): 'ExampleResource1' {
-    return 'ExampleResource1'
-  }
-
   get prop1(): ReferenceProp<number> {
     return this.attr('prop1')
   }
@@ -168,10 +169,6 @@ interface ExampleResource2Props {
 }
 
 export class ExampleResource2 extends Resource<ExampleResource2Props> {
-  get kind(): 'ExampleResource2' {
-    return 'ExampleResource2'
-  }
-
   get prop1(): ReferenceProp<number> {
     return this.attr('prop1')
   }
