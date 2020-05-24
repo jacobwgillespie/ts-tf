@@ -73,7 +73,7 @@ export abstract class Resource<Props extends object = object> {
   }
 
   // eslint-disable-next-line @typescript-eslint/promise-function-async
-  protected attr<T extends StringKeyOf<Props>>(key: T): ReferenceProp<WrappedValueOf<Props[T]>> {
+  protected $attr<T extends StringKeyOf<Props>>(key: T): ReferenceProp<WrappedValueOf<Props[T]>> {
     const prop = this.#props[key]
     return ReferenceProp.wrap(prop, this)
   }
@@ -132,10 +132,6 @@ class RootResource extends Resource<{}> {
     return globalRootSymbol
   }
 
-  get $kind(): 'root' {
-    return 'root'
-  }
-
   // Returning a fixed URN effectively makes this a singleton, since no two
   // resources in the current context are allowed to share a URN within a context
   get $urn(): string {
@@ -155,11 +151,11 @@ interface ExampleResource1Props {
 
 export class ExampleResource1 extends Resource<ExampleResource1Props> {
   get prop1(): ReferenceProp<number> {
-    return this.attr('prop1')
+    return this.$attr('prop1')
   }
 
   get prop2(): ReferenceProp<string> {
-    return this.attr('prop2')
+    return this.$attr('prop2')
   }
 }
 
@@ -170,10 +166,10 @@ interface ExampleResource2Props {
 
 export class ExampleResource2 extends Resource<ExampleResource2Props> {
   get prop1(): ReferenceProp<number> {
-    return this.attr('prop1')
+    return this.$attr('prop1')
   }
 
   get prop2(): ReferenceProp<string> {
-    return this.attr('prop2')
+    return this.$attr('prop2')
   }
 }
