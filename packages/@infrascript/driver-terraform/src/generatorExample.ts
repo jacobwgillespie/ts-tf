@@ -21,32 +21,25 @@ async function run(): Promise<void> {
     for (const resourceName of Object.keys(providerSchema.resource_schemas)) {
       const resource = providerSchema.resource_schemas[resourceName]
       const cleanedName = resourceName.replace('aws_', '')
-      const argsInterface = buildBlockInterface(cleanedName, resource.block, true)
+      // const argsInterface = buildBlockInterface(cleanedName, resource.block, true)
       const attrsInterface = buildBlockInterface(cleanedName, resource.block)
 
       const pascalName = fastCase.pascalize(cleanedName)
       const filename = path.join(process.cwd(), 'src/__generated__/aws', `${pascalName}.ts`)
       await fs.mkdirp(path.dirname(filename))
 
-      const props = Object.keys(resource.block.attributes || {}).map((prop) => `${prop} = this.__attr('${prop}')`)
+      const props = Object.keys(resource.block.attributes || {}).map((prop) => `${prop} = this.$attr('${prop}')`)
 
       await fs.writeFile(
         filename,
         formatTypeScript(`
-import {ArgumentsOrReferences, TerraformResource} from '../../exampleClasses'
-
-${argsInterface.code}
+import {TerraformResource} from '../../TerraformResource'
 
 ${attrsInterface.code}
 
-export class ${pascalName} extends TerraformResource<${argsInterface.name}, ${attrsInterface.name}> {
+export class ${pascalName} extends TerraformResource<${attrsInterface.name}> {
   get __kind(): '${resourceName}' {
     return '${resourceName}'
-  }
-
-  constructor(name: string, args: ArgumentsOrReferences<${argsInterface.name}>) {
-    super(name, args)
-    Object.freeze(this)
   }
 
   ${props.join('\n')}

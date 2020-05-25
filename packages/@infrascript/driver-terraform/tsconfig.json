@@ -13,6 +13,8 @@
   }, {
     "path": "../config-prettier"
   }, {
+    "path": "../core"
+  }, {
     "path": "../types"
   }]
 }

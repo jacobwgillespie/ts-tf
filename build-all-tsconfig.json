@@ -4,9 +4,6 @@
       "path": "packages/infrascript"
     },
     {
-      "path": "packages/@infrascript/core"
-    },
-    {
       "path": "packages/@infrascript/driver-terraform"
     }
   ],

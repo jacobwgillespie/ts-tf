@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@infrascript/config-prettier": "^0.0.3",
+    "@infrascript/core": "^0.0.3",
     "@infrascript/types": "^0.0.3",
     "@sindresorhus/is": "^2.1.1",
     "chevrotain": "^7.0.1",
