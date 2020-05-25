@@ -134,11 +134,11 @@ export abstract class Resource<Props extends object = object> {
     return flattened
   }
 
-  async $asParent(fn: () => void | Promise<void>): Promise<void> {
+  $asParent<T>(fn: () => T): T {
     const childContext = ResourceContext.current().clone()
-    await childContext.run(async () => {
+    return childContext.run(() => {
       ResourceContext.current().parent = this
-      return await fn()
+      return fn()
     })
   }
 }

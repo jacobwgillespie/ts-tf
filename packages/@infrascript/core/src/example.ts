@@ -16,7 +16,7 @@ async function run() {
   console.log(r2)
 
   const customNamespace = new Namespace('custom')
-  await customNamespace.$asParent(() => {
+  customNamespace.$asParent(() => {
     const r3 = new ExampleResource1('resource', {prop1: 1, prop2: r1.prop2})
     console.log(r3)
   })
