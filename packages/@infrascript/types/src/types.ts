@@ -4,3 +4,5 @@ export function assertNever(val: never): never {
 }
 
 export type StringKeyOf<T> = Extract<keyof T, string>
+
+export type UnwrapPromiseLike<T> = T extends PromiseLike<infer U> ? U : T

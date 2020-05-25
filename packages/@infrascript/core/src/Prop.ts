@@ -1,32 +1,65 @@
+import {UnwrapPromiseLike} from '@infrascript/types'
 import {Resource} from './Resource'
 
-export type Prop<T = unknown> = T | Promise<T> | ReferenceProp<T> | PredictedProp<T>
+export type UnwrapProp<T> = T extends Prop<infer U> ? U : T
+export type PropInput<T> = T | PromiseLike<T>
 
-export type WrappedValueOf<T> = T extends Prop<infer U> ? U : T
+// These globals temporarily hold inner promise executor references
+let resolve: (value?: unknown | PromiseLike<unknown>) => void
+let reject: (reason?: unknown) => void
 
-/** References an output of another resource */
-export class ReferenceProp<T> extends Promise<T> {
-  source: Resource
-
-  constructor(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
-    source: Resource,
-  ) {
-    super(executor)
-    this.source = source
+export class Prop<T = unknown> extends Promise<T> implements PromiseLike<T> {
+  static of<T>(value: T | PromiseLike<T>): Prop<T> {
+    const p = new this<T>()
+    p.resolve(value)
+    return p
   }
 
-  // TODO: The casts in this method are due to TypeScript not currently supporting promise unwrapping
-  // They can be removed when TypeScript's `awaited` type lands in an upcoming version
-  // eslint-disable-next-line @typescript-eslint/promise-function-async
-  static wrap<ValueType>(prop: Prop<ValueType>, source: Resource): ReferenceProp<WrappedValueOf<ValueType>> {
-    if (prop instanceof ReferenceProp) {
-      return prop as ReferenceProp<WrappedValueOf<ValueType>>
+  static future<T>(): Prop<T> {
+    return new this<T>()
+  }
+
+  static isProp(value: unknown): value is Prop {
+    return value instanceof this
+  }
+
+  static fromResource<T>(value: T | PromiseLike<T> | Prop<T>, source: Resource): Prop<UnwrapPromiseLike<T>> {
+    const p = new this<UnwrapPromiseLike<T>>(source)
+    // TODO: This type cast is necessary because TypeScript does not currently
+    // capture promise unwrapping, however in an upcoming release it will
+    // support an `awaited` type that will replace this workaround
+    p.resolve(value as UnwrapPromiseLike<T>)
+    return p
+  }
+
+  #source: Resource | undefined
+  #resolved = false
+  #resolve: (value?: T | PromiseLike<T>) => void
+  #reject: (reason?: Error) => void
+
+  protected constructor(source?: Resource) {
+    super((innerResolve, innerReject) => {
+      resolve = innerResolve as (value?: unknown | PromiseLike<unknown>) => void
+      reject = innerReject
+    })
+    this.#source = source
+    this.#resolve = resolve
+    this.#reject = reject
+  }
+
+  get source(): Resource | undefined {
+    return this.#source
+  }
+
+  resolve(value: T | PromiseLike<T>): void {
+    if (this.#resolved) {
+      throw new Error('Prop already resolved')
     }
-    return new ReferenceProp((resolve) => resolve(prop as Prop<WrappedValueOf<ValueType>>), source)
+    this.#resolve(value)
+    this.#resolved = true
+  }
+
+  reject(reason: Error): void {
+    this.#reject(reason)
   }
 }
-
-/** References a value we are predicting will exist after deploy */
-export class PredictedProp<T> extends Promise<T> {}

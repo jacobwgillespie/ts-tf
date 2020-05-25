@@ -1,24 +1,11 @@
-import {DuplicateURNError, keysOf, StringKeyOf} from '@infrascript/types'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {DuplicateURNError, keysOf, StringKeyOf, UnwrapPromiseLike} from '@infrascript/types'
 import is from '@sindresorhus/is'
 import * as fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {Graph} from './Graph'
-import {ReferenceProp, WrappedValueOf} from './Prop'
-
-declare global {
-  namespace Context {
-    interface Data {
-      ctx: CtxData
-    }
-
-    interface CtxData {
-      globalRoot?: RootResource
-      parent?: Resource
-      globalURNs: Set<string>
-    }
-  }
-}
+import {Prop, PropInput} from './Prop'
 
 export class URNContext extends Context {
   #urns = new Set<string>()
@@ -53,18 +40,19 @@ function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
 const resourceSymbol = Symbol('resource')
 const globalRootSymbol = Symbol('globalRoot')
 
-export abstract class Resource<Props extends object = object> {
+export type PropInputObject = Record<string, PropInput<unknown>>
+export abstract class Resource<InputProps extends PropInputObject = any> {
   #urn: string
   #name: string
   #parent: Resource
-  #props: Props
+  #inputProps: InputProps
   #children = new Set<Resource>()
   #childrenURNs = new Set<string>()
   #dependents = new Graph<Resource>()
 
-  constructor(name: string, props: Props | (() => Props)) {
+  constructor(name: string, props: InputProps | (() => InputProps)) {
     this.#name = name
-    this.#props = unwrapPropsFn(props)
+    this.#inputProps = unwrapPropsFn(props)
 
     if (this.$sym === globalRootSymbol) {
       // Set parent to self (we are the global root) and adopt the current context
@@ -83,22 +71,21 @@ export abstract class Resource<Props extends object = object> {
     URNContext.current().register(this.$urn)
 
     // Register any reference props with namespace
-    for (const k of keysOf(this.#props)) {
-      const prop = this.#props[k]
-      if (prop instanceof ReferenceProp) {
+    for (const k of keysOf(this.#inputProps)) {
+      const prop = this.#inputProps[k]
+      if (Prop.isProp(prop) && prop.source) {
         prop.source.#dependents.addEdge(prop.source, this)
       }
     }
   }
 
   protected [inspect.custom](): string {
-    return `Resource ${inspect({$urn: this.$urn, ...this.#props})}`
+    return `Resource ${inspect({$urn: this.$urn, ...this.#inputProps})}`
   }
 
-  // eslint-disable-next-line @typescript-eslint/promise-function-async
-  protected $attr<T extends StringKeyOf<Props>>(key: T): ReferenceProp<WrappedValueOf<Props[T]>> {
-    const prop = this.#props[key]
-    return ReferenceProp.wrap(prop, this)
+  protected $attr<T extends StringKeyOf<InputProps>>(key: T): Prop<UnwrapPromiseLike<InputProps[T]>> {
+    const prop = this.#inputProps[key]
+    return Prop.fromResource(prop, this)
   }
 
   protected get $kind(): string {
