@@ -2,8 +2,8 @@ import prettierConfig from '@infrascript/config-prettier'
 import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
-import {ModuleSchema} from '../types/ModuleSchema'
-import {AttributeType, Block} from '../types/ProvidersSchema'
+import {ModuleSchema} from './types/ModuleSchema'
+import {AttributeType, Block} from './types/ProvidersSchema'
 import {parseTypeString} from './typeStringParser'
 
 type ArrayAttribute<T = AttributeType> = T extends unknown[] ? T : never

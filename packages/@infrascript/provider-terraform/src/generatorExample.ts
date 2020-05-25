@@ -5,7 +5,7 @@ import 'source-map-support/register'
 import fastCase from 'fast-case'
 import fs from 'fs-extra'
 import path from 'path'
-import {buildBlockInterface} from './terraform/types'
+import {buildBlockInterface} from './generator'
 import {ProvidersSchema} from './types/ProvidersSchema'
 import {formatTypeScript} from './prettier'
 
