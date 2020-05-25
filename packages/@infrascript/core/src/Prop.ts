@@ -2,7 +2,7 @@ import {UnwrapPromiseLike} from '@infrascript/types'
 import {Resource} from './Resource'
 
 export type UnwrapProp<T> = T extends Prop<infer U> ? U : T
-export type PropInput<T> = T | PromiseLike<T>
+export type Input<T> = T | PromiseLike<T>
 
 // These globals temporarily hold inner promise executor references
 let resolve: (value?: unknown | PromiseLike<unknown>) => void

@@ -5,7 +5,7 @@ import * as fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {Graph} from './Graph'
-import {Prop, PropInput} from './Prop'
+import {Prop, Input} from './Prop'
 
 export class URNContext extends Context {
   #urns = new Set<string>()
@@ -40,7 +40,7 @@ function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
 const resourceSymbol = Symbol('resource')
 const globalRootSymbol = Symbol('globalRoot')
 
-export type PropInputObject = Record<string, PropInput<unknown>>
+export type PropInputObject = Record<string, Input<unknown>>
 export abstract class Resource<InputProps extends PropInputObject = any> {
   #urn: string
   #name: string

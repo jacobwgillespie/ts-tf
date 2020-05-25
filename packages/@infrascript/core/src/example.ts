@@ -4,11 +4,11 @@ import {prettyPrintError} from '@infrascript/ui'
 import {Context} from './Context'
 import {Namespace} from './Namespace'
 import {globalRoot, ResourceContext, URNContext, Resource} from './Resource'
-import {Prop, PropInput} from './Prop'
+import {Prop, Input} from './Prop'
 
 type ExampleResource1Inputs = {
-  prop1: PropInput<number>
-  prop2: PropInput<string>
+  prop1: Input<number>
+  prop2: Input<string>
 }
 
 export class ExampleResource1 extends Resource<ExampleResource1Inputs> {
@@ -22,8 +22,8 @@ export class ExampleResource1 extends Resource<ExampleResource1Inputs> {
 }
 
 type ExampleResource2Inputs = {
-  prop1: PropInput<number>
-  prop2: PropInput<string>
+  prop1: Input<number>
+  prop2: Input<string>
 }
 
 export class ExampleResource2 extends Resource<ExampleResource2Inputs> {
