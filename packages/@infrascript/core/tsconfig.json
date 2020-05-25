@@ -8,11 +8,15 @@
   "include": [
     "src"
   ],
-  "references": [{
-    "path": "../config-typescript"
-  }, {
-    "path": "../types"
-  }, {
-    "path": "../ui"
-  }]
+  "references": [
+    {
+      "path": "../config-typescript"
+    },
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../ui"
+    }
+  ]
 }

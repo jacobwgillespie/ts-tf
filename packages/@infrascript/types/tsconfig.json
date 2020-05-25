@@ -8,7 +8,9 @@
   "include": [
     "src"
   ],
-  "references": [{
-    "path": "../config-typescript"
-  }]
+  "references": [
+    {
+      "path": "../config-typescript"
+    }
+  ]
 }

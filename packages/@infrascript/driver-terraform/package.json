@@ -39,6 +39,7 @@
     "@types/prettier": "^2.0.1",
     "fast-case": "^1.4.0",
     "fs-extra": "^9.0.0",
+    "lerna": "^3.21.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.3"
   },
