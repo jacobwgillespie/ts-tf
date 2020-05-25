@@ -1,37 +1,19 @@
-import prettierConfig from '@infrascript/config-prettier'
-import is from '@sindresorhus/is'
-import fastCase from 'fast-case'
-import prettier from 'prettier'
-import {ModuleSchema} from './types/ModuleSchema'
-import {AttributeType, Block} from './types/ProvidersSchema'
-import {parseTypeString} from './typeStringParser'
-
-type ArrayAttribute<T = AttributeType> = T extends unknown[] ? T : never
-
-function tfArrayTypeToTSType(type: ArrayAttribute): string {
-  switch (type[0]) {
-    case 'list':
-      return `Array<${tfTypeToTSType(type[1])}>`
-
-    case 'map':
-      return `Record<string, ${tfTypeToTSType(type[1])}>`
-
-    case 'object': {
-      const keys = Object.keys(type[1])
-      const inside = keys.map((key) => `"${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
-      return `{${inside}}`
-    }
-
-    case 'set':
-      return `Set<${tfTypeToTSType(type[1])}>`
-  }
-}
+import * as fastCase from 'fast-case'
+import {formatTypeScript} from './prettier'
+import {
+  Attribute,
+  AttributeType,
+  Block,
+  NestedBlockMetadata,
+  NestingMode,
+  SchemaRepresentation,
+} from './types/ProvidersSchema'
 
 export function tfTypeToTSType(type: AttributeType): string {
   // Parse the simple types
   switch (type) {
     case 'any':
-      // TODO: is this ever used? Can we remove or return a generic type?
+      // TODO: can we generate a generic type?
       return 'unknown'
 
     case 'bool':
@@ -44,90 +26,160 @@ export function tfTypeToTSType(type: AttributeType): string {
       return 'string'
 
     default:
-      return tfArrayTypeToTSType(type)
+      switch (type[0]) {
+        case 'list':
+          return `Array<${tfTypeToTSType(type[1])}>`
+
+        case 'map':
+          return `Record<string, ${tfTypeToTSType(type[1])}>`
+
+        case 'object': {
+          const keys = Object.keys(type[1])
+          const inside = keys.map((key) => `"${key}": ${tfTypeToTSType(type[1][key])}`).join('; ')
+          return `{${inside}}`
+        }
+
+        case 'set':
+          return `Set<${tfTypeToTSType(type[1])}>`
+      }
   }
 }
 
-function buildBlockAttributes(block: Block, argumentsOnly = false): string[] {
+function nestingModeToTSType(nestingMode: NestingMode): [string, string] {
+  switch (nestingMode) {
+    case 'list':
+      return ['Array<', '>']
+
+    case 'map':
+      return ['Record<string, ', '>']
+
+    case 'set':
+      return ['Set<', '>']
+
+    case 'group':
+    case 'single':
+      return ['', '']
+  }
+}
+
+function parseNestedBlock(terraformName: string, metadata: NestedBlockMetadata): TypeScriptNestedBlock {
+  const optional = metadata.min_items === undefined || metadata.min_items === 0 ? true : false
+
+  // If this can only allow a single item, treat it as a single type
+  const tsType = metadata.max_items === 1 ? nestingModeToTSType('single') : nestingModeToTSType(metadata.nesting_mode)
+  const innerBlock = parseBlock(metadata.block)
+  return {
+    ...metadata,
+    ...innerBlock,
+    name: fastCase.camelize(terraformName),
+    tfName: terraformName,
+    tsType,
+    optional,
+  }
+}
+
+export interface TypeScriptAttribute extends Attribute {
+  name: string
+  tfName: string
+  tsType: string
+}
+
+interface TypeScriptNestedBlock extends BlockMetadata, NestedBlockMetadata {
+  name: string
+  tfName: string
+  tsType: [string, string]
+  optional: boolean
+}
+
+interface BlockMetadata {
+  attributes: TypeScriptAttribute[]
+  blocks: TypeScriptNestedBlock[]
+}
+
+export function parseBlock(block: Block): BlockMetadata {
+  const metadata: BlockMetadata = {
+    attributes: [],
+    blocks: [],
+  }
+
   const blockAttributes = block.attributes ?? {}
   const attributeKeys = Object.keys(blockAttributes)
-  const validAttributeKeys =
-    block.attributes != undefined && argumentsOnly
-      ? Object.keys(block.attributes).filter((attributeName) => {
-          const attribute = blockAttributes[attributeName]
-          return attribute.required || (attribute.optional && attributeName !== 'id')
-        })
-      : attributeKeys
 
-  const interfaceAttributes = validAttributeKeys.flatMap((attributeName) => {
+  attributeKeys.forEach((attributeName) => {
     const attribute = blockAttributes[attributeName]
-    const modifier =
-      (argumentsOnly && (attribute.computed || attribute.optional)) ||
-      (!argumentsOnly && !attribute.computed && !attribute.required)
-        ? '?:'
-        : ':'
-    const interfaceAttribute = `"${attributeName}"${modifier} ${tfTypeToTSType(attribute.type)}`
-    return attribute.description !== undefined
-      ? [`/** ${attribute.description} */`, interfaceAttribute]
-      : interfaceAttribute
+    metadata.attributes.push({
+      ...attribute,
+      name: fastCase.camelize(attributeName),
+      tfName: attributeName,
+      tsType: tfTypeToTSType(attribute.type),
+    })
   })
 
   const blockTypes = block.block_types
-  const interfaceBlockAttributes =
-    argumentsOnly && blockTypes !== undefined
-      ? Object.keys(blockTypes).map((nestedBlockName) => {
-          const nestedBlock = blockTypes[nestedBlockName]
-          const modifier = is.number(nestedBlock.min_items) && nestedBlock.min_items > 0 ? ':' : '?:'
-          const inner = buildBlockAttributes(nestedBlock.block, argumentsOnly).join('\n')
-
-          switch (nestedBlock.nesting_mode) {
-            case 'list':
-              return `"${nestedBlockName}"${modifier} Array<{\n${inner}\n}>`
-
-            case 'map':
-              return `"${nestedBlockName}"${modifier} Record<string, {\n${inner}\n}>`
-
-            case 'set':
-              return `"${nestedBlockName}"${modifier} Set<{\n${inner}\n}>`
-
-            case 'group':
-            case 'single':
-              return `"${nestedBlockName}"${modifier} {\n${inner}\n}`
-          }
-        })
-      : []
-
-  return [...interfaceAttributes, ...interfaceBlockAttributes]
-}
-
-export function buildBlockInterface(name: string, block: Block, argumentsOnly = false): {name: string; code: string} {
-  const interfaceAttributes = buildBlockAttributes(block, argumentsOnly)
-  const interfaceName = `${fastCase.pascalize(name)}${argumentsOnly ? 'Arguments' : 'Attributes'}`
-
-  return {
-    name: interfaceName,
-    code: format(`interface ${interfaceName} {\n${interfaceAttributes.join('\n')}\n}`),
+  if (blockTypes !== undefined) {
+    Object.keys(blockTypes).forEach((nestedBlockName) => {
+      const nestedBlock = blockTypes[nestedBlockName]
+      metadata.blocks.push(parseNestedBlock(nestedBlockName, nestedBlock))
+    })
   }
+
+  return metadata
 }
 
-export function buildModuleVariableInterface(name: string, schema: ModuleSchema): {name: string; code: string} {
-  const interfaceAttributes = Object.keys(schema.variables).flatMap((variableName) => {
-    const variable = schema.variables[variableName]
-    const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'
-    const modifier = typeof variable.default === 'undefined' ? ':' : '?:'
-    const interfaceAttribute = `"${variableName}"${modifier} ${tfTypeToTSType(variableType)}`
-    return variable.description != undefined
-      ? [`/** ${variable.description} */`, interfaceAttribute]
-      : interfaceAttribute
+function attributesToInterfaceProperty(attributes: TypeScriptAttribute[]) {
+  return attributes
+    .filter((attribute) => !attribute.computed)
+    .map((attribute) => {
+      const description = attribute.description === undefined ? '' : `/** ${attribute.description} */\n`
+      const modifier = attribute.required ? ':' : '?:'
+      return `${description}${attribute.name}${modifier} Prop<${attribute.tsType}>`
+    })
+}
+
+export function generateResourceClass(resourceName: string, resource: SchemaRepresentation): string {
+  const block = parseBlock(resource.block)
+
+  const propsInterfaceAttributes = attributesToInterfaceProperty(block.attributes)
+
+  const propsInterfaceBlocks = block.blocks.map((nestedBlock) => {
+    const innerAttributes = attributesToInterfaceProperty(nestedBlock.attributes)
+
+    const modifier = nestedBlock.optional ? '?:' : ':'
+    let [wrapBefore, wrapAfter] = nestedBlock.tsType
+    if (wrapBefore !== '') wrapBefore = `${wrapBefore}Prop<`
+    if (wrapAfter !== '') wrapAfter = `>${wrapAfter}`
+    return `${nestedBlock.name}${modifier} Prop<${wrapBefore}{${innerAttributes.join('\n')}}${wrapAfter}>`
   })
 
-  const interfaceName = `${fastCase.pascalize(name)}Arguments`
-  return {
-    name: interfaceName,
-    code: format(`interface ${interfaceName} {\n${interfaceAttributes.join('\n')}\n}`),
-  }
-}
+  const propsInterface = `interface ${resourceName}Props {
+        ${propsInterfaceAttributes.join('\n')}
+        ${propsInterfaceBlocks.join('\n')}
+      }`
 
-function format(code: string): string {
-  return prettier.format(code, {...prettierConfig, parser: 'typescript'})
+  const props = block.attributes.map((attribute) => {
+    const description = attribute.description === undefined ? '' : `/** ${attribute.description} */\n`
+
+    if (attribute.computed === true) {
+      if (attribute.optional === true) {
+        return `${description}${attribute.name}: Prop<${attribute.tsType}> = new ReferenceProp((r) => r({} as any), this)`
+      }
+
+      return `${description}get ${attribute.name}(): Prop<${attribute.tsType}> { return new ReferenceProp((r) => r({} as any), this) }`
+    }
+
+    return `${description}${attribute.name} = this.$attr('${attribute.name}')`
+  })
+
+  return formatTypeScript(`
+import {Prop, ReferenceProp} from '@infrascript/core'
+import {TerraformResource} from '../../TerraformResource'
+
+${propsInterface}
+
+export class ${resourceName} extends TerraformResource<${resourceName}Props> {
+  ${props.join('\n\n')}
+
+  __metadata = ${JSON.stringify(block)}
+}
+`)
 }

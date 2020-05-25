@@ -25,13 +25,17 @@ export interface Block {
     [attributeName: string]: Attribute
   }
   block_types?: {
-    [blockName: string]: {
-      nesting_mode: 'single' | 'group' | 'list' | 'set' | 'map'
-      block: Block
-      min_items?: number
-      max_items?: number
-    }
+    [blockName: string]: NestedBlockMetadata
   }
+}
+
+export type NestingMode = 'single' | 'group' | 'list' | 'set' | 'map'
+
+export interface NestedBlockMetadata {
+  nesting_mode: NestingMode
+  block: Block
+  min_items?: number
+  max_items?: number
 }
 
 export type AttributeType =
