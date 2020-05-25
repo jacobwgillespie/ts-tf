@@ -1,10 +1,10 @@
-import {keysOf, StringKeyOf, DuplicateURNError} from '@infrascript/types'
+import {DuplicateURNError, keysOf, StringKeyOf} from '@infrascript/types'
 import is from '@sindresorhus/is'
 import * as fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
 import {Graph} from './Graph'
-import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
+import {ReferenceProp, WrappedValueOf} from './Prop'
 
 declare global {
   namespace Context {
@@ -69,7 +69,6 @@ export abstract class Resource<Props extends object = object> {
     if (this.$sym === globalRootSymbol) {
       // Set parent to self (we are the global root) and adopt the current context
       this.#parent = this
-      // console.log(Zone.current)
       ResourceContext.current().parent = this
     } else {
       // Register this resource with the current context's parent
@@ -167,34 +166,4 @@ class RootResource extends Resource<{}> {
 /** globalRoot returns the global root resource for the current context */
 export function globalRoot(): RootResource {
   return RootResource.instance
-}
-
-interface ExampleResource1Props {
-  prop1: Prop<number>
-  prop2: Prop<string>
-}
-
-export class ExampleResource1 extends Resource<ExampleResource1Props> {
-  get prop1(): ReferenceProp<number> {
-    return this.$attr('prop1')
-  }
-
-  get prop2(): ReferenceProp<string> {
-    return this.$attr('prop2')
-  }
-}
-
-interface ExampleResource2Props {
-  prop1: Prop<number>
-  prop2: Prop<string>
-}
-
-export class ExampleResource2 extends Resource<ExampleResource2Props> {
-  get prop1(): ReferenceProp<number> {
-    return this.$attr('prop1')
-  }
-
-  get prop2(): ReferenceProp<string> {
-    return this.$attr('prop2')
-  }
 }
