@@ -4,6 +4,4 @@
 dist/
 node_modules/
 tmp/
-
-src/__generated__
-/providers.json
+__generated__/

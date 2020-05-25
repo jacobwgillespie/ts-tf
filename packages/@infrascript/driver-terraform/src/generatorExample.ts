@@ -7,7 +7,7 @@ import {generateResourceClass} from './generator'
 import {ProvidersSchema} from './types/ProvidersSchema'
 
 async function run(): Promise<void> {
-  const schema = (await fs.readJSON('providers.json')) as ProvidersSchema
+  const schema = (await fs.readJSON('schema.json')) as ProvidersSchema
 
   for (const providerName of Object.keys(schema.provider_schemas)) {
     const providerSchema = schema.provider_schemas[providerName]
