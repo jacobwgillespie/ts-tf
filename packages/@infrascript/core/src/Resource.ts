@@ -21,7 +21,28 @@ declare global {
   }
 }
 
-const ctx = Context.for('ctx', {globalURNs: new Set()})
+export class URNContext extends Context {
+  #urns = new Set<string>()
+
+  register(urn: string): void {
+    if (this.#urns.has(urn)) {
+      throw new DuplicateURNError(urn)
+    }
+    this.#urns.add(urn)
+  }
+}
+
+export class ResourceContext extends Context {
+  globalRoot: RootResource | undefined = undefined
+  parent: Resource | undefined = undefined
+
+  clone(): ResourceContext {
+    const clone = new ResourceContext()
+    clone.globalRoot = this.globalRoot
+    clone.parent = this.parent
+    return clone
+  }
+}
 
 function unwrapPropsFn<Props>(props: Props | (() => Props)): Props {
   if (is.function_(props)) {
@@ -49,10 +70,11 @@ export abstract class Resource<Props extends object = object> {
     if (this.$sym === globalRootSymbol) {
       // Set parent to self (we are the global root) and adopt the current context
       this.#parent = this
-      ctx.set('parent', this)
+      // console.log(Zone.current)
+      ResourceContext.current().parent = this
     } else {
       // Register this resource with the current context's parent
-      this.#parent = ctx.get('parent') ?? globalRoot()
+      this.#parent = ResourceContext.get((ctx) => ctx.parent, undefined) ?? globalRoot()
       this.#parent.#children.add(this)
       this.#parent.#childrenURNs.add(this.$urn)
       this.#parent.#dependents.addEdge(this.#parent, this)
@@ -60,11 +82,7 @@ export abstract class Resource<Props extends object = object> {
 
     this.#urn = `${this.#parent.$urn}${this.#parent.isRoot ? '://' : '/'}${this.$kind}:${this.$name}`
 
-    const globalURNs = ctx.get('globalURNs')
-    if (globalURNs.has(this.$urn)) {
-      throw new DuplicateURNError(this.$urn)
-    }
-    globalURNs.add(this.$urn)
+    URNContext.current().register(this.$urn)
 
     // Register any reference props with namespace
     for (const k of keysOf(this.#props)) {
@@ -117,8 +135,9 @@ export abstract class Resource<Props extends object = object> {
   }
 
   async $asParent(fn: () => void | Promise<void>): Promise<void> {
-    await ctx.run(async () => {
-      ctx.set('parent', this)
+    const childContext = ResourceContext.current().clone()
+    await childContext.run(async () => {
+      ResourceContext.current().parent = this
       return await fn()
     })
   }
@@ -127,12 +146,12 @@ export abstract class Resource<Props extends object = object> {
 /** RootResource is the root of all resources within a context */
 class RootResource extends Resource<{}> {
   static get instance(): RootResource {
-    return ctx.get('globalRoot') ?? new RootResource()
+    return ResourceContext.get((ctx) => ctx.globalRoot, undefined) ?? new RootResource()
   }
 
   private constructor() {
     super('root', {})
-    ctx.set('globalRoot', this)
+    ResourceContext.current().globalRoot = this
   }
 
   protected get $sym(): symbol {

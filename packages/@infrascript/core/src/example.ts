@@ -4,8 +4,9 @@ import 'source-map-support/register'
 import {codeFrameColumns} from '@babel/code-frame'
 import {parse as parseErrorStack} from 'error-stack-parser'
 import fs from 'fs-extra'
+import {Context} from './Context'
 import {Namespace} from './Namespace'
-import {ExampleResource1, ExampleResource2, globalRoot} from './Resource'
+import {ExampleResource1, ExampleResource2, globalRoot, ResourceContext, URNContext} from './Resource'
 
 async function run() {
   const r1 = new ExampleResource1('resource', {prop1: 1, prop2: '2'})
@@ -21,8 +22,8 @@ async function run() {
   })
 
   const graph = globalRoot().$dependentsGraph
-  console.log('nodes', graph.nodes())
-  console.log('edges', graph.edges())
+  // console.log('nodes', graph.nodes())
+  // console.log('edges', graph.edges())
   console.log(graph.dot((n) => n.$urn))
 }
 
@@ -30,7 +31,10 @@ function indent(count: number, source: string): string {
   return source.replace(/^(?!\s*$)/gm, ' '.repeat(count))
 }
 
-run().catch(async (error: Error) => {
+const resourceCtx = new ResourceContext()
+const urnContext = new URNContext()
+
+Context.runWithAll([resourceCtx, urnContext], run).catch(async (error: Error) => {
   console.error(`ERROR: ${error.message}`)
   const stack = parseErrorStack(error)
   for (const line of stack) {

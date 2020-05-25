@@ -1,206 +1,82 @@
-import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
-import {inspect} from 'util'
-import {ContextMissingError, DuplicateContextDataError, InfraScriptError} from './errors'
-import {isPromise, StringKeyOf} from './utils'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-const ERROR_CONTEXT: unique symbol = Symbol('ERROR_CONTEXT')
+import {Zone} from './Zone'
 
-// This interface constrains the map keys to only store their corresponding Context instance type
-interface ContextMap extends Map<ContextName, Context<ContextName>> {
-  get: <K extends ContextName>(key: K) => Context<K> | undefined
-  set: <K extends ContextName>(key: K, value: Context<K>) => this
-}
+const CONTEXT_KEY = 'infrascript:context'
 
-declare global {
-  interface Error {
-    [ERROR_CONTEXT]?: ContextMap
-  }
+export class Context {
+  static stack<T extends typeof Context>(this: T): InstanceType<T>[] {
+    const stack: InstanceType<T>[] = []
 
-  namespace Context {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Data {}
-  }
-}
+    let zone: Zone | null = Zone.current
+    while (zone) {
+      const definingZone = zone.getZoneWith(CONTEXT_KEY)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const context = zone.get(CONTEXT_KEY)
 
-type ContextName = StringKeyOf<Context.Data>
-type ContextData<Name extends ContextName> = Context.Data[Name]
-
-const allContexts = new Map<string, Context<ContextName>>() as ContextMap
-
-export class Context<Name extends ContextName> {
-  #name: Name
-  #receivedInitialData = false
-  #currentLayer?: ContextData<Name>
-  #parentLayers: ContextData<Name>[] = []
-  #asyncExecutionLayers = new Map<number, ContextData<Name>>()
-
-  static for<Name extends ContextName>(name: Name, initialData?: ContextData<Name>): Context<Name> {
-    // If this context already exists, return the existing one
-    const ctx = allContexts.get(name)
-
-    if (ctx === undefined) {
-      return new Context(name, initialData)
-    }
-
-    if (initialData !== undefined) {
-      if (ctx.#receivedInitialData) {
-        throw new DuplicateContextDataError(ctx.name)
+      if (definingZone === zone && context instanceof this) {
+        stack.push(context as InstanceType<T>)
       }
-      ctx.#currentLayer = ctx.#createLayer(initialData)
-      ctx.#receivedInitialData = true
+
+      zone = zone.parent
     }
 
-    return ctx
+    return stack
   }
 
-  static fromError<Name extends ContextName>(name: Name, error: Error): Context<Name> | undefined {
-    return error?.[ERROR_CONTEXT]?.get(name)
-  }
+  static current<T extends typeof Context>(this: T): InstanceType<T> {
+    const currentContext = this.stack()[0] as InstanceType<T> | undefined
 
-  private constructor(name: Name, initialData?: ContextData<Name>) {
-    this.#name = name
-
-    allContexts.set(name, this)
-
-    if (initialData !== undefined) {
-      this.#currentLayer = this.#createLayer(initialData)
-      this.#receivedInitialData = true
+    if (currentContext === undefined) {
+      throw new Error('missing context')
     }
 
-    const hook = createHook({
-      init: (asyncID) => {
-        if (this.#currentLayer !== undefined) {
-          this.#asyncExecutionLayers.set(asyncID, this.#currentLayer)
-        } else if (executionAsyncId() === 0) {
-          // executionAsyncId() is 0 when triggered from C++ (no JS context above)
-          // https://github.com/nodejs/node/blob/master/doc/api/async_hooks.md#triggerasyncid
-          const triggerAsyncID = triggerAsyncId()
-          const triggerLayer = this.#asyncExecutionLayers.get(triggerAsyncID)
-          if (triggerLayer !== undefined) {
-            this.#asyncExecutionLayers.set(asyncID, triggerLayer)
-          }
-        }
-      },
-      before: (asyncID) => {
-        const context = this.#asyncExecutionLayers.get(asyncID)
-        if (context !== undefined) {
-          this.#enter(context)
-        }
-      },
-      after: (asyncID) => {
-        const context = this.#asyncExecutionLayers.get(asyncID)
-        if (context !== undefined) {
-          this.#exit(context)
-        }
-      },
-      destroy: (asyncID) => {
-        this.#asyncExecutionLayers.delete(asyncID)
-      },
+    return currentContext
+  }
+
+  static get<T extends typeof Context, R>(
+    this: T,
+    fn: (current: InstanceType<T>) => R,
+    defaultValue?: R,
+  ): R | undefined {
+    const currentContext = this.stack()[0] as InstanceType<T> | undefined
+    if (currentContext !== undefined) {
+      return fn(currentContext)
+    }
+
+    if (defaultValue !== undefined) {
+      return defaultValue
+    }
+
+    return undefined
+  }
+
+  static runWithAll<C extends Context[], T>(contexts: C, fn: () => T): T {
+    return [...contexts].reverse().reduce((runWithAll, context) => (): T => context.run(runWithAll), fn)()
+  }
+
+  #activeExecutions = 0
+
+  get activeExecutions(): number {
+    return this.#activeExecutions
+  }
+
+  hasActiveExecutions(): boolean {
+    return this.#activeExecutions === 0
+  }
+
+  run<T>(fn: () => T): T {
+    const contextZone = Zone.fork('InfraScriptContext', {
+      [CONTEXT_KEY]: this,
     })
-    hook.enable()
-  }
 
-  protected [inspect.custom](): string {
-    return `Resource ${inspect(this.#currentLayer)}`
-  }
-
-  get name(): string {
-    return this.#name
-  }
-
-  get<Key extends keyof ContextData<Name>>(key: Key): ContextData<Name>[Key] {
-    if (this.#currentLayer === undefined) {
-      throw new ContextMissingError()
-    }
-    return this.#currentLayer[key]
-  }
-
-  set<Key extends keyof ContextData<Name>>(key: Key, value: ContextData<Name>[Key]): ContextData<Name>[Key] {
-    if (this.#currentLayer === undefined) {
-      throw new ContextMissingError()
-    }
-    this.#currentLayer[key] = value
-    return value
-  }
-
-  run<T>(fn: () => T): T
-  run<T>(fn: Promise<T>): Promise<T>
-  run<T>(fn: (() => T) | Promise<T>): T | Promise<T> {
-    const layer = this.#createLayer()
-    this.#enter(layer)
-
-    if (isPromise<T>(fn)) {
-      return fn
-        .then((result) => {
-          this.#exit(layer)
-          return result
-        })
-        .catch((error: Error) => {
-          this.#exit(layer)
-          throw this.#wrapError(error)
-        })
-    }
-
-    try {
-      return fn()
-    } catch (error) {
-      throw this.#wrapError(error as Error)
-    } finally {
-      this.#exit(layer)
-    }
-  }
-
-  bindLayer<T, A extends unknown[]>(fn: (...args: A) => T): (...args: A) => T {
-    const layer = this.#currentLayer ?? this.#createLayer()
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const ctx = this
-    return function (this: unknown): T {
-      ctx.#enter(layer)
+    return contextZone.run(() => {
+      this.#activeExecutions += 1
       try {
-        // eslint-disable-next-line prefer-rest-params
-        return Reflect.apply(fn, this, arguments) as T
-      } catch (error) {
-        throw ctx.#wrapError(error as Error)
+        return fn()
       } finally {
-        ctx.#exit(layer)
+        this.#activeExecutions -= 1
       }
-    }
-  }
-
-  destroy(): void {
-    allContexts.delete(this.#name)
-  }
-
-  #enter = (layer: ContextData<Name>): void => {
-    if (this.#currentLayer !== undefined) {
-      this.#parentLayers.push(this.#currentLayer)
-    }
-    this.#currentLayer = layer
-  }
-
-  #exit = (layer: ContextData<Name>): void => {
-    if (this.#currentLayer === layer) {
-      const nextActive = this.#parentLayers.pop()
-      this.#currentLayer = nextActive
-      return
-    }
-
-    const index = this.#parentLayers.lastIndexOf(layer)
-    if (index < 0) {
-      throw new InfraScriptError('Unable to exit context')
-    }
-
-    this.#parentLayers.splice(index, 1)
-  }
-
-  #createLayer = (source: ContextData<Name> | undefined = this.#currentLayer): ContextData<Name> => {
-    return Object.create(source !== undefined ? source : Object.prototype) as ContextData<Name>
-  }
-
-  #wrapError = (error: Error): Error => {
-    const errorContext = error[ERROR_CONTEXT] ?? new Map()
-    errorContext.set(this.#name, this)
-    error[ERROR_CONTEXT] = errorContext
-    return error
+    })
   }
 }

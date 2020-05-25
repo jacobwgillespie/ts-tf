@@ -124,7 +124,9 @@ const eslintConfig: Linter.BaseConfig = {
     'node/no-path-concat': 'error',
 
     'unicorn/no-nested-ternary': 'off',
+    'unicorn/no-null': 'off',
     'unicorn/no-process-exit': 'off',
+    'unicorn/no-useless-undefined': 'off',
     'unicorn/prevent-abbreviations': 'off',
 
     // remove later
