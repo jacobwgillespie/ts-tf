@@ -1,8 +1,4 @@
-type StringKeyOf<T> = Extract<keyof T, string>
-
-function keysOf<T extends object>(value: T): StringKeyOf<T>[] {
-  return (Object.keys(value) as unknown) as StringKeyOf<T>[]
-}
+import {isPlainObject, keysOf, StringKeyOf} from '@infrascript/types'
 
 export type AttrOrRefInner<T> = T extends object ? T | ArgumentsOrReferences<T> : T
 
@@ -24,10 +20,6 @@ export class AttributeReference<T> {
   render(): string {
     return `\${${this.#parent.__kind}.${this.#parent.__name}.${this.name}}`
   }
-}
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && value.constructor === Object
 }
 
 function unwrapArray<T>(value: Array<T | AttributeReference<T>>): unknown[] {

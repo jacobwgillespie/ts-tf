@@ -1,13 +1,13 @@
 /* eslint-disable unicorn/no-abusive-eslint-disable */
 /* eslint-disable */
 
-import {ProvidersSchema} from '@infrascript/types'
-import fs from 'fs-extra'
 import 'source-map-support/register'
-import {buildBlockInterface} from './terraform/types'
-import path from 'path'
-import {formatTypeScript} from './utils'
 import fastCase from 'fast-case'
+import fs from 'fs-extra'
+import path from 'path'
+import {buildBlockInterface} from './terraform/types'
+import {ProvidersSchema} from './types/ProvidersSchema'
+import {formatTypeScript} from './prettier'
 
 async function run(): Promise<void> {
   const schema: ProvidersSchema = await fs.readJSON('providers.json')

@@ -1,10 +1,7 @@
-import {InfraScriptError} from './errors'
+import {StringKeyOf} from './types'
 
-export type StringKeyOf<T> = Extract<keyof T, string>
-
-export function assertNever(val: never): never {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  throw new InfraScriptError(`Unexpected value: ${val}`)
+export function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && value.constructor === Object
 }
 
 export function isPromise<T>(value: unknown): value is Promise<T> {

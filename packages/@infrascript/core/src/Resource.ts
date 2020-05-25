@@ -1,11 +1,10 @@
+import {keysOf, StringKeyOf, DuplicateURNError} from '@infrascript/types'
 import is from '@sindresorhus/is'
 import * as fastCase from 'fast-case'
 import {inspect} from 'util'
 import {Context} from './Context'
-import {DuplicateURNError} from './errors'
 import {Graph} from './Graph'
 import {Prop, ReferenceProp, WrappedValueOf} from './Prop'
-import {keysOf, StringKeyOf} from './utils'
 
 declare global {
   namespace Context {

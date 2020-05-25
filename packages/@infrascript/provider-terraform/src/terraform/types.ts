@@ -1,8 +1,9 @@
 import prettierConfig from '@infrascript/config-prettier'
-import {AttributeType, Block, ConfigSchema} from '@infrascript/types'
 import is from '@sindresorhus/is'
 import fastCase from 'fast-case'
 import prettier from 'prettier'
+import {ModuleSchema} from '../types/ModuleSchema'
+import {AttributeType, Block} from '../types/ProvidersSchema'
 import {parseTypeString} from './typeStringParser'
 
 type ArrayAttribute<T = AttributeType> = T extends unknown[] ? T : never
@@ -109,7 +110,7 @@ export function buildBlockInterface(name: string, block: Block, argumentsOnly = 
   }
 }
 
-export function buildModuleVariableInterface(name: string, schema: ConfigSchema): {name: string; code: string} {
+export function buildModuleVariableInterface(name: string, schema: ModuleSchema): {name: string; code: string} {
   const interfaceAttributes = Object.keys(schema.variables).flatMap((variableName) => {
     const variable = schema.variables[variableName]
     const variableType = variable.type != undefined ? parseTypeString(variable.type) : 'any'

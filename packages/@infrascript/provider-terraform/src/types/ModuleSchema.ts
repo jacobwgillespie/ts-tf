@@ -1,4 +1,4 @@
-export interface ConfigSchema {
+export interface ModuleSchema {
   path: string
   variables: Record<string, Variable>
   outputs: Record<string, Output>

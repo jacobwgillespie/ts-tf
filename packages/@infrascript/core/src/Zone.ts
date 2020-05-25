@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import {InfraScriptError, isPromise} from '@infrascript/types'
 import {createHook, executionAsyncId, triggerAsyncId} from 'async_hooks'
 import {inspect} from 'util'
-import {InfraScriptError} from './errors'
-import {isPromise} from './utils'
 
 const ERROR_ZONE: unique symbol = Symbol('Error.zone')
 

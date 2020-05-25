@@ -12,5 +12,7 @@
     "path": "../@infrascript/config-typescript"
   }, {
     "path": "../@infrascript/config-eslint"
+  }, {
+    "path": "../@infrascript/types"
   }]
 }
