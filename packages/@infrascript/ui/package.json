@@ -1,11 +1,8 @@
 {
-  "name": "@infrascript/core",
+  "name": "@infrascript/ui",
   "version": "0.0.3",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": ">=12.0.0"
-  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -21,24 +18,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@infrascript/types": "0.0.3",
-    "@infrascript/ui": "0.0.3",
-    "@sindresorhus/is": "^2.1.1",
-    "fast-case": "^1.4.0",
+    "@babel/code-frame": "^7.8.3",
+    "error-stack-parser": "^2.0.6",
     "source-map-support": "^0.5.19",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ampproject/rollup-plugin-closure-compiler": "^0.25.2",
     "@infrascript/config-typescript": "0.0.3",
-    "@rollup/plugin-commonjs": "^12.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
+    "@types/babel__code-frame": "^7.0.1",
     "@types/node": "^12",
-    "@wessberg/rollup-plugin-ts": "^1.2.24",
-    "rollup": "^2.10.9",
-    "rollup-plugin-dts": "^1.4.7",
-    "rollup-plugin-node-externals": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.27.1",
     "typescript": "^3.9.3"
   },
   "funding": {
