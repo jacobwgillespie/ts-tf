@@ -1,5 +1,5 @@
 {
-  "name": "@infrascript/provider-terraform",
+  "name": "@infrascript/driver-terraform",
   "version": "0.0.3",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",

@@ -7,7 +7,7 @@
       "path": "packages/@infrascript/core"
     },
     {
-      "path": "packages/@infrascript/provider-terraform"
+      "path": "packages/@infrascript/driver-terraform"
     }
   ],
   "include": []
