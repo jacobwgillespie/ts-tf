@@ -13,7 +13,10 @@ export function prettyPrintError(error: Error): void {
 
     const resolvedPath = fileName !== undefined ? path.resolve(fileName) : undefined
     const isLocalSourceFile =
-      (resolvedPath?.startsWith(process.cwd()) && !resolvedPath.includes('/node_modules/')) ?? false
+      (resolvedPath?.startsWith(process.cwd()) &&
+        !resolvedPath.includes('/node_modules/') &&
+        fs.existsSync(resolvedPath)) ??
+      false
 
     if (
       isLocalSourceFile &&

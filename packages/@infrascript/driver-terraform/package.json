@@ -4,7 +4,7 @@
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=12.17.0"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
