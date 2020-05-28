@@ -58,8 +58,7 @@ async function* run() {
   const r2 = new ExampleResource2('resource2', {prop1: 1, prop2: r1.prop2})
   yield r2
 
-  const customNamespace = new Namespace('custom')
-  yield customNamespace.$run(function* () {
+  yield new Namespace('custom', async function* () {
     const r3 = new ExampleResource1('resource', {prop1: 1, prop2: Promise.resolve('2')})
     yield r3
   })

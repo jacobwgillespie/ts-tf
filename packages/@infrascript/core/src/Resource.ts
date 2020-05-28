@@ -132,7 +132,7 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
     })
   }
 
-  $run<T>(fn: () => Generator<T, void, any> | AsyncGenerator<T, void, any>): AsyncGenerator<T, void, any> {
+  $run<T>(fn: () => Generator<T> | AsyncGenerator<T>): AsyncGenerator<T> {
     const childContext = ResourceContext.current().clone()
     const parent = this
     return childContext.run(async function* () {
