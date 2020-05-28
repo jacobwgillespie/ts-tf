@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import 'source-map-support/register'
+import {DuplicateURNError} from '@infrascript/types'
 import {prettyPrintError} from '@infrascript/ui'
 import is from '@sindresorhus/is'
 import {Component} from './Component'
@@ -84,9 +85,14 @@ const resourceCtx = new ResourceContext()
 const urnContext = new URNContext()
 
 async function generate() {
+  const urns = new Set<string>()
   const app = flatten(run())
   for await (const resource of app) {
+    if (urns.has(resource.$urn)) {
+      throw new DuplicateURNError(resource.$urn)
+    }
     console.log('got a resource', resource)
+    urns.add(resource.$urn)
   }
 
   const graph = globalRoot().$dependentsGraph

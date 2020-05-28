@@ -14,7 +14,7 @@ export class URNContext extends Context {
     if (this.#urns.has(urn)) {
       throw new DuplicateURNError(urn)
     }
-    this.#urns.add(urn)
+    // this.#urns.add(urn)
   }
 }
 
