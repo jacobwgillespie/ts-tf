@@ -66,7 +66,7 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
       this.#parent.#dependents.addEdge(this.#parent, this)
     }
 
-    this.#urn = `${this.#parent.$urn}${this.#parent.isRoot ? '://' : '/'}${this.$kind}:${this.$name}`
+    this.#urn = `${this.#parent.$urn}${this.#parent.$sym === globalRootSymbol ? '://' : '/'}${this.$kind}:${this.$name}`
 
     URNContext.current().register(this.$urn)
 
@@ -96,10 +96,6 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
     return resourceSymbol
   }
 
-  get isRoot(): boolean {
-    return this.#parent === this
-  }
-
   get $name(): string {
     return this.#name
   }
@@ -124,6 +120,15 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
     return childContext.run(() => {
       ResourceContext.current().parent = this
       return fn()
+    })
+  }
+
+  $run<T>(fn: () => Generator<T, void, any> | AsyncGenerator<T, void, any>): AsyncGenerator<T, void, any> {
+    const childContext = ResourceContext.current().clone()
+    const parent = this
+    return childContext.run(async function* () {
+      ResourceContext.current().parent = parent
+      yield* fn()
     })
   }
 }
