@@ -41,6 +41,14 @@ class ExampleResource2 extends Resource<ExampleResource2Inputs> {
 
 class ExampleComponent extends Component {
   resource1 = new ExampleResource1('inside-component', {prop1: 123, prop2: '123'})
+
+  example() {
+    return new ExampleResource1('inside-component', {prop1: 123, prop2: '123'})
+  }
+
+  get example2() {
+    return new ExampleResource1('inside-component', {prop1: 123, prop2: '123'})
+  }
 }
 
 async function* run() {
@@ -57,6 +65,9 @@ async function* run() {
   })
 
   const c1 = new ExampleComponent('component-1')
+  const propNames = c1.propNames()
+  console.log(propNames)
+
   yield c1
 }
 
