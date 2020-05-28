@@ -88,6 +88,10 @@ export class Context {
       }
     })
   }
+
+  activate(): void {
+    getClassStorage(this.constructor as typeof Context).enterWith(this)
+  }
 }
 
 // TODO: remove this once the @types/node types are updated

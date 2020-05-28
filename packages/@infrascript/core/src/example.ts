@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import 'source-map-support/register'
-import is from '@sindresorhus/is'
 import {prettyPrintError} from '@infrascript/ui'
+import is from '@sindresorhus/is'
+import {Component} from './Component'
 import {Context} from './Context'
 import {Namespace} from './Namespace'
-import {globalRoot, ResourceContext, URNContext, Resource} from './Resource'
-import {Prop, Input} from './Prop'
+import {Input, Prop} from './Prop'
+import {globalRoot, Resource, ResourceContext, URNContext} from './Resource'
 
 type ExampleResource1Inputs = {
   prop1: Input<number>
   prop2: Input<string>
 }
 
-export class ExampleResource1 extends Resource<ExampleResource1Inputs> {
+class ExampleResource1 extends Resource<ExampleResource1Inputs> {
   get prop1(): Prop<number> {
     return this.$attr('prop1')
   }
@@ -27,7 +28,7 @@ type ExampleResource2Inputs = {
   prop2: Input<string>
 }
 
-export class ExampleResource2 extends Resource<ExampleResource2Inputs> {
+class ExampleResource2 extends Resource<ExampleResource2Inputs> {
   get prop1(): Prop<number> {
     return this.$attr('prop1')
   }
@@ -35,6 +36,10 @@ export class ExampleResource2 extends Resource<ExampleResource2Inputs> {
   get prop2(): Prop<string> {
     return this.$attr('prop2')
   }
+}
+
+class ExampleComponent extends Component {
+  resource1 = new ExampleResource1('inside-component', {prop1: 123, prop2: '123'})
 }
 
 async function* run() {
@@ -49,16 +54,26 @@ async function* run() {
     const r3 = new ExampleResource1('resource', {prop1: 1, prop2: Promise.resolve('2')})
     yield r3
   })
+
+  const c1 = new ExampleComponent('component-1')
+  yield c1
 }
 
 async function* flatten<T>(
-  generator: Generator<T | Generator<T> | AsyncGenerator<T>> | AsyncGenerator<T | Generator<T> | AsyncGenerator<T>>,
+  generator:
+    | Generator<T | Generator<T> | AsyncGenerator<T>>
+    | AsyncIterable<T | Generator<T> | AsyncGenerator<T>>
+    | AsyncGenerator<T | Generator<T> | AsyncGenerator<T>>,
 ): AsyncGenerator<T> {
   for await (const item of generator) {
     if (is.generator(item)) {
       yield* flatten(item)
     } else if (is.asyncGenerator(item)) {
       yield* flatten(item)
+    } else if (is.asyncIterable<T>(item)) {
+      for await (const innerItem of item) {
+        yield innerItem
+      }
     } else {
       yield item
     }

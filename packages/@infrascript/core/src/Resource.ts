@@ -49,6 +49,7 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
   #children = new Set<Resource>()
   #childrenURNs = new Set<string>()
   #dependents = new Graph<Resource>()
+  #parentProperties: Set<string>
 
   constructor(name: string, props: InputProps | (() => InputProps)) {
     this.#name = name
@@ -77,10 +78,18 @@ export abstract class Resource<InputProps extends PropInputObject = any> {
         prop.source.#dependents.addEdge(prop.source, this)
       }
     }
+
+    // Must be the last line in the constructor
+    this.#parentProperties = new Set(Object.getOwnPropertyNames(this))
   }
 
   protected [inspect.custom](): string {
-    return `Resource ${inspect({$urn: this.$urn, ...this.#inputProps})}`
+    const name = this.constructor.name
+    return `${name} ${inspect({$urn: this.$urn, ...this.#inputProps})}`
+  }
+
+  protected get $parentProperties(): Set<string> {
+    return this.#parentProperties
   }
 
   protected $attr<T extends StringKeyOf<InputProps>>(key: T): Prop<UnwrapPromiseLike<InputProps[T]>> {
