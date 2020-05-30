@@ -1,0 +1,7 @@
+*.log
+*.tgz
+*.tsbuildinfo
+dist/
+node_modules/
+tmp/
+__generated__/
