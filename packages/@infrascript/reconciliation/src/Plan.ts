@@ -1,11 +1,11 @@
-import {Procedure, ExampleProcedure} from "../src/Procedure"
+import {Procedure, ExampleProcedure} from "./Procedure"
 
 type PlanResponse = {
     error?: Error,
     procedures: Procedure[]
 }
 
-export winterface Plan {
+export interface Plan {
     name: string,
     create(): PlanResponse
 }

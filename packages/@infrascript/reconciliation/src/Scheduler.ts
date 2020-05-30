@@ -1,5 +1,5 @@
-import { Procedure } from "../src/Procedure"
-import { Plan } from "../src/Plan"
+import { Procedure } from "./Procedure"
+import { Plan } from "./Plan"
 
 export class Scheduler {
     #steps: number
