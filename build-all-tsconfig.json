@@ -5,6 +5,9 @@
     },
     {
       "path": "packages/@infrascript/driver-terraform"
+    },
+    {
+      "path": "packages/@infrascript/reconciliation"
     }
   ],
   "include": []

@@ -1,22 +1,21 @@
-import {Procedure, ExampleProcedure} from "./Procedure"
+import {Procedure, ExampleProcedure} from './Procedure'
 
 type PlanResponse = {
-    error?: Error,
-    procedures: Procedure[]
+  error?: Error
+  procedures: Procedure[]
 }
 
 export interface Plan {
-    name: string,
-    create(): PlanResponse
+  name: string
+  create: () => PlanResponse
 }
 
 export class GenericPlan implements Plan {
-    name: string;
-    create(): PlanResponse {
-        const sample: PlanResponse = {
-            procedures: [new ExampleProcedure()]
-        }
-        return sample
+  name = 'GenericPlan'
+  create(): PlanResponse {
+    const sample: PlanResponse = {
+      procedures: [new ExampleProcedure()],
     }
-
+    return sample
+  }
 }
