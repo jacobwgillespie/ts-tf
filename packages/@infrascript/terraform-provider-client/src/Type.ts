@@ -63,22 +63,22 @@ type MetaToType<T extends TypeMeta> = T extends 'bool'
     : never
   : never
 
-// /** Maps from a type to the serialized type metadata */
-// type TypeToMeta<T> = T extends boolean
-//   ? 'bool'
-//   : T extends number
-//   ? 'number'
-//   : T extends string
-//   ? 'string'
-//   : T extends Array<infer U>
-//   ? ['list', TypeToMeta<U>]
-//   : T extends Map<string, infer U>
-//   ? ['map', TypeToMeta<U>]
-//   : T extends Set<infer U>
-//   ? ['set', TypeToMeta<U>]
-//   : T extends {[key: string]: unknown}
-//   ? ['object', {[K in keyof T]: TypeToMeta<T[K]>}]
-//   : never
+/** Maps from a type to the serialized type metadata */
+type TypeToMeta<T> = T extends boolean
+  ? 'bool'
+  : T extends number
+  ? 'number'
+  : T extends string
+  ? 'string'
+  : T extends Array<infer U>
+  ? ['list', TypeToMeta<U>]
+  : T extends Map<string, infer U>
+  ? ['map', TypeToMeta<U>]
+  : T extends Set<infer U>
+  ? ['set', TypeToMeta<U>]
+  : T extends {[key: string]: unknown}
+  ? ['object', {[K in keyof T]: TypeToMeta<T[K]>}]
+  : never
 
 /** Maps from a type to the type class */
 type TypeToTypeClass<T> = T extends boolean
@@ -94,23 +94,7 @@ type TypeToTypeClass<T> = T extends boolean
   : T extends Set<infer U>
   ? SetType<U>
   : T extends {[key: string]: unknown}
-  ? ObjectType
-  : never
-
-type TypeClassToType<T extends Type> = T extends BooleanType
-  ? boolean
-  : T extends NumberType
-  ? number
-  : T extends StringType
-  ? string
-  : T extends ListType<infer U>
-  ? Array<U>
-  : T extends MapType<infer U>
-  ? Map<string, U>
-  : T extends SetType<infer U>
-  ? Set<U>
-  : T extends ObjectType<infer U>
-  ? U
+  ? ObjectType<T>
   : never
 
 export abstract class Type<T = unknown> {
@@ -141,7 +125,7 @@ export abstract class Type<T = unknown> {
             return new SetType<any>(this.parse(typeMeta[1]))
 
           case 'object': {
-            const innerTypeMeta = Object.keys(typeMeta[1]).reduce(
+            const innerTypeMeta = keysOf(typeMeta[1]).reduce(
               (meta, key) => ({...meta, [key]: this.parse(typeMeta[1][key])}),
               {},
             )
@@ -154,12 +138,12 @@ export abstract class Type<T = unknown> {
     }
   }
 
-  static is<Meta extends TypeMeta>(typeMeta: Meta, value: unknown): value is TypeClassToType<MetaToTypeClass<Meta>> {
+  static is<Meta extends TypeMeta>(typeMeta: Meta, value: unknown): value is MetaToType<Meta> {
     const type = this.parse(typeMeta)
     return type.is(value)
   }
 
-  abstract metaRepresentation(): TypeMeta
+  abstract metaRepresentation(): TypeToMeta<T>
 
   abstract is(value: unknown): value is T
 
@@ -170,7 +154,7 @@ export abstract class Type<T = unknown> {
 }
 
 export class NumberType extends Type<number> {
-  metaRepresentation(): 'number' {
+  metaRepresentation(): TypeToMeta<number> {
     return 'number'
   }
 
@@ -180,7 +164,7 @@ export class NumberType extends Type<number> {
 }
 
 export class StringType extends Type<string> {
-  metaRepresentation(): 'string' {
+  metaRepresentation(): TypeToMeta<string> {
     return 'string'
   }
 
@@ -190,7 +174,7 @@ export class StringType extends Type<string> {
 }
 
 export class BooleanType extends Type<boolean> {
-  metaRepresentation(): 'bool' {
+  metaRepresentation(): TypeToMeta<boolean> {
     return 'bool'
   }
 
@@ -213,13 +197,14 @@ export abstract class CollectionType<T = unknown, Container = unknown, Child = u
     return this.#childType.is(value)
   }
 
-  get childType(): Type {
+  get childType(): TypeToTypeClass<Child> {
     return this.#childType
   }
 }
 
 export class ListType<T = unknown> extends CollectionType<Array<T>, Array<unknown>, T> {
-  metaRepresentation(): ['list', TypeMeta] {
+  metaRepresentation(): TypeToMeta<Array<T>>
+  metaRepresentation(): TypeMeta {
     return ['list', this.childType.metaRepresentation()]
   }
 
@@ -233,7 +218,8 @@ export class ListType<T = unknown> extends CollectionType<Array<T>, Array<unknow
 }
 
 export class MapType<T = unknown> extends CollectionType<Map<string, T>, Map<string, unknown>, T> {
-  metaRepresentation(): ['map', TypeMeta] {
+  metaRepresentation(): TypeToMeta<Map<string, T>>
+  metaRepresentation(): TypeMeta {
     return ['map', this.childType.metaRepresentation()]
   }
 
@@ -247,7 +233,8 @@ export class MapType<T = unknown> extends CollectionType<Map<string, T>, Map<str
 }
 
 export class SetType<T = unknown> extends CollectionType<Set<T>, Set<unknown>, T> {
-  metaRepresentation(): ['set', TypeMeta] {
+  metaRepresentation(): TypeToMeta<Set<T>>
+  metaRepresentation(): TypeMeta {
     return ['set', this.childType.metaRepresentation()]
   }
 
@@ -262,7 +249,7 @@ export class SetType<T = unknown> extends CollectionType<Set<T>, Set<unknown>, T
 
 type ObjectInnerTypeMap<T> = {[K in keyof T]: TypeToTypeClass<T[K]>}
 
-export class ObjectType<T = {}> extends Type<T> {
+export class ObjectType<T extends {[k: string]: unknown} = {}> extends Type<T> {
   #innerTypeMap: ObjectInnerTypeMap<T>
 
   constructor(innerTypeMap: ObjectInnerTypeMap<T>) {
@@ -270,7 +257,8 @@ export class ObjectType<T = {}> extends Type<T> {
     this.#innerTypeMap = innerTypeMap
   }
 
-  metaRepresentation(): ['object', {[key: string]: TypeMeta}] {
+  metaRepresentation(): TypeToMeta<T>
+  metaRepresentation(): TypeMeta {
     const typeMeta = keysOf(this.#innerTypeMap).reduce(
       (meta, key) => ({...meta, [key]: this.#innerTypeMap[key].metaRepresentation()}),
       {},
