@@ -22,11 +22,14 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.0.4",
+    "execa": "^4.0.2",
+    "msgpack": "^1.0.3",
     "protobufjs": "^6.9.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@infrascript/config-typescript": "0.0.3",
+    "@types/msgpack": "^0.0.30",
     "@types/node": "^12",
     "typescript": "^3.9.3"
   },

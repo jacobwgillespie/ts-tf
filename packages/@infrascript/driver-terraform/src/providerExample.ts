@@ -1,4 +1,4 @@
-import {fromDynamic, Provider, toDynamic} from './Provider'
+import {fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
 
 const providerConfig = {
   access_key: null,

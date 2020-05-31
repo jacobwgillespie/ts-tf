@@ -1,7 +1,9 @@
 import execa from 'execa'
-import readline from 'readline'
-import {tfplugin5, rpcImpl, RPCImpl} from '@infrascript/terraform-provider-client'
 import msgpack from 'msgpack'
+import {RPCImpl} from 'protobufjs'
+import readline from 'readline'
+import {tfplugin5} from '../generated/client'
+import {rpcImpl} from './rpcImpl'
 
 export function toDynamic(value: unknown): tfplugin5.IDynamicValue {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
