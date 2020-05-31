@@ -6,9 +6,9 @@
     "composite": true
   },
   "include": ["src"],
-  "references": [
-    {
-      "path": "../config-typescript"
-    }
-  ]
+  "references": [{
+    "path": "../config-typescript"
+  }, {
+    "path": "../types"
+  }]
 }

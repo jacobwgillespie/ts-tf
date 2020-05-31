@@ -1,4 +1,4 @@
-import {fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
+import {decodeType, fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
 
 const providerConfig = {
   access_key: null,
@@ -29,7 +29,19 @@ async function run() {
 
   // Get the provider schema
   const providerSchema = await provider.getSchema({})
-  console.log(providerSchema.dataSourceSchemas['aws_regions'])
+  const schema = providerSchema.resourceSchemas
+
+  for (const key of Object.keys(schema)) {
+    console.log(key)
+    const attributes = schema[key].block?.attributes ?? []
+    for (const attribute of attributes) {
+      if (attribute.type) {
+        const type = decodeType(attribute.type)
+        console.log(type)
+        console.log(type.metaRepresentation())
+      }
+    }
+  }
 
   // Configure the provider
   await provider.configure({terraformVersion: '0.12.26', config: toDynamic(providerConfig)})
