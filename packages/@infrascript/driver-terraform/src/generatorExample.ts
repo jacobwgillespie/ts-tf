@@ -23,7 +23,4 @@ async function run(): Promise<void> {
   }
 }
 
-run().catch((error: Error) => {
-  console.log(error.stack)
-  process.exit(1)
-})
+q

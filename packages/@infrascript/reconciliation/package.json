@@ -14,4 +14,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "devDependencies": {
+    "@infrascript/config-typescript": "0.0.3",
+    "@types/node": "^12",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.3"
+  }
 }

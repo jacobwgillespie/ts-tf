@@ -1,15 +1,13 @@
 import { Scheduler } from "./Scheduler";
-import { GenericPlan } from "./Plan";
+import { Plan } from "./Plan";
 
-export class Loop {
-    reconcile(): void {
-        const scheduler = new Scheduler()
-        while(true) {
-            console.log("starting reconciliation loop")
-            const error = scheduler.executePlan(new GenericPlan())
-            if (error) {
-                console.warn(error)
-            }
+export async function reconcile(plan: Plan): Promise<void> {
+    const scheduler = new Scheduler()
+    while(true) {
+        console.log("starting reconciliation loop")
+        const error = scheduler.executePlan(plan)
+        if (error) {
+            console.warn(error)
         }
     }
 }
