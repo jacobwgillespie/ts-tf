@@ -37,6 +37,8 @@ export class Provider extends tfplugin5.Provider {
         TF_PLUGIN_MAGIC_COOKIE: 'd602bf8f470bc67ca7faa0386276bbdd4330efaf76d1a219cb4d6991ca9872b2',
         PLUGIN_PROTOCOL_VERSIONS: '5',
       },
+    }).on('error', (error) => {
+      throw error
     })
 
     if (opts.debug) {
