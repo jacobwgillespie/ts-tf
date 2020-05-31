@@ -8,18 +8,15 @@
   "include": [
     "src"
   ],
-  "references": [
-    {
-      "path": "../config-typescript"
-    },
-    {
-      "path": "../config-prettier"
-    },
-    {
-      "path": "../core"
-    },
-    {
-      "path": "../types"
-    }
-  ]
+  "references": [{
+    "path": "../config-typescript"
+  }, {
+    "path": "../config-prettier"
+  }, {
+    "path": "../core"
+  }, {
+    "path": "../terraform-provider-client"
+  }, {
+    "path": "../types"
+  }]
 }
