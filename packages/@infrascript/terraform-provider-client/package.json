@@ -1,0 +1,37 @@
+{
+  "name": "@infrascript/terraform-provider-client",
+  "version": "0.0.3",
+  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "generated",
+    "tfplugin5.proto"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "generate": "./generate-client.sh",
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -b -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.0.4",
+    "protobufjs": "^6.9.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@infrascript/config-typescript": "0.0.3",
+    "@types/node": "^12",
+    "typescript": "^3.9.3"
+  },
+  "funding": {
+    "type": "GitHub",
+    "url": "https://github.com/sponsors/jacobwgillespie"
+  }
+}
