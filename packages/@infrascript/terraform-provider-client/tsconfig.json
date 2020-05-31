@@ -5,17 +5,9 @@
     "rootDir": "src",
     "composite": true
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "references": [{
     "path": "../config-typescript"
-  }, {
-    "path": "../config-prettier"
-  }, {
-    "path": "../core"
-  }, {
-    "path": "../terraform-provider-client"
   }, {
     "path": "../types"
   }]

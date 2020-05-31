@@ -1,19 +1,19 @@
 {
-  "name": "@infrascript/driver-terraform",
+  "name": "@infrascript/terraform-provider-client",
   "version": "0.0.3",
   "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": ">=12.17.0"
-  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "generated",
+    "tfplugin5.proto"
   ],
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist *.tsbuildinfo",
+    "generate": "./generate-client.sh",
     "lint": "eslint . --ext .ts",
     "watch": "tsc -b -w"
   },
@@ -21,27 +21,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@infrascript/config-prettier": "^0.0.3",
-    "@infrascript/core": "^0.0.3",
-    "@infrascript/terraform-provider-client": "^0.0.3",
-    "@infrascript/types": "^0.0.3",
-    "@sindresorhus/is": "^2.1.1",
-    "chevrotain": "^7.0.1",
-    "fast-case": "^1.4.0",
-    "fs-extra": "^9.0.0",
-    "prettier": "^2.0.5",
-    "source-map-support": "^0.5.19",
+    "@grpc/grpc-js": "^1.0.4",
+    "@infrascript/types": "0.0.3",
+    "execa": "^4.0.2",
+    "msgpack": "^1.0.3",
+    "protobufjs": "^6.9.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@infrascript/config-typescript": "0.0.3",
-    "@types/fs-extra": "^9.0.1",
+    "@types/msgpack": "^0.0.30",
     "@types/node": "^12",
-    "@types/prettier": "^2.0.1",
-    "fast-case": "^1.4.0",
-    "fs-extra": "^9.0.0",
-    "lerna": "^3.21.0",
-    "prettier": "^2.0.5",
     "typescript": "^3.9.3"
   },
   "funding": {
