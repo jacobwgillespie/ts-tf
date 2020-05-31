@@ -1,14 +1,14 @@
 import {TextDecoder, TextEncoder} from 'util'
-import {Type, TypeMeta} from './Type'
+import {Type, TypeSchema} from './Type'
 
 const decoder = new TextDecoder()
 const encoder = new TextEncoder()
 
 export function decodeType(input: Uint8Array): Type {
-  const typeMeta = JSON.parse(decoder.decode(input)) as TypeMeta
+  const typeMeta = JSON.parse(decoder.decode(input)) as TypeSchema
   return Type.parse(typeMeta) as Type
 }
 
 export function encodeType(type: Type): Uint8Array {
-  return encoder.encode(JSON.stringify(type.metaRepresentation()))
+  return encoder.encode(JSON.stringify(type.schema()))
 }

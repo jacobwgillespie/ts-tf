@@ -2,82 +2,82 @@
 import {keysOf} from '@infrascript/types'
 import {inspect} from 'util'
 
-/** Represents the serialized type names coming from Terraform (cty) */
-export type TypeMeta =
+/** Represents the type schema coming from Terraform (cty) */
+export type TypeSchema =
   | 'any'
   | 'bool'
   | 'number'
   | 'string'
-  | ['list', TypeMeta]
-  | ['map', TypeMeta]
-  | ['object', {[key: string]: TypeMeta}]
-  | ['set', TypeMeta]
+  | ['list', TypeSchema]
+  | ['map', TypeSchema]
+  | ['object', {[key: string]: TypeSchema}]
+  | ['set', TypeSchema]
 
-/** Maps from the serialized type metadata to type classes */
-type MetaToTypeClass<T extends TypeMeta> = T extends 'bool'
+/** Maps from the type schema to type classes */
+type SchemaToTypeClass<T extends TypeSchema> = T extends 'bool'
   ? BooleanType
   : T extends 'number'
   ? NumberType
   : T extends 'string'
   ? StringType
   : T extends ['list', infer U]
-  ? U extends TypeMeta
-    ? ListType<MetaToType<U>>
+  ? U extends TypeSchema
+    ? ListType<SchemaToType<U>>
     : never
   : T extends ['map', infer U]
-  ? U extends TypeMeta
-    ? MapType<MetaToType<U>>
+  ? U extends TypeSchema
+    ? MapType<SchemaToType<U>>
     : never
   : T extends ['object', infer U]
-  ? U extends {[name: string]: TypeMeta}
-    ? ObjectType<{[K in keyof U]: MetaToType<U[K]>}>
+  ? U extends {[name: string]: TypeSchema}
+    ? ObjectType<{[K in keyof U]: SchemaToType<U[K]>}>
     : never
   : T extends ['set', infer U]
-  ? U extends TypeMeta
-    ? SetType<MetaToType<U>>
+  ? U extends TypeSchema
+    ? SetType<SchemaToType<U>>
     : never
   : never
 
-/** Maps from the serialized type metadata to types */
-type MetaToType<T extends TypeMeta> = T extends 'bool'
+/** Maps from the type schema to types */
+type SchemaToType<T extends TypeSchema> = T extends 'bool'
   ? boolean
   : T extends 'number'
   ? number
   : T extends 'string'
   ? string
   : T extends ['list', infer U]
-  ? U extends TypeMeta
-    ? Array<MetaToType<U>>
+  ? U extends TypeSchema
+    ? Array<SchemaToType<U>>
     : never
   : T extends ['map', infer U]
-  ? U extends TypeMeta
-    ? Map<string, MetaToType<U>>
+  ? U extends TypeSchema
+    ? Map<string, SchemaToType<U>>
     : never
   : T extends ['object', infer U]
-  ? U extends {[name: string]: TypeMeta}
-    ? {[K in keyof U]: MetaToType<U[K]>}
+  ? U extends {[name: string]: TypeSchema}
+    ? {[K in keyof U]: SchemaToType<U[K]>}
     : never
   : T extends ['set', infer U]
-  ? U extends TypeMeta
-    ? Set<MetaToType<U>>
+  ? U extends TypeSchema
+    ? Set<SchemaToType<U>>
     : never
   : never
 
-/** Maps from a type to the serialized type metadata */
-type TypeToMeta<T> = T extends boolean
+/** Maps from a type to the type schema */
+type TypeToSchema<T> = T extends boolean
   ? 'bool'
   : T extends number
   ? 'number'
   : T extends string
   ? 'string'
   : T extends Array<infer U>
-  ? ['list', TypeToMeta<U>]
+  ? ['list', TypeToSchema<U>]
   : T extends Map<string, infer U>
-  ? ['map', TypeToMeta<U>]
+  ? ['map', TypeToSchema<U>]
   : T extends Set<infer U>
-  ? ['set', TypeToMeta<U>]
+  ? ['set', TypeToSchema<U>]
   : T extends {[key: string]: unknown}
-  ? ['object', {[K in keyof T]: TypeToMeta<T[K]>}]
+  ? ['object', {[K in keyof T]: TypeToSchema<T[K]>}]
   : never
 
 /** Maps from a type to the type class */
@@ -98,9 +98,9 @@ type TypeToTypeClass<T> = T extends boolean
   : never
 
 export abstract class Type<T = unknown> {
-  static parse<Meta extends TypeMeta>(typeMeta: Meta): MetaToTypeClass<Meta>
-  static parse(typeMeta: TypeMeta): MetaToTypeClass<TypeMeta> {
-    switch (typeMeta) {
+  static parse<Schema extends TypeSchema>(typeSchema: Schema): SchemaToTypeClass<Schema>
+  static parse(typeSchema: TypeSchema): SchemaToTypeClass<TypeSchema> {
+    switch (typeSchema) {
       case 'any':
         throw new Error('unknown type')
 
@@ -114,36 +114,36 @@ export abstract class Type<T = unknown> {
         return new StringType()
 
       default:
-        switch (typeMeta[0]) {
+        switch (typeSchema[0]) {
           case 'list':
-            return new ListType<any>(this.parse(typeMeta[1]))
+            return new ListType<any>(this.parse(typeSchema[1]))
 
           case 'map':
-            return new MapType<any>(this.parse(typeMeta[1]))
+            return new MapType<any>(this.parse(typeSchema[1]))
 
           case 'set':
-            return new SetType<any>(this.parse(typeMeta[1]))
+            return new SetType<any>(this.parse(typeSchema[1]))
 
           case 'object': {
-            const innerTypeMeta = keysOf(typeMeta[1]).reduce(
-              (meta, key) => ({...meta, [key]: this.parse(typeMeta[1][key])}),
+            const innerTypes = keysOf(typeSchema[1]).reduce(
+              (types, key) => ({...types, [key]: this.parse(typeSchema[1][key])}),
               {},
             )
-            return new ObjectType<any>(innerTypeMeta)
+            return new ObjectType<any>(innerTypes)
           }
 
           default:
-            throw new Error(`Unknown type: ${inspect(typeMeta)}`)
+            throw new Error(`Unknown type: ${inspect(typeSchema)}`)
         }
     }
   }
 
-  static is<Meta extends TypeMeta>(typeMeta: Meta, value: unknown): value is MetaToType<Meta> {
-    const type = this.parse(typeMeta)
+  static is<Schema extends TypeSchema>(typeSchema: Schema, value: unknown): value is SchemaToType<Schema> {
+    const type = this.parse(typeSchema)
     return type.is(value)
   }
 
-  abstract metaRepresentation(): TypeToMeta<T>
+  abstract schema(): TypeToSchema<T>
 
   abstract is(value: unknown): value is T
 
@@ -154,7 +154,7 @@ export abstract class Type<T = unknown> {
 }
 
 export class NumberType extends Type<number> {
-  metaRepresentation(): TypeToMeta<number> {
+  schema(): TypeToSchema<number> {
     return 'number'
   }
 
@@ -164,7 +164,7 @@ export class NumberType extends Type<number> {
 }
 
 export class StringType extends Type<string> {
-  metaRepresentation(): TypeToMeta<string> {
+  schema(): TypeToSchema<string> {
     return 'string'
   }
 
@@ -174,7 +174,7 @@ export class StringType extends Type<string> {
 }
 
 export class BooleanType extends Type<boolean> {
-  metaRepresentation(): TypeToMeta<boolean> {
+  schema(): TypeToSchema<boolean> {
     return 'bool'
   }
 
@@ -203,9 +203,9 @@ export abstract class CollectionType<T = unknown, Container = unknown, Child = u
 }
 
 export class ListType<T = unknown> extends CollectionType<Array<T>, Array<unknown>, T> {
-  metaRepresentation(): TypeToMeta<Array<T>>
-  metaRepresentation(): TypeMeta {
-    return ['list', this.childType.metaRepresentation()]
+  schema(): TypeToSchema<Array<T>>
+  schema(): TypeSchema {
+    return ['list', this.childType.schema()]
   }
 
   isContainer(value: unknown): value is Array<unknown> {
@@ -218,9 +218,9 @@ export class ListType<T = unknown> extends CollectionType<Array<T>, Array<unknow
 }
 
 export class MapType<T = unknown> extends CollectionType<Map<string, T>, Map<string, unknown>, T> {
-  metaRepresentation(): TypeToMeta<Map<string, T>>
-  metaRepresentation(): TypeMeta {
-    return ['map', this.childType.metaRepresentation()]
+  schema(): TypeToSchema<Map<string, T>>
+  schema(): TypeSchema {
+    return ['map', this.childType.schema()]
   }
 
   isContainer(value: unknown): value is Map<string, unknown> {
@@ -233,9 +233,9 @@ export class MapType<T = unknown> extends CollectionType<Map<string, T>, Map<str
 }
 
 export class SetType<T = unknown> extends CollectionType<Set<T>, Set<unknown>, T> {
-  metaRepresentation(): TypeToMeta<Set<T>>
-  metaRepresentation(): TypeMeta {
-    return ['set', this.childType.metaRepresentation()]
+  schema(): TypeToSchema<Set<T>>
+  schema(): TypeSchema {
+    return ['set', this.childType.schema()]
   }
 
   isContainer(value: unknown): value is Set<unknown> {
@@ -247,23 +247,23 @@ export class SetType<T = unknown> extends CollectionType<Set<T>, Set<unknown>, T
   }
 }
 
-type ObjectInnerTypeMap<T> = {[K in keyof T]: TypeToTypeClass<T[K]>}
+// type ObjectInnerTypeMap<T> = {[K in keyof T]: TypeToTypeClass<T[K]>}
 
 export class ObjectType<T extends {[k: string]: unknown} = {}> extends Type<T> {
-  #innerTypeMap: ObjectInnerTypeMap<T>
+  #innerTypeMap: {[K in keyof T]: TypeToTypeClass<T[K]>}
 
-  constructor(innerTypeMap: ObjectInnerTypeMap<T>) {
+  constructor(innerTypeMap: {[K in keyof T]: TypeToTypeClass<T[K]>}) {
     super()
     this.#innerTypeMap = innerTypeMap
   }
 
-  metaRepresentation(): TypeToMeta<T>
-  metaRepresentation(): TypeMeta {
-    const typeMeta = keysOf(this.#innerTypeMap).reduce(
-      (meta, key) => ({...meta, [key]: this.#innerTypeMap[key].metaRepresentation()}),
+  schema(): TypeToSchema<T>
+  schema(): TypeSchema {
+    const typeSchema = keysOf(this.#innerTypeMap).reduce(
+      (schema, key) => ({...schema, [key]: this.#innerTypeMap[key].schema()}),
       {},
     )
-    return ['object', typeMeta]
+    return ['object', typeSchema]
   }
 
   is(value: unknown): value is T {

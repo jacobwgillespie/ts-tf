@@ -38,7 +38,7 @@ async function run() {
       if (attribute.type) {
         const type = decodeType(attribute.type)
         console.log(type)
-        console.log(type.metaRepresentation())
+        console.log(type.schema())
       }
     }
   }

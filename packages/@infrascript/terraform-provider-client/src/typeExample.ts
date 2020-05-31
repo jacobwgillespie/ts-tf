@@ -14,7 +14,7 @@ function validate(value: unknown) {
   }
 }
 
-console.log(type.metaRepresentation())
+console.log(type.schema())
 validate('string')
 validate(false)
 validate([])
