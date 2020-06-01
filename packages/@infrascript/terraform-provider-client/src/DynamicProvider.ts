@@ -1,6 +1,6 @@
+import {decodeCtyType} from './CtyTypes'
 import {Provider} from './Provider'
 import {ObjectProperties, SchemaType, T} from './TypeSystem'
-import {decodeType} from './utils'
 
 export class DynamicProvider {
   #client: Provider
@@ -32,7 +32,7 @@ export class DynamicProvider {
       }
 
       console.log(attribute)
-      console.log(decodeType(attribute.type))
+      console.log(decodeCtyType(attribute.type))
       attrs[attribute.name] = T.tuple(T.string(), T.number())
       if (attribute.optional) {
         attrs[attribute.name] = T.optional(attrs[attribute.name])

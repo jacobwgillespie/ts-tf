@@ -1,20 +1,16 @@
-import * as t from './Type'
+import {ctyToType} from './CtyTypes'
+import {is} from './TypeSystem'
 
-const type = t.Type.parse(['list', ['object', {a: 'string', b: 'number'}]])
+const type = ctyToType(['list', ['object', {a: 'string', b: 'number'}]])
 
 function validate(value: unknown) {
-  if (type.is(value)) {
+  if (is(type, value)) {
     console.log('true', value)
   } else {
     console.log('false', value)
   }
-
-  if (t.Type.is(['set', ['object', {a: 'string', b: 'number'}]], value)) {
-    console.log('value matches static check', value)
-  }
 }
 
-console.log(type.schema())
 validate('string')
 validate(false)
 validate([])

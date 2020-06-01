@@ -1,4 +1,4 @@
-import {decodeType, fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
+import {decodeCtyType, fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
 
 const providerConfig = {
   access_key: null,
@@ -36,9 +36,8 @@ async function run() {
     const attributes = schema[key].block?.attributes ?? []
     for (const attribute of attributes) {
       if (attribute.type) {
-        const type = decodeType(attribute.type)
+        const type = decodeCtyType(attribute.type)
         console.log(type)
-        console.log(type.schema())
       }
     }
   }

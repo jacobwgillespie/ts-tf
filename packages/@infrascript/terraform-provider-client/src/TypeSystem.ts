@@ -22,8 +22,10 @@ type MutablePropertyKeys<T extends ObjectProperties> = keyof Omit<T, ReadonlyPro
 
 // Type Options
 
-type NumberOptions = {}
-type StringOptions = {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface NumberOptions {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface StringOptions {}
 
 // Schema Types
 
@@ -38,16 +40,40 @@ export type SchemaType =
   | ObjectType<any>
   | TupleType<SchemaType[]>
 
-type BooleanType = {type: 'boolean'}
-type NullType = {type: 'null'}
-type NumberType = NumberOptions & {type: 'number'}
-type StringType = StringOptions & {type: 'string'}
-type UndefinedType = {type: 'undefined'}
+export interface BooleanType {
+  type: 'boolean'
+}
 
-type ArrayType<T extends SchemaType> = {type: 'array'; items: T}
-type MapType<T extends SchemaType> = {type: 'object'; additionalProperties: T}
+export interface NullType {
+  type: 'null'
+}
 
-type TupleType<T extends SchemaType[]> = {type: 'array'; items: T}
+export interface NumberType extends NumberOptions {
+  type: 'number'
+}
+
+export interface StringType extends StringOptions {
+  type: 'string'
+}
+
+export interface UndefinedType {
+  type: 'undefined'
+}
+
+export interface ArrayType<T extends SchemaType> {
+  type: 'array'
+  items: T
+}
+
+export interface MapType<T extends SchemaType> {
+  type: 'object'
+  additionalProperties: T
+}
+
+export interface TupleType<T extends SchemaType[]> {
+  type: 'array'
+  items: T
+}
 
 export type ObjectProperties = {
   [key: string]:
@@ -56,7 +82,12 @@ export type ObjectProperties = {
     | ReadonlyType<SchemaType>
     | OptionalType<ReadonlyType<SchemaType>>
 }
-type ObjectType<T extends ObjectProperties> = {type: 'object'; properties: T; required?: StringKeyOf<T>[]}
+
+export interface ObjectType<T extends ObjectProperties> {
+  type: 'object'
+  properties: T
+  required?: StringKeyOf<T>[]
+}
 
 // TypeOf
 
@@ -72,14 +103,6 @@ export type TypeOfObjectProperties<T extends ObjectProperties> = {
   {
     readonly [K in Extract<OptionalPropertyKeys<T>, ReadonlyPropertyKeys<T>>]?: TypeOf<T[K]>
   }
-
-type Head<T extends any[]> = T extends [any, ...any[]] ? T[0] : never
-type Tail<T extends any[]> = ((...args: T) => never) extends (a: any, ...args: infer R) => never ? R : never
-
-export type TypeOfTupleOld<T extends SchemaType[]> = {
-  recurse: TypeOf<Head<T>> | TypeOfTupleOld<Tail<T>>
-  end: never
-}[T extends [SchemaType, ...SchemaType[]] ? 'recurse' : 'end']
 
 type TypeOfTuple<T extends SchemaType[]> = {[K in keyof T]: T[K] extends SchemaType ? TypeOf<T[K]> : never}
 
