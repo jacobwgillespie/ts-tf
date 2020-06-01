@@ -9,6 +9,7 @@ const READONLY = Symbol('@@readonly@@')
 
 type OptionalType<T extends SchemaType> = T & {[OPTIONAL]: true}
 type ReadonlyType<T extends SchemaType> = T & {[READONLY]: true}
+type ModifiedType<T extends SchemaType> = T & {[OPTIONAL]?: true; [READONLY]?: true}
 
 type OptionalPropertyKeys<T extends ObjectProperties> = {
   [K in keyof T]: T[K] extends OptionalType<infer _> ? K : never
@@ -35,8 +36,8 @@ export type SchemaType =
   | NumberType
   | StringType
   | UndefinedType
-  | ArrayType<any>
-  | MapType<any>
+  | ArrayType<SchemaType>
+  | MapType<SchemaType>
   | ObjectType<any>
   | TupleType<SchemaType[]>
 
@@ -141,10 +142,8 @@ export class T {
   static map = <T extends SchemaType>(items: T): MapType<T> => ({type: 'object', additionalProperties: items})
 
   static object = <T extends ObjectProperties>(properties: T): ObjectType<T> => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const required = keysOf(properties).filter((key) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const prop: OptionalType<SchemaType> = (properties[key] as unknown) as OptionalType<any>
+      const prop: ModifiedType<SchemaType> = properties[key]
       return !prop[OPTIONAL]
     })
     return {type: 'object', properties, ...(required.length > 0 ? {required} : {})}
@@ -155,12 +154,10 @@ export class T {
   // Modifiers
 
   static optional = <T extends SchemaType>(item: T): OptionalType<T> =>
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    Object.defineProperty({...item}, OPTIONAL, {value: true, enumerable: false})
+    Object.defineProperty({...item}, OPTIONAL, {value: true, enumerable: false}) as OptionalType<T>
 
   static readonly = <T extends SchemaType>(item: T): ReadonlyType<T> =>
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    Object.defineProperty({...item}, READONLY, {value: true, enumerable: false})
+    Object.defineProperty({...item}, READONLY, {value: true, enumerable: false}) as ReadonlyType<T>
 }
 
 function isSchemaType(value: unknown): value is SchemaType {
@@ -254,14 +251,14 @@ function validateWithPath<T extends SchemaType>(path: string, schema: T, value: 
   }
 
   if (isObjectType(schema)) {
-    if (typeof value !== 'object' || value === null) {
+    if (typeof value !== 'object' || Array.isArray(value) || value === null) {
       return [invalidTypeIssue('object', value, path)]
     }
 
     const issues: ValidationIssue[] = []
 
-    const valueKeys = new Set<keyof T>(keysOf(value))
-    const expectedKeys = new Set<keyof T>(keysOf(schema.properties) as (keyof typeof value)[])
+    const valueKeys = new Set<StringKeyOf<T>>(keysOf(value))
+    const expectedKeys = new Set<StringKeyOf<T>>(keysOf(schema.properties) as StringKeyOf<typeof value>[])
     const requiredKeys = new Set(schema.required ?? [])
 
     const extraKeys = new Set([...valueKeys].filter((key) => !expectedKeys.has(key)))
@@ -279,17 +276,16 @@ function validateWithPath<T extends SchemaType>(path: string, schema: T, value: 
       })
     }
 
-    return [
-      ...issues,
-      ...(keysOf(value) as string[]).flatMap((key) =>
-        validateWithPath(
-          `${path}/${key}`,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          schema.properties[key as keyof typeof schema.properties],
-          value[key as keyof typeof value],
-        ),
+    issues.push(
+      ...[...valueKeys].flatMap((key) =>
+        expectedKeys.has(key)
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            validateWithPath(`${path}/${key}`, schema.properties[key], value[key as keyof typeof value])
+          : [],
       ),
-    ]
+    )
+
+    return issues
   }
 
   return [{type: 'INVALID_SCHEMA', message: 'Unable to validate type', path}]

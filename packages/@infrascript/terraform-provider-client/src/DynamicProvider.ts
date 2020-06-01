@@ -33,7 +33,7 @@ export class DynamicProvider {
 
       console.log(attribute)
       console.log(decodeCtyType(attribute.type))
-      attrs[attribute.name] = T.tuple(T.string(), T.number())
+      attrs[attribute.name] = T.object({a: T.string(), b: T.number()})
       if (attribute.optional) {
         attrs[attribute.name] = T.optional(attrs[attribute.name])
       }
