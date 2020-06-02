@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.8.3",
+    "@babel/code-frame": "^7.10.1",
     "chalk": "^4.0.0",
     "error-stack-parser": "^2.0.6",
     "source-map-support": "^0.5.19",
