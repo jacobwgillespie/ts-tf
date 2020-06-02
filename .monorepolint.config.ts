@@ -1,19 +1,25 @@
 import {Config} from '@monorepolint/core'
 
-const config: Config = {
+const tsconfig: Config = {
   rules: {
-    ':file-contents': {
-      options: {
-        file: '.gitignore',
-        templateFile: './support/template.gitignore',
-      },
-    },
-
     ':standard-tsconfig': {
       options: {
         templateFile: './support/tsconfig.template.json',
       },
       excludePackages: ['@infrascript/config-typescript'],
+    },
+  },
+}
+
+const config: Config = {
+  rules: {
+    ...tsconfig.rules,
+
+    ':file-contents': {
+      options: {
+        file: '.gitignore',
+        templateFile: './support/template.gitignore',
+      },
     },
 
     ':consistent-dependencies': true,
@@ -34,7 +40,6 @@ const config: Config = {
       {
         options: {
           entries: {
-            author: 'Jacob Gillespie <jacobwgillespie@gmail.com>',
             license: 'MIT',
             // funding: {
             //   type: 'GitHub',
@@ -97,4 +102,4 @@ const config: Config = {
   },
 }
 
-module.exports = config
+module.exports = process.env.TSBUILD ? tsconfig : config

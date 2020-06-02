@@ -10,13 +10,13 @@
   ],
   "references": [
     {
-      "path": "../@infrascript/config-typescript"
-    },
-    {
       "path": "../@infrascript/config-eslint"
     },
     {
       "path": "../@infrascript/types"
+    },
+    {
+      "path": "../@infrascript/config-typescript"
     }
   ]
 }

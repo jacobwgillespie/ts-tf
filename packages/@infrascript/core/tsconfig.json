@@ -10,13 +10,13 @@
   ],
   "references": [
     {
-      "path": "../config-typescript"
-    },
-    {
       "path": "../types"
     },
     {
       "path": "../ui"
+    },
+    {
+      "path": "../config-typescript"
     }
   ]
 }

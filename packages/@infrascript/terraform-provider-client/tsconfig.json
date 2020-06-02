@@ -5,10 +5,15 @@
     "rootDir": "src",
     "composite": true
   },
-  "include": ["src"],
-  "references": [{
-    "path": "../config-typescript"
-  }, {
-    "path": "../types"
-  }]
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../config-typescript"
+    }
+  ]
 }

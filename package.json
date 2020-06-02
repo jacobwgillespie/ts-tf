@@ -8,18 +8,17 @@
     "monorepolint": "^0.4.0",
     "prettier": "^2.0.5",
     "runtypes": "^4.2.0",
-    "typescript": "^3.9.3",
-    "typescript-monorepo-toolkit": "^0.0.7"
+    "typescript": "^3.9.3"
   },
   "prettier": "./packages/@infrascript/config-prettier",
   "private": true,
   "scripts": {
     "build": "tsc -b build-all-tsconfig.json",
     "clean": "rm -rf ./packages/*/{dist,tsconfig.tsbuildinfo} ./packages/@infrascript/*/{dist,tsconfig.tsbuildinfo}",
-    "fmt": "monorepolint check --fix && prettier --write './**/*.{js,md,ts}'",
-    "fmt:check": "monorepolint check && prettier --check './**/*.{js,md,ts}'",
+    "fmt": "mrl check --fix && prettier --write './**/*.{js,md,ts}'",
+    "fmt:check": "mrl check && prettier --check './**/*.{js,md,ts}'",
     "lint": "eslint . --ext .ts",
-    "prebuild": "typescript-monorepo-toolkit inject-refs -a .",
+    "prebuild": "TSBUILD=true mrl check --fix",
     "watch": "yarn build -w"
   },
   "workspaces": [

@@ -1,6 +1,7 @@
 *.log
 *.tgz
 *.tsbuildinfo
+.terraform
 dist/
 node_modules/
 tmp/
