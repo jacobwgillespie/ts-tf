@@ -1,7 +1,6 @@
 {
   "name": "@infrascript/config-typescript",
   "version": "0.0.3",
-  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "files": [
     "tsconfig.json"

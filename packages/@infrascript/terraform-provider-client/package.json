@@ -1,7 +1,6 @@
 {
   "name": "@infrascript/terraform-provider-client",
   "version": "0.0.3",
-  "author": "Jacob Gillespie <jacobwgillespie@gmail.com>",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
