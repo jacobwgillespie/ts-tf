@@ -1,9 +1,9 @@
-import {GenericPlan} from './Plan'
 import {reconcile} from './Loop'
+import {ExampleProcedure} from './Procedure'
 
 async function run(): Promise<void> {
-  const plan = new GenericPlan()
-  await reconcile(plan)
+  const procedure = new ExampleProcedure()
+  await reconcile([procedure])
 }
 
 run().catch((error: Error) => {
