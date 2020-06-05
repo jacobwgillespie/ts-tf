@@ -13,7 +13,6 @@
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "lint": "eslint . --ext .ts",
     "watch": "tsc -b -w"
   },
   "publishConfig": {

@@ -29,7 +29,6 @@ const config: Config = {
         scripts: {
           clean: 'rm -rf dist *.tsbuildinfo',
           build: 'tsc -b',
-          lint: 'eslint . --ext .ts',
           watch: 'tsc -b -w',
         },
       },
