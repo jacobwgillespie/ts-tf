@@ -3,7 +3,7 @@ import {Procedure} from './Procedure'
 export class Scheduler {
   #steps = 0
 
-  execute(procedures: Procedure[]): Error | undefined {
+  async execute(procedures: Procedure[]): Promise<Error | undefined> {
     this.#steps = 0
     const toBeExecuted = procedures
     // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
@@ -14,7 +14,7 @@ export class Scheduler {
 
       this.#steps++
       const pro = toBeExecuted[0]
-      const err = this._executeProcedure(pro)
+      const err = await this._executeProcedure(pro)
       if (err) {
         console.error(err)
         return err
@@ -53,14 +53,14 @@ export class Scheduler {
     return undefined
   }*/
 
-  private _executeProcedure(pro: Procedure): Error | undefined {
+  private async _executeProcedure(pro: Procedure): Promise<Error | undefined> {
     const generator = pro.execute()
-    let result = generator.next()
+    let result = await generator.next()
     while (!result.done) {
       if (result.value.subProcedures.length > 0) {
-        this.execute(result.value.subProcedures)
+        await this.execute(result.value.subProcedures)
       }
-      result = generator.next()
+      result = await generator.next()
     }
 
     return undefined
