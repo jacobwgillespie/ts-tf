@@ -199,27 +199,10 @@ export class Provider {
 
   #internals: Internals
 
-  get subprocess(): execa.ExecaChildProcess | null {
-    return this.#internals.subprocess
-  }
-
-  get rpc(): tfplugin5.Provider {
-    return this.#internals.rpc
-  }
-
   async configure<T extends object>(options: T): Promise<tfplugin5.Configure.Response> {
     validateOrThrow(this.#internals.providerSchema, options)
     const config = optionalsToNulls(options, this.#internals.providerSchema)
     return await this.#internals.rpc.configure({config: toDynamic(config)})
-  }
-
-  async getConfigureSchemaType(): Promise<SchemaType> {
-    const schema = await this.#internals.rpc.getSchema({})
-    if (!schema.provider || !schema.provider.block) {
-      throw new Error('Unable to read provider schema')
-    }
-
-    return blockToSchemaType(schema.provider.block)
   }
 
   async readDataSource(request: tfplugin5.ReadDataSource.IRequest): Promise<tfplugin5.ReadDataSource.Response> {
