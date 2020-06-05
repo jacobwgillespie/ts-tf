@@ -21,17 +21,8 @@ export class ExampleProcedure implements Procedure {
     yield r3
 
     console.log('return procedure four response')
-    const r4 = new Promise<ProcedureResponse>((resolve) => resolve({subProcedures: []}))
-    yield r4
+    yield new Promise<ProcedureResponse>((resolve) => resolve({subProcedures: [new WaitSubProcedure()]}))
 
-    return undefined
-  }
-}
-
-export class ExampleSubProcedure implements Procedure {
-  async *[Symbol.asyncIterator](): AsyncGenerator<ProcedureResponse, Error | undefined, void> {
-    console.log('return sub procedure response')
-    yield {subProcedures: []}
     return undefined
   }
 }
@@ -43,6 +34,7 @@ function sleep(delay: number): Promise<void> {
 export class WaitSubProcedure implements Procedure {
   // eslint-disable-next-line require-yield
   async *[Symbol.asyncIterator](): AsyncGenerator<ProcedureResponse, Error | undefined, void> {
+    console.log('run wait procedure')
     await sleep(1000)
     return undefined
   }
