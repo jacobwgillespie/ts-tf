@@ -291,8 +291,19 @@ function validateWithPath<T extends SchemaType>(path: string, schema: T, value: 
   return [{type: 'INVALID_SCHEMA', message: 'Unable to validate type', path}]
 }
 
+export function formatIssues(issues: ValidationIssue[]): string {
+  return issues.map((issue) => `${issue.message} (at ${issue.path})`).join('\n')
+}
+
 export function validate<T extends SchemaType>(schema: T, value: unknown): ValidationIssue[] {
   return validateWithPath('', schema, value)
+}
+
+export function validateOrThrow<T extends SchemaType>(schema: T, value: unknown): void {
+  const issues = validate(schema, value)
+  if (issues.length > 0) {
+    throw new TypeError(formatIssues(issues))
+  }
 }
 
 export function is<T extends SchemaType>(schema: T, value: unknown): value is TypeOf<T> {

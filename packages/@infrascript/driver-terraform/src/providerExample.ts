@@ -6,8 +6,7 @@ async function run() {
   const provider = await Provider.fromBinary(binaryPath, {debug: true})
 
   // Configure the provider
-  const configSchema = await provider.getConfigureSchemaType()
-  await provider.configure({region: 'us-east-1'}, configSchema)
+  await provider.configure({region: 'us-east-1'})
 
   // Read all AWS regions
   const regions = await provider.readDataSource({

@@ -1,4 +1,4 @@
-import {isObjectType, ObjectProperties, SchemaType, T} from '@infrascript/type-system'
+import {ObjectProperties, ObjectType, SchemaType, T, validateOrThrow} from '@infrascript/type-system'
 import execa from 'execa'
 import msgpack from 'msgpack'
 import readline from 'readline'
@@ -22,6 +22,14 @@ export function fromDynamic<T = unknown>(value: tfplugin5.IDynamicValue | null |
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return msgpack.unpack(value.msgpack)
+}
+
+function optionalsToNulls(value: object, schema: ObjectType<ObjectProperties>): Record<string, unknown> {
+  return Object.keys(schema.properties).reduce<Record<string, unknown>>((obj, key) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    obj[key] = (value as Record<string, unknown>)[key] ?? null
+    return obj
+  }, {})
 }
 
 function nestedBlockToSchemaType(nestedBlock: tfplugin5.Schema.INestedBlock): SchemaType {
@@ -104,10 +112,13 @@ export interface Options {
   debug?: boolean
 }
 
-export class Provider {
-  #rpc: tfplugin5.Provider
-  #subprocess: execa.ExecaChildProcess
+interface Internals {
+  providerSchema: ObjectType<ObjectProperties>
+  rpc: tfplugin5.Provider
+  subprocess: execa.ExecaChildProcess
+}
 
+export class Provider {
   static async fromBinary(binary: string, opts: Options = {}): Promise<Provider> {
     const subprocess = execa(binary, [], {
       env: {
@@ -131,77 +142,79 @@ export class Provider {
       terminal: false,
     })
 
-    return new Promise((resolve) =>
+    const metadataString = await new Promise<string>((resolve) =>
       line.once('line', (metadataString) => {
-        const metadata = metadataString.split('|')
-
-        if (metadata.length !== 6) {
-          throw new Error(`Unexpected metadata string format: ${metadataString}`)
-        }
-
-        const [
-          coreProtocolVersion,
-          protocolVersion,
-          networkType,
-          networkAddress,
-          protocolType,
-          /* serverCert */
-        ] = metadata
-
-        if (coreProtocolVersion !== '1') {
-          throw new Error(`Expected core protocol version '1', got '${coreProtocolVersion}'`)
-        }
-
-        if (protocolVersion !== '5') {
-          throw new Error(`Expected protocol version '5', got '${coreProtocolVersion}'`)
-        }
-
-        if (networkType !== 'unix') {
-          throw new Error(`Expected network address type 'unix', got '${networkType}'`)
-        }
-
-        if (protocolType !== 'grpc') {
-          throw new Error(`Expected protocol type 'grpc', got '${protocolType}'`)
-        }
-
-        const impl = rpcImpl(`unix://${networkAddress}`)
-        const rpc = new tfplugin5.Provider(impl)
-
-        const provider = new Provider(subprocess, rpc)
-        resolve(provider)
+        resolve(metadataString)
       }),
     )
+
+    const metadata = metadataString.split('|')
+
+    if (metadata.length !== 6) {
+      throw new Error(`Unexpected metadata string format: ${metadataString}`)
+    }
+
+    const [
+      coreProtocolVersion,
+      protocolVersion,
+      networkType,
+      networkAddress,
+      protocolType,
+      /* serverCert */
+    ] = metadata
+
+    if (coreProtocolVersion !== '1') {
+      throw new Error(`Expected core protocol version '1', got '${coreProtocolVersion}'`)
+    }
+
+    if (protocolVersion !== '5') {
+      throw new Error(`Expected protocol version '5', got '${coreProtocolVersion}'`)
+    }
+
+    if (networkType !== 'unix') {
+      throw new Error(`Expected network address type 'unix', got '${networkType}'`)
+    }
+
+    if (protocolType !== 'grpc') {
+      throw new Error(`Expected protocol type 'grpc', got '${protocolType}'`)
+    }
+
+    const impl = rpcImpl(`unix://${networkAddress}`)
+    const rpc = new tfplugin5.Provider(impl)
+
+    const schema = await rpc.getSchema({})
+    if (!schema.provider || !schema.provider.block) {
+      throw new Error('Unable to read provider schema')
+    }
+
+    console.log(schema.diagnostics)
+    const providerSchema = blockToSchemaType(schema.provider.block)
+
+    return new Provider({subprocess, rpc, providerSchema})
   }
 
-  private constructor(subprocess: execa.ExecaChildProcess, rpc: tfplugin5.Provider) {
-    this.#subprocess = subprocess
-    this.#rpc = rpc
+  private constructor(internals: Internals) {
+    this.#internals = internals
   }
+
+  #internals: Internals
 
   get subprocess(): execa.ExecaChildProcess | null {
-    return this.#subprocess
+    return this.#internals.subprocess
   }
 
   get rpc(): tfplugin5.Provider {
-    return this.#rpc
+    return this.#internals.rpc
   }
 
-  async configure<T>(options: T, schema: SchemaType): Promise<tfplugin5.Configure.Response> {
-    if (!isObjectType(schema)) {
-      throw new TypeError('Invalid schema')
-    }
-
-    const config = Object.keys(schema.properties).reduce<Record<string, unknown>>((obj, key) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      obj[key] = (options as Record<string, unknown>)[key] ?? null
-      return obj
-    }, {})
-
-    return await this.#rpc.configure({config: toDynamic(config)})
+  async configure<T extends object>(options: T): Promise<tfplugin5.Configure.Response> {
+    validateOrThrow(this.#internals.providerSchema, options)
+    const config = optionalsToNulls(options, this.#internals.providerSchema)
+    return await this.#internals.rpc.configure({config: toDynamic(config)})
   }
 
   async getConfigureSchemaType(): Promise<SchemaType> {
-    const schema = await this.#rpc.getSchema({})
+    const schema = await this.#internals.rpc.getSchema({})
     if (!schema.provider || !schema.provider.block) {
       throw new Error('Unable to read provider schema')
     }
@@ -210,10 +223,10 @@ export class Provider {
   }
 
   async readDataSource(request: tfplugin5.ReadDataSource.IRequest): Promise<tfplugin5.ReadDataSource.Response> {
-    return this.#rpc.readDataSource(request)
+    return this.#internals.rpc.readDataSource(request)
   }
 
   async shutdown(signal?: NodeJS.Signals | number): Promise<boolean> {
-    return this.#subprocess.kill(signal)
+    return this.#internals.subprocess.kill(signal)
   }
 }
