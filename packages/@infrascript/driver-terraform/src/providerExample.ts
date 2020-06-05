@@ -1,4 +1,4 @@
-import {fromDynamic, Provider, toDynamic} from '@infrascript/terraform-provider-client'
+import {Provider} from '@infrascript/terraform-provider-client'
 
 async function run() {
   // Initialize a new provider from a binary, with debug logs
@@ -9,11 +9,11 @@ async function run() {
   await provider.configure({region: 'us-east-1'})
 
   // Read all AWS regions
-  const regions = await provider.readDataSource({
-    typeName: 'aws_regions',
-    config: toDynamic({all_regions: true, id: null, names: null, filter: null}),
-  })
-  console.log(fromDynamic(regions.state))
+  // const regions = await provider.readDataSource({
+  //   typeName: 'aws_regions',
+  //   config: toDynamic({all_regions: true, id: null, names: null, filter: null}),
+  // })
+  // console.log(fromDynamic(regions.state))
 
   // Shut down the provider
   await provider.shutdown()
