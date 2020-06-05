@@ -55,8 +55,12 @@ export class Scheduler {
 
   private _executeProcedure(pro: Procedure): Error | undefined {
     const generator = pro.execute()
-    while (!generator.next().done) {
-      generator.next()
+    let result = generator.next()
+    while (!result.done) {
+      if (result.value.subProcedures.length > 0) {
+        this.execute(result.value.subProcedures)
+      }
+      result = generator.next()
     }
 
     return undefined
