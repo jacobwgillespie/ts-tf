@@ -6,7 +6,7 @@ export async function reconcile(procedures: Procedure[]): Promise<void> {
   console.log('starting reconciliation loop')
   // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
   while (true) {
-    const error = scheduler.execute(procedures)
+    const error = await scheduler.execute(procedures)
     if (error) {
       console.warn(error)
     }
