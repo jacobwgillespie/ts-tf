@@ -9,6 +9,9 @@ export async function reconcile(procedures: Procedure[]): Promise<void> {
     const error = await scheduler.execute(procedures)
     if (error) {
       console.warn(error)
+    } else {
+      console.info('scheduler complete - exit')
+      break
     }
   }
 }

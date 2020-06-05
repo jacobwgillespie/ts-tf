@@ -21,53 +21,18 @@ export class Scheduler {
       } else {
         toBeExecuted.shift()
       }
-
-      //const err = this._runProcedures(procedures)
-      //if (err) {
-      //  console.error(err)
-      //  return err
-      //}
     }
 
     return undefined
   }
 
-  /*private _runProcedures(procedures: Procedure[]): Error | undefined {
-    for (const pro of procedures) {
-      this.#steps++
-      this._executeProcedure(pro)
-      //if (error) {
-      //  console.error(error)
-      //  return error
-      //}
-      //
-      //if (subProcedures.length > 0) {
-      //  const error = this._runProcedures(subProcedures)
-      //  if (error) {
-      //    console.log(error)
-      //    return error
-      //  }
-      //}
-    }
-
-    return undefined
-  }*/
-
   private async _executeProcedure(pro: Procedure): Promise<Error | undefined> {
     const generator = pro[Symbol.asyncIterator]()
-    for await (const result of generator) {
-      if (result.subProcedures.length > 0) {
-        await this.execute(result.subProcedures)
+    for await (const subProcedures of generator) {
+      if (subProcedures.length > 0) {
+        await this.execute(subProcedures)
       }
     }
-
-    //let result = await generator.next()
-    //while (!result.done) {
-    //  if (result.value.subProcedures.length > 0) {
-    //    await this.execute(result.value.subProcedures)
-    //  }
-    //  result = await generator.next()
-    //}
 
     return undefined
   }
