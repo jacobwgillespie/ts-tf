@@ -733,7 +733,7 @@ $root.tfplugin5 = (function () {
        * @interface IStep
        * @property {string|null} [attributeName] Step attributeName
        * @property {string|null} [elementKeyString] Step elementKeyString
-       * @property {number|Long|null} [elementKeyInt] Step elementKeyInt
+       * @property {number|null} [elementKeyInt] Step elementKeyInt
        */
 
       /**
@@ -768,7 +768,7 @@ $root.tfplugin5 = (function () {
 
       /**
        * Step elementKeyInt.
-       * @member {number|Long} elementKeyInt
+       * @member {number} elementKeyInt
        * @memberof tfplugin5.AttributePath.Step
        * @instance
        */
@@ -858,7 +858,7 @@ $root.tfplugin5 = (function () {
               message.elementKeyString = reader.string()
               break
             case 3:
-              message.elementKeyInt = reader.int64()
+              message.elementKeyInt = reader.int64().toNumber()
               break
             default:
               reader.skipType(tag & 7)
@@ -1737,7 +1737,7 @@ $root.tfplugin5 = (function () {
      * Properties of a Schema.
      * @memberof tfplugin5
      * @interface ISchema
-     * @property {number|Long|null} [version] Schema version
+     * @property {number|null} [version] Schema version
      * @property {tfplugin5.Schema.IBlock|null} [block] Schema block
      */
 
@@ -1757,7 +1757,7 @@ $root.tfplugin5 = (function () {
 
     /**
      * Schema version.
-     * @member {number|Long} version
+     * @member {number} version
      * @memberof tfplugin5.Schema
      * @instance
      */
@@ -1833,7 +1833,7 @@ $root.tfplugin5 = (function () {
         var tag = reader.uint32()
         switch (tag >>> 3) {
           case 1:
-            message.version = reader.int64()
+            message.version = reader.int64().toNumber()
             break
           case 2:
             message.block = $root.tfplugin5.Schema.Block.decode(reader, reader.uint32())
@@ -1959,7 +1959,7 @@ $root.tfplugin5 = (function () {
        * Properties of a Block.
        * @memberof tfplugin5.Schema
        * @interface IBlock
-       * @property {number|Long|null} [version] Block version
+       * @property {number|null} [version] Block version
        * @property {Array.<tfplugin5.Schema.IAttribute>|null} [attributes] Block attributes
        * @property {Array.<tfplugin5.Schema.INestedBlock>|null} [blockTypes] Block blockTypes
        * @property {string|null} [description] Block description
@@ -1985,7 +1985,7 @@ $root.tfplugin5 = (function () {
 
       /**
        * Block version.
-       * @member {number|Long} version
+       * @member {number} version
        * @memberof tfplugin5.Schema.Block
        * @instance
        */
@@ -2109,7 +2109,7 @@ $root.tfplugin5 = (function () {
           var tag = reader.uint32()
           switch (tag >>> 3) {
             case 1:
-              message.version = reader.int64()
+              message.version = reader.int64().toNumber()
               break
             case 2:
               if (!(message.attributes && message.attributes.length)) message.attributes = []
@@ -2685,8 +2685,8 @@ $root.tfplugin5 = (function () {
        * @property {string|null} [typeName] NestedBlock typeName
        * @property {tfplugin5.Schema.IBlock|null} [block] NestedBlock block
        * @property {tfplugin5.Schema.NestedBlock.NestingMode|null} [nesting] NestedBlock nesting
-       * @property {number|Long|null} [minItems] NestedBlock minItems
-       * @property {number|Long|null} [maxItems] NestedBlock maxItems
+       * @property {number|null} [minItems] NestedBlock minItems
+       * @property {number|null} [maxItems] NestedBlock maxItems
        */
 
       /**
@@ -2729,7 +2729,7 @@ $root.tfplugin5 = (function () {
 
       /**
        * NestedBlock minItems.
-       * @member {number|Long} minItems
+       * @member {number} minItems
        * @memberof tfplugin5.Schema.NestedBlock
        * @instance
        */
@@ -2737,7 +2737,7 @@ $root.tfplugin5 = (function () {
 
       /**
        * NestedBlock maxItems.
-       * @member {number|Long} maxItems
+       * @member {number} maxItems
        * @memberof tfplugin5.Schema.NestedBlock
        * @instance
        */
@@ -2820,10 +2820,10 @@ $root.tfplugin5 = (function () {
               message.nesting = reader.int32()
               break
             case 4:
-              message.minItems = reader.int64()
+              message.minItems = reader.int64().toNumber()
               break
             case 5:
-              message.maxItems = reader.int64()
+              message.maxItems = reader.int64().toNumber()
               break
             default:
               reader.skipType(tag & 7)
@@ -4985,7 +4985,7 @@ $root.tfplugin5 = (function () {
        * @memberof tfplugin5.UpgradeResourceState
        * @interface IRequest
        * @property {string|null} [typeName] Request typeName
-       * @property {number|Long|null} [version] Request version
+       * @property {number|null} [version] Request version
        * @property {tfplugin5.IRawState|null} [rawState] Request rawState
        */
 
@@ -5013,7 +5013,7 @@ $root.tfplugin5 = (function () {
 
       /**
        * Request version.
-       * @member {number|Long} version
+       * @member {number} version
        * @memberof tfplugin5.UpgradeResourceState.Request
        * @instance
        */
@@ -5094,7 +5094,7 @@ $root.tfplugin5 = (function () {
               message.typeName = reader.string()
               break
             case 2:
-              message.version = reader.int64()
+              message.version = reader.int64().toNumber()
               break
             case 3:
               message.rawState = $root.tfplugin5.RawState.decode(reader, reader.uint32())
