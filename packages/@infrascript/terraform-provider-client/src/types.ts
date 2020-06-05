@@ -172,7 +172,7 @@ export function blockToSchemaType(block: tfplugin5.Schema.IBlock): ObjectType<Ob
     }
 
     attrs[attribute.name] = decodeCtyType(attribute.type)
-    if (attribute.optional) {
+    if (attribute.optional || attribute.computed) {
       attrs[attribute.name] = T.optional(attrs[attribute.name])
     }
   }
@@ -195,4 +195,24 @@ export function blockToSchemaType(block: tfplugin5.Schema.IBlock): ObjectType<Ob
   }
 
   return T.object(attrs)
+}
+
+export function tfSchemaToSchemaType(schema: tfplugin5.ISchema): ObjectType<ObjectProperties> {
+  if (!schema.block) {
+    throw new TypeError('Could not read schema')
+  }
+
+  return blockToSchemaType(schema.block)
+}
+
+export function tfSchemasRecordToSchemaTypeRecord(
+  schemas: Record<string, tfplugin5.ISchema>,
+): Record<string, ObjectType<ObjectProperties>> {
+  const map: Record<string, ObjectType<ObjectProperties>> = {}
+
+  for (const [name, schema] of Object.entries(schemas)) {
+    map[name] = tfSchemaToSchemaType(schema)
+  }
+
+  return map
 }
