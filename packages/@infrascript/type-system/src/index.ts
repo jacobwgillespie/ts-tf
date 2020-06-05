@@ -172,18 +172,18 @@ function isSchemaType(value: unknown): value is SchemaType {
   return typeof (value as SchemaType).type === 'string'
 }
 
-const isBooleanType = (value: SchemaType): value is BooleanType => value.type === 'boolean'
-const isNullType = (value: SchemaType): value is NullType => value.type === 'null'
-const isNumberType = (value: SchemaType): value is NumberType => value.type === 'number'
-const isStringType = (value: SchemaType): value is StringType => value.type === 'string'
-const isUndefinedType = (value: SchemaType): value is UndefinedType => value.type === 'undefined'
+export const isBooleanType = (value: SchemaType): value is BooleanType => value.type === 'boolean'
+export const isNullType = (value: SchemaType): value is NullType => value.type === 'null'
+export const isNumberType = (value: SchemaType): value is NumberType => value.type === 'number'
+export const isStringType = (value: SchemaType): value is StringType => value.type === 'string'
+export const isUndefinedType = (value: SchemaType): value is UndefinedType => value.type === 'undefined'
 
-const isArrayType = (value: SchemaType): value is ArrayType<SchemaType> =>
+export const isArrayType = (value: SchemaType): value is ArrayType<SchemaType> =>
   value.type === 'array' && !Array.isArray(value.items)
 
-const isObjectType = (value: SchemaType): value is ObjectType<ObjectProperties> => value.type === 'object'
+export const isObjectType = (value: SchemaType): value is ObjectType<ObjectProperties> => value.type === 'object'
 
-const isTupleType = (value: SchemaType): value is TupleType<SchemaType[]> =>
+export const isTupleType = (value: SchemaType): value is TupleType<SchemaType[]> =>
   value.type === 'array' && Array.isArray(value.items)
 
 export type ValidationIssue = {
