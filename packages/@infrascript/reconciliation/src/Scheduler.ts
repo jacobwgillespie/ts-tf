@@ -54,12 +54,13 @@ export class Scheduler {
   }*/
 
   private async _executeProcedure(pro: Procedure): Promise<Error | undefined> {
-    const generator = pro.execute()
+    const generator = pro[Symbol.asyncIterator]()
     for await (const result of generator) {
       if (result.subProcedures.length > 0) {
         await this.execute(result.subProcedures)
       }
     }
+
     //let result = await generator.next()
     //while (!result.done) {
     //  if (result.value.subProcedures.length > 0) {
