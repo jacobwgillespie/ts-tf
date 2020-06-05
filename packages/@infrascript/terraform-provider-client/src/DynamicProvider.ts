@@ -1,6 +1,6 @@
+import {ObjectProperties, SchemaType, T} from '@infrascript/type-system'
 import {decodeCtyType} from './CtyTypes'
 import {Provider} from './Provider'
-import {ObjectProperties, SchemaType, T} from './TypeSystem'
 
 export class DynamicProvider {
   #client: Provider

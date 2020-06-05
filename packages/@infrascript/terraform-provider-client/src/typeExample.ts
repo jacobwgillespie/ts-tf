@@ -1,5 +1,5 @@
+import {is} from '@infrascript/type-system'
 import {ctyToType} from './CtyTypes'
-import {is} from './TypeSystem'
 
 const type = ctyToType(['list', ['object', {a: 'string', b: 'number'}]])
 

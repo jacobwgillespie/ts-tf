@@ -1,6 +1,6 @@
+import {validate as validateSchema} from '@infrascript/type-system'
 import {DynamicProvider} from './DynamicProvider'
 import {Provider} from './Provider'
-import {validate as validateSchema} from './TypeSystem'
 
 async function run() {
   // Initialize a new provider from a binary, with debug logs

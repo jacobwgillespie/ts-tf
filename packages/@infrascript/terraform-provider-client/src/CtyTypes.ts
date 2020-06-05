@@ -1,6 +1,15 @@
+import {
+  ArrayType,
+  BooleanType,
+  MapType,
+  NumberType,
+  ObjectType,
+  SchemaType,
+  StringType,
+  T,
+} from '@infrascript/type-system'
 import {keysOf} from '@infrascript/types'
 import {inspect, TextDecoder} from 'util'
-import {ArrayType, BooleanType, MapType, NumberType, ObjectType, SchemaType, StringType, T} from './TypeSystem'
 
 export type CtyTypeSchema =
   | 'any'
