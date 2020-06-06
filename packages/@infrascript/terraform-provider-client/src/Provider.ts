@@ -10,6 +10,7 @@ import {
   tfSchemasRecordToSchemaTypeRecord,
   tfSchemaToSchemaType,
   toDynamic,
+  Kind,
 } from './types'
 
 export interface Options {
@@ -18,58 +19,95 @@ export interface Options {
 }
 
 interface Internals {
-  dataSourceSchemas: Record<string, ObjectType<ObjectProperties>>
-  providerSchema: ObjectType<ObjectProperties>
-  resourceSchemas: Record<string, ObjectType<ObjectProperties>>
   rpc: tfplugin5.Provider
   subprocess: execa.ExecaChildProcess
+  schema: tfplugin5.GetProviderSchema.Response
 }
 
 export interface ProviderConfigType {
-  dataSourceSchemas: Record<string, object>
   providerSchema: object
+  dataSourceSchemas: Record<string, object>
   resourceSchemas: Record<string, object>
+  dataSourceStateSchemas: Record<string, object>
+  resourceStateSchemas: Record<string, object>
 }
 
 export class Provider<
-  ProviderConfig extends ProviderConfigType = {dataSourceSchemas: {}; providerSchema: {}; resourceSchemas: {}}
-> {
-  #internals: Internals
-  constructor(internals: Internals) {
-    this.#internals = internals
+  ProviderConfig extends ProviderConfigType = {
+    dataSourceSchemas: {}
+    providerSchema: {}
+    resourceSchemas: {}
+    dataSourceStateSchemas: {}
+    resourceStateSchemas: {}
   }
+> {
+  #rpc: tfplugin5.Provider
+  #subprocess: execa.ExecaChildProcess
 
-  get dataSourceSchemas(): Record<string, ObjectType<ObjectProperties>> {
-    return this.#internals.dataSourceSchemas
+  #providerSchema: ObjectType<ObjectProperties>
+
+  #dataSourceSchemas: Record<string, ObjectType<ObjectProperties>>
+  #resourceSchemas: Record<string, ObjectType<ObjectProperties>>
+
+  #dataSourceStateSchemas: Record<string, ObjectType<ObjectProperties>>
+  #resourceStateSchemas: Record<string, ObjectType<ObjectProperties>>
+
+  constructor({rpc, subprocess, schema}: Internals) {
+    this.#rpc = rpc
+    this.#subprocess = subprocess
+
+    if (!schema.provider || !schema.provider.block) {
+      throw new Error('Unable to read provider schema')
+    }
+
+    this.#providerSchema = tfSchemaToSchemaType(schema.provider, Kind.ARGS)
+
+    this.#dataSourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas, Kind.ARGS)
+    this.#resourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas, Kind.ARGS)
+
+    this.#dataSourceStateSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas, Kind.ATTRS)
+    this.#resourceStateSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas, Kind.ATTRS)
   }
 
   get providerSchema(): ObjectType<ObjectProperties> {
-    return this.#internals.providerSchema
+    return this.#providerSchema
+  }
+
+  get dataSourceSchemas(): Record<string, ObjectType<ObjectProperties>> {
+    return this.#dataSourceSchemas
   }
 
   get resourceSchemas(): Record<string, ObjectType<ObjectProperties>> {
-    return this.#internals.resourceSchemas
+    return this.#resourceSchemas
+  }
+
+  get dataSourceStateSchemas(): Record<string, ObjectType<ObjectProperties>> {
+    return this.#dataSourceStateSchemas
+  }
+
+  get resourceStateSchemas(): Record<string, ObjectType<ObjectProperties>> {
+    return this.#resourceStateSchemas
   }
 
   async configure(config: ProviderConfig['providerSchema']): Promise<tfplugin5.Configure.Response> {
-    validateOrThrow(this.#internals.providerSchema, config)
+    validateOrThrow(this.#providerSchema, config)
 
-    const {preparedConfig}: tfplugin5.PrepareProviderConfig.Response = await this.#internals.rpc
-      .prepareProviderConfig({config: toDynamic(optionalsToNulls(config, this.#internals.providerSchema))})
+    const {preparedConfig}: tfplugin5.PrepareProviderConfig.Response = await this.#rpc
+      .prepareProviderConfig({config: toDynamic(optionalsToNulls(config, this.#providerSchema))})
       .then(throwDiagnosticErrors)
 
     if (!preparedConfig) {
       throw new Error('Unable to prepare provider config')
     }
 
-    return await this.#internals.rpc.configure({config: preparedConfig}).then(throwDiagnosticErrors)
+    return await this.#rpc.configure({config: preparedConfig}).then(throwDiagnosticErrors)
   }
 
-  async readDataSource<Name extends StringKeyOf<ProviderConfig['dataSourceSchemas']>, State extends object>(
+  async readDataSource<Name extends StringKeyOf<ProviderConfig['dataSourceSchemas']>>(
     typeName: Name,
     config: ProviderConfig['dataSourceSchemas'][Name],
-  ): Promise<State> {
-    const dataSourceSchema: ObjectType<ObjectProperties> | undefined = this.#internals.dataSourceSchemas[typeName]
+  ): Promise<ProviderConfig['dataSourceStateSchemas'][Name]> {
+    const dataSourceSchema: ObjectType<ObjectProperties> | undefined = this.#dataSourceSchemas[typeName]
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (dataSourceSchema === undefined) throw new TypeError(`Invalid data source type ${typeName}`)
@@ -77,8 +115,8 @@ export class Provider<
     validateOrThrow(dataSourceSchema, config)
 
     const dynamicConfig = toDynamic(optionalsToNulls(config, dataSourceSchema))
-    const res = await this.#internals.rpc.readDataSource({typeName, config: dynamicConfig}).then(throwDiagnosticErrors)
-    const state = fromDynamic<State>(res.state)
+    const res = await this.#rpc.readDataSource({typeName, config: dynamicConfig}).then(throwDiagnosticErrors)
+    const state = fromDynamic<ProviderConfig['dataSourceStateSchemas'][Name]>(res.state)
     if (!state) {
       throw new Error('Unable to read state from data source')
     }
@@ -86,7 +124,7 @@ export class Provider<
   }
 
   async shutdown(signal?: NodeJS.Signals | number): Promise<boolean> {
-    return this.#internals.subprocess.kill(signal)
+    return this.#subprocess.kill(signal)
   }
 }
 
@@ -96,22 +134,11 @@ export function createProviderFactory<ProviderConfig extends ProviderConfigType>
 ) => Promise<Provider<ProviderConfig>> {
   return async (binary: string, opts: Options = {}) => {
     const {subprocess, rpc} = await newRPC(binary, opts)
-
     const schema = await rpc.getSchema({})
-    if (!schema.provider || !schema.provider.block) {
-      throw new Error('Unable to read provider schema')
-    }
-
-    const providerSchema = tfSchemaToSchemaType(schema.provider)
-    const dataSourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas)
-    const resourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas)
-
     return new Provider<ProviderConfig>({
-      dataSourceSchemas,
       subprocess,
       rpc,
-      providerSchema,
-      resourceSchemas,
+      schema,
     })
   }
 }
@@ -124,6 +151,8 @@ export function codegen(provider: Provider): string {
       providerSchema: provider.providerSchema,
       dataSourceSchemas: T.object(provider.dataSourceSchemas),
       resourceSchemas: T.object(provider.resourceSchemas),
+      dataSourceStateSchemas: T.object(provider.dataSourceStateSchemas),
+      resourceStateSchemas: T.object(provider.resourceStateSchemas),
     }),
   )
 

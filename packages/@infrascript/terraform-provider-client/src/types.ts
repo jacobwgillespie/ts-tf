@@ -122,12 +122,17 @@ export function optionalsToNulls(value: object, schema: ObjectType<ObjectPropert
   }, {})
 }
 
-function nestedBlockToSchemaType(nestedBlock: tfplugin5.Schema.INestedBlock): SchemaType {
+export enum Kind {
+  ARGS = 'ARGS',
+  ATTRS = 'ATTRS',
+}
+
+function nestedBlockToSchemaType(nestedBlock: tfplugin5.Schema.INestedBlock, kind: Kind): SchemaType {
   if (!nestedBlock.block) {
     throw new Error('Unable to read nested block schema')
   }
 
-  const innerSchema = blockToSchemaType(nestedBlock.block)
+  const innerSchema = blockToSchemaType(nestedBlock.block, kind)
 
   switch (nestedBlock.nesting) {
     case undefined:
@@ -158,7 +163,7 @@ function nestedBlockToSchemaType(nestedBlock: tfplugin5.Schema.INestedBlock): Sc
   }
 }
 
-export function blockToSchemaType(block: tfplugin5.Schema.IBlock): ObjectType<ObjectProperties> {
+export function blockToSchemaType(block: tfplugin5.Schema.IBlock, kind: Kind): ObjectType<ObjectProperties> {
   const schemaAttributes = block.attributes ?? []
   const attrs: ObjectProperties = {}
 
@@ -172,46 +177,49 @@ export function blockToSchemaType(block: tfplugin5.Schema.IBlock): ObjectType<Ob
     }
 
     attrs[attribute.name] = decodeCtyType(attribute.type)
-    if (attribute.optional || attribute.computed) {
+
+    if (kind === Kind.ATTRS ? !attribute.required && !attribute.computed : attribute.optional || attribute.computed) {
       attrs[attribute.name] = T.optional(attrs[attribute.name])
     }
   }
 
-  const schemaBlocks = block.blockTypes ?? []
-
-  for (const nestedBlock of schemaBlocks) {
-    if (nestedBlock.typeName == null) {
-      throw new Error('Unable to read nested block name')
-    }
-    if (
-      nestedBlock.minItems != null &&
-      nestedBlock.minItems > 0 &&
-      nestedBlock.nesting !== tfplugin5.Schema.NestedBlock.NestingMode.GROUP
-    ) {
-      attrs[nestedBlock.typeName] = nestedBlockToSchemaType(nestedBlock)
-    } else {
-      attrs[nestedBlock.typeName] = T.optional(nestedBlockToSchemaType(nestedBlock))
+  if (kind === Kind.ARGS) {
+    const schemaBlocks = block.blockTypes ?? []
+    for (const nestedBlock of schemaBlocks) {
+      if (nestedBlock.typeName == null) {
+        throw new Error('Unable to read nested block name')
+      }
+      if (
+        nestedBlock.minItems != null &&
+        nestedBlock.minItems > 0 &&
+        nestedBlock.nesting !== tfplugin5.Schema.NestedBlock.NestingMode.GROUP
+      ) {
+        attrs[nestedBlock.typeName] = nestedBlockToSchemaType(nestedBlock, kind)
+      } else {
+        attrs[nestedBlock.typeName] = T.optional(nestedBlockToSchemaType(nestedBlock, kind))
+      }
     }
   }
 
   return T.object(attrs)
 }
 
-export function tfSchemaToSchemaType(schema: tfplugin5.ISchema): ObjectType<ObjectProperties> {
+export function tfSchemaToSchemaType(schema: tfplugin5.ISchema, kind: Kind): ObjectType<ObjectProperties> {
   if (!schema.block) {
     throw new TypeError('Could not read schema')
   }
 
-  return blockToSchemaType(schema.block)
+  return blockToSchemaType(schema.block, kind)
 }
 
 export function tfSchemasRecordToSchemaTypeRecord(
   schemas: Record<string, tfplugin5.ISchema>,
+  kind: Kind,
 ): Record<string, ObjectType<ObjectProperties>> {
   const map: Record<string, ObjectType<ObjectProperties>> = {}
 
   for (const [name, schema] of Object.entries(schemas)) {
-    map[name] = tfSchemaToSchemaType(schema)
+    map[name] = tfSchemaToSchemaType(schema, kind)
   }
 
   return map

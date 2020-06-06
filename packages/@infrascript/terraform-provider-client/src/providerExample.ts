@@ -1,12 +1,13 @@
 import 'source-map-support/register'
+import * as fs from 'fs-extra'
 import * as aws from './AwsProvider'
-import {createProvider, codegen} from './Provider'
+import {codegen, createProvider} from './Provider'
 
 const binaryPath = '../driver-terraform/.terraform/plugins/darwin_amd64/terraform-provider-aws_v2.64.0_x4'
 
 export async function codegenAWS(): Promise<void> {
   const provider = await createProvider(binaryPath)
-  console.log(codegen(provider))
+  await fs.writeFile('./src/AwsProvider.ts', codegen(provider))
   await provider.shutdown()
 }
 
