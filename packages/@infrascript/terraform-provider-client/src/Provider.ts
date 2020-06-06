@@ -1,4 +1,5 @@
-import {asCode, ObjectProperties, ObjectType, validateOrThrow} from '@infrascript/type-system'
+import {asCode, ObjectProperties, ObjectType, T, validateOrThrow} from '@infrascript/type-system'
+import {StringKeyOf} from '@infrascript/types'
 import execa from 'execa'
 import {tfplugin5} from '../generated/client'
 import {throwDiagnosticErrors} from './errors'
@@ -24,23 +25,42 @@ interface Internals {
   subprocess: execa.ExecaChildProcess
 }
 
-export class Provider<ProviderConfig extends object> {
+export interface ProviderConfigType {
+  dataSourceSchemas: Record<string, object>
+  providerSchema: object
+  resourceSchemas: Record<string, object>
+}
+
+export class Provider<
+  ProviderConfig extends ProviderConfigType = {dataSourceSchemas: {}; providerSchema: {}; resourceSchemas: {}}
+> {
   #internals: Internals
   constructor(internals: Internals) {
     this.#internals = internals
+  }
+
+  get dataSourceSchemas(): Record<string, ObjectType<ObjectProperties>> {
+    return this.#internals.dataSourceSchemas
   }
 
   get providerSchema(): ObjectType<ObjectProperties> {
     return this.#internals.providerSchema
   }
 
-  async configure(config: ProviderConfig): Promise<tfplugin5.Configure.Response> {
+  get resourceSchemas(): Record<string, ObjectType<ObjectProperties>> {
+    return this.#internals.resourceSchemas
+  }
+
+  async configure(config: ProviderConfig['providerSchema']): Promise<tfplugin5.Configure.Response> {
     validateOrThrow(this.#internals.providerSchema, config)
     const dynamicConfig = toDynamic(optionalsToNulls(config, this.#internals.providerSchema))
     return await this.#internals.rpc.configure({config: dynamicConfig}).then(throwDiagnosticErrors)
   }
 
-  async readDataSource<Config extends object, State extends object>(typeName: string, config: Config): Promise<State> {
+  async readDataSource<Name extends StringKeyOf<ProviderConfig['dataSourceSchemas']>, State extends object>(
+    typeName: Name,
+    config: ProviderConfig['dataSourceSchemas'][Name],
+  ): Promise<State> {
     const dataSourceSchema: ObjectType<ObjectProperties> | undefined = this.#internals.dataSourceSchemas[typeName]
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -63,7 +83,7 @@ export class Provider<ProviderConfig extends object> {
   }
 }
 
-export function createProviderFactory<ProviderConfig extends object>(): (
+export function createProviderFactory<ProviderConfig extends ProviderConfigType>(): (
   binary: string,
   opts?: Options,
 ) => Promise<Provider<ProviderConfig>> {
@@ -79,18 +99,30 @@ export function createProviderFactory<ProviderConfig extends object>(): (
     const dataSourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas)
     const resourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas)
 
-    return new Provider<ProviderConfig>({dataSourceSchemas, subprocess, rpc, providerSchema, resourceSchemas})
+    return new Provider<ProviderConfig>({
+      dataSourceSchemas,
+      subprocess,
+      rpc,
+      providerSchema,
+      resourceSchemas,
+    })
   }
 }
 
 export const createProvider = createProviderFactory()
 
-export function codegen(provider: Provider<object>): string {
-  const providerConfig = asCode(provider.providerSchema)
+export function codegen(provider: Provider): string {
+  const providerConfig = asCode(
+    T.object({
+      providerSchema: provider.providerSchema,
+      dataSourceSchemas: T.object(provider.dataSourceSchemas),
+      resourceSchemas: T.object(provider.resourceSchemas),
+    }),
+  )
 
   return `import {Provider} from '@infrascript/terraform-provider-client'
 
-type ProviderConfig = ${providerConfig}
+interface ProviderConfig extends ProviderConfigType ${providerConfig}
 
 export const createProvider = createProviderFactory<ProviderConfig>()
 `
