@@ -1,9 +1,10 @@
 import {reconcile} from './Loop'
-import {ExampleProcedure} from './Procedure'
+import {ExampleProcedure, IAMUserProcedure} from './Procedure'
 
 async function run(): Promise<void> {
   const procedure = new ExampleProcedure()
-  await reconcile([procedure])
+  const awsProcedure = new IAMUserProcedure('test-user-infrascript')
+  await reconcile([procedure, awsProcedure])
 }
 
 run().catch((error: Error) => {
