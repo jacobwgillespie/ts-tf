@@ -186,6 +186,16 @@ export const isObjectType = (value: SchemaType): value is ObjectType<ObjectPrope
 export const isTupleType = (value: SchemaType): value is TupleType<SchemaType[]> =>
   value.type === 'array' && Array.isArray(value.items)
 
+export const isOptional = <T extends SchemaType>(value: T): value is OptionalType<T> => {
+  const type = value as ModifiedType<T>
+  return type[OPTIONAL] === true
+}
+
+export const isReadonly = <T extends SchemaType>(value: T): value is ReadonlyType<T> => {
+  const type = value as ModifiedType<T>
+  return type[READONLY] === true
+}
+
 export type ValidationIssue = {
   type: 'INVALID_SCHEMA' | 'INVALID_TYPE'
   message: string
@@ -309,4 +319,57 @@ export function validateOrThrow<T extends SchemaType>(schema: T, value: unknown)
 export function is<T extends SchemaType>(schema: T, value: unknown): value is TypeOf<T> {
   const issues = validate(schema, value)
   return issues.length === 0
+}
+
+export function asCode(schema: SchemaType): string {
+  if (!isSchemaType(schema)) {
+    throw new Error('Invalid schema')
+  }
+
+  if (isBooleanType(schema)) {
+    return 'boolean'
+  }
+
+  if (isNullType(schema)) {
+    return 'null'
+  }
+
+  if (isNumberType(schema)) {
+    return 'number'
+  }
+
+  if (isStringType(schema)) {
+    return 'string'
+  }
+
+  if (isUndefinedType(schema)) {
+    return 'undefined'
+  }
+
+  if (isArrayType(schema)) {
+    return `Array<${asCode(schema.items)}>`
+  }
+
+  if (isTupleType(schema)) {
+    return `[${schema.items.map((item) => asCode(item)).join(', ')}]`
+  }
+
+  if (isObjectType(schema)) {
+    const requiredProps = new Set(schema.required ?? [])
+    const readonlyProps = new Set(
+      Object.entries(schema.properties)
+        .filter(([_, value]) => isReadonly(value))
+        .map(([key]) => key),
+    )
+
+    const props = Object.keys(schema.properties).map((key) => {
+      const readonly = readonlyProps.has(key) ? 'readonly ' : ''
+      const optional = requiredProps.has(key) ? '' : '?'
+      return `${readonly}${key}${optional}: ${asCode(schema.properties[key])}`
+    })
+
+    return `{${props.join('; ')}}`
+  }
+
+  throw new Error('Not implemented')
 }
