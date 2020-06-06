@@ -53,8 +53,16 @@ export class Provider<
 
   async configure(config: ProviderConfig['providerSchema']): Promise<tfplugin5.Configure.Response> {
     validateOrThrow(this.#internals.providerSchema, config)
-    const dynamicConfig = toDynamic(optionalsToNulls(config, this.#internals.providerSchema))
-    return await this.#internals.rpc.configure({config: dynamicConfig}).then(throwDiagnosticErrors)
+
+    const {preparedConfig}: tfplugin5.PrepareProviderConfig.Response = await this.#internals.rpc
+      .prepareProviderConfig({config: toDynamic(optionalsToNulls(config, this.#internals.providerSchema))})
+      .then(throwDiagnosticErrors)
+
+    if (!preparedConfig) {
+      throw new Error('Unable to prepare provider config')
+    }
+
+    return await this.#internals.rpc.configure({config: preparedConfig}).then(throwDiagnosticErrors)
   }
 
   async readDataSource<Name extends StringKeyOf<ProviderConfig['dataSourceSchemas']>, State extends object>(
@@ -69,8 +77,7 @@ export class Provider<
     validateOrThrow(dataSourceSchema, config)
 
     const dynamicConfig = toDynamic(optionalsToNulls(config, dataSourceSchema))
-    const res = await this.#internals.rpc.readDataSource({typeName, config: dynamicConfig})
-    throwDiagnosticErrors(res)
+    const res = await this.#internals.rpc.readDataSource({typeName, config: dynamicConfig}).then(throwDiagnosticErrors)
     const state = fromDynamic<State>(res.state)
     if (!state) {
       throw new Error('Unable to read state from data source')
