@@ -181,6 +181,10 @@ export const isUndefinedType = (value: SchemaType): value is UndefinedType => va
 export const isArrayType = (value: SchemaType): value is ArrayType<SchemaType> =>
   value.type === 'array' && !Array.isArray(value.items)
 
+export const isMapType = (value: SchemaType): value is MapType<SchemaType> =>
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  value.type === 'object' && (value as MapType<SchemaType>).additionalProperties !== undefined
+
 export const isObjectType = (value: SchemaType): value is ObjectType<ObjectProperties> => value.type === 'object'
 
 export const isTupleType = (value: SchemaType): value is TupleType<SchemaType[]> =>
@@ -354,18 +358,23 @@ export function asCode(schema: SchemaType): string {
     return `[${schema.items.map((item) => asCode(item)).join(', ')}]`
   }
 
+  if (isMapType(schema)) {
+    return `Record<string, ${asCode(schema.additionalProperties)}>`
+  }
+
   if (isObjectType(schema)) {
+    const properties = schema.properties as ObjectProperties
     const requiredProps = new Set(schema.required ?? [])
     const readonlyProps = new Set(
-      Object.entries(schema.properties)
+      Object.entries(properties)
         .filter(([_, value]) => isReadonly(value))
         .map(([key]) => key),
     )
 
-    const props = Object.keys(schema.properties).map((key) => {
+    const props = Object.keys(properties).map((key) => {
       const readonly = readonlyProps.has(key) ? 'readonly ' : ''
       const optional = requiredProps.has(key) ? '' : '?'
-      return `${readonly}${key}${optional}: ${asCode(schema.properties[key])}`
+      return `${readonly}${key}${optional}: ${asCode(properties[key])}`
     })
 
     return `{${props.join('; ')}}`
