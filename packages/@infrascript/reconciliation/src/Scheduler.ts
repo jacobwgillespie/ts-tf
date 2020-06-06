@@ -12,6 +12,10 @@ export class Scheduler {
         break
       }
 
+      /*
+        Currently this is running procedures serially when we want to go in parallel,
+        we just need to figure out how to determine when to stop.
+      */
       this.#steps++
       const pro = toBeExecuted[0]
       const err = await this._executeProcedure(pro)
