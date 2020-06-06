@@ -1,19 +1,20 @@
 import 'source-map-support/register'
-
-import {Provider} from './Provider'
+import * as aws from './AwsProvider'
+import {codegen, createProvider} from './Provider'
 
 async function run() {
-  // Initialize a new provider from a binary, with debug logs
+  // Code-generate an AWS provider class
   const binaryPath = '../driver-terraform/.terraform/plugins/darwin_amd64/terraform-provider-aws_v2.64.0_x4'
-  const provider = await Provider.fromBinary(binaryPath, {debug: true})
-  await provider.configure({region: 'us-east-1'})
-
-  // Read all AWS regions
-  const regions = await provider.readDataSource('aws_regions', {all_regions: true})
-  console.log(regions)
-
-  // Shut down the provider
+  const provider = await createProvider(binaryPath)
+  console.log(codegen(provider))
   await provider.shutdown()
+
+  // Use a code-generated provider
+  const awsProvider = await aws.createProvider(binaryPath)
+  await awsProvider.configure({region: 'us-east-1'})
+  const regions = await awsProvider.readDataSource('aws_regions', {all_regions: true})
+  console.log(regions)
+  await awsProvider.shutdown()
 }
 
 run().catch((error: Error) => {

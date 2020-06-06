@@ -1,14 +1,14 @@
-import {ObjectProperties, ObjectType, validateOrThrow} from '@infrascript/type-system'
+import {asCode, ObjectProperties, ObjectType, validateOrThrow} from '@infrascript/type-system'
 import execa from 'execa'
 import {tfplugin5} from '../generated/client'
 import {throwDiagnosticErrors} from './errors'
 import {newRPC} from './rpc'
 import {
+  fromDynamic,
   optionalsToNulls,
   tfSchemasRecordToSchemaTypeRecord,
   tfSchemaToSchemaType,
   toDynamic,
-  fromDynamic,
 } from './types'
 
 export interface Options {
@@ -24,28 +24,17 @@ interface Internals {
   subprocess: execa.ExecaChildProcess
 }
 
-export class Provider {
-  static async fromBinary(binary: string, opts: Options = {}): Promise<Provider> {
-    const {subprocess, rpc} = await newRPC(binary, opts)
-
-    const schema = await rpc.getSchema({})
-    if (!schema.provider || !schema.provider.block) {
-      throw new Error('Unable to read provider schema')
-    }
-
-    const providerSchema = tfSchemaToSchemaType(schema.provider)
-    const dataSourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas)
-    const resourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas)
-
-    return new Provider({dataSourceSchemas, subprocess, rpc, providerSchema, resourceSchemas})
-  }
-
+export class Provider<ProviderConfig extends object> {
   #internals: Internals
-  private constructor(internals: Internals) {
+  constructor(internals: Internals) {
     this.#internals = internals
   }
 
-  async configure<T extends object>(config: T): Promise<tfplugin5.Configure.Response> {
+  get providerSchema(): ObjectType<ObjectProperties> {
+    return this.#internals.providerSchema
+  }
+
+  async configure(config: ProviderConfig): Promise<tfplugin5.Configure.Response> {
     validateOrThrow(this.#internals.providerSchema, config)
     const dynamicConfig = toDynamic(optionalsToNulls(config, this.#internals.providerSchema))
     return await this.#internals.rpc.configure({config: dynamicConfig}).then(throwDiagnosticErrors)
@@ -72,4 +61,37 @@ export class Provider {
   async shutdown(signal?: NodeJS.Signals | number): Promise<boolean> {
     return this.#internals.subprocess.kill(signal)
   }
+}
+
+export function createProviderFactory<ProviderConfig extends object>(): (
+  binary: string,
+  opts?: Options,
+) => Promise<Provider<ProviderConfig>> {
+  return async (binary: string, opts: Options = {}) => {
+    const {subprocess, rpc} = await newRPC(binary, opts)
+
+    const schema = await rpc.getSchema({})
+    if (!schema.provider || !schema.provider.block) {
+      throw new Error('Unable to read provider schema')
+    }
+
+    const providerSchema = tfSchemaToSchemaType(schema.provider)
+    const dataSourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.dataSourceSchemas)
+    const resourceSchemas = tfSchemasRecordToSchemaTypeRecord(schema.resourceSchemas)
+
+    return new Provider<ProviderConfig>({dataSourceSchemas, subprocess, rpc, providerSchema, resourceSchemas})
+  }
+}
+
+export const createProvider = createProviderFactory()
+
+export function codegen(provider: Provider<object>): string {
+  const providerConfig = asCode(provider.providerSchema)
+
+  return `import {Provider} from '@infrascript/terraform-provider-client'
+
+type ProviderConfig = ${providerConfig}
+
+export const createProvider = createProviderFactory<ProviderConfig>()
+`
 }
