@@ -1,14 +1,17 @@
 import {Scheduler} from './Scheduler'
-import {Plan} from './Plan'
+import {Procedure} from './Procedure'
 
-export async function reconcile(plan: Plan): Promise<void> {
+export async function reconcile(procedures: Procedure[]): Promise<void> {
   const scheduler = new Scheduler()
+  console.log('starting reconciliation loop')
   // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
   while (true) {
-    console.log('starting reconciliation loop')
-    const error = scheduler.executePlan(plan)
+    const error = await scheduler.execute(procedures)
     if (error) {
       console.warn(error)
+    } else {
+      console.info('scheduler complete - exit')
+      break
     }
   }
 }

@@ -12,8 +12,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "aws-sdk": "^2.689.0"
+  },
   "devDependencies": {
     "@infrascript/config-typescript": "0.0.3",
+    "@types/aws-sdk": "^2.7.0",
     "@types/node": "^12",
     "prettier": "^2.0.5",
     "typescript": "^3.9.3"
