@@ -1,10 +1,7 @@
 import {Procedure} from './Procedure'
 
 export class Scheduler {
-  #steps = 0
-
   async execute(procedures: Procedure[]): Promise<Error | undefined> {
-    this.#steps = 0
     const toBeExecuted = procedures
     // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
     while (true) {
@@ -12,11 +9,6 @@ export class Scheduler {
         break
       }
 
-      /*
-        Currently this is running procedures serially when we want to go in parallel,
-        we just need to figure out how to determine when to stop.
-      */
-      this.#steps++
       const pro = toBeExecuted[0]
       const err = await this._executeProcedure(pro)
       if (err) {
@@ -30,6 +22,25 @@ export class Scheduler {
     return undefined
   }
 
+  async parallelExecute(procedures: Procedure[]): Promise<Error | undefined> {
+    // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
+    const promiseArr: Promise<Error | undefined>[] = []
+    procedures.forEach((pro) => promiseArr.push(this._executeProcedure(pro)))
+    try {
+      const results = await Promise.all(promiseArr)
+      let result = undefined
+      results.forEach((err) => {
+        if (err) {
+          result = err
+        }
+      })
+      return result
+    } catch (error) {
+      console.error(error)
+      return error as Error
+    }
+  }
+
   private async _executeProcedure(pro: Procedure): Promise<Error | undefined> {
     const generator = pro[Symbol.asyncIterator]()
     for await (const subProcedures of generator) {
@@ -39,9 +50,5 @@ export class Scheduler {
     }
 
     return undefined
-  }
-
-  get steps(): number {
-    return this.#steps
   }
 }
