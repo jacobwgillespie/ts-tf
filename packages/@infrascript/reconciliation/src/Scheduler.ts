@@ -45,7 +45,10 @@ export class Scheduler {
     const generator = pro[Symbol.asyncIterator]()
     for await (const subProcedures of generator) {
       if (subProcedures.length > 0) {
-        await this.execute(subProcedures)
+        const err = await this.execute(subProcedures)
+        if (err) {
+          return err
+        }
       }
     }
 
