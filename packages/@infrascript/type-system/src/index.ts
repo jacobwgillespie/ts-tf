@@ -92,11 +92,9 @@ export interface ObjectType<T extends ObjectProperties> {
 
 // TypeOf
 
-export type TypeOfObjectProperties<T extends ObjectProperties> = {
-  [K in Extract<RequiredPropertyKeys<T>, MutablePropertyKeys<T>>]: TypeOf<T[K]>
-} &
+export type TypeOfObjectProperties<T extends ObjectProperties> = {[K in keyof T]+?: TypeOf<T[K]>} &
   {
-    [K in Extract<OptionalPropertyKeys<T>, MutablePropertyKeys<T>>]?: TypeOf<T[K]>
+    [K in Extract<RequiredPropertyKeys<T>, MutablePropertyKeys<T>>]: TypeOf<T[K]>
   } &
   {
     readonly [K in Extract<RequiredPropertyKeys<T>, ReadonlyPropertyKeys<T>>]: TypeOf<T[K]>
