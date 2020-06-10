@@ -18,8 +18,8 @@ type ReadonlyPropertyKeys<T extends ObjectProperties> = {
   [K in keyof T]: T[K] extends ReadonlyType<SchemaType> ? K : never
 }[keyof T]
 
-type RequiredPropertyKeys<T extends ObjectProperties> = keyof Omit<T, OptionalPropertyKeys<T>>
-type MutablePropertyKeys<T extends ObjectProperties> = keyof Omit<T, ReadonlyPropertyKeys<T>>
+type RequiredPropertyKeys<T extends ObjectProperties> = Exclude<keyof T, OptionalPropertyKeys<T>>
+type MutablePropertyKeys<T extends ObjectProperties> = Exclude<keyof T, ReadonlyPropertyKeys<T>>
 
 // Type Options
 
