@@ -27,7 +27,7 @@ export class Scheduler {
     const promiseArr: Promise<Error | undefined>[] = []
     procedures.forEach((pro) => promiseArr.push(this._executeProcedure(pro)))
     try {
-      const results = await Promise.all(promiseArr)
+      const results = await Promise.allSettled(promiseArr)
       let result = undefined
       results.forEach((err) => {
         if (err) {
@@ -45,13 +45,13 @@ export class Scheduler {
     const generator = pro[Symbol.asyncIterator]()
     for await (const subProcedures of generator) {
       if (subProcedures.length > 0) {
-        const err = await this.execute(subProcedures)
+        const complete = await this.execute(subProcedures)
         if (err) {
           return err
         }
       }
     }
 
-    return undefined
+    return true
   }
 }

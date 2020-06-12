@@ -1,7 +1,8 @@
 import {IAM, AWSError} from 'aws-sdk'
+import {createProvider} from './AwsProvider'
 
 export interface Procedure {
-  [Symbol.asyncIterator]: () => AsyncGenerator<Procedure[], Error | undefined, void>
+  [Symbol.asyncIterator]: () => AsyncGenerator<Procedure[], boolean, void>
 }
 
 export class ExampleProcedure implements Procedure {
@@ -54,6 +55,7 @@ export class IAMUserProcedure implements Procedure {
     } catch (error) {
       if ((error as AWSError).code === 'NoSuchEntity') {
         yield* new CreateIAMUserResource(this.#username)
+        return error as Error
       }
     }
     return undefined
@@ -75,5 +77,38 @@ export class CreateIAMUserResource implements Procedure {
       .promise()
     console.log(result.User?.Arn)
     return undefined
+  }
+}
+
+type PromiseOf<P> = P extends Promise<infer A> ? A : P
+type AwsProvider = PromiseOf<ReturnType<typeof createProvider>>
+export class TFExampleResource implements Procedure {
+  #awsProvider: AwsProvider
+  constructor(awsProvider: AwsProvider) {
+    this.#awsProvider = awsProvider
+  }
+
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
+    const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
+
+    const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
+
+    const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
+      ...importRes[0].state,
+    })
+
+    if (plan.isDiff) {
+      const applyRes = await this.#awsProvider.applyResourceChange(
+        'aws_iam_user',
+        readRes ?? importRes[0].state,
+        plan.plannedState,
+        {
+          private: plan.plannedPrivate,
+        },
+      )
+      return false
+    } else {
+      return true
+    }
   }
 }

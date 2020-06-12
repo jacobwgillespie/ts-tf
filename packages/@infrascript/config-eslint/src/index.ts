@@ -117,6 +117,7 @@ const eslintConfig: Linter.BaseConfig = {
     '@typescript-eslint/unified-signatures': 'error',
 
     'no-process-exit': 'off',
+    'require-yield': 'off',
 
     'node/no-unsupported-features/es-builtins': ['error', {version: '>=12.0.0'}],
     'node/no-unsupported-features/es-syntax': ['error', {version: '>=12.0.0', ignores: ['modules']}],
