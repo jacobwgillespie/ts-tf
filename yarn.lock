@@ -1178,11 +1178,6 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/msgpack@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@types/msgpack/-/msgpack-0.0.30.tgz#9c3cc2fad1ccd6675849879d1390a9596fed2ca8"
-  integrity sha512-ehT/a2KQeQhMwMxvzvoZ/MFjwmOa9km5mL6G8XQPwF+z6DG1mJYhOvZACys9+Rd0zh0TxIHs1K3lKSImJGl0dg==
-
 "@types/node@*", "@types/node@>= 8":
   version "14.0.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.9.tgz#43896ab87fc82bda1dfd600cdf44a0c8a64e11d2"

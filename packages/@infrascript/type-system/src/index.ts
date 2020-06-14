@@ -12,14 +12,14 @@ type ReadonlyType<T extends SchemaType> = T & {[READONLY]: true}
 type ModifiedType<T extends SchemaType> = T & {[OPTIONAL]?: true; [READONLY]?: true}
 
 type OptionalPropertyKeys<T extends ObjectProperties> = {
-  [K in keyof T]: T[K] extends OptionalType<infer _> ? K : never
+  [K in keyof T]: T[K] extends OptionalType<SchemaType> ? K : never
 }[keyof T]
 type ReadonlyPropertyKeys<T extends ObjectProperties> = {
-  [K in keyof T]: T[K] extends ReadonlyType<infer _> ? K : never
+  [K in keyof T]: T[K] extends ReadonlyType<SchemaType> ? K : never
 }[keyof T]
 
-type RequiredPropertyKeys<T extends ObjectProperties> = keyof Omit<T, OptionalPropertyKeys<T>>
-type MutablePropertyKeys<T extends ObjectProperties> = keyof Omit<T, ReadonlyPropertyKeys<T>>
+type RequiredPropertyKeys<T extends ObjectProperties> = Exclude<keyof T, OptionalPropertyKeys<T>>
+type MutablePropertyKeys<T extends ObjectProperties> = Exclude<keyof T, ReadonlyPropertyKeys<T>>
 
 // Type Options
 
@@ -92,11 +92,9 @@ export interface ObjectType<T extends ObjectProperties> {
 
 // TypeOf
 
-export type TypeOfObjectProperties<T extends ObjectProperties> = {
-  [K in Extract<RequiredPropertyKeys<T>, MutablePropertyKeys<T>>]: TypeOf<T[K]>
-} &
+export type TypeOfObjectProperties<T extends ObjectProperties> = {[K in keyof T]+?: TypeOf<T[K]>} &
   {
-    [K in Extract<OptionalPropertyKeys<T>, MutablePropertyKeys<T>>]?: TypeOf<T[K]>
+    [K in Extract<RequiredPropertyKeys<T>, MutablePropertyKeys<T>>]: TypeOf<T[K]>
   } &
   {
     readonly [K in Extract<RequiredPropertyKeys<T>, ReadonlyPropertyKeys<T>>]: TypeOf<T[K]>

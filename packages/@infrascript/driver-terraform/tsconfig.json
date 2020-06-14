@@ -16,9 +16,6 @@
       "path": "../core"
     },
     {
-      "path": "../terraform-provider-client"
-    },
-    {
       "path": "../types"
     },
     {
