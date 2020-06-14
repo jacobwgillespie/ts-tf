@@ -1,12 +1,13 @@
 import {IAM, AWSError} from 'aws-sdk'
 import {createProvider} from './AwsProvider'
+import {AwsProvider} from '@ts-terraform/provider-aws'
 
 export interface Procedure {
   [Symbol.asyncIterator]: () => AsyncGenerator<Procedure[], boolean, void>
 }
 
 export class ExampleProcedure implements Procedure {
-  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], Error | undefined, void> {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('return procedure one response')
     yield* new WaitSubProcedure()
 
@@ -22,7 +23,7 @@ export class ExampleProcedure implements Procedure {
     console.log('return procedure fifth response')
     yield Promise.resolve([new WaitSubProcedure(), new WaitSubProcedure()])
 
-    return undefined
+    return true
   }
 }
 
@@ -32,10 +33,10 @@ function sleep(delay: number): Promise<void> {
 
 export class WaitSubProcedure implements Procedure {
   // eslint-disable-next-line require-yield
-  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], Error | undefined, void> {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('run wait procedure')
     await sleep(1000)
-    return undefined
+    return true
   }
 }
 
@@ -46,7 +47,7 @@ export class IAMUserProcedure implements Procedure {
   }
 
   // eslint-disable-next-line require-yield
-  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], Error | undefined, void> {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('aws iam role procedure')
     const iamClient = new IAM()
     try {
@@ -55,10 +56,10 @@ export class IAMUserProcedure implements Procedure {
     } catch (error) {
       if ((error as AWSError).code === 'NoSuchEntity') {
         yield* new CreateIAMUserResource(this.#username)
-        return error as Error
+        return false
       }
     }
-    return undefined
+    return true
   }
 }
 
@@ -68,7 +69,7 @@ export class CreateIAMUserResource implements Procedure {
     this.#username = username
   }
   // eslint-disable-next-line require-yield
-  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], Error | undefined, void> {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('create iam user procedure')
     const result = await new IAM()
       .createUser({
@@ -76,13 +77,11 @@ export class CreateIAMUserResource implements Procedure {
       })
       .promise()
     console.log(result.User?.Arn)
-    return undefined
+    return true
   }
 }
 
-type PromiseOf<P> = P extends Promise<infer A> ? A : P
-type AwsProvider = PromiseOf<ReturnType<typeof createProvider>>
-export class TFExampleResource implements Procedure {
+export class TFExampleProcedure implements Procedure {
   #awsProvider: AwsProvider
   constructor(awsProvider: AwsProvider) {
     this.#awsProvider = awsProvider

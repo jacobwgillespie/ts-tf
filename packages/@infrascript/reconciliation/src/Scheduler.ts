@@ -1,7 +1,7 @@
 import {Procedure} from './Procedure'
 
 export class Scheduler {
-  async execute(procedures: Procedure[]): Promise<Error | undefined> {
+  async execute(procedures: Procedure[]): Promise<boolean> {
     const toBeExecuted = procedures
     // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
     while (true) {
@@ -10,44 +10,42 @@ export class Scheduler {
       }
 
       const pro = toBeExecuted[0]
-      const err = await this._executeProcedure(pro)
-      if (err) {
-        console.error(err)
-        return err
+      const complete = await this._executeProcedure(pro)
+      if (!complete) {
+        return false
       } else {
         toBeExecuted.shift()
       }
     }
 
-    return undefined
+    return true
   }
 
-  async parallelExecute(procedures: Procedure[]): Promise<Error | undefined> {
+  async parallelExecute(procedures: Procedure[]): Promise<boolean> {
     // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
-    const promiseArr: Promise<Error | undefined>[] = []
+    const promiseArr: Promise<boolean>[] = []
     procedures.forEach((pro) => promiseArr.push(this._executeProcedure(pro)))
     try {
       const results = await Promise.allSettled(promiseArr)
-      let result = undefined
-      results.forEach((err) => {
-        if (err) {
-          result = err
+      results.forEach((pr) => {
+        if ((pr.status === 'fulfilled' && !pr.value) || pr.status === 'rejected') {
+          return false
         }
       })
-      return result
+      return true
     } catch (error) {
       console.error(error)
-      return error as Error
+      return false
     }
   }
 
-  private async _executeProcedure(pro: Procedure): Promise<Error | undefined> {
+  private async _executeProcedure(pro: Procedure): Promise<boolean> {
     const generator = pro[Symbol.asyncIterator]()
     for await (const subProcedures of generator) {
       if (subProcedures.length > 0) {
         const complete = await this.execute(subProcedures)
-        if (err) {
-          return err
+        if (!complete) {
+          return false
         }
       }
     }
