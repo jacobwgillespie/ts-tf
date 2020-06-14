@@ -1,5 +1,4 @@
 import {IAM, AWSError} from 'aws-sdk'
-import {createProvider} from './AwsProvider'
 import {AwsProvider} from '@ts-terraform/provider-aws'
 
 export interface Procedure {
@@ -32,7 +31,6 @@ function sleep(delay: number): Promise<void> {
 }
 
 export class WaitSubProcedure implements Procedure {
-  // eslint-disable-next-line require-yield
   async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('run wait procedure')
     await sleep(1000)
@@ -46,7 +44,6 @@ export class IAMUserProcedure implements Procedure {
     this.#username = username
   }
 
-  // eslint-disable-next-line require-yield
   async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('aws iam role procedure')
     const iamClient = new IAM()
@@ -68,7 +65,7 @@ export class CreateIAMUserResource implements Procedure {
   constructor(username: string) {
     this.#username = username
   }
-  // eslint-disable-next-line require-yield
+
   async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     console.log('create iam user procedure')
     const result = await new IAM()
@@ -89,25 +86,15 @@ export class TFExampleProcedure implements Procedure {
 
   async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
     const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
-
     const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
-
     const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
       ...importRes[0].state,
     })
 
-    if (plan.isDiff) {
-      const applyRes = await this.#awsProvider.applyResourceChange(
-        'aws_iam_user',
-        readRes ?? importRes[0].state,
-        plan.plannedState,
-        {
-          private: plan.plannedPrivate,
-        },
-      )
-      return false
-    } else {
-      return true
-    }
+    await this.#awsProvider.applyResourceChange('aws_iam_user', readRes ?? importRes[0].state, plan.plannedState, {
+      private: plan.plannedPrivate,
+    })
+
+    return true
   }
 }
