@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.689.0",
-    "ts-terraform": "^0.3.0"
+    "@ts-terraform/provider-aws": "^0.4.0"
   },
   "devDependencies": {
     "@infrascript/config-typescript": "0.0.3",
