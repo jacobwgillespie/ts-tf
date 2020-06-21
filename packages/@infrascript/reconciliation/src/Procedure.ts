@@ -80,21 +80,26 @@ export class CreateIAMUserResource implements Procedure {
 
 export class TFExampleProcedure implements Procedure {
   #awsProvider: AwsProvider
+  #controllerEvent: string
   constructor(controllerEvent: string, awsProvider: AwsProvider) {
-    console.log(controllerEvent)
+    this.#controllerEvent = controllerEvent
     this.#awsProvider = awsProvider
   }
 
   async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
-    const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
-    const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
-    const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
-      ...importRes[0].state,
-    })
-
-    await this.#awsProvider.applyResourceChange('aws_iam_user', readRes ?? importRes[0].state, plan.plannedState, {
-      private: plan.plannedPrivate,
-    })
+    switch (this.#controllerEvent) {
+      case 'create':
+        yield* new TFCreateExampleProcedure(this.#awsProvider)
+        break
+      case 'update':
+        yield* new TFUpdateExampleProcedure(this.#awsProvider)
+        break
+      case 'delete':
+        yield* new TFDeleteExampleProcedure(this.#awsProvider)
+        break
+      default:
+        throw new Error('Unknown event type')
+    }
 
     return true
   }
