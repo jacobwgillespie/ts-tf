@@ -26,13 +26,9 @@ export class Scheduler {
     const promiseArr: Promise<boolean>[] = []
     procedures.forEach((pro) => promiseArr.push(this._executeProcedure(pro)))
     try {
-      const results = await Promise.allSettled(promiseArr)
-      results.forEach((pr) => {
-        if ((pr.status === 'fulfilled' && !pr.value) || pr.status === 'rejected') {
-          return false
-        }
-      })
-      return true
+      const results = await Promise.all(promiseArr)
+      const failureIdx = results.findIndex((result) => !result)
+      return failureIdx > -1
     } catch (error) {
       console.error(error)
       return false

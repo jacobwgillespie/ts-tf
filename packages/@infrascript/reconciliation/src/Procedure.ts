@@ -80,6 +80,70 @@ export class CreateIAMUserResource implements Procedure {
 
 export class TFExampleProcedure implements Procedure {
   #awsProvider: AwsProvider
+  constructor(controllerEvent: string, awsProvider: AwsProvider) {
+    console.log(controllerEvent)
+    this.#awsProvider = awsProvider
+  }
+
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
+    const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
+    const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
+    const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
+      ...importRes[0].state,
+    })
+
+    await this.#awsProvider.applyResourceChange('aws_iam_user', readRes ?? importRes[0].state, plan.plannedState, {
+      private: plan.plannedPrivate,
+    })
+
+    return true
+  }
+}
+
+export class TFCreateExampleProcedure implements Procedure {
+  #awsProvider: AwsProvider
+  constructor(awsProvider: AwsProvider) {
+    this.#awsProvider = awsProvider
+  }
+
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
+    const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
+    const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
+    const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
+      ...importRes[0].state,
+    })
+
+    await this.#awsProvider.applyResourceChange('aws_iam_user', readRes ?? importRes[0].state, plan.plannedState, {
+      private: plan.plannedPrivate,
+    })
+
+    return true
+  }
+}
+
+export class TFUpdateExampleProcedure implements Procedure {
+  #awsProvider: AwsProvider
+  constructor(awsProvider: AwsProvider) {
+    this.#awsProvider = awsProvider
+  }
+
+  async *[Symbol.asyncIterator](): AsyncGenerator<Procedure[], boolean, void> {
+    const importRes = await this.#awsProvider.importResourceState('aws_iam_user', 'kylegalbraith2')
+    const readRes = await this.#awsProvider.readResource('aws_iam_user', importRes[0].state)
+    const plan = await this.#awsProvider.planResourceChange('aws_iam_user', readRes ?? importRes[0].state, {
+      ...importRes[0].state,
+    })
+
+    await this.#awsProvider.applyResourceChange('aws_iam_user', readRes ?? importRes[0].state, plan.plannedState, {
+      private: plan.plannedPrivate,
+    })
+
+    return true
+  }
+}
+
+export class TFDeleteExampleProcedure implements Procedure {
+  #awsProvider: AwsProvider
   constructor(awsProvider: AwsProvider) {
     this.#awsProvider = awsProvider
   }
